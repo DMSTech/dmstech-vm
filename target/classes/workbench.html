@@ -1,0 +1,41 @@
+<%@ include file="assets/head.jsp" %>
+<script type="text/javascript" src="js/jstree/jquery.jstree.js"></script>
+<script type="text/javascript" src="js/workbench.js"></script>
+<script type="text/javascript" src="js/oac_js/jquery.rdfquery.rdfa-1.0.js"></script>
+<script type="text/javascript" src="js/oac_js/oac_utils.js"></script>
+<script type="text/javascript" src="js/oac_js/oac_rdf.js"></script>
+<script type="text/javascript" src="js/oac_js/oac_rdfjson.js"></script>
+<link href="css/workbench.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<div id="content">
+	<div id="sidebar" class="ui-corner-all ui-widget-header">
+		<h2>Collections Browser</h2>
+		<div id="search">
+			<input type="text" name="search" />
+			<button>Search</button>
+		</div>
+		<h3>Local</h3>
+		<div id="collectionsLocal" class="ui-corner-all ui-widget-content">
+		</div>
+		<h3>Remote</h3>
+		<div id="collectionsRemote" class="ui-corner-all ui-widget-content">
+		</div>
+	</div>
+	<div id="main" class="ui-corner-all ui-widget-header">
+		<div style="text-align: center;">
+			<h2>Page Viewer</h2>
+			<div id="tools">
+				<input type="radio" id="viewerRadio" name="toolsRadio" checked="checked"/><label for="viewerRadio">Viewer</label>
+				<input type="radio" id="tpenRadio" name="toolsRadio"/><label for="tpenRadio">TPen</label>
+				<input type="radio" id="dmRadio" name="toolsRadio"/><label for="dmRadio">DM</label>
+				<input type="radio" id="otherRadio" name="toolsRadio"/><label for="otherRadio">Other</label>
+			</div>
+		</div>
+		<div id="toolContent" class="ui-corner-all ui-widget-content">
+			<iframe></iframe>
+		</div>
+	</div>
+</div>
+</body>
+</html>

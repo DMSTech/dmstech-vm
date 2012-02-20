@@ -1,0 +1,15 @@
+#start {
+	position: absolute;
+	top: 33%;
+	left: 50%;
+	height: 140px;
+	width: 500px;
+	margin-top: -140px;
+	margin-left: -260px;
+	padding: 10px;
+	text-align: center;
+}
+
+button {
+	margin: 5px 0;
+}

@@ -1,0 +1,28 @@
+#importer {
+	width: 600px;
+	margin: 0 auto;
+	padding: 10px;
+	background-position: top left !important;
+}
+
+#importer h2 {
+	text-align: center;
+}
+
+.section {
+	margin: 10px 0;
+	padding: 10px;
+}
+
+label {
+	margin-right: 5px;
+	font-size: 12px;
+}
+
+#buttons {
+	text-align: center;
+}
+
+button {
+	margin: 0 5px;
+}
