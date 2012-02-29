@@ -28,6 +28,7 @@ public class Config implements ServletContextListener {
 	public static  String manifestFileName = null;
 	public static  String imageAnnotationFileName = null;
 	public static  String textAnnotationFileName = null;
+	public static String zoneAnnotationFileName = null;
 	public static String baseURIForIds = null;
 	public static String baseURIForDocs = null;
 	public static String fileNameForOldTextAnnos = null;
@@ -76,7 +77,14 @@ public class Config implements ServletContextListener {
 		Config.imageAnnotationFileName = imageAnnotationFileName;
 	}
 
+	public static String getZoneAnnotationFileName() {
+		return zoneAnnotationFileName;
+	}
 
+	public  void setZoneAnnotationFileName(String zoneAnnotationFileName) {
+		Config.zoneAnnotationFileName = zoneAnnotationFileName;
+	}
+	
 	public static String getTextAnnotationFileName() {
 		return textAnnotationFileName;
 	}
@@ -182,6 +190,7 @@ public class Config implements ServletContextListener {
 	    digester.addBeanPropertySetter("config/normalSequenceFileName");
 	    digester.addBeanPropertySetter("config/manifestFileName");
 	    digester.addBeanPropertySetter("config/imageAnnotationFileName");
+	    digester.addBeanPropertySetter("config/zoneAnnotationFileName");	    
 	    digester.addBeanPropertySetter("config/textAnnotationFileName");
 	    digester.addBeanPropertySetter("config/baseURIForIds");
 	    digester.addBeanPropertySetter("config/baseURIForDocuments");
@@ -222,6 +231,8 @@ public class Config implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent event) {
         // nothing for now
     }
+
+
 
 
 
