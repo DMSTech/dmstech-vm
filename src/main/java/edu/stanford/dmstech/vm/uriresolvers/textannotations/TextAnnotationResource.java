@@ -102,7 +102,7 @@ public class TextAnnotationResource {
 			@PathParam("canvasId") final String canvasId
 			) throws URISyntaxException {		
 		String statements = getAllStatementsForAnnotation(uriInfo, manuscriptId, canvasId, "RDF/XML");
-				return AnnotationUtils.serialzeRDFToHTML(statements);
+				return AnnotationUtils.serializeRDFToHTML(statements);
 	}
 	
 	private String getAllStatementsForAnnotation(UriInfo uriInfo, String manuscriptId, String canvasId, String serializeAs) {
