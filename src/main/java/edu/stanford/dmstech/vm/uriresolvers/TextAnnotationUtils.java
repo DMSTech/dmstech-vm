@@ -30,7 +30,7 @@ public class TextAnnotationUtils {
 		if (incomingTextAnno.getNameSpace().toLowerCase().equals("urn")) {	
 			// SHOULD WE ALSO HAVE AN 'ELSE' SO WE CAN STILL CHECK FOR annotation text bodies inline? 
 			// and more generally, to add the incoming annotation, even if it doesn't have a urn, but a full uri.  but that might then
-			// suggest checking for the existence of the URI.  I think we can assume anything coming into here (to the POST) does
+			// suggest checking for the existence of the URI.  I think we can assume anything coming into here (to the POST) does not
 			// have a URI:  that is exactly why it is being POSTED.  We have a separate 'publish' endpoint
 			// for submitting annontations with prexisting uris.  We could nevertheless include a check here for non-urn ids and 
 			// notify the user as needed.
@@ -75,11 +75,5 @@ public class TextAnnotationUtils {
 		return Config.getBaseURIForIds() + "manuscript" + "/" + manuscriptId + "/textannotations/bodytexts/" + uuid;	
 	}
 
-	private String getNewTransactionAggregationURI(final String manuscriptId, String newUUID) {
-		return Config.getBaseURIForIds() + "manuscript" + "/" + manuscriptId + "/transactions/" + newUUID;
-	}
-
-	private String getNewTransactionResourceMapURI(final String manuscriptId, String newUUID) {
-		return Config.getBaseURIForDocs() + "manuscript" + "/" + manuscriptId + "/transactions/" + newUUID + ".xml";
-	}
+	
 }

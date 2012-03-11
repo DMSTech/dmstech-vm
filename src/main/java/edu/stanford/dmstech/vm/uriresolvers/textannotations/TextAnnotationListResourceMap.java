@@ -44,27 +44,13 @@ import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.DMSTechRDFConstants;
 import edu.stanford.dmstech.vm.uriresolvers.TextAnnotationUtils;
 
-@Path("/manuscript/{manuscriptId}/textannotations")
+@Path("/{manuscriptId}/{canvasId}/")
 public class TextAnnotationListResourceMap {
  
 	private final String W3CDTF_NOW = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).format(new Date());
 	Logger logger = Logger.getLogger(TextAnnotationListResourceMap.class.getName());
 	
-	@GET 
-	@Produces("application/rdf+xml")
-	public Response redirectReqToXMLResourceMap(@Context UriInfo uriInfo) throws URISyntaxException {
-		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
-		String resourceMapFileName = "/textAnnoResourceMap.xml";
-		return Response.seeOther(new URI(originalRequest + resourceMapFileName)).build();
-	} 
 	
-	@GET
-	@Produces("text/turtle;charset=utf-8")
-	public Response redirectReqToTurtleResourceMap(@Context UriInfo uriInfo) throws URISyntaxException {
-		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
-		String resourceMapFileName = "/textAnnoResourceMap.ttl";
-		return Response.seeOther(new URI(originalRequest + resourceMapFileName)).build();
-	}
 
 	
 	/* Do I want this included in the  manifest:
@@ -79,7 +65,7 @@ public class TextAnnotationListResourceMap {
  
 	 */
 	@GET
-	@Path("textAnnoResourceMap.xml") 
+	@Path("textannotations.xml") 
 	@Produces("application/rdf+xml")
 	public File getResourceMapAsXML(@PathParam("manuscriptId") final String manuscriptId) throws URISyntaxException {
     	
@@ -91,7 +77,7 @@ public class TextAnnotationListResourceMap {
 	}
 	
 	@GET
-	@Path("textAnnoResourceMap.ttl")  
+	@Path("textannotations.ttl")  
 	@Produces("text/turtle;charset=utf-8")
 	public String getResourceMapAsTurtle(@PathParam("manuscriptId") final String manuscriptId) throws URISyntaxException {
 		Model textAnnotationsModel = loadTextAnnotationsModel(manuscriptId);
@@ -103,7 +89,9 @@ public class TextAnnotationListResourceMap {
 
 	
 	@POST
-	public Response saveAnnotations(@PathParam("manuscriptId") final String manuscriptId,
+	public Response saveAnnotations(
+			@PathParam("manuscriptId") final String manuscriptId,
+			@PathParam("canvasId") final String canvasId,
 			InputStream inputStream) {
 	
 		String resultURI = null;
@@ -151,11 +139,13 @@ public class TextAnnotationListResourceMap {
 				incomingAnnoCount++;
 				Resource incomingTextAnno = resourceIter.nextResource();
 				TextAnnotationUtils textAnnoUtils = new TextAnnotationUtils();
-				newTextAnnotationResource = textAnnoUtils.mintURIForAnnoAndBody(
+				newTextAnnotationResource = textAnnoUtils.mintURIsForAnnoAndBody(
 						manuscriptId,
 						canvasId,
-						bodyTextsToWriteToFile, rdfConstants,
-						existingTextAnnosRMModel, incomingTextAnnotationsModel,
+						bodyTextsToWriteToFile, 
+						rdfConstants,
+						existingTextAnnosRMModel, 
+						incomingTextAnnotationsModel,
 						oldTextAnnotationsRMModel,
 						transactionsAggregationResource,
 						incomingTextAnno);				
@@ -203,14 +193,14 @@ public class TextAnnotationListResourceMap {
 		        txId = frm.generatedUniqueTxId();
 		        frm.startTransaction(txId);
 		        
-		        OutputStream foutForResourceMap = frm.writeResource(txId, getTransactionResourceMapRelativeFileLocation(manuscriptId, transactionUuid), true);
-		        transactionResourceMapModel.write(foutForResourceMap, "RDF/XML");
+		        OutputStream foutForTransactionResourceMap = frm.writeResource(txId, getTransactionResourceMapRelativeFileLocation(manuscriptId, transactionUuid), true);
+		        transactionResourceMapModel.write(foutForTransactionResourceMap, "RDF/XML");
 		        
 		        OutputStream foutForTextAnnos = frm.writeResource(txId, getTextAnnosRelativeFileLocation(manuscriptId), true);
 		        textAnnotationsModel.write(foutForTextAnnos, "RDF/XML");
 		      		        
 		        OutputStream foutForOldTextAnnos = frm.writeResource(txId, getOldTextAnnosRelativeFileLocation(manuscriptId), true);
-		        textAnnotationsModel.write(foutForOldTextAnnos, "RDF/XML");
+		        oldTextAnnotationsRMModel.write(foutForOldTextAnnos, "RDF/XML");
 		      	
 		        Iterator<Entry<String, String>> bodyTextIter = bodyTexts.entrySet().iterator();
 		        while (bodyTextIter.hasNext()) {

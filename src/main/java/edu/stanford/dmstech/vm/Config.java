@@ -29,6 +29,7 @@ public class Config implements ServletContextListener {
 	public static  String imageAnnotationFileName = null;
 	public static  String textAnnotationFileName = null;
 	public static String zoneAnnotationFileName = null;
+	public static String canvasFileName = null;
 	public static String baseURIForIds = null;
 	public static String baseURIForDocs = null;
 	public static String fileNameForOldTextAnnos = null;
@@ -89,10 +90,16 @@ public class Config implements ServletContextListener {
 		return textAnnotationFileName;
 	}
 	
-		
-
 	public  void setTextAnnotationFileName(String textAnnotationFileName) {
 		Config.textAnnotationFileName = textAnnotationFileName;
+	}
+	
+	public static String getCanvasFileName() {
+		return zoneAnnotationFileName;
+	}
+
+	public  void setCanvasFileName(String canvasFileName) {
+		Config.canvasFileName = canvasFileName;
 	}
 	
 	public static String getFileNameForOldTextAnnos() {
@@ -231,6 +238,8 @@ public class Config implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent event) {
         // nothing for now
     }
+
+
 
 
 

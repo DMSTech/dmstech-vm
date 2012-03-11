@@ -43,7 +43,7 @@ import com.sun.jersey.api.NotFoundException;
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.DMSTechRDFConstants;
 
-@Path("/manuscript/{manuscriptId}/canvas/{canvasId}/textannotations")
+@Path("/{manuscriptId}/{canvasId}/textannotations")
 public class TextAnnotationListAggregation {
  
 	private final String W3CDTF_NOW = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).format(new Date());
