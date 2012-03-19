@@ -32,7 +32,8 @@ public class Config implements ServletContextListener {
 	public static String canvasFileName = null;
 	public static String baseURIForIds = null;
 	public static String baseURIForDocs = null;
-	public static String fileNameForOldTextAnnos = null;
+	public static String baseDirForCollections = null;
+	//public static String fileNameForOldTextAnnos = null;
 	
 	public static  File homeDir = null;
 	
@@ -102,12 +103,12 @@ public class Config implements ServletContextListener {
 		Config.canvasFileName = canvasFileName;
 	}
 	
-	public static String getFileNameForOldTextAnnos() {
+	/*public static String getFileNameForOldTextAnnos() {
 		return fileNameForOldTextAnnos;
 	}
 	public  void setTextFileNameForOldTextAnnos(String fileNameForOldTextAnnos) {
 		Config.fileNameForOldTextAnnos = fileNameForOldTextAnnos;
-	}
+	}*/
 
 	public static String getBaseURIForIds() {
 		return baseURIForIds;
@@ -127,6 +128,14 @@ public class Config implements ServletContextListener {
 		Config.baseURIForDocs = baseURIForDocs;
 	}
 	
+	public static String getBaseDirForCollections() {
+		return baseDirForCollections;
+	}
+
+	public static void setBaseDirForCollections(String baseDirForCollections) {
+		Config.baseDirForCollections = baseDirForCollections;
+	}
+
 	public static File getHomeDir() {
 		return homeDir;
 	}
@@ -201,7 +210,7 @@ public class Config implements ServletContextListener {
 	    digester.addBeanPropertySetter("config/textAnnotationFileName");
 	    digester.addBeanPropertySetter("config/baseURIForIds");
 	    digester.addBeanPropertySetter("config/baseURIForDocuments");
-	    digester.addBeanPropertySetter("config/fileNameForOldTextAnnos");
+	    digester.addBeanPropertySetter("config/baseDirForCollections");
 	    
 
 	    try {

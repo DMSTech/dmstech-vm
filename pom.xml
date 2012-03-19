@@ -77,9 +77,16 @@
 	<artifactId>commons-transaction</artifactId>
 	<version>1.2</version>
 </dependency>
+<dependency>
+      <groupId>gov.lanl.adore.djatoka</groupId>
+      <artifactId>djatoka</artifactId>
+      <version>1.1.0</version>
+      <scope>system</scope>
+      <systemPath>/usr/local/adore-djatoka-1.1/dist/adore-djatoka-1.1.jar</systemPath>
+</dependency>
   </dependencies>
    <repositories>
-  <repository>
+ <repository>
     <id>maven2-repository.java.net</id>
     <name>Java.net Repository for Maven</name>
     <url>http://download.java.net/maven/2/</url>
