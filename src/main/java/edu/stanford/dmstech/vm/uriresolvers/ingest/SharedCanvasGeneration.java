@@ -1,18 +1,11 @@
 package edu.stanford.dmstech.vm.uriresolvers.ingest;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
-
-import com.sun.xml.txw2.Document;
 
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.manuscriptgeneration.SharedCanvasGenerator;
-import edu.stanford.dmstech.vm.manuscriptgeneration.SharedCanvasModel;
 
 /**	the images have to have been placed in a directory that's web accessible.  and writable.  
 the directory (DATA_DIR) will be listed in the config file.
@@ -29,6 +22,7 @@ public class SharedCanvasGeneration {
 
 	@POST
 	public Response generateSharedCanvas(
+			@FormParam("manuscriptTitle") final String manuscriptTitle,
 			@FormParam("collectionId") final String collectionId,
 			@FormParam("mansucriptId") final String manuscriptId,
 			@FormParam("parseFileNames") final boolean parseTitlesAndPageNums
@@ -37,6 +31,9 @@ public class SharedCanvasGeneration {
 		String baseURI = Config.getBaseURIForIds() + collectionId + "/" + manuscriptId + "/";
 		String manuscriptDirectoryPath = Config.getBaseDirForCollections() + collectionId + "/" + manuscriptId + "/";
 		SharedCanvasGenerator sharedCanvasGenerator = new SharedCanvasGenerator();
+		
+		
+		
 		boolean success = sharedCanvasGenerator.generateSharedCanvas(manuscriptDirectoryPath, baseURI, parseTitlesAndPageNums);
 		
 		return Response.ok().build();

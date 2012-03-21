@@ -23,7 +23,8 @@ public class DMSTechRDFConstants {
 	public Resource textAnnotationClass;
 	public Resource transactionClass;
 	public Resource sequenceClass;
-	public Resource imageCollectionClass;
+	public Resource imageAnnotationListClass;
+	public Resource manifestClass;
 	public Resource dmsImageAnnotationClass;
 	public Resource dmsImageClass;
 	public Resource dmsImageBodyClass;
@@ -56,6 +57,7 @@ public class DMSTechRDFConstants {
 	public Resource oacBodyType;
 	public Resource oacTargetType;
 
+	
 	private DMSTechRDFConstants() {
 		super();
 	}
@@ -84,8 +86,10 @@ public class DMSTechRDFConstants {
 					.createResource(STANFORD_NAMESPACE + "Transaction");
 			sequenceClass = initializingModel
 					.createResource(STANFORD_NAMESPACE + "Sequence");
-			imageCollectionClass = initializingModel
-					.createResource(STANFORD_NAMESPACE + "ImageCollection");
+			imageAnnotationListClass = initializingModel
+					.createResource(STANFORD_NAMESPACE + "ImageAnnotationList");
+			manifestClass = initializingModel
+					.createResource(STANFORD_NAMESPACE + "Manifest");
 			dmsImageAnnotationClass= initializingModel
 					.createResource(STANFORD_NAMESPACE + "ImageAnnotation");
 			dmsImageClass = initializingModel
