@@ -1,6 +1,7 @@
 package edu.stanford.dmstech.vm.uriresolvers.imageannotations;
 
 import java.io.File;
+import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
@@ -18,48 +19,48 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Path;
 
 import edu.stanford.dmstech.vm.Config;
+import edu.stanford.dmstech.vm.uriresolvers.AnnotationUtils;
+import edu.stanford.dmstech.vm.uriresolvers.RDFUtils;
 
+import com.hp.hpl.jena.rdf.model.Model;
 import com.sun.jersey.api.NotFoundException;
 
-@Path("/manuscript/{manuscriptId}/imageannotations")
+@Path("/{collectionId}/{manuscriptId}/")
 public class ImageAnnotationListResourceMap {
 
-	@GET 
-	@Produces("application/rdf+xml")
-	public Response redirectReqToXMLResourceMap(@Context UriInfo uriInfo) throws URISyntaxException {
-		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
-		String resourceMapFileName = "/imgAnnoResourceMap.xml";
-		return Response.seeOther(new URI(originalRequest + resourceMapFileName)).build();
-	} 
-	
 	@GET
+	@Path("/ImageAnnotations.xml") 
+	@Produces("application/rdf+xml")
+	public File getResourceMapAsXML(
+			@PathParam("collectionId") final String collectionId,
+			@PathParam("manuscriptId") final String manuscriptId
+			) throws URISyntaxException {   	
+		return RDFUtils.getFileInHomeDir(collectionId + "/" + manuscriptId + "/" + Config.imageAnnotationFileName);
+	}
+		
+	@GET
+	@Path("/ImageAnnotations.ttl")  
 	@Produces("text/turtle;charset=utf-8")
-	public Response redirectReqToTurtleResourceMap(@Context UriInfo uriInfo) throws URISyntaxException {
-		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
-		String resourceMapFileName = "/imgAnnoResourceMap.ttl";
-		return Response.seeOther(new URI(originalRequest + resourceMapFileName)).build();
+	public String getResourceMapAsTurtle(
+			@PathParam("collectionId") final String collectionId,
+			@PathParam("manuscriptId") final String manuscriptId
+			) throws Exception {
+		Model textAnnotationsModel = RDFUtils.loadModelInHomeDir(collectionId + "/" + manuscriptId + "/" + Config.imageAnnotationFileName);
+		StringWriter stringWriter = new StringWriter();
+		textAnnotationsModel.write(stringWriter, "TURTLE");
+		return stringWriter.toString();		
 	}
 
 	@GET
-	@Path("imgAnnoResourceMap.xml") 
-	@Produces("application/rdf+xml")
-	public File getResourceMapAsXML(@PathParam("manuscriptId") final String manuscriptId) throws URISyntaxException {
-    	
-		final File file = new File(Config.homeDir,  manuscriptId + "/rdf/" + Config.getImageAnnotationFileName());
-		if (!file.exists()) {
-			throw new NotFoundException("File, " + file.getAbsolutePath() + ", is not found");
-		}
-		return file;
-	}
-	
-	@GET
-	@Path("imgAnnoResourceMap.ttl")  
+	@Path("/ImageAnnotations.html")  
 	@Produces("text/turtle;charset=utf-8")
-	public String getResourceMapAsTurtle(@PathParam("manuscriptId") final String manuscriptId) throws URISyntaxException {
-		// either want to keep turtle in its own prebuilt file, or generate turtle on the fly from the rdf-xml
-		return "todo:  fix next this method" + manuscriptId;
+	public String getResourceMapAsHTML(
+			@PathParam("collectionId") final String collectionId,
+			@PathParam("manuscriptId") final String manuscriptId
+			) throws Exception {
+		return AnnotationUtils.serializeRDFToHTML(RDFUtils.getFileInHomeDir(collectionId + "/" + manuscriptId + "/" + Config.imageAnnotationFileName));		
 	}
-	
+		
 
 
 	

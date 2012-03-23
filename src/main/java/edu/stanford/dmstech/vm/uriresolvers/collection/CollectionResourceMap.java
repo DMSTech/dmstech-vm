@@ -1,6 +1,7 @@
 package edu.stanford.dmstech.vm.uriresolvers.collection;
 
 import java.io.File;
+import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -16,46 +17,40 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Path;
 
 import edu.stanford.dmstech.vm.Config;
+import edu.stanford.dmstech.vm.uriresolvers.AnnotationUtils;
+import edu.stanford.dmstech.vm.uriresolvers.RDFUtils;
+import edu.stanford.dmstech.vm.uriresolvers.ResourceMapSerialization;
 
+import com.hp.hpl.jena.rdf.model.Model;
 import com.sun.jersey.api.NotFoundException;
 
-@Path("/manuscript/{manuscriptId}/manifest/")
+@Path("/{collectionId}/")
 public class CollectionResourceMap {
 
-		@GET
-		@Produces("application/rdf+xml")
-		public Response redirectManifestReqToXMLResourceMap(@Context UriInfo uriInfo) throws URISyntaxException {
-			String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
-			String resourceMapFileName = "/manifestResourceMap.xml";
-			return Response.seeOther(new URI(originalRequest + resourceMapFileName)).build();
-		} 
+	@GET
+	@Path("Collection.xml") 
+	@Produces("application/rdf+xml")
+	public File getResourceMapAsXML(@PathParam("collectionId") final String collectionId) throws URISyntaxException {   	
+		return RDFUtils.getFileInHomeDir(collectionId + "/" + Config.collectionFileName);
+	}
 		
-		@GET 
-		@Produces("text/turtle;charset=utf-8")
-		public Response redirectManifestReqToTurtleResourceMap(@Context UriInfo uriInfo) throws URISyntaxException {
-			String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
-			String resourceMapFileName = "/manifestResourceMap.ttl";
-			return Response.seeOther(new URI(originalRequest + resourceMapFileName)).build();
-		} 
-		
-		@GET
-		@Path("manifestResourceMap.xml")  
-		public File getManifestResourceMapAsXML(@PathParam("manuscriptId") final String manuscriptId, @PathParam("ext") final String fileExtension) throws URISyntaxException {
-			final File file = new File(Config.homeDir,  manuscriptId + "/rdf/" + Config.getNormalSequenceFileName());
-			if (!file.exists()) {
-				throw new NotFoundException("File, " + file.getAbsolutePath() + ", is not found");
-			}
-			return file;
-		}
-		
-		@GET
-		@Path("manifestResourceMap.ttl")  
-		public String getManifestResourceMapAsTurtle(@PathParam("manuscriptId") final String manuscriptId, @PathParam("ext") final String fileExtension) throws URISyntaxException {
-			// either want to keep turtle in its own prebuilt file, or generate turtle on the fly from the rdf-xml
-			return "todo:  fix this method";
-		}
-		
+	@GET
+	@Path("Collection.ttl")  
+	@Produces("text/turtle;charset=utf-8")
+	public String getResourceMapAsTurtle(@PathParam("collectionId") final String collectionId) throws Exception {
+		Model textAnnotationsModel = RDFUtils.loadModelInHomeDir(collectionId + "/" + Config.collectionFileName);
+		StringWriter stringWriter = new StringWriter();
+		textAnnotationsModel.write(stringWriter, "TURTLE");
+		return stringWriter.toString();		
+	}
 
-		}
+	@GET
+	@Path("Collection.html")  
+	@Produces("text/turtle;charset=utf-8")
+	public String getResourceMapAsHTML(@PathParam("collectionId") final String collectionId) throws Exception {
+		return AnnotationUtils.serializeRDFToHTML(RDFUtils.getFileInHomeDir(collectionId + "/" + Config.collectionFileName));		
+	}
+
+}
 
 

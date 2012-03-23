@@ -47,6 +47,7 @@ public class SharedCanvasModel {
 	 * which we convert to a Jena RDFList as needed.
 	 */
 	private List<RDFNode> imageSequence;
+	
 	/*
 	 * We store the new canvases in an array list for convenience,
 	 * which we convert to a Jena RDFList as needed.
@@ -356,7 +357,6 @@ public class SharedCanvasModel {
 	private String getSequenceAggregationURI() {
 		return baseURI + "/NormalSequence";
 	}
-
 	
 	private String getImageAnnosAggregationURI() {
 		return baseURI + "/ImageAnnotations";		

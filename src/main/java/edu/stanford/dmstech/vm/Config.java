@@ -23,7 +23,8 @@ public class Config implements ServletContextListener {
 	private final static Logger LOGGER = Logger.getLogger(Config.class.getName());
 	public static final String HOME_DIR_ENV_VAR = "KVM_HOME";
 	
-	public static  String centralRepositoryURL = null;
+	public static  String repositoryFileName = null;
+	public static String collectionFileName = null;
 	public static  String normalSequenceFileName = null;
 	public static  String manifestFileName = null;
 	public static  String imageAnnotationFileName = null;
@@ -41,15 +42,22 @@ public class Config implements ServletContextListener {
 	
 	static private SimpleFormatter textFormatter;
 		
-	public static String getCentralRepositoryURL() {
-		return centralRepositoryURL;
+	public static String getRepositoryFileName() {
+		return repositoryFileName;
 	}
 
-	public void setCentralRepositoryURL(String centralRepositoryURL) {
-		Config.centralRepositoryURL = centralRepositoryURL;
+	public void setRepositoryFileName(String repositoryFileName) {
+		Config.repositoryFileName = repositoryFileName;
 	}
 
+	public static String getCollectionFileName() {
+		return collectionFileName;
+	}
 
+	public void setCollectionFileName(String collectionFileName) {
+		Config.collectionFileName = collectionFileName;
+	}
+	
 	public static String getNormalSequenceFileName() {
 		return normalSequenceFileName;
 	}
@@ -202,7 +210,8 @@ public class Config implements ServletContextListener {
 	    
 
 	  
-	    digester.addBeanPropertySetter("config/centralRepositoryURL");
+	    digester.addBeanPropertySetter("config/repositoryFileName");
+	    digester.addBeanPropertySetter("config/collectionFileName");
 	    digester.addBeanPropertySetter("config/normalSequenceFileName");
 	    digester.addBeanPropertySetter("config/manifestFileName");
 	    digester.addBeanPropertySetter("config/imageAnnotationFileName");
@@ -247,6 +256,8 @@ public class Config implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent event) {
         // nothing for now
     }
+
+
 
 
 

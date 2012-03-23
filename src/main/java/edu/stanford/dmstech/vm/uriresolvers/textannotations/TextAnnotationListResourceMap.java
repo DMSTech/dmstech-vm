@@ -17,62 +17,45 @@ import com.sun.jersey.api.NotFoundException;
 
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.uriresolvers.AnnotationUtils;
+import edu.stanford.dmstech.vm.uriresolvers.RDFUtils;
 
-@Path("/{collectionId}/{manuscriptId}/{canvasId}/")
+@Path("/{collectionId}/{manuscriptId}/")
 public class TextAnnotationListResourceMap {
  
-	private final String W3CDTF_NOW = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).format(new Date());
-	Logger logger = Logger.getLogger(TextAnnotationListResourceMap.class.getName());
-		
-	/* Do I want this included in the  manifest:
-	 * 
-	 * <dms:Canvas rdf:about="http://dmss.stanford.edu/Parker/524/manifest/17V">
-   <exif:height>9700</exif:height>
-   <dc:title>f. 17 V</dc:title>
-   <exif:width>8000</exif:width>
-   <dms:acceptsAnnotations rdf:id="http://dmss.stanford.edu/Parker/524/manifest/17V/annotation"/>
-   <dms:pleasePostAnnotationsTo rdf:id="http://someOtherServer/annotationService"/>
- </dms:Canvas>
- 
- 
- THIS NEEDS TO LOAD UP ALL CANVAS TEXT ANNOTATION RESOURCE MAPS, SO LOOP THROUGH THE DIRECTORIES, AND COMBINE THEM INTO ONE 
- MODEL, THEN SERIALIZE.  
- 
- 
- 
-	 */
 	@GET
-	@Path("textannotations.xml") 
+	@Path("/TextAnnotations.xml") 
 	@Produces("application/rdf+xml")
-	public File getResourceMapAsXML(@PathParam("manuscriptId") final String manuscriptId) throws URISyntaxException {
-    	
-		final File file = new File(Config.homeDir, "manuscripts/" + manuscriptId + "/rdf/" + Config.getTextAnnotationFileName());
-		if (!file.exists()) {
-			throw new NotFoundException("File, " + file.getAbsolutePath() + ", is not found");
-		}
-		return file;
+	public File getResourceMapAsXML(
+			@PathParam("collectionId") final String collectionId,
+			@PathParam("manuscriptId") final String manuscriptId
+			) throws URISyntaxException {   	
+		return RDFUtils.getFileInHomeDir(collectionId + "/" + manuscriptId + "/" + Config.textAnnotationFileName);
 	}
-	
+		
 	@GET
-	@Path("textannotations.ttl")  
+	@Path("/TextAnnotations.ttl")  
 	@Produces("text/turtle;charset=utf-8")
-	public String getResourceMapAsTurtle(@PathParam("manuscriptId") final String manuscriptId) throws URISyntaxException {
-		Model textAnnotationsModel = loadTextAnnotationsModel(manuscriptId);
+	public String getResourceMapAsTurtle(
+			@PathParam("collectionId") final String collectionId,
+			@PathParam("manuscriptId") final String manuscriptId
+			) throws Exception {
+		Model textAnnotationsModel = RDFUtils.loadModelInHomeDir(collectionId + "/" + manuscriptId + "/" + Config.textAnnotationFileName);
 		StringWriter stringWriter = new StringWriter();
 		textAnnotationsModel.write(stringWriter, "TURTLE");
-		return stringWriter.toString();
-		
+		return stringWriter.toString();		
 	}
 
 	@GET
-	@Path("textannos.html")  
+	@Path("/TextAnnotations.html")  
 	@Produces("text/turtle;charset=utf-8")
-	public String getResourceMapAsHTML() throws Exception {
-		return AnnotationUtils.serializeRDFToHTML(getResourceMapFile());		
+	public String getResourceMapAsHTML(
+			@PathParam("collectionId") final String collectionId,
+			@PathParam("manuscriptId") final String manuscriptId
+			) throws Exception {
+		return AnnotationUtils.serializeRDFToHTML(RDFUtils.getFileInHomeDir(collectionId + "/" + manuscriptId + "/" + Config.textAnnotationFileName));		
 	}
-	
-	
-	these - the annotatinos for th whole manuscript will have to be dynamically constructed from all the individual canvas resrouce maps.
+		
+
 }
 
 
