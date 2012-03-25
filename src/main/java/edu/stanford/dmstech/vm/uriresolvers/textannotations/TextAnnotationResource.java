@@ -11,6 +11,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
@@ -53,7 +56,7 @@ public class TextAnnotationResource {
 			@Context UriInfo uriInfo, 
 			@PathParam("manuscriptId") final String manuscriptId,
 			@PathParam("canvasId") final String canvasId
-			) throws URISyntaxException {		
+			) throws URISyntaxException, TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {		
 		String statements = getAllStatementsForAnnotation(uriInfo, manuscriptId, canvasId, "RDF/XML");
 				return AnnotationUtils.serializeRDFToHTML(statements);
 	}

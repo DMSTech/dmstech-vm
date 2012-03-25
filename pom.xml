@@ -57,11 +57,22 @@
       <artifactId>commons-httpclient</artifactId>
       <version>3.1</version>
     </dependency>
-    <dependency>
-    <groupId>com.hp.hpl.jena</groupId>
-    <artifactId>arq</artifactId>
-    <version>2.8.8</version>
-</dependency><dependency>
+ <dependency>
+    <groupId>org.apache.jena</groupId>
+    <artifactId>jena-core</artifactId>
+    <version>2.7.1-incubating-SNAPSHOT</version>
+  </dependency>
+  <dependency>
+  <groupId>org.apache.jena</groupId>
+  <artifactId>jena-arq</artifactId>
+  <version>2.9.1-incubating-SNAPSHOT</version>
+</dependency>
+<dependency>
+  <groupId>org.apache.jena</groupId>
+  <artifactId>jena-tdb</artifactId>
+  <version>0.9.1-incubating-SNAPSHOT</version>
+</dependency>
+<dependency>
  <groupId>com.jayway.restassured</groupId>
  <artifactId>rest-assured</artifactId>
  <version>1.4</version>
@@ -77,13 +88,56 @@
 	<artifactId>commons-transaction</artifactId>
 	<version>1.2</version>
 </dependency>
-<dependency>
+<!--  djatoka dependencies, all local -->
+	<dependency>
       <groupId>gov.lanl.adore.djatoka</groupId>
       <artifactId>djatoka</artifactId>
       <version>1.1.0</version>
       <scope>system</scope>
       <systemPath>/usr/local/adore-djatoka-1.1/dist/adore-djatoka-1.1.jar</systemPath>
-</dependency>
+	</dependency>
+	<dependency>
+			<groupId>kdu</groupId>
+			<artifactId>kdu_jni</artifactId>
+			<version>0.0.0</version>
+			<scope>system</scope>
+			<systemPath>/usr/local/adore-djatoka-1.1/lib/kdu_jni.jar</systemPath>
+	</dependency>
+	<dependency>
+			<groupId>imagej</groupId>
+			<artifactId>ij-ImageIO</artifactId>
+			<version>0.0.0</version>
+			<scope>system</scope>
+			<systemPath>/usr/local/adore-djatoka-1.1/lib/ij-ImageIO.jar</systemPath>
+	</dependency>	
+	<dependency>
+			<groupId>imagej</groupId>
+			<artifactId>ij</artifactId>
+			<version>0.0.0</version>
+			<scope>system</scope>
+			<systemPath>/usr/local/adore-djatoka-1.1/lib/ij.jar</systemPath>
+	</dependency>
+	<dependency>
+			<groupId>jai</groupId>
+			<artifactId>jai-core</artifactId>
+			<version>0.0.0</version>
+			<scope>system</scope>
+			<systemPath>/usr/local/adore-djatoka-1.1/lib/jai_core.jar</systemPath>
+	</dependency>	
+	<dependency>
+			<groupId>jai</groupId>
+			<artifactId>jai-codec</artifactId>
+			<version>0.0.0</version>
+			<scope>system</scope>
+			<systemPath>/usr/local/adore-djatoka-1.1/lib/jai_codec.jar</systemPath>
+	</dependency>
+	<dependency>
+			<groupId>imageIO</groupId>
+			<artifactId>image-io-tiff</artifactId>
+			<version>0.0.0</version>
+			<scope>system</scope>
+			<systemPath>/usr/local/adore-djatoka-1.1/lib/uk.co.mmscomputing.imageio.tiff.jar</systemPath>
+	</dependency>		
   </dependencies>
    <repositories>
  <repository>
@@ -98,6 +152,16 @@
     <url>http://download.java.net/maven/1</url>
     <layout>legacy</layout>
 </repository>
+<repository>
+    <id>apache-repo-snapshots</id>
+    <url>https://repository.apache.org/content/repositories/snapshots/</url>
+    <releases>
+      <enabled>false</enabled>
+    </releases>
+    <snapshots>
+      <enabled>true</enabled>
+    </snapshots>
+  </repository>
 </repositories>
   <build>
     <finalName>vm</finalName>

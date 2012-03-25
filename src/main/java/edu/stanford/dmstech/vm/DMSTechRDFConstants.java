@@ -65,85 +65,91 @@ public class DMSTechRDFConstants {
 	public static DMSTechRDFConstants getInstance() {
 		if (instance == null) {
 			instance = new DMSTechRDFConstants();
+			instance.initializeModel();
 		}
+
 		return instance;
 	}
 
 	public Model getInitializingModel() {
 		if (initializingModel == null) {
-			initializingModel = ModelFactory.createDefaultModel();
-
-			initializingModel.setNsPrefix("dcterms", DCTERMS_NAMESPACE);
-			initializingModel.setNsPrefix("ore", ORE_NAMESPACE);
-			initializingModel.setNsPrefix("http", HTTP_NAMESPACE);
-			initializingModel.setNsPrefix("cnt", CNT_NAMESPACE);
-			initializingModel.setNsPrefix("oac", OAC_NAMESPACE);
-
-			// dmstech properties and types
-			textAnnotationClass = initializingModel
-					.createResource("http://dms.stanford.edu/ns/TextAnnotation");
-			transactionClass = initializingModel
-					.createResource(STANFORD_NAMESPACE + "Transaction");
-			sequenceClass = initializingModel
-					.createResource(STANFORD_NAMESPACE + "Sequence");
-			imageAnnotationListClass = initializingModel
-					.createResource(STANFORD_NAMESPACE + "ImageAnnotationList");
-			manifestClass = initializingModel
-					.createResource(STANFORD_NAMESPACE + "Manifest");
-			dmsImageAnnotationClass= initializingModel
-					.createResource(STANFORD_NAMESPACE + "ImageAnnotation");
-			dmsImageClass = initializingModel
-					.createResource(STANFORD_NAMESPACE + "Image");
-			dmsImageBodyClass = initializingModel
-					.createResource(STANFORD_NAMESPACE + "ImageBody");
-			dmsCanvasClass = initializingModel
-					.createResource(STANFORD_NAMESPACE + "Canvas");
 			
-			
-			// exif properties
-			exifHeight = initializingModel.createProperty(EXIF_NAMESPACE,
-					"height");
-			exifWidth = initializingModel.createProperty(EXIF_NAMESPACE,
-					"width");
-			
-			// http properties and types
-			httpMethod = initializingModel.createProperty(HTTP_NAMESPACE,
-					"mthd");
-			httpPostResource = initializingModel.createResource(HTTP_NAMESPACE
-					+ "POST");
-
-			cntRestProperty = initializingModel.createProperty(CNT_NAMESPACE,
-					"rest");
-			cntCharEncProperty = initializingModel.createProperty(
-					CNT_NAMESPACE, "characterEncoding");
-			cntAsTxtType = initializingModel.createResource(CNT_NAMESPACE
-					+ "ContentAsText");
-
-			// ORE properties and types
-			oreDescribes = initializingModel.createProperty(ORE_NAMESPACE,
-					"describes");
-			oreAggregates = initializingModel.createProperty(ORE_NAMESPACE,
-					"aggregates");
-			oreResourceMapClass = initializingModel
-					.createResource(ORE_NAMESPACE + "ResourceMap");
-			oreAggregationClass = initializingModel
-					.createResource(ORE_NAMESPACE + "Aggregation");
-
-			// OAC properties and types
-			oacHasBodyProperty = initializingModel.createProperty(
-					OAC_NAMESPACE, "hasBody");
-			oacHasTargetProperty = initializingModel.createProperty(
-					OAC_NAMESPACE, "hasTarget");
-			oacAnnotationType = initializingModel.createResource(OAC_NAMESPACE
-					+ "Annotation");
-			oacTextAnnotationType = initializingModel
-					.createResource(OAC_NAMESPACE + "TextAnnotation");
-			oacBodyType = initializingModel.createResource(OAC_NAMESPACE
-					+ "Body");
-			oacTargetType = initializingModel.createResource(OAC_NAMESPACE
-					+ "Target");
 
 		}
 		return initializingModel;
+	}
+	
+	private void initializeModel() {
+		initializingModel = ModelFactory.createDefaultModel();
+
+		initializingModel.setNsPrefix("dcterms", DCTERMS_NAMESPACE);
+		initializingModel.setNsPrefix("ore", ORE_NAMESPACE);
+		initializingModel.setNsPrefix("http", HTTP_NAMESPACE);
+		initializingModel.setNsPrefix("cnt", CNT_NAMESPACE);
+		initializingModel.setNsPrefix("oac", OAC_NAMESPACE);
+
+		// dmstech properties and types
+		textAnnotationClass = initializingModel
+				.createResource("http://dms.stanford.edu/ns/TextAnnotation");
+		transactionClass = initializingModel
+				.createResource(STANFORD_NAMESPACE + "Transaction");
+		sequenceClass = initializingModel
+				.createResource(STANFORD_NAMESPACE + "Sequence");
+		imageAnnotationListClass = initializingModel
+				.createResource(STANFORD_NAMESPACE + "ImageAnnotationList");
+		manifestClass = initializingModel
+				.createResource(STANFORD_NAMESPACE + "Manifest");
+		dmsImageAnnotationClass= initializingModel
+				.createResource(STANFORD_NAMESPACE + "ImageAnnotation");
+		dmsImageClass = initializingModel
+				.createResource(STANFORD_NAMESPACE + "Image");
+		dmsImageBodyClass = initializingModel
+				.createResource(STANFORD_NAMESPACE + "ImageBody");
+		dmsCanvasClass = initializingModel
+				.createResource(STANFORD_NAMESPACE + "Canvas");
+		
+		
+		// exif properties
+		exifHeight = initializingModel.createProperty(EXIF_NAMESPACE,
+				"height");
+		exifWidth = initializingModel.createProperty(EXIF_NAMESPACE,
+				"width");
+		
+		// http properties and types
+		httpMethod = initializingModel.createProperty(HTTP_NAMESPACE,
+				"mthd");
+		httpPostResource = initializingModel.createResource(HTTP_NAMESPACE
+				+ "POST");
+
+		cntRestProperty = initializingModel.createProperty(CNT_NAMESPACE,
+				"rest");
+		cntCharEncProperty = initializingModel.createProperty(
+				CNT_NAMESPACE, "characterEncoding");
+		cntAsTxtType = initializingModel.createResource(CNT_NAMESPACE
+				+ "ContentAsText");
+
+		// ORE properties and types
+		oreDescribes = initializingModel.createProperty(ORE_NAMESPACE,
+				"describes");
+		oreAggregates = initializingModel.createProperty(ORE_NAMESPACE,
+				"aggregates");
+		oreResourceMapClass = initializingModel
+				.createResource(ORE_NAMESPACE + "ResourceMap");
+		oreAggregationClass = initializingModel
+				.createResource(ORE_NAMESPACE + "Aggregation");
+
+		// OAC properties and types
+		oacHasBodyProperty = initializingModel.createProperty(
+				OAC_NAMESPACE, "hasBody");
+		oacHasTargetProperty = initializingModel.createProperty(
+				OAC_NAMESPACE, "hasTarget");
+		oacAnnotationType = initializingModel.createResource(OAC_NAMESPACE
+				+ "Annotation");
+		oacTextAnnotationType = initializingModel
+				.createResource(OAC_NAMESPACE + "TextAnnotation");
+		oacBodyType = initializingModel.createResource(OAC_NAMESPACE
+				+ "Body");
+		oacTargetType = initializingModel.createResource(OAC_NAMESPACE
+				+ "Target");
 	}
 }
