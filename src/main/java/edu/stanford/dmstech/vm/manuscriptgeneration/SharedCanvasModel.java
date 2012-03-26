@@ -124,9 +124,7 @@ public class SharedCanvasModel {
 		
 		imageSequence = new ArrayList<RDFNode>();
 		annotationSequence = new ArrayList<RDFNode>();
-		
-		
-		
+
 		sequenceResourceMap = ModelFactory.createDefaultModel();
 		imageAnnosResourceMap = ModelFactory.createDefaultModel();
 		sharedCanvasManifestResourceMap = ModelFactory.createDefaultModel();

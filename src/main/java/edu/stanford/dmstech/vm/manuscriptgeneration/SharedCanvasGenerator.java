@@ -113,10 +113,13 @@ public class SharedCanvasGenerator {
 			    sharedCanvasModel.addImageToSharedCanvas(imageURI, pageTitle, String.valueOf(dim.getWidth()), String.valueOf(dim.getHeight()));					
 				   
 			    }
-			String format = "RDF/XML";
-			sharedCanvasModel.serializeManifestResourceMapToFile(directoryPath + "/rdf/Manifest.xml", format);
-			sharedCanvasModel.serializeImageAnnoResourceMapToFile(directoryPath + "/rdf/ImageAnnotations.xml", format);
-			sharedCanvasModel.serializeNormalSequenceResourceMapToFile(directoryPath + "/rdf/NormalSequence.xml", format);
+			//"RDF/XML", "RDF/XML-ABBREV", "N-TRIPLE", "N3" and "TURTLE". In addition, 
+			// for N3 output the language can be specified as: 
+			// "N3-PP", "N3-PLAIN" or "N3-TRIPLE", which controls the style of N3 produced.
+			String format = "N-TRIPLE";
+			sharedCanvasModel.serializeManifestResourceMapToFile(directoryPath + "/rdf/Manifest.nt", format);
+			sharedCanvasModel.serializeImageAnnoResourceMapToFile(directoryPath + "/rdf/ImageAnnotations.nt", format);
+			sharedCanvasModel.serializeNormalSequenceResourceMapToFile(directoryPath + "/rdf/NormalSequence.nt", format);
 		} catch (DjatokaException e) {
 			e.printStackTrace();
 			throw new Exception("Djatoka exception while converting images.  Cause: " + e.getMessage());

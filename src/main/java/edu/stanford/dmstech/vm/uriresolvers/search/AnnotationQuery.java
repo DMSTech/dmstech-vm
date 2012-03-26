@@ -75,7 +75,7 @@ public class AnnotationQuery {
         FileManager fm = FileManager.get();
      //   fm.addLocatorClassLoader(ExampleTDB_01.class.getClassLoader());
        // InputStream in = fm.open("data/data.nt");
-        InputStream in = fm.open("/Users/jameschartrand/STANFORD_KVM_HOME/manuscripts/Stanford/rdf/ImageAnnotations.xml");
+        InputStream in = fm.open("/Users/jameschartrand/STANFORD_KVM_HOME/manuscripts/testImages/rdf/ImageAnnotations.xml");
 
         Location location = new Location ("/Users/jameschartrand/STANFORD_KVM_HOME/manuscripts/Stanford/tdb");
         DatasetGraphTDB dsg = (DatasetGraphTDB)TDBFactory.createDatasetGraph(location);
@@ -100,9 +100,11 @@ public class AnnotationQuery {
 	public void tdbTest() {
 	 String tdbDir = "/Users/jameschartrand/STANFORD_KVM_HOME/manuscripts/Stanford/tdb/";
 	   Dataset dataset = TDBFactory.createDataset(tdbDir);
+	  
 	   Model tdb = dataset.getDefaultModel();
-	//   String source = "/Users/jameschartrand/STANFORD_KVM_HOME/manuscripts/Stanford/rdf/data.nt";
-	//   FileManager.get().readModel( tdb, source);
+	  // String source = "/Users/jameschartrand/STANFORD_KVM_HOME/testImages/rdf/ImageAnnotations.nt";
+	 //  String source = "/Users/jameschartrand/STANFORD_KVM_HOME/manuscripts/Stanford/rdf/data.nt";
+	 //  FileManager.get().readModel( tdb, source);
 	   String queryString = "PREFIX foaf: <http://xmlns.com/foaf/0.1/> SELECT * WHERE { ?x foaf:knows ?y }";
 	  StmtIterator iter = tdb.listStatements();
 	  System.out.print("should see the statements here");
