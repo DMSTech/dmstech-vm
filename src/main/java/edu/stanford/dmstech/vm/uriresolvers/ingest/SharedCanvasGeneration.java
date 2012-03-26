@@ -37,7 +37,7 @@ public class SharedCanvasGeneration {
 		SharedCanvasGenerator sharedCanvasGenerator = new SharedCanvasGenerator();
 		
 		
-		boolean success = sharedCanvasGenerator.generateSharedCanvas(manuscriptDirectoryPath, baseURI, parseTitlesAndPageNums);
+		sharedCanvasGenerator.generateSharedCanvas(manuscriptDirectoryPath, baseURI, parseTitlesAndPageNums);
 		
 		return Response.ok().build();
 		
