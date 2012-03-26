@@ -2,6 +2,7 @@ package edu.stanford.dmstech.vm.uriresolvers.ingest;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
 import edu.stanford.dmstech.vm.Config;
@@ -18,9 +19,12 @@ the titles for each canvas will come from either the filenames,
 if they are labelled in the exact format:  title_pageNum, or after
 generation using the thumbnail editing process, which 
 will submit a json ordered list of imageURI:theCanvasTitle.*/
+
+@Path("/ingest/manuscript/{manuscriptId}")
 public class SharedCanvasGeneration {
 
 	@POST
+	
 	public Response generateSharedCanvas(
 			@FormParam("manuscriptTitle") final String manuscriptTitle,
 			@FormParam("collectionId") final String collectionId,

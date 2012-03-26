@@ -12,7 +12,7 @@ public class DMSTechRDFConstants {
 	static Model initializingModel = null;
 
 	public static final String ORE_NAMESPACE = "http://www.openarchives.org/ore/terms/";
-	public static final String STANFORD_NAMESPACE = "http://dms.stanford.edu/ns/";
+	public static final String SHARED_CANVAS_NAMESPACE = "http://www.shared-canvas.org/ns/";
 	public static final String DCTERMS_NAMESPACE = "http://purl.org/dc/terms/";
 	public static final String HTTP_NAMESPACE = "http://www.w3.org/2011/http#";
 	public static final String CNT_NAMESPACE = "http://www.w3.org/2008/content#";
@@ -87,26 +87,28 @@ public class DMSTechRDFConstants {
 		initializingModel.setNsPrefix("http", HTTP_NAMESPACE);
 		initializingModel.setNsPrefix("cnt", CNT_NAMESPACE);
 		initializingModel.setNsPrefix("oac", OAC_NAMESPACE);
+		initializingModel.setNsPrefix("exif", EXIF_NAMESPACE);
+		initializingModel.setNsPrefix("sc", SHARED_CANVAS_NAMESPACE);
 
 		// dmstech properties and types
 		textAnnotationClass = initializingModel
 				.createResource("http://dms.stanford.edu/ns/TextAnnotation");
 		transactionClass = initializingModel
-				.createResource(STANFORD_NAMESPACE + "Transaction");
+				.createResource(SHARED_CANVAS_NAMESPACE + "Transaction");
 		sequenceClass = initializingModel
-				.createResource(STANFORD_NAMESPACE + "Sequence");
+				.createResource(SHARED_CANVAS_NAMESPACE + "Sequence");
 		imageAnnotationListClass = initializingModel
-				.createResource(STANFORD_NAMESPACE + "ImageAnnotationList");
+				.createResource(SHARED_CANVAS_NAMESPACE + "ImageAnnotationList");
 		manifestClass = initializingModel
-				.createResource(STANFORD_NAMESPACE + "Manifest");
+				.createResource(SHARED_CANVAS_NAMESPACE + "Manifest");
 		dmsImageAnnotationClass= initializingModel
-				.createResource(STANFORD_NAMESPACE + "ImageAnnotation");
+				.createResource(SHARED_CANVAS_NAMESPACE + "ImageAnnotation");
 		dmsImageClass = initializingModel
-				.createResource(STANFORD_NAMESPACE + "Image");
+				.createResource(SHARED_CANVAS_NAMESPACE + "Image");
 		dmsImageBodyClass = initializingModel
-				.createResource(STANFORD_NAMESPACE + "ImageBody");
+				.createResource(SHARED_CANVAS_NAMESPACE + "ImageBody");
 		dmsCanvasClass = initializingModel
-				.createResource(STANFORD_NAMESPACE + "Canvas");
+				.createResource(SHARED_CANVAS_NAMESPACE + "Canvas");
 		
 		
 		// exif properties
