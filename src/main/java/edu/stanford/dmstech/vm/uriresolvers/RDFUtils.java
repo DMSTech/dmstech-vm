@@ -1,6 +1,8 @@
 package edu.stanford.dmstech.vm.uriresolvers;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.logging.Logger;
 
@@ -15,9 +17,9 @@ public class RDFUtils {
 
 	static Logger logger = Logger.getLogger(RDFUtils.class.getName());
 	
-	static public Model loadModelInHomeDir(String pathToModel) throws Exception {		
+	static public Model loadModelInHomeDir(String relativePathToModel) throws Exception {		
 		 Model model = ModelFactory.createDefaultModel();
-		 InputStream in = FileManager.get().open(getFileInHomeDir(pathToModel).getAbsolutePath());
+		 InputStream in = FileManager.get().open(getFileInHomeDir(relativePathToModel).getAbsolutePath());
 		 if (in != null) {
 			 model.read(in, null);
 		 } else {
@@ -36,5 +38,24 @@ public class RDFUtils {
 			throw new NotFoundException("File, " + file.getAbsolutePath() + ", is not found");
 		}
 		return file;
+	}
+	
+	public static void serializeModelToHomeDir(Model model, String relativePathToFile, String format) {
+		String fullPath = new File(
+				Config.homeDir, 
+				relativePathToFile
+				).getAbsolutePath();
+		serializeModelToFile(model, fullPath, format);
+	}
+	
+	public static void serializeModelToFile(Model model, String pathToFile, String format) {
+		//		model.write(System.out, "TURTLE");
+		FileOutputStream fout = null;
+		try {
+			fout = new FileOutputStream(pathToFile);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+			model.write(fout, format);
 	}
 }

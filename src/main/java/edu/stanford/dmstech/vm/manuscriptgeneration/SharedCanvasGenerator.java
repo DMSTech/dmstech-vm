@@ -1,6 +1,9 @@
 package edu.stanford.dmstech.vm.manuscriptgeneration;
 
+import edu.stanford.dmstech.vm.Config;
+import edu.stanford.dmstech.vm.DMSTechRDFConstants;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasTBDIndexer;
+import edu.stanford.dmstech.vm.uriresolvers.RDFUtils;
 import gov.lanl.adore.djatoka.DjatokaEncodeParam;
 import gov.lanl.adore.djatoka.DjatokaException;
 import gov.lanl.adore.djatoka.ICompress;
@@ -19,6 +22,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -27,11 +31,21 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.RDFNode;
+import com.hp.hpl.jena.rdf.model.ResIterator;
+import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.vocabulary.DC;
+import com.hp.hpl.jena.vocabulary.DCTerms;
+import com.hp.hpl.jena.vocabulary.RDF;
+
 
 public class SharedCanvasGenerator {
 
 	 static Logger logger = Logger.getLogger(SharedCanvasGenerator.class);
 
+	 SharedCanvasModel sharedCanvasModel = null;
+	 
 	public static void main(String[] args) {
 		
 		// Simple log4j configuration to log to the console.
@@ -40,20 +54,52 @@ public class SharedCanvasGenerator {
 	     
 		SharedCanvasGenerator sharedCanvasGenerator = new SharedCanvasGenerator();
 		try {
-			sharedCanvasGenerator.generateSharedCanvas("/Users/jameschartrand/STANFORD_KVM_HOME/testImages", "http://localhost:8080/vm/", false);
+	//		sharedCanvasGenerator.generateSharedCanvas("/Users/jameschartrand/STANFORD_KVM_HOME/testImages", "http://localhost:8080/vm/", null, null, null, null, null, null, null, null, null, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 	}
 	
-	public void generateSharedCanvas(String directoryPath, String baseURIForIds, boolean parseTitle) throws Exception {
+	/*
+	 *			manuscriptTitle,
+				collectionId,
+				manuscriptId,
+				alternateId,
+				repositoryName,
+				institutionName,
+				settlementName,
+				regionName,
+				countryName,
+				manuscriptDirName, 
+				parseTitlesAndPageNums
+	 */
+	public void generateSharedCanvasInDefaultDir(
+			String manuscriptTitle, 
+			String collectionId, 
+			String manuscriptId, 
+			String alternateId, 
+			String repositoryName, 
+			String institutionName, 
+			String settlementName, 
+			String regionName, 
+			String countryName, 
+			String manuscriptDirectoryPath, 
+			boolean parseTitle
+		) throws Exception {
 	
-
-		generateJP2sFromSourceImages(directoryPath);
-		generateRDFFromJP2s(directoryPath, baseURIForIds, parseTitle);
 		
-
+		String directoryPathForManuscript = Config.getBaseDirForCollections() + Config.getDefaultCollectionName() + "/" + manuscriptDirectoryPath;
+		if (directoryPathForManuscript.endsWith("/")) directoryPathForManuscript = directoryPathForManuscript.substring(0, directoryPathForManuscript.length() - 1);
+		String baseURIForManuscript = Config.getBaseURIForIds() + Config.getDefaultCollectionName() + "/" + manuscriptId + "/";
+		
+		sharedCanvasModel = SharedCanvasModel.createNewSharedCanvasModel(baseURIForManuscript);
+		
+		generateJP2sFromSourceImages(directoryPathForManuscript);
+		generateRDFFromJP2s(directoryPathForManuscript, baseURIForManuscript, parseTitle);
+		saveAndIndexRDFForManuscript(directoryPathForManuscript, sharedCanvasModel);
+		addManuscriptToDefaultCollectionList(baseURIForManuscript);
+	
 	}
 
 	private void generateJP2sFromSourceImages(String directoryPath) throws Exception {
@@ -87,24 +133,24 @@ public class SharedCanvasGenerator {
 				
 	}
 	
-	private void generateRDFFromJP2s(String directoryPath, String baseURIForIds, boolean parseTitle) {
+	private void generateRDFFromJP2s(String directoryPath, String baseURIForManuscript, boolean parseTitle) throws Exception {
 		
 		FileFilter jp2ImageFilter = new jp2FileFilter();
 		ArrayList<File> files = IOUtils.getFileList(directoryPath, jp2ImageFilter, false);
 		for (File f : files) {
 			
-			SharedCanvasModel sharedCanvasModel = SharedCanvasModel.createNewSharedCanvasModel(baseURIForIds);
 			String jp2FileName = f.getName();
-			String fileNameWithoutExtension = jp2FileName.substring(0, f.getName().indexOf("."));			
-			String imageURI = baseURIForIds + jp2FileName;
+			String fileNameWithoutExtension = jp2FileName.substring(0, f.getName().indexOf("."));		
+			
+			String imageFileName = jp2FileName;
 		    String pageTitle = null;		    	
 		    if (parseTitle) {
 		    	// if the image files have been named like 14_page14, i.e. pageNumber_pageTitle
 		    	pageTitle = fileNameWithoutExtension.substring(fileNameWithoutExtension.indexOf("_"), fileNameWithoutExtension.length() + 1);
 		    	  }
 		    ImageRecord dim = ImageRecordUtils.getImageDimensions(f.getAbsolutePath());
-		    sharedCanvasModel.addImageToSharedCanvas(imageURI, pageTitle, String.valueOf(dim.getWidth()), String.valueOf(dim.getHeight()));					
-		    saveAndIndexRDFForManuscript(directoryPath, sharedCanvasModel);
+		    sharedCanvasModel.addImageToSharedCanvas(imageFileName, pageTitle, String.valueOf(dim.getWidth()), String.valueOf(dim.getHeight()));					
+		   
 		}
 	}
 	
@@ -121,12 +167,40 @@ public class SharedCanvasGenerator {
 		sharedCanvasModel.serializeImageAnnoResourceMapToFile(imageAnnotationsFilePath, format);
 		sharedCanvasModel.serializeNormalSequenceResourceMapToFile(normalSequenceFilePath, format);
 		
-		String mainRepositoryTBDIndex = "/Users/jameschartrand/STANFORD_KVM_HOME/repository_tbd_index";
 		SharedCanvasTBDIndexer scTbdIndexer = new SharedCanvasTBDIndexer();
-		scTbdIndexer.loadFileIntoTBDModel(mainRepositoryTBDIndex, manifestFilePath);
-		scTbdIndexer.loadFileIntoTBDModel(mainRepositoryTBDIndex, imageAnnotationsFilePath);
-		scTbdIndexer.loadFileIntoTBDModel(mainRepositoryTBDIndex, normalSequenceFilePath);
+		scTbdIndexer.loadFileIntoMainRepoTBDDataset(manifestFilePath);
+		scTbdIndexer.loadFileIntoMainRepoTBDDataset(imageAnnotationsFilePath);
+		scTbdIndexer.loadFileIntoMainRepoTBDDataset(normalSequenceFilePath);
 
+	}
+	
+
+	private void addManuscriptToDefaultCollectionList(String baseURIForManuscript) throws Exception {
+		
+		DMSTechRDFConstants rdfConstants = DMSTechRDFConstants.getInstance();
+		
+		String relativePathToCollectionsManifestInHomeDir = Config.getBaseDirForCollections() + "/Collection.nt";
+		
+		Model collectionManifestModel = RDFUtils.loadModelInHomeDir(relativePathToCollectionsManifestInHomeDir);
+
+		Resource manifestAggregation = collectionManifestModel.createResource(sharedCanvasModel.getManifestAggregationURI())
+				.addProperty(RDF.type, rdfConstants.oreAggregationClass)		
+				.addProperty(RDF.type, rdfConstants.manifestClass);
+				
+		collectionManifestModel.createResource(sharedCanvasModel.getManifestRMURI())
+				.addProperty(RDF.type, rdfConstants.oreResourceMapClass)
+				.addProperty(rdfConstants.oreDescribes, manifestAggregation)
+				.addProperty(DC.format, "application/rdf+xml");						
+		
+		ResIterator resIter = collectionManifestModel.listSubjectsWithProperty(RDF.type, rdfConstants.oreAggregationClass);
+		while (resIter.hasNext()){
+			Resource aggregationResource = resIter.nextResource();	
+			aggregationResource.addProperty(rdfConstants.oreAggregates, manifestAggregation);
+		}
+		
+		RDFUtils.serializeModelToHomeDir(collectionManifestModel, relativePathToCollectionsManifestInHomeDir, "N-TRIPLE");
+		
+		
 	}
 	
 	

@@ -1,8 +1,11 @@
 package edu.stanford.dmstech.vm.indexing;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
+
+import org.junit.internal.matchers.Each;
 
 import com.hp.hpl.jena.query.Dataset;
 import com.hp.hpl.jena.query.Query;
@@ -28,11 +31,25 @@ import com.hp.hpl.jena.tdb.store.DatasetGraphTDB;
 import com.hp.hpl.jena.tdb.transaction.DatasetGraphTxn;
 import com.hp.hpl.jena.util.FileManager;
 
+import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.uriresolvers.search.AnnotationQuery;
 
 public class SharedCanvasTBDIndexer {
 
-	
+	public void reindexAllLocalData() {
+		probably want this to be callable from a URI
+		
+		loop over default collection dir, recursively opening directories and indexing any .nt files in jena
+		loop over packaged collection dir, recursively opening directories and indexing any .nt file in jena
+		for each of the two above, also check to see if any of the files are Manifest files and if so,
+		open a model for them, get the metdata and indexing in solr.
+		
+		loop over the submitted_annotations dir, indexing all .nt files in jena
+			also open each in a model and get the uuid for the text body, then get the text body from the 
+			annotation_body_texts directory and index it in solr record with fields:
+					CollectionId, ManuscriptId, canvasId, annotationId, annotationText, collectionName, collectionLocation, etc.?
+		
+	}
 	
 	/**
 	 * 
@@ -117,6 +134,10 @@ public class SharedCanvasTBDIndexer {
 	private void listAllStatementsInModelToConsole(Model model) {
 		 StmtIterator iter = model.listStatements();
 		  printStatementsToConsole(iter); 
+	}
+	
+	public void loadFileIntoMainRepoTBDDataset( String rdfSourcePath) {
+		loadFileIntoTBDModel(Config.getAbsolutePathToMainTBDDir(), rdfSourcePath);
 	}
 	
 	public void loadFileIntoTBDModel(String tbdDatasetPath, String rdfFilePath) {

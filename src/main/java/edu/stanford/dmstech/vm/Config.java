@@ -23,6 +23,7 @@ public class Config implements ServletContextListener {
 	private final static Logger LOGGER = Logger.getLogger(Config.class.getName());
 	public static final String HOME_DIR_ENV_VAR = "KVM_HOME";
 	
+	public static String homeDirPath = null;
 	public static  String repositoryFileName = null;
 	public static String collectionFileName = null;
 	public static  String normalSequenceFileName = null;
@@ -34,6 +35,8 @@ public class Config implements ServletContextListener {
 	public static String baseURIForIds = null;
 	public static String baseURIForDocs = null;
 	public static String baseDirForCollections = null;
+	public static String defaultCollectionName = null;
+	public static String mainTBDDatasetDir = null;
 	//public static String fileNameForOldTextAnnos = null;
 	
 	public static  File homeDir = null;
@@ -41,6 +44,14 @@ public class Config implements ServletContextListener {
 	static private FileHandler textFileHandler;
 	
 	static private SimpleFormatter textFormatter;
+	
+	public static String getMainTBDDatasetDir() {
+		return mainTBDDatasetDir;
+	}
+	
+	public void setMainTBDDatasetDir(String mainTBDDatasetDir) {
+		Config.mainTBDDatasetDir = mainTBDDatasetDir;
+	}
 		
 	public static String getRepositoryFileName() {
 		return repositoryFileName;
@@ -123,8 +134,17 @@ public class Config implements ServletContextListener {
 	}
 
 
-	public  void setBaseURIForIds(String baseURIForIds) {
+	public void setBaseURIForIds(String baseURIForIds) {
 		Config.baseURIForIds = baseURIForIds;
+	}
+	
+	public static String getDefaultCollectionName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public static void setDefaultCollectionName(String defaultCollectionName) {
+		Config.defaultCollectionName = defaultCollectionName;
 	}
 	
 	public static String getBaseURIForDocs() {
@@ -154,11 +174,13 @@ public class Config implements ServletContextListener {
 	}
 
 
-
+	public static String getAbsolutePathToMainTBDDir() {
+		return (new File(homeDirPath, mainTBDDatasetDir)).getAbsolutePath();
+	}
 	
     public void contextInitialized(ServletContextEvent event) {
     	
-        String homeDirPath = System.getenv(HOME_DIR_ENV_VAR);
+        homeDirPath = System.getenv(HOME_DIR_ENV_VAR);
         
         if (homeDirPath == null || homeDirPath.trim().equals("")) {
         	System.out.println("The home directory environment variable, " + HOME_DIR_ENV_VAR + ", has not been set.");	
@@ -220,6 +242,8 @@ public class Config implements ServletContextListener {
 	    digester.addBeanPropertySetter("config/baseURIForIds");
 	    digester.addBeanPropertySetter("config/baseURIForDocuments");
 	    digester.addBeanPropertySetter("config/baseDirForCollections");
+	    digester.addBeanPropertySetter("config/defaultCollectionName");
+	    digester.addBeanPropertySetter("config/mainTBDDatasetDir");
 	    
 
 	    try {
@@ -256,6 +280,8 @@ public class Config implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent event) {
         // nothing for now
     }
+
+	
 
 
 
