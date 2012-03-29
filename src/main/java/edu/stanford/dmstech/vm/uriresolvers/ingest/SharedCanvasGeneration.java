@@ -1,5 +1,7 @@
 package edu.stanford.dmstech.vm.uriresolvers.ingest;
 
+import java.net.URI;
+
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -29,7 +31,8 @@ public class SharedCanvasGeneration {
 	@POST
 	
 	public Response generateSharedCanvas(
-			@FormParam("manname") final String manuscriptTitle,
+			@FormParam("manname") final String manuscriptName,
+			@FormParam("mantitle") final String manuscriptTitle,
 			@FormParam("collection") final String collectionId,
 			@FormParam("idno") final String manuscriptId,
 			@FormParam("altid") final String alternateId,
@@ -45,7 +48,8 @@ public class SharedCanvasGeneration {
 		SharedCanvasGenerator sharedCanvasGenerator = new SharedCanvasGenerator();
 		
 		
-		sharedCanvasGenerator.generateSharedCanvasInDefaultDir(
+		String manuscriptManifestURI = sharedCanvasGenerator.generateSharedCanvasInDefaultDir(
+				manuscriptName,
 				manuscriptTitle,
 				collectionId,
 				manuscriptId,
@@ -59,7 +63,7 @@ public class SharedCanvasGeneration {
 				parseTitlesAndPageNums
 				);
 		
-		return Response.ok().build();
+		return Response.created(new URI(manuscriptManifestURI)).build();
 		
 		
 	

@@ -69,8 +69,32 @@ public class SharedCanvasModel {
 
 	}
 	
-	public static SharedCanvasModel createNewSharedCanvasModel(String baseURI){
-		return (new SharedCanvasModel()).initialize(baseURI);
+	public static SharedCanvasModel createNewSharedCanvasModel(
+			String baseURI,
+			String manuscriptName,
+			String manuscriptTitle, 
+			String collectionId, 
+			String manuscriptId, 
+			String alternateId, 
+			String repositoryName, 
+			String institutionName, 
+			String settlementName, 
+			String regionName, 
+			String countryName
+			){
+		return (new SharedCanvasModel()).initializeNewModel(
+				baseURI,
+				manuscriptName,
+				manuscriptTitle,
+				collectionId,
+				manuscriptId,
+				alternateId,
+				repositoryName,
+				institutionName,
+				settlementName,
+				regionName,
+				countryName
+				);
 		
 	}
 	
@@ -119,7 +143,18 @@ public class SharedCanvasModel {
 		return this;
 	}
 
-	private SharedCanvasModel initialize(String baseURI) {
+	private SharedCanvasModel initializeNewModel(
+			String baseURI,
+			String manuscriptName,
+			String manuscriptTitle, 
+			String collectionId, 
+			String manuscriptId, 
+			String alternateId, 
+			String repositoryName, 
+			String institutionName, 
+			String settlementName, 
+			String regionName, 
+			String countryName) {
 		
 		this.baseURI = baseURI;
 		
@@ -134,7 +169,18 @@ public class SharedCanvasModel {
 		imageAnnosResourceMapModel.setNsPrefixes(rdfConstants.getInitializingModel());
 		sharedCanvasManifestResourceMapModel.setNsPrefixes(rdfConstants.getInitializingModel());
 		//create the manifest
-		createManifestInModel(sharedCanvasManifestResourceMapModel);
+		createManifestInModel(
+				sharedCanvasManifestResourceMapModel,
+				manuscriptName,
+				manuscriptTitle,
+				collectionId,
+				manuscriptId,
+				alternateId,
+				repositoryName,
+				institutionName,
+				settlementName,
+				regionName,
+				countryName);
 		return this;
 	}
 
@@ -262,9 +308,20 @@ public class SharedCanvasModel {
 		
 	}
 	
-	private Resource createManifestInModel(Model model) {
+	private Resource createManifestInModel(
+			Model model, 
+			String manuscriptName, 
+			String manuscriptTitle, 
+			String collectionId, 
+			String manuscriptId, 
+			String alternateId, 
+			String repositoryName, 
+			String institutionName, 
+			String settlementName, 
+			String regionName, 
+			String countryName
+			) {
 		
-	//	hmmmm, this will also add the rdflist, which I don't think i want here.
 		Resource sequenceAggregation = createSequenceAggregationAndRMWithoutList(sharedCanvasManifestResourceMapModel);
 		Resource imageAnnoAggregation = createAnnoAggregationAndRMInModelWithoutList(sharedCanvasManifestResourceMapModel);		
 		
@@ -273,13 +330,24 @@ public class SharedCanvasModel {
 				.addProperty(RDF.type, rdfConstants.manifestClass)
 				.addProperty(rdfConstants.oreAggregates, imageAnnoAggregation)
 				.addProperty(rdfConstants.oreAggregates, sequenceAggregation);
-		    	  // add the first and rest later, as well as each 'aggregates'  
-		// add the resource map for the transaction to the model
+ 
+		// add the resource map that describes the aggregation
 		model.createResource(getManifestRMURI())
 				.addProperty(RDF.type, rdfConstants.oreResourceMapClass)
 				.addProperty(rdfConstants.oreDescribes, manifestAggregation)
 				.addProperty(DCTerms.created, model.createTypedLiteral(W3CDTF_NOW, rdfConstants.DCTERMS_NAMESPACE + "W3CDTF"))
-				.addProperty(DC.format, "application/rdf+xml");						
+				.addProperty(DC.format, "application/rdf+xml")
+				.addProperty(DC.title, manuscriptTitle)	
+				.addProperty(rdfConstants.teiMsNameProperty, manuscriptName)	
+				.addProperty(rdfConstants.teiCollectionProperty, collectionId)	
+				.addProperty(rdfConstants.teiIdnoProperty, manuscriptId)	
+				.addProperty(rdfConstants.teiAltIdentifierProperty, alternateId)	
+				.addProperty(rdfConstants.teiRepositoryProperty, repositoryName)	
+				.addProperty(rdfConstants.teiInstitutionProperty, institutionName)	
+				.addProperty(rdfConstants.teiSettlementProperty, settlementName)	
+				.addProperty(rdfConstants.teiRegionProperty, regionName)	
+				.addProperty(rdfConstants.teiCountryProperty, countryName);
+				
 				// .addProperty(DCTerms.creator, ?? )	
 		return manifestAggregation;
 	}

@@ -18,6 +18,7 @@ public class DMSTechRDFConstants {
 	public static final String CNT_NAMESPACE = "http://www.w3.org/2008/content#";
 	public static final String OAC_NAMESPACE = "http://www.openannotation.org/ns/";
 	public static final String EXIF_NAMESPACE = "http://www.w3.org/2003/12/exif/ns#";
+	public static final String TEI_NAMESPACE = "http://www.tei-c.org/ns/1.0/";
 
 	// dmstech specific types
 	public Resource textAnnotationClass;
@@ -57,6 +58,17 @@ public class DMSTechRDFConstants {
 	public Resource oacBodyType;
 	public Resource oacTargetType;
 
+	// TEI properties
+	public Property teiCountryProperty;
+	public Property teiRegionProperty;
+	public Property teiSettlementProperty;
+	public Property teiInstitutionProperty;
+	public Property teiRepositoryProperty;
+	public Property teiCollectionProperty;
+	public Property teiIdnoProperty;
+	public Property teiAltIdentifierProperty;
+	public Property teiMsNameProperty;
+	
 	
 	private DMSTechRDFConstants() {
 		super();
@@ -89,6 +101,7 @@ public class DMSTechRDFConstants {
 		initializingModel.setNsPrefix("oac", OAC_NAMESPACE);
 		initializingModel.setNsPrefix("exif", EXIF_NAMESPACE);
 		initializingModel.setNsPrefix("sc", SHARED_CANVAS_NAMESPACE);
+		initializingModel.setNsPrefix("tei", TEI_NAMESPACE);
 
 		// dmstech properties and types
 		textAnnotationClass = initializingModel
@@ -153,5 +166,26 @@ public class DMSTechRDFConstants {
 				+ "Body");
 		oacTargetType = initializingModel.createResource(OAC_NAMESPACE
 				+ "Target");
+		
+		// TEI properties
+		teiCountryProperty = initializingModel.createProperty(
+				OAC_NAMESPACE, "country");
+		teiRegionProperty = initializingModel.createProperty(
+				OAC_NAMESPACE, "region");
+		teiSettlementProperty = initializingModel.createProperty(
+				OAC_NAMESPACE, "settlement");
+		teiInstitutionProperty = initializingModel.createProperty(
+				OAC_NAMESPACE, "institution");
+		teiRepositoryProperty = initializingModel.createProperty(
+				OAC_NAMESPACE, "repository");
+		teiCollectionProperty = initializingModel.createProperty(
+				OAC_NAMESPACE, "collection");
+		teiIdnoProperty = initializingModel.createProperty(
+				OAC_NAMESPACE, "idno");
+		teiAltIdentifierProperty = initializingModel.createProperty(
+				OAC_NAMESPACE, "altIdentifier");
+		teiMsNameProperty = initializingModel.createProperty(
+				OAC_NAMESPACE, "msName");
+		
 	}
 }

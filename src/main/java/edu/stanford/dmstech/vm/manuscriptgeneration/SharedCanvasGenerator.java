@@ -1,5 +1,19 @@
 package edu.stanford.dmstech.vm.manuscriptgeneration;
 
+import java.io.File;
+import java.io.FileFilter;
+import java.util.ArrayList;
+
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ResIterator;
+import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.vocabulary.DC;
+import com.hp.hpl.jena.vocabulary.RDF;
+
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.DMSTechRDFConstants;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasTBDIndexer;
@@ -7,37 +21,12 @@ import edu.stanford.dmstech.vm.uriresolvers.RDFUtils;
 import gov.lanl.adore.djatoka.DjatokaEncodeParam;
 import gov.lanl.adore.djatoka.DjatokaException;
 import gov.lanl.adore.djatoka.ICompress;
-import gov.lanl.adore.djatoka.io.reader.DjatokaReader;
-import gov.lanl.adore.djatoka.io.writer.TIFWriter;
 import gov.lanl.adore.djatoka.kdu.KduCompressExe;
 import gov.lanl.adore.djatoka.util.IOUtils;
 import gov.lanl.adore.djatoka.util.ImageProcessingUtils;
 import gov.lanl.adore.djatoka.util.ImageRecord;
 import gov.lanl.adore.djatoka.util.ImageRecordUtils;
 import gov.lanl.adore.djatoka.util.SourceImageFileFilter;
-
-import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.RDFNode;
-import com.hp.hpl.jena.rdf.model.ResIterator;
-import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.vocabulary.DC;
-import com.hp.hpl.jena.vocabulary.DCTerms;
-import com.hp.hpl.jena.vocabulary.RDF;
 
 
 public class SharedCanvasGenerator {
@@ -61,20 +50,8 @@ public class SharedCanvasGenerator {
 		
 	}
 	
-	/*
-	 *			manuscriptTitle,
-				collectionId,
-				manuscriptId,
-				alternateId,
-				repositoryName,
-				institutionName,
-				settlementName,
-				regionName,
-				countryName,
-				manuscriptDirName, 
-				parseTitlesAndPageNums
-	 */
-	public void generateSharedCanvasInDefaultDir(
+	public String generateSharedCanvasInDefaultDir(
+			String manuscriptName,
 			String manuscriptTitle, 
 			String collectionId, 
 			String manuscriptId, 
@@ -93,12 +70,25 @@ public class SharedCanvasGenerator {
 		if (directoryPathForManuscript.endsWith("/")) directoryPathForManuscript = directoryPathForManuscript.substring(0, directoryPathForManuscript.length() - 1);
 		String baseURIForManuscript = Config.getBaseURIForIds() + Config.getDefaultCollectionName() + "/" + manuscriptId + "/";
 		
-		sharedCanvasModel = SharedCanvasModel.createNewSharedCanvasModel(baseURIForManuscript);
+		sharedCanvasModel = SharedCanvasModel.createNewSharedCanvasModel(
+				baseURIForManuscript,
+				manuscriptName,
+				manuscriptTitle,
+				collectionId,
+				manuscriptId,
+				alternateId,
+				repositoryName,
+				institutionName,
+				settlementName,
+				regionName,
+				countryName);
 		
 		generateJP2sFromSourceImages(directoryPathForManuscript);
 		generateRDFFromJP2s(directoryPathForManuscript, baseURIForManuscript, parseTitle);
 		saveAndIndexRDFForManuscript(directoryPathForManuscript, sharedCanvasModel);
 		addManuscriptToDefaultCollectionList(baseURIForManuscript);
+		
+		return baseURIForManuscript + "Manifest";
 	
 	}
 
