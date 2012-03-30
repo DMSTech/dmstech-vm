@@ -46,8 +46,7 @@ public class SharedCanvasGeneration {
 			) throws Exception {
 	
 		SharedCanvasGenerator sharedCanvasGenerator = new SharedCanvasGenerator();
-		
-		
+			
 		String manuscriptManifestURI = sharedCanvasGenerator.generateSharedCanvasInDefaultDir(
 				manuscriptName,
 				manuscriptTitle,
@@ -64,8 +63,6 @@ public class SharedCanvasGeneration {
 				);
 		
 		return Response.created(new URI(manuscriptManifestURI)).build();
-		
-		
-	
+
 }
 }

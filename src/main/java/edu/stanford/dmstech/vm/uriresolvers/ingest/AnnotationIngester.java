@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
+import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -17,6 +21,7 @@ import org.apache.commons.transaction.util.LoggerFacade;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.ResIterator;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.vocabulary.DC;
@@ -27,6 +32,7 @@ import com.hp.hpl.jena.vocabulary.RDF;
 
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.DMSTechRDFConstants;
+import edu.stanford.dmstech.vm.tdb.SharedCanvasTDBManager;
 import edu.stanford.dmstech.vm.uriresolvers.canvas.CanvasTextAnnoResourceMap;
 
 public class AnnotationIngester {
@@ -47,6 +53,8 @@ public class AnnotationIngester {
 	int incomingAnnoCount = 0;
 	Resource transactionsAggregationResource;
 	Resource newAnnotationResource = null;
+	HashMap<String, List<String>> canvasTextToIndex = new HashMap<String, List<String>>();
+	ArrayList<String> filesToAddToTDB = new ArrayList<String>();
 	
 	public Response saveAnnotations(InputStream inputStream) throws IOException {
 		
@@ -90,8 +98,11 @@ public class AnnotationIngester {
 		// finish off by writing the transaction file
 		 OutputStream foutForTransactionResourceMap = frm.writeResource(txId, getTransactionResourceMapRelativeFileLocation(), true);
 	        transactionResourceMapModel.write(foutForTransactionResourceMap, "RDF/XML");
+	        filesToAddToTDB.add(getTransactionResourceMapRelativeFileLocation());
 	        // commit all our new files
 		 frm.commitTransaction(txId);
+		 
+		 (new SharedCanvasTDBManager()).indexFileListInMainDataset(filesToAddToTDB);
 		}  catch (Exception e) {
 		        throw new IOException("Couldn't save new annotations.  Rolled back all.  Caused by: " + e.getMessage());
 		    }
@@ -109,7 +120,17 @@ public class AnnotationIngester {
 	}
 
 	
-
+/* need to pass the three files to the tbd indexer.  just pass the path.
+ * 
+ * hmmm, this is going to be difficult because I can't index until after the files have been written, but
+ * a whole load of them may be written.  I'd have to keep track I guess of all files (their paths) that have
+ * been created.  in an array would probably be fine.
+ * 
+ * for solr:  for each annotation, get the canvas uri, then add to the existing solr record for that uri
+ * again, probably want to save these up as we go, so they can all be posted at the end after
+ * the files have been written in the transaction.
+ * 
+ */
 	
 
 	private void writeAnnotationToFile(Resource incomingAnno) throws IOException {
@@ -120,66 +141,93 @@ public class AnnotationIngester {
 		    	
 		    	if (incomingAnno.getNameSpace().toLowerCase().equals("urn")) {	
 			
-				newAnnotationResource = newModelToWrite.createResource( getNewTextAnnotationURI(uuid), rdfConstants.oacTextAnnotationType);
+		    	Resource targetCanvas = incomingAnno.listProperties(rdfConstants.oacHasTargetProperty).nextStatement().getObject().asResource();
+		    	Resource oldBody = incomingAnno.listProperties(rdfConstants.oacHasBodyProperty).nextStatement().getObject().asResource();
+				
+		    	newAnnotationResource = newModelToWrite.createResource( getNewTextAnnotationURI(uuid), rdfConstants.oacTextAnnotationType);
 				newModelToWrite.add(newAnnotationResource, RDF.type, rdfConstants.oacAnnotationType);
-				newModelToWrite.add(newAnnotationResource, rdfConstants.oacHasTargetProperty, incomingAnno.listProperties(rdfConstants.oacHasTargetProperty).nextStatement().getObject());
-				Resource oldBody = incomingAnno.listProperties(rdfConstants.oacHasBodyProperty).nextStatement().getObject().asResource();
+				newModelToWrite.add(newAnnotationResource, rdfConstants.oacHasTargetProperty, targetCanvas);
+				String bodyText = null;
 				if (oldBody.hasProperty(RDF.type, rdfConstants.cntAsTxtType)) {
-					String bodyText = oldBody.getProperty(rdfConstants.cntRestProperty).getString();				
+					bodyText = oldBody.getProperty(rdfConstants.cntRestProperty).getString();				
 					//should this next body type actually be a TextBody?
 					Resource newBody = newModelToWrite.createResource( getNewTextAnnoBodyURI(uuid), rdfConstants.oacBodyType);
 					// I'm not sure if this next sameAs is necessary, or in the right place.
 					newModelToWrite.add(newBody, OWL.sameAs, oldBody);
 					newModelToWrite.add(newAnnotationResource, rdfConstants.oacHasTargetProperty, newBody);
 					newModelToWrite.add(newBody, RDF.type, DCTypes.Text);
-					OutputStream foutForAnnoBodyText = frm.writeResource(txId, getTextBodyRelativeFileLocation(uuid), true);
+					String textBodyRelativeFileLocation = getTextBodyRelativeFileLocation(uuid);
+					OutputStream foutForAnnoBodyText = frm.writeResource(txId, textBodyRelativeFileLocation, true);
 		        	foutForAnnoBodyText.write(bodyText.getBytes());
 				} else {
 					newModelToWrite.add(newAnnotationResource, rdfConstants.oacHasBodyProperty, oldBody);
+					bodyText = getTextFromURI(oldBody.getURI());
 				}
-				newModelToWrite.add(newAnnotationResource, OWL.sameAs, incomingAnno);
-				newModelToWrite.add(incomingAnno, OWL.sameAs, newAnnotationResource);	
 				
+				addTextToSolrIndexQueue(bodyText, targetCanvas.getURI());
+				
+				newModelToWrite.add(newAnnotationResource, OWL.sameAs, incomingAnno);
+				newModelToWrite.add(incomingAnno, OWL.sameAs, newAnnotationResource);					
 			
 				transactionsAggregationResource.addProperty(rdfConstants.oreAggregates, newAnnotationResource);			
 			} else {
 				// possibly notify the user that they submitted an annotation that doesn't need a URI, and so they should submit it instead for ingest
 			}
-			 OutputStream foutForTextAnnos = frm.writeResource(txId, getSubmittedAnnosRelativeFileLocation(uuid), true);
-		        newModelToWrite.write(foutForTextAnnos, "RDF/XML");
+		    				       				
+			 String submittedAnnosRelativeFileLocation = getSubmittedAnnosRelativeFileLocation(uuid);
+			 filesToAddToTDB.add(submittedAnnosRelativeFileLocation);
+			OutputStream foutForTextAnnos = frm.writeResource(txId, submittedAnnosRelativeFileLocation, true);
+		     newModelToWrite.write(foutForTextAnnos, "RDF/XML");
 		        
 		    }   catch (Exception e) {
 		    	throw new IOException("Couldn't save new annotation. Caused by: " + e.getMessage());
 		    }
 		    
 	}
-		    
-	// uri and file location for new annotations
+	
+	private void addTextToSolrIndexQueue(String bodyText, String canvasURI) {
+	  if (canvasTextToIndex.containsKey(canvasURI)) {
+		  canvasTextToIndex.get(canvasURI).add(bodyText);
+	  } else {
+		  List<String> canvasList = new ArrayList<String>();
+		  canvasList.add(bodyText);
+		  canvasTextToIndex.put(canvasURI, canvasList);
+	  }
+	
+	}
+
+
+	private String getTextFromURI(String uri) throws IOException {
+	     return (String) new URL(uri).getContent();
+	}
+
+	// URIs
 	private String getNewTextAnnotationURI(String uuid) {
 		return Config.getBaseURIForIds() + "submitted_annotations/" + uuid;
 	}
-	private String getSubmittedAnnosRelativeFileLocation(String uuid) {
-		return "/submitted_annotations/" + uuid;
-	}
-	
-	// uri and file location for textual annotation bodies
 	private String getNewTextAnnoBodyURI(String uuid) {
 		return Config.getBaseURIForIds() + "annotation_body_texts/" + uuid;	
 	}	
-	private String getTextBodyRelativeFileLocation(String uuid) {
-		return "/annotation_body_texts/" + uuid + ".txt";
-	}
-	
-	// file locations and uri for transactions
-	private String getTransactionResourceMapRelativeFileLocation() {
-		return "/transactions/" + transactionUUID + ".xml";
-	}
 	private String getTransactionAggregationURI() {
 		return Config.getBaseURIForIds() + "transactions/" + transactionUUID;
 	}
 	private String getTransactionResourceMapURI() {
 		return Config.getBaseURIForDocs() + "transactions/" + transactionUUID + ".xml";
 	}
+	
+	
+	// FILE PATHS
+	private String getSubmittedAnnosRelativeFileLocation(String uuid) {
+		return "/submitted_annotations/" + uuid;
+	}
+	private String getTextBodyRelativeFileLocation(String uuid) {
+		return "/annotation_body_texts/" + uuid + ".txt";
+	}
+	private String getTransactionResourceMapRelativeFileLocation() {
+		return "/transactions/" + transactionUUID + ".xml";
+	}
+	
+	
 	
 	
 

@@ -37,6 +37,8 @@ public class Config implements ServletContextListener {
 	public static String baseDirForCollections = null;
 	public static String defaultCollectionName = null;
 	public static String mainTBDDatasetDir = null;
+	
+	public static String solrServer = null;
 	//public static String fileNameForOldTextAnnos = null;
 	
 	public static  File homeDir = null;
@@ -173,6 +175,13 @@ public class Config implements ServletContextListener {
 		Config.homeDir = homeDir;
 	}
 
+	public static String getSolrServer() {
+		return solrServer;
+	}
+
+	public static void setSolrServer(String solrServer) {
+		Config.solrServer = solrServer;
+	}
 
 	public static String getAbsolutePathToMainTBDDir() {
 		return (new File(homeDirPath, mainTBDDatasetDir)).getAbsolutePath();
@@ -244,6 +253,7 @@ public class Config implements ServletContextListener {
 	    digester.addBeanPropertySetter("config/baseDirForCollections");
 	    digester.addBeanPropertySetter("config/defaultCollectionName");
 	    digester.addBeanPropertySetter("config/mainTBDDatasetDir");
+	    digester.addBeanPropertySetter("config/solrServer");
 	    
 
 	    try {
