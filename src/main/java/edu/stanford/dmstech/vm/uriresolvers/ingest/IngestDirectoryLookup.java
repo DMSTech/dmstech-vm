@@ -15,7 +15,7 @@ public class IngestDirectoryLookup {
 	@GET
 	@Produces("text/plain")
 	public String getIngestDirectoryName() throws IOException {
-		return Config.getBaseDirForCollections();
+		return Config.getAbsolutePathToCollectionsDir();
 		
 	}
 }

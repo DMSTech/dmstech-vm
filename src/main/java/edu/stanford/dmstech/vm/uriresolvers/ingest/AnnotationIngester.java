@@ -32,6 +32,7 @@ import com.hp.hpl.jena.vocabulary.RDF;
 
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.DMSTechRDFConstants;
+import edu.stanford.dmstech.vm.indexing.SharedCanvasSOLRIndexer;
 import edu.stanford.dmstech.vm.tdb.SharedCanvasTDBManager;
 import edu.stanford.dmstech.vm.uriresolvers.canvas.CanvasTextAnnoResourceMap;
 
@@ -102,7 +103,11 @@ public class AnnotationIngester {
 	        // commit all our new files
 		 frm.commitTransaction(txId);
 		 
+		 // index the new rdf files in the  main dataset
 		 (new SharedCanvasTDBManager()).indexFileListInMainDataset(filesToAddToTDB);
+		 // index the text for the  new annotations in solr
+		 (new SharedCanvasSOLRIndexer()).indexCanvasText(canvasTextToIndex);
+		 
 		}  catch (Exception e) {
 		        throw new IOException("Couldn't save new annotations.  Rolled back all.  Caused by: " + e.getMessage());
 		    }
@@ -212,7 +217,7 @@ public class AnnotationIngester {
 		return Config.getBaseURIForIds() + "transactions/" + transactionUUID;
 	}
 	private String getTransactionResourceMapURI() {
-		return Config.getBaseURIForDocs() + "transactions/" + transactionUUID + ".xml";
+		return Config.getBaseURIForDocuments() + "transactions/" + transactionUUID + ".xml";
 	}
 	
 	

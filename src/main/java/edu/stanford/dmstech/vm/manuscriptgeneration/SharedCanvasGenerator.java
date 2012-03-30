@@ -66,14 +66,13 @@ public class SharedCanvasGenerator {
 			String settlementName, 
 			String regionName, 
 			String countryName, 
-			String manuscriptDirectoryPath, 
+			String manuscriptSubDirectory, 
 			boolean parseTitle
 		) throws Exception {
 	
 		
-		directoryPathForManuscript = Config.getBaseDirForCollections() + Config.getDefaultCollectionName() + "/" + manuscriptDirectoryPath;
-		if (directoryPathForManuscript.endsWith("/")) directoryPathForManuscript = directoryPathForManuscript.substring(0, directoryPathForManuscript.length() - 1);
-		baseURIForManuscript = Config.getBaseURIForIds() + Config.getDefaultCollectionName() + "/" + manuscriptId + "/";
+		directoryPathForManuscript = Config.getAbsolutePathToManuDirInDefaultCollection(manuscriptSubDirectory);
+		baseURIForManuscript = Config.getBaseURIForManuscriptInDefaultCollection(manuscriptSubDirectory);
 		
 		sharedCanvasInstance = SharedCanvas.createNewSharedCanvasModel(
 				baseURIForManuscript,
@@ -187,7 +186,7 @@ public class SharedCanvasGenerator {
 		
 		DMSTechRDFConstants rdfConstants = DMSTechRDFConstants.getInstance();
 		
-		String relativePathToCollectionsManifestInHomeDir = Config.getBaseDirForCollections() + "/Collection.nt";
+		String relativePathToCollectionsManifestInHomeDir = Config.getCollectionSubDir() + "/Collection.nt";
 		
 		Model collectionManifestModel = RDFUtils.loadModelInHomeDir(relativePathToCollectionsManifestInHomeDir);
 

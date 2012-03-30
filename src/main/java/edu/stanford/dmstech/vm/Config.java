@@ -15,6 +15,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import org.apache.commons.digester.Digester;
+import org.apache.log4j.BasicConfigurator;
 import org.xml.sax.SAXException;
 
 public class Config implements ServletContextListener {
@@ -33,13 +34,13 @@ public class Config implements ServletContextListener {
 	public static String zoneAnnotationFileName = null;
 	public static String canvasFileName = null;
 	public static String baseURIForIds = null;
-	public static String baseURIForDocs = null;
-	public static String baseDirForCollections = null;
-	public static String defaultCollectionName = null;
-	public static String mainTBDDatasetDir = null;
-	
+	public static String baseURIForDocuments = null;	
+	public static String collectionSubDir = null;
+	public static String textAnnosSubDir = null;
+	public static String transactionsSubDir = null;
+	public static String defaultCollection = null;
+	public static String mainTDBDatasetDir = null;	
 	public static String solrServer = null;
-	//public static String fileNameForOldTextAnnos = null;
 	
 	public static  File homeDir = null;
 	
@@ -47,13 +48,7 @@ public class Config implements ServletContextListener {
 	
 	static private SimpleFormatter textFormatter;
 	
-	public static String getMainTBDDatasetDir() {
-		return mainTBDDatasetDir;
-	}
 	
-	public void setMainTBDDatasetDir(String mainTBDDatasetDir) {
-		Config.mainTBDDatasetDir = mainTBDDatasetDir;
-	}
 		
 	public static String getRepositoryFileName() {
 		return repositoryFileName;
@@ -123,49 +118,72 @@ public class Config implements ServletContextListener {
 	public  void setCanvasFileName(String canvasFileName) {
 		Config.canvasFileName = canvasFileName;
 	}
-	
-	/*public static String getFileNameForOldTextAnnos() {
-		return fileNameForOldTextAnnos;
-	}
-	public  void setTextFileNameForOldTextAnnos(String fileNameForOldTextAnnos) {
-		Config.fileNameForOldTextAnnos = fileNameForOldTextAnnos;
-	}*/
 
 	public static String getBaseURIForIds() {
 		return baseURIForIds;
 	}
 
-
 	public void setBaseURIForIds(String baseURIForIds) {
 		Config.baseURIForIds = baseURIForIds;
-	}
+	}	
 	
-	public static String getDefaultCollectionName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	public static void setDefaultCollectionName(String defaultCollectionName) {
-		Config.defaultCollectionName = defaultCollectionName;
-	}
-	
-	public static String getBaseURIForDocs() {
-		return baseURIForDocs;
+	public static String getBaseURIForDocuments() {
+		return baseURIForDocuments;
 	}
 
+	public  void setBaseURIForDocuments(String baseURIForDocs) {
+		Config.baseURIForDocuments = baseURIForDocs;
+	}	
 
-	public  void setBaseURIForDocs(String baseURIForDocs) {
-		Config.baseURIForDocs = baseURIForDocs;
+	public static String getCollectionSubDir() {
+		return collectionSubDir;
+	}
+
+	public void setCollectionSubDir(String collectionSubDir) {
+		Config.collectionSubDir = collectionSubDir;
+	}
+
+	
+	public static String getTextAnnosSubDir() {
+		return textAnnosSubDir;
+	}
+
+	public  void setTextAnnosSubDir(String textAnnosSubDir) {
+		Config.textAnnosSubDir = textAnnosSubDir;
+	}
+
+	public static String getTransactionsSubDir() {
+		return transactionsSubDir;
+	}
+
+	public  void setTransactionsSubDir(String transactionsSubDir) {
+		Config.transactionsSubDir = transactionsSubDir;
+	}
+
+	public static String getDefaultCollection() {
+		return defaultCollection;
 	}
 	
-	public static String getBaseDirForCollections() {
-		return baseDirForCollections;
+	public  void setDefaultCollection(String defaultCollection) {
+		Config.defaultCollection = defaultCollection;
+	}
+	
+	public static String getMainTDBDatasetDir() {
+		return mainTDBDatasetDir;
+	}
+	
+	public void setMainTDBDatasetDir(String mainTDBDatasetDir) {
+		Config.mainTDBDatasetDir = mainTDBDatasetDir;
+	}
+	
+	public static String getSolrServer() {
+		return solrServer;
 	}
 
-	public static void setBaseDirForCollections(String baseDirForCollections) {
-		Config.baseDirForCollections = baseDirForCollections;
+	public  void setSolrServer(String solrServer) {
+		Config.solrServer = solrServer;
 	}
-
+	
 	public static File getHomeDir() {
 		return homeDir;
 	}
@@ -175,59 +193,85 @@ public class Config implements ServletContextListener {
 		Config.homeDir = homeDir;
 	}
 
-	public static String getSolrServer() {
-		return solrServer;
+	
+	public static String getAbsolutePathToTextAnnosDir() {
+		return (new File(homeDirPath, getTextAnnosSubDir())).getAbsolutePath();
 	}
-
-	public static void setSolrServer(String solrServer) {
-		Config.solrServer = solrServer;
+	
+	public static String getAbsolutePathToTransactionsDir() {
+		return (new File(homeDirPath, getTransactionsSubDir())).getAbsolutePath();
 	}
 
 	public static String getAbsolutePathToMainTBDDir() {
-		return (new File(homeDirPath, mainTBDDatasetDir)).getAbsolutePath();
+		return (new File(homeDirPath, mainTDBDatasetDir)).getAbsolutePath();
 	}
+	
+	public static String getAbsolutePathToCollectionsDir() {
+		return (new File(homeDirPath, getCollectionSubDir())).getAbsolutePath();
+	}
+	
+	public static void main(String[] args) {
+		BasicConfigurator.configure();
+		Config config = new Config();
+		config.initializeThisConfig();
+		System.out.println(config.getAbsolutePathToManuscriptDir("someColl", "someManu"));
+	}
+	
+	public static String getAbsolutePathToManuscriptDir(String collectionDir, String manuscriptDir) {		
+		File collectionsDir = new File(homeDirPath, getCollectionSubDir());
+		return (new File(collectionsDir, collectionDir + "/" + manuscriptDir)).getAbsolutePath();
+	}
+	
+	public static String getAbsolutePathToManuDirInDefaultCollection(
+			String manuscriptSubDirectory) {
+		return getAbsolutePathToManuscriptDir(getDefaultCollection(), manuscriptSubDirectory);
+	}
+
 	
     public void contextInitialized(ServletContextEvent event) {
     	
-        homeDirPath = System.getenv(HOME_DIR_ENV_VAR);
-        
-        if (homeDirPath == null || homeDirPath.trim().equals("")) {
-        	System.out.println("The home directory environment variable, " + HOME_DIR_ENV_VAR + ", has not been set.");	
-        	return;
-        } 
-        
-        homeDir = new File(homeDirPath);
-        if (! homeDir.exists()) {
-        	System.out.println("The home directory pointed to by the environment variable, " + HOME_DIR_ENV_VAR + ", does not exist.");	
-        	return;
-        }       
-        	
-        if (! homeDir.canRead()) {
-        	System.out.println("The home directory pointed to by the environment variable, " + HOME_DIR_ENV_VAR + ", is not readable.  Please check your permissions.");	
-        	return;
-        }
-        
-        if (! homeDir.isDirectory()) {
-        	System.out.println("The home directory pointed to by the environment variable, " + HOME_DIR_ENV_VAR + ", doesn't appear to be a directory.");	
-        	return;
-        }	
-        	
-        if (! homeDir.canWrite()) {
-        	System.out.println("The home directory pointed to by the environment variable, " + HOME_DIR_ENV_VAR + ", is not writable.  Please check your permissions.");	
-        	return;
-        }	
-        	
-        File manuscriptsDataAndImagesDirectory = new File(homeDir, "data");
-        if ( ! manuscriptsDataAndImagesDirectory.exists() ) {
-        	manuscriptsDataAndImagesDirectory.mkdir();
-        }
-        
-        configureRootLogger(homeDir);		
-		
-        loadConfigFile(homeDir);  
-
+       initializeThisConfig();
     }
 
+    private void initializeThisConfig() {
+    	 homeDirPath = System.getenv(HOME_DIR_ENV_VAR);
+         
+         if (homeDirPath == null || homeDirPath.trim().equals("")) {
+         	System.out.println("The home directory environment variable, " + HOME_DIR_ENV_VAR + ", has not been set.");	
+         	return;
+         } 
+         
+         homeDir = new File(homeDirPath);
+         if (! homeDir.exists()) {
+         	System.out.println("The home directory pointed to by the environment variable, " + HOME_DIR_ENV_VAR + ", does not exist.");	
+         	return;
+         }       
+         	
+         if (! homeDir.canRead()) {
+         	System.out.println("The home directory pointed to by the environment variable, " + HOME_DIR_ENV_VAR + ", is not readable.  Please check your permissions.");	
+         	return;
+         }
+         
+         if (! homeDir.isDirectory()) {
+         	System.out.println("The home directory pointed to by the environment variable, " + HOME_DIR_ENV_VAR + ", doesn't appear to be a directory.");	
+         	return;
+         }	
+         	
+         if (! homeDir.canWrite()) {
+         	System.out.println("The home directory pointed to by the environment variable, " + HOME_DIR_ENV_VAR + ", is not writable.  Please check your permissions.");	
+         	return;
+         }	
+         	
+         File manuscriptsDataAndImagesDirectory = new File(homeDir, "data");
+         if ( ! manuscriptsDataAndImagesDirectory.exists() ) {
+         	manuscriptsDataAndImagesDirectory.mkdir();
+         }
+         
+         configureRootLogger(homeDir);		
+ 		
+         loadConfigFile(homeDir);  
+
+    }
 
 	private void loadConfigFile(File homeDir) {
 		File configFile = new File(homeDir, "config.xml");
@@ -238,8 +282,6 @@ public class Config implements ServletContextListener {
 		
 		Digester digester = new Digester();  
 	    digester.push(this);  
-	    
-
 	  
 	    digester.addBeanPropertySetter("config/repositoryFileName");
 	    digester.addBeanPropertySetter("config/collectionFileName");
@@ -250,9 +292,11 @@ public class Config implements ServletContextListener {
 	    digester.addBeanPropertySetter("config/textAnnotationFileName");
 	    digester.addBeanPropertySetter("config/baseURIForIds");
 	    digester.addBeanPropertySetter("config/baseURIForDocuments");
-	    digester.addBeanPropertySetter("config/baseDirForCollections");
-	    digester.addBeanPropertySetter("config/defaultCollectionName");
-	    digester.addBeanPropertySetter("config/mainTBDDatasetDir");
+	    digester.addBeanPropertySetter("config/collectionSubDir");
+	    digester.addBeanPropertySetter("config/textAnnosSubDir");
+	    digester.addBeanPropertySetter("config/transactionsSubDir");
+	    digester.addBeanPropertySetter("config/defaultCollection");
+	    digester.addBeanPropertySetter("config/mainTDBDatasetDir");
 	    digester.addBeanPropertySetter("config/solrServer");
 	    
 
@@ -291,6 +335,13 @@ public class Config implements ServletContextListener {
         // nothing for now
     }
 
+	public static String getBaseURIForManuscriptInDefaultCollection(
+			String manuscriptSubDirectory) {
+		return getBaseURIForIds() + getDefaultCollection() + "/" + manuscriptSubDirectory + "/";
+		
+	}
+
+	
 	
 
 

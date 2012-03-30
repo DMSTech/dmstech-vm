@@ -42,7 +42,10 @@ public class SharedCanvasTDBManager {
 
 	public void reindexAllLocalRDFData() throws SolrServerException, IOException {
 		 Model tdb = loadTBDDataset(Config.getAbsolutePathToMainTBDDir());		    
-		recursivelyIndexAllNtripleFilesIn(Config.baseDirForCollections, tdb);
+		recursivelyIndexAllNtripleFilesIn(Config.getAbsolutePathToCollectionsDir(), tdb);
+		recursivelyIndexAllNtripleFilesIn(Config.getAbsolutePathToTextAnnosDir(), tdb);
+		recursivelyIndexAllNtripleFilesIn(Config.getAbsolutePathToTransactionsDir(), tdb);
+		
 		
 	}
 	
