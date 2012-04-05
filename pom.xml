@@ -9,40 +9,44 @@
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
-	<groupId>org.hamcrest</groupId>
-	<artifactId>hamcrest-core</artifactId>
-	<version>1.1</version>
-</dependency>           
+		<groupId>org.hamcrest</groupId>
+		<artifactId>hamcrest-core</artifactId>
+		<version>1.1</version>
+	</dependency>   
+	<dependency>
+  <groupId>org.slf4j</groupId>
+  <artifactId>slf4j-api</artifactId>
+  <version>1.6.4</version>
+</dependency>        
     <dependency>  
- <groupId>junit</groupId>
- <artifactId>junit</artifactId>
- <version>4.10</version>
- <scope>test</scope>
-</dependency>
-
+		 <groupId>junit</groupId>
+		 <artifactId>junit</artifactId>
+		 <version>4.10</version>
+		 <scope>test</scope>
+	</dependency>
     <dependency>
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
         <version>2.4</version>
     </dependency>
     <dependency>
-               <artifactId>solr-solrj</artifactId>
-               <groupId>org.apache.solr</groupId>
-               <version>3.4.0</version>
-               <type>jar</type>
-               <scope>compile</scope>
+        <artifactId>solr-solrj</artifactId>
+        <groupId>org.apache.solr</groupId>
+        <version>1.4.1</version>
+        <type>jar</type>
+        <scope>compile</scope>
     </dependency>
     <dependency>
-    <groupId>com.sun.jersey</groupId>
-    <artifactId>jersey-server</artifactId>
-    <version>1.8</version>
-</dependency> 
-<dependency>
+	    <groupId>com.sun.jersey</groupId>
+	    <artifactId>jersey-server</artifactId>
+	    <version>1.8</version>
+	</dependency> 
+	<dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-json</artifactId>
             <version>1.8</version>
-</dependency>
-<dependency>
+	</dependency>
+	<dependency>
     <groupId>com.sun.grizzly</groupId>
     <artifactId>grizzly-servlet-webserver</artifactId>
     <version>1.9.18-i</version>
@@ -88,6 +92,12 @@
 	<artifactId>commons-transaction</artifactId>
 	<version>1.2</version>
 </dependency>
+<dependency>
+	<groupId>org.json</groupId>
+	<artifactId>json</artifactId>
+	<version>20090211</version>
+</dependency>
+            
 <!--  djatoka dependencies, all local -->
 	<dependency>
       <groupId>gov.lanl.adore.djatoka</groupId>

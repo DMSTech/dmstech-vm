@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.solr.client.solrj.SolrServerException;
 
 import com.hp.hpl.jena.query.Dataset;
@@ -40,14 +41,16 @@ import gov.lanl.adore.djatoka.util.IOUtils;
 
 public class SharedCanvasTDBManager {
 
-	public void reindexAllLocalRDFData() throws SolrServerException, IOException {
-		 Model tdb = loadTBDDataset(Config.getAbsolutePathToMainTBDDir());		    
+	public void reindexAllLocalRDFData() throws IOException {
+		
+		 Model tdb = loadTDBDataset(Config.getAbsolutePathToMainTBDDir());	
+		 tdb.removeAll();
 		recursivelyIndexAllNtripleFilesIn(Config.getAbsolutePathToCollectionsDir(), tdb);
 		recursivelyIndexAllNtripleFilesIn(Config.getAbsolutePathToTextAnnosDir(), tdb);
-		recursivelyIndexAllNtripleFilesIn(Config.getAbsolutePathToTransactionsDir(), tdb);
-		
-		
+		recursivelyIndexAllNtripleFilesIn(Config.getAbsolutePathToTransactionsDir(), tdb);	
 	}
+	
+
 	
 	public void recursivelyIndexAllNtripleFilesIn(String directoryPath, Model tdb) {
 		FileFilter nTripleSourceFileFilter = new nTripleSourceFileFilter();
@@ -137,10 +140,10 @@ public void tdbTest() {
 	  
 //	loadFileIntoTBDModel(tbdDir, source);
 	
-	Model tdbModel = loadTBDDataset(tbdDir);
+	Model tdbModel = loadTDBDataset(tbdDir);
 	
 //   String queryString = "PREFIX sc: <http://www.shared-canvas.org/ns/> SELECT * WHERE { ?x sc:hasTarget ?y }";
-	String queryString = "PREFIX oac: <http://www.openannotation.org/ns/> SELECT * WHERE { ?x oac:hasTarget ?y }";
+//	String queryString = "PREFIX oac: <http://www.openannotation.org/ns/> SELECT * WHERE { ?x oac:hasTarget ?y }";
  //  printQueryResultToConsole(queryString, tdbModel);
  
     listAllStatementsInModelToConsole(tdbModel);	   
@@ -156,15 +159,15 @@ public void loadFileIntoMainRepoTBDDataset( String rdfSourcePath) {
 }
 
 public void loadFileIntoTBDModel(String tbdDatasetPath, String rdfFilePath) {
-	   Model tdb = loadTBDDataset(tbdDatasetPath);
+	   Model tdb = loadTDBDataset(tbdDatasetPath);
 	    FileManager.get().readModel( tdb, rdfFilePath);
 }
 
 public Model loadMainTDBDataset() {
-	return loadTBDDataset(Config.getAbsolutePathToMainTBDDir());
+	return loadTDBDataset(Config.getAbsolutePathToMainTBDDir());
 }
 
-private Model loadTBDDataset(String tbdDatasetPath) {
+private Model loadTDBDataset(String tbdDatasetPath) {
 	Dataset dataset = TDBFactory.createDataset(tbdDatasetPath);
 	  Model tdb = dataset.getDefaultModel();
 	return tdb;
@@ -203,7 +206,17 @@ private void printStatementsToConsole(StmtIterator iter) {
 }
 public static void main(String[] args) throws IOException {
 	
-	(new SharedCanvasTDBManager()).tdbTest();
+
+	//BasicConfigurator.configure();
+	Config config = new Config();
+	config.initializeThisConfig();
+		
+		SharedCanvasTDBManager sharedCanvasTDBManager = new SharedCanvasTDBManager();
+		
+		sharedCanvasTDBManager.reindexAllLocalRDFData();
+		sharedCanvasTDBManager.tdbTest();
+		
+	
 	  
 	 }
 

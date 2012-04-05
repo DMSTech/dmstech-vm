@@ -11,8 +11,7 @@ import javax.ws.rs.Produces;
 import com.hp.hpl.jena.rdf.model.Model;
 
 import edu.stanford.dmstech.vm.Config;
-import edu.stanford.dmstech.vm.uriresolvers.AnnotationUtils;
-import edu.stanford.dmstech.vm.uriresolvers.RDFUtils;
+import edu.stanford.dmstech.vm.RDFUtils;
 
 
 public class RepositoryResourceMap {
@@ -40,7 +39,7 @@ public class RepositoryResourceMap {
 	@Path("/Repository.html")  
 	@Produces("text/turtle;charset=utf-8")
 	public String getResourceMapAsHTML() throws Exception {
-		return AnnotationUtils.serializeRDFToHTML(RDFUtils.getFileInHomeDir(Config.repositoryFileName));		
+		return RDFUtils.serializeRDFToHTML(RDFUtils.getFileInHomeDir(Config.repositoryFileName));		
 	}
 
 }

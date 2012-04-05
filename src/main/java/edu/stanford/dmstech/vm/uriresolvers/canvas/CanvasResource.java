@@ -8,23 +8,26 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
 import edu.stanford.dmstech.vm.Config;
-import edu.stanford.dmstech.vm.uriresolvers.AnnotationUtils;
-import edu.stanford.dmstech.vm.uriresolvers.RDFUtils;
+import edu.stanford.dmstech.vm.RDFUtils;
+import edu.stanford.dmstech.vm.SharedCanvasUtil;
 import edu.stanford.dmstech.vm.uriresolvers.textannotations.TextAnnotationResource;
 
 @Path("/{collectionId}/{manuscriptId}/{canvasId}")
 public class CanvasResource {
  
-	
+	@Context 
+	UriInfo uriInfo;
 	
 Logger logger = Logger.getLogger(TextAnnotationResource.class.getName());
 	
-/* Do I want 'post to' included in the  canvas:
+/* Do we want 'post to' included in the  canvas:
  * 
  * <dms:Canvas rdf:about="http://dmss.stanford.edu/Parker/524/manifest/17V">
 <dms:acceptsAnnotations rdf:id="http://dmss.stanford.edu/Parker/524/manifest/17V/annotation"/>
@@ -33,45 +36,37 @@ Logger logger = Logger.getLogger(TextAnnotationResource.class.getName());
 
  */
 
+
+//do I really want subdirectory in the manuscript collection for each canvas?  might be better just to generate this thing dyanamically.
+		
 	@GET
 	@Produces("application/rdf+xml")
-	public File getResourceAsXML(
-			@PathParam("collectionId") final String collectionId,
-			@PathParam("manuscriptId") final String manuscriptId,
-			@PathParam("canvasId") final String canvasId
+	public String getResourceAsXML(
 			) throws Exception {
-		return RDFUtils.getFileInHomeDir(getPathToModelInHomeDir(collectionId, manuscriptId, canvasId));
-	}
+	
+		String canvasURI = uriInfo.getAbsolutePath().toASCIIString();		
+		return SharedCanvasUtil.getSerializedCanvasRDF(canvasURI, "RDF/XML");
+
+		}
+	
 	
 	@GET 
 	@Produces("text/turtle;charset=utf-8")
-	public String getResourceStmtsAsTurtle(
-			@PathParam("collectionId") final String collectionId,
-			@PathParam("manuscriptId") final String manuscriptId,
-			@PathParam("canvasId") final String canvasId
-			) throws Exception {		
-		Model textAnnotationsModel = RDFUtils.loadModelInHomeDir(getPathToModelInHomeDir(collectionId, manuscriptId, canvasId));
-		StringWriter stringWriter = new StringWriter();
-		textAnnotationsModel.write(stringWriter, "TURTLE");
-		return stringWriter.toString();	
+	public String getResourceStmtsAsTurtle() throws Exception {		
+		String canvasURI = uriInfo.getAbsolutePath().toASCIIString();		
+		return SharedCanvasUtil.getSerializedCanvasRDF(canvasURI, "TURTLE");
+	
 	}
 
 	@GET 
 	@Produces("text/html;charset=utf-8")
-	public String getResourceStmtsAsHTML(
-			@PathParam("collectionId") final String collectionId,
-			@PathParam("manuscriptId") final String manuscriptId,
-			@PathParam("canvasId") final String canvasId
-			) throws TransformerFactoryConfigurationError, Exception {		
-		return AnnotationUtils.serializeRDFToHTML(RDFUtils.getFileInHomeDir(getPathToModelInHomeDir(collectionId, manuscriptId, canvasId)));	
+	public String getResourceStmtsAsHTML() throws TransformerFactoryConfigurationError, Exception {	
+		String canvasURI = uriInfo.getAbsolutePath().toASCIIString();
+		String rdfAsXML = SharedCanvasUtil.getSerializedCanvasRDF(canvasURI, "RDF/XML");
+		return RDFUtils.serializeRDFToHTML(rdfAsXML);	
 	}
 	
-	
-	private String getPathToModelInHomeDir(String collectionId, String manuscriptId, String canvasId) throws Exception {
-		
-		return "collections/" + collectionId + "/manuscripts/" + manuscriptId + "/canvases/" + canvasId + "/" + Config.getCanvasFileName();
-		
-	}
+
 
 	
 	

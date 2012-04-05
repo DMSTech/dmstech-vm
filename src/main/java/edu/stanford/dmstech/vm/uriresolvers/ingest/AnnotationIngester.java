@@ -38,7 +38,6 @@ import edu.stanford.dmstech.vm.uriresolvers.canvas.CanvasTextAnnoResourceMap;
 
 public class AnnotationIngester {
 
-	
 	private final String W3CDTF_NOW = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).format(new Date());
 	Logger logger = Logger.getLogger(CanvasTextAnnoResourceMap.class.getName());
 	LoggerFacade loggerFacade = null;
@@ -79,11 +78,11 @@ public class AnnotationIngester {
 			// add the aggregation for the transaction	  
 			transactionsAggregationResource = transactionResourceMapModel.createResource(transactionAggregationURI)
 						.addProperty(RDF.type, rdfConstants.oreAggregationClass)	
-			  			.addProperty(RDF.type, rdfConstants.transactionClass)
+			  			.addProperty(RDF.type, rdfConstants.scTransactionClass)
 			  			.addProperty(rdfConstants.httpMethod, rdfConstants.httpPostResource);			
 			// add the resource map for the transaction
 			transactionResourceMapModel.createResource(transactionResourceMapURI)
-						.addProperty(RDF.type, rdfConstants.transactionClass)
+						.addProperty(RDF.type, rdfConstants.scTransactionClass)
 						.addProperty(rdfConstants.oreDescribes, transactionsAggregationResource)
 						.addProperty(DCTerms.created, transactionResourceMapModel.createTypedLiteral(W3CDTF_NOW, rdfConstants.DCTERMS_NAMESPACE + "W3CDTF"))
 						.addProperty(DC.format, "application/rdf+xml");						
@@ -154,7 +153,7 @@ public class AnnotationIngester {
 				newModelToWrite.add(newAnnotationResource, rdfConstants.oacHasTargetProperty, targetCanvas);
 				String bodyText = null;
 				if (oldBody.hasProperty(RDF.type, rdfConstants.cntAsTxtType)) {
-					bodyText = oldBody.getProperty(rdfConstants.cntRestProperty).getString();				
+					bodyText = oldBody.getProperty(rdfConstants.cntCharsProperty).getString();				
 					//should this next body type actually be a TextBody?
 					Resource newBody = newModelToWrite.createResource( getNewTextAnnoBodyURI(uuid), rdfConstants.oacBodyType);
 					// I'm not sure if this next sameAs is necessary, or in the right place.

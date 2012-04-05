@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.FileHandler;
@@ -13,6 +15,7 @@ import java.util.logging.SimpleFormatter;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.ws.rs.core.UriBuilder;
 
 import org.apache.commons.digester.Digester;
 import org.apache.log4j.BasicConfigurator;
@@ -210,6 +213,23 @@ public class Config implements ServletContextListener {
 		return (new File(homeDirPath, getCollectionSubDir())).getAbsolutePath();
 	}
 	
+	public static String getAbsolutePathToDefaultCollectionsDir() {
+		return (new File(getAbsolutePathToCollectionsDir(), defaultCollection)).getAbsolutePath();
+	}
+	public static String getAbsolutePathToDefaultCollectionRM() {
+		return new File(getAbsolutePathToDefaultCollectionsDir(), "Collection.nt").getAbsolutePath();
+	}
+	
+	public static String getAbsolutePathToManuscriptDir(String defaultCollectionSubDir, String manuscriptDir) {		
+		File collectionsDir = new File(homeDirPath, getCollectionSubDir());
+		return new File(new File(collectionsDir, defaultCollectionSubDir), manuscriptDir).getAbsolutePath();
+	}
+	
+	public static String getAbsolutePathToManuDirInDefaultCollection(
+			String manuscriptSubDirectory) {
+		return getAbsolutePathToManuscriptDir(getDefaultCollection(), manuscriptSubDirectory);
+	}
+	
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
 		Config config = new Config();
@@ -217,23 +237,20 @@ public class Config implements ServletContextListener {
 		System.out.println(config.getAbsolutePathToManuscriptDir("someColl", "someManu"));
 	}
 	
-	public static String getAbsolutePathToManuscriptDir(String collectionDir, String manuscriptDir) {		
-		File collectionsDir = new File(homeDirPath, getCollectionSubDir());
-		return (new File(collectionsDir, collectionDir + "/" + manuscriptDir)).getAbsolutePath();
-	}
 	
-	public static String getAbsolutePathToManuDirInDefaultCollection(
-			String manuscriptSubDirectory) {
-		return getAbsolutePathToManuscriptDir(getDefaultCollection(), manuscriptSubDirectory);
+	public static String getBaseURIForManuscriptInDefaultCollection(
+			String manuscriptSubDirectory) throws URISyntaxException {
+		return UriBuilder.fromUri(getBaseURIForIds()).path(getDefaultCollection()).path(manuscriptSubDirectory).build().toString();
+		
+		
 	}
-
 	
     public void contextInitialized(ServletContextEvent event) {
     	
        initializeThisConfig();
     }
 
-    private void initializeThisConfig() {
+    public void initializeThisConfig() {
     	 homeDirPath = System.getenv(HOME_DIR_ENV_VAR);
          
          if (homeDirPath == null || homeDirPath.trim().equals("")) {
@@ -335,11 +352,8 @@ public class Config implements ServletContextListener {
         // nothing for now
     }
 
-	public static String getBaseURIForManuscriptInDefaultCollection(
-			String manuscriptSubDirectory) {
-		return getBaseURIForIds() + getDefaultCollection() + "/" + manuscriptSubDirectory + "/";
-		
-	}
+	
+	
 
 	
 	

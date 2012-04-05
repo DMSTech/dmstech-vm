@@ -17,8 +17,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Path;
 
 import edu.stanford.dmstech.vm.Config;
-import edu.stanford.dmstech.vm.uriresolvers.AnnotationUtils;
-import edu.stanford.dmstech.vm.uriresolvers.RDFUtils;
+import edu.stanford.dmstech.vm.RDFUtils;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.sun.jersey.api.NotFoundException;
@@ -56,7 +55,7 @@ public class ManuscriptManifestResourceMap {
 			@PathParam("collectionId") final String collectionId,
 			@PathParam("manuscriptId") final String manuscriptId
 			) throws Exception {
-		return AnnotationUtils.serializeRDFToHTML(RDFUtils.getFileInHomeDir(collectionId + "/" + manuscriptId + "/" + Config.manifestFileName));		
+		return RDFUtils.serializeRDFToHTML(RDFUtils.getFileInHomeDir(collectionId + "/" + manuscriptId + "/" + Config.manifestFileName));		
 	}
 		
 

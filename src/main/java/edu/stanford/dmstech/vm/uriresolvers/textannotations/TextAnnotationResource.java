@@ -20,7 +20,7 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.util.FileManager;
 
 import edu.stanford.dmstech.vm.Config;
-import edu.stanford.dmstech.vm.uriresolvers.AnnotationUtils;
+import edu.stanford.dmstech.vm.RDFUtils;
 
 @Path("/{collectionId}/{manuscriptId}/{canvasId}/{textAnnoId}")
 public class TextAnnotationResource {
@@ -58,7 +58,7 @@ public class TextAnnotationResource {
 			@PathParam("canvasId") final String canvasId
 			) throws URISyntaxException, TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {		
 		String statements = getAllStatementsForAnnotation(uriInfo, manuscriptId, canvasId, "RDF/XML");
-				return AnnotationUtils.serializeRDFToHTML(statements);
+				return RDFUtils.serializeRDFToHTML(statements);
 	}
 	
 	private String getAllStatementsForAnnotation(UriInfo uriInfo, String manuscriptId, String canvasId, String serializeAs) {

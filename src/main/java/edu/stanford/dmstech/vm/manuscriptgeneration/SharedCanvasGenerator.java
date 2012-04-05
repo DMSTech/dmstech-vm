@@ -18,9 +18,9 @@ import com.hp.hpl.jena.vocabulary.RDF;
 
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.DMSTechRDFConstants;
+import edu.stanford.dmstech.vm.RDFUtils;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasSOLRIndexer;
 import edu.stanford.dmstech.vm.tdb.SharedCanvasTDBManager;
-import edu.stanford.dmstech.vm.uriresolvers.RDFUtils;
 import gov.lanl.adore.djatoka.DjatokaEncodeParam;
 import gov.lanl.adore.djatoka.DjatokaException;
 import gov.lanl.adore.djatoka.ICompress;
@@ -29,6 +29,7 @@ import gov.lanl.adore.djatoka.util.IOUtils;
 import gov.lanl.adore.djatoka.util.ImageProcessingUtils;
 import gov.lanl.adore.djatoka.util.ImageRecord;
 import gov.lanl.adore.djatoka.util.ImageRecordUtils;
+import gov.lanl.adore.djatoka.util.JP2ImageInfo;
 import gov.lanl.adore.djatoka.util.SourceImageFileFilter;
 
 
@@ -44,11 +45,25 @@ public class SharedCanvasGenerator {
 		
 		// Simple log4j configuration to log to the console.
 	     BasicConfigurator.configure();
-	     logger.setLevel(Level.ALL);
+	     logger.setLevel(Level.ERROR);
+	     Config config = new Config();
+	 	config.initializeThisConfig();
 	     
 		SharedCanvasGenerator sharedCanvasGenerator = new SharedCanvasGenerator();
 		try {
-	//		sharedCanvasGenerator.generateSharedCanvas("/Users/jameschartrand/STANFORD_KVM_HOME/testImages", "http://localhost:8080/vm/", null, null, null, null, null, null, null, null, null, false);
+		sharedCanvasGenerator.generateSharedCanvasInDefaultDir(
+				"aManu name", 
+				"a Manu title", 
+				"collid 3223", 
+				"manuId 35", 
+				"altId 3", 
+				"a repoName", 
+				"institution name 2", 
+				"some settlement", 
+				"some region name", 
+				"some country", 
+				"myTestManu", 
+				false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -91,7 +106,7 @@ public class SharedCanvasGenerator {
 		generateRDFFromJP2s(parseTitle);
 		saveManuscriptRDF();
 		indexManuscriptRDF();
-		indexManuscriptMetadataInSOLR();
+		indexInSolr();
 		addManuscriptToDefaultCollectionList();
 		
 		return baseURIForManuscript + "Manifest";
@@ -118,8 +133,10 @@ public class SharedCanvasGenerator {
 				String fileNameWithoutExtension = f.getName().substring(0, f.getName().indexOf("."));
 				String jp2FileName =  fileNameWithoutExtension + ".jp2";
 			    File outFile = new File(directoryPathForManuscript, jp2FileName);
-			    jp2.compressImage(f.getAbsolutePath(), outFile.getAbsolutePath(), p);
-			    
+			    if (! outFile.exists()) {
+			    	// don't overwrite
+			    	jp2.compressImage(f.getAbsolutePath(), outFile.getAbsolutePath(), p);
+			    }
 			    }
 						
 		} catch (DjatokaException e) {
@@ -144,9 +161,12 @@ public class SharedCanvasGenerator {
 		    	// if the image files have been named like 14_page14, i.e. pageNumber_pageTitle
 		    	pageTitle = fileNameWithoutExtension.substring(fileNameWithoutExtension.indexOf("_"), fileNameWithoutExtension.length() + 1);
 		    	  }
-		    ImageRecord dim = ImageRecordUtils.getImageDimensions(f.getAbsolutePath());
+		    JP2ImageInfo imageInfo = new JP2ImageInfo(f);
+		    ImageRecord dim = imageInfo.getImageRecord();
 		    sharedCanvasInstance.addImageToSharedCanvas(imageFileName, pageTitle, String.valueOf(dim.getWidth()), String.valueOf(dim.getHeight()));					
 		   
+		    
+		    
 		}
 	}
 	
@@ -155,9 +175,11 @@ public class SharedCanvasGenerator {
 		// for N3 output the language can be specified as: 
 		// "N3-PP", "N3-PLAIN" or "N3-TRIPLE", which controls the style of N3 produced.
 		String format = "N-TRIPLE";
-		String manifestFilePath = directoryPathForManuscript + "/rdf/Manifest.nt";
-		String imageAnnotationsFilePath = directoryPathForManuscript + "/rdf/ImageAnnotations.nt";
-		String normalSequenceFilePath = directoryPathForManuscript + "/rdf/NormalSequence.nt";
+		File dirForRDF = new File(directoryPathForManuscript, "rdf");
+		if (!dirForRDF.exists()) dirForRDF.mkdir();
+		String manifestFilePath = new File(dirForRDF, "Manifest.nt").getAbsolutePath();
+		String imageAnnotationsFilePath = new File(dirForRDF, "ImageAnnotations.nt").getAbsolutePath();
+		String normalSequenceFilePath = new File(dirForRDF, "NormalSequence.nt").getAbsolutePath();
 		
 		sharedCanvasInstance.serializeManifestResourceMapToFile(manifestFilePath, format);
 		sharedCanvasInstance.serializeImageAnnoResourceMapToFile(imageAnnotationsFilePath, format);
@@ -177,22 +199,23 @@ public class SharedCanvasGenerator {
 		scTDBManager.loadFileIntoMainRepoTBDDataset(normalSequenceFilePath);
 	}
 	
-	private void indexManuscriptMetadataInSOLR() throws SolrServerException, IOException {
-		SharedCanvasSOLRIndexer solrIndexer = new SharedCanvasSOLRIndexer();
-		solrIndexer.indexManuscriptManifest(sharedCanvasInstance.getManifestAggregationResource());
+	private void indexInSolr() throws IOException, SolrServerException {
+		// NOTE:  for the moment we are assuming the manifest's uri is the URI for the manuscript
+		new SharedCanvasSOLRIndexer().indexManuscript(sharedCanvasInstance.getManifestAggregationURI());
 	}
 
 	private void addManuscriptToDefaultCollectionList() throws Exception {
 		
 		DMSTechRDFConstants rdfConstants = DMSTechRDFConstants.getInstance();
 		
-		String relativePathToCollectionsManifestInHomeDir = Config.getCollectionSubDir() + "/Collection.nt";
 		
-		Model collectionManifestModel = RDFUtils.loadModelInHomeDir(relativePathToCollectionsManifestInHomeDir);
+		String absolutePathToDefaultCollectionRM = Config.getAbsolutePathToDefaultCollectionRM();
+		String format = "N-TRIPLE";
+		Model collectionManifestModel = RDFUtils.loadModelInAbsoluteDir(absolutePathToDefaultCollectionRM, format);
 
 		Resource manifestAggregation = collectionManifestModel.createResource(sharedCanvasInstance.getManifestAggregationURI())
 				.addProperty(RDF.type, rdfConstants.oreAggregationClass)		
-				.addProperty(RDF.type, rdfConstants.manifestClass);
+				.addProperty(RDF.type, rdfConstants.scManifestClass);
 				
 		collectionManifestModel.createResource(sharedCanvasInstance.getManifestRMURI())
 				.addProperty(RDF.type, rdfConstants.oreResourceMapClass)
@@ -205,7 +228,7 @@ public class SharedCanvasGenerator {
 			aggregationResource.addProperty(rdfConstants.oreAggregates, manifestAggregation);
 		}
 		
-		RDFUtils.serializeModelToHomeDir(collectionManifestModel, relativePathToCollectionsManifestInHomeDir, "N-TRIPLE");
+		RDFUtils.serializeModelToFile(collectionManifestModel, absolutePathToDefaultCollectionRM, "N-TRIPLE");
 		
 		
 	}

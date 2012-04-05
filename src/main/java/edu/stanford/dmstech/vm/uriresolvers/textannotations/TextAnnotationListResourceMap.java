@@ -16,8 +16,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.sun.jersey.api.NotFoundException;
 
 import edu.stanford.dmstech.vm.Config;
-import edu.stanford.dmstech.vm.uriresolvers.AnnotationUtils;
-import edu.stanford.dmstech.vm.uriresolvers.RDFUtils;
+import edu.stanford.dmstech.vm.RDFUtils;
 
 @Path("/{collectionId}/{manuscriptId}/")
 public class TextAnnotationListResourceMap {
@@ -52,7 +51,7 @@ public class TextAnnotationListResourceMap {
 			@PathParam("collectionId") final String collectionId,
 			@PathParam("manuscriptId") final String manuscriptId
 			) throws Exception {
-		return AnnotationUtils.serializeRDFToHTML(RDFUtils.getFileInHomeDir(collectionId + "/" + manuscriptId + "/" + Config.textAnnotationFileName));		
+		return RDFUtils.serializeRDFToHTML(RDFUtils.getFileInHomeDir(collectionId + "/" + manuscriptId + "/" + Config.textAnnotationFileName));		
 	}
 		
 

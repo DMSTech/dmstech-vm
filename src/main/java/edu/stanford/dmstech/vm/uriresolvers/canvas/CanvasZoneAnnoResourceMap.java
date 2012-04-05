@@ -1,23 +1,70 @@
 package edu.stanford.dmstech.vm.uriresolvers.canvas;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+
+import org.apache.log4j.BasicConfigurator;
 
 import edu.stanford.dmstech.vm.Config;
+import edu.stanford.dmstech.vm.DMSTechRDFConstants;
+import edu.stanford.dmstech.vm.RDFUtils;
+import edu.stanford.dmstech.vm.SharedCanvasUtil;
 import edu.stanford.dmstech.vm.uriresolvers.ResourceMapSerialization;
-
+@Path("{collectionId}/{manuscriptId}/{canvasId}/ImageAnnotations.xml")
 public class CanvasZoneAnnoResourceMap {
+ 	
+	@Context 
+	UriInfo uriInfo;
 	
-	@Path("/{collectionId}/{manuscriptId}/{canvasId}/")
-	public ResourceMapSerialization redirectToResourceMap(
-			@PathParam("collectionId") final String collectionId,
-			@PathParam("manuscriptId") final String manuscriptId,
-			@PathParam("canvasId") final String canvasId
-			) {
-		String pathToRMInHomeDir = "collections/" + collectionId + "/manuscripts/" + manuscriptId + "/canvases/" + canvasId + "/rdf/" + Config.getZoneAnnotationFileName();	
-		return new ResourceMapSerialization(pathToRMInHomeDir);
+	
+	@GET 
+	@Produces("application/rdf+xml")
+	public String redirectReqToXMLResourceMap() throws URISyntaxException, IOException {
+		return buildMap("RDF/XML");
+			} 
+	
+	@GET
+	@Produces("text/turtle;charset=utf-8")
+	public String redirectReqToTurtleResourceMap() throws URISyntaxException, IOException {
+		return buildMap("TURTLE");
+	}
+
+	@GET
+	@Produces("text/html;charset=utf-8")
+	public String redirectReqToHTMLResourceMap() throws URISyntaxException, TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException, IOException {		
+		String rdfAsXML = buildMap("RDF/XML");
+		return RDFUtils.serializeRDFToHTML(rdfAsXML);	
 	}
 	
+	private String buildMap(String format) throws IOException {
+		
+		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();	
+		return SharedCanvasUtil.buildResourceMapForAnnotations(format, originalRequest, "ZoneAnnotation",  DMSTechRDFConstants.getInstance().scZoneAnnotationListClass);
+		
+	}
+	
+	public static void main(String args[]) {
+		try {
+			BasicConfigurator.configure();
+			Config config = new Config();
+			config.initializeThisConfig();
+
+			
+			System.out.println(SharedCanvasUtil.buildResourceMapForAnnotations("TURTLE", "http://locahost:8080/vm/myColl/myMan/myCan/resourceMap.xml", "ZoneAnnotation",  DMSTechRDFConstants.getInstance().scZoneAnnotationListClass));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
 
 

@@ -16,6 +16,7 @@ import com.hp.hpl.jena.util.FileManager;
 import com.sun.jersey.api.NotFoundException;
 
 import edu.stanford.dmstech.vm.Config;
+import edu.stanford.dmstech.vm.RDFUtils;
 import edu.stanford.dmstech.vm.uriresolvers.canvas.CanvasImageAnnoResourceMap;
 
 public class ResourceMapSerialization {
@@ -31,15 +32,21 @@ public class ResourceMapSerialization {
 	@GET
 	@Path("{mapName: *.xml}") 
 	@Produces("application/rdf+xml")
-	public File getResourceMapAsXML() throws URISyntaxException {   	
-		return RDFUtils.getFileInHomeDir(pathToRMInHomeDir);
+	public String getResourceMapAsXML() throws Exception {   
+		
+		String format = "N-TRIPLE";
+		Model textAnnotationsModel = RDFUtils.loadModelInHomeDir(pathToRMInHomeDir, format);
+		StringWriter stringWriter = new StringWriter();
+		textAnnotationsModel.write(stringWriter, "RDF/XML");
+		return stringWriter.toString();		
 	}
 		
 	@GET
 	@Path("{mapName: *.ttl}")  
 	@Produces("text/turtle;charset=utf-8")
 	public String getResourceMapAsTurtle() throws Exception {
-		Model textAnnotationsModel = RDFUtils.loadModelInHomeDir(pathToRMInHomeDir);
+		String format = "N-TRIPLE";
+		Model textAnnotationsModel = RDFUtils.loadModelInHomeDir(pathToRMInHomeDir, format);
 		StringWriter stringWriter = new StringWriter();
 		textAnnotationsModel.write(stringWriter, "TURTLE");
 		return stringWriter.toString();		
@@ -49,7 +56,11 @@ public class ResourceMapSerialization {
 	@Path("{mapName: *.html}")  
 	@Produces("text/turtle;charset=utf-8")
 	public String getResourceMapAsHTML() throws Exception {
-		return AnnotationUtils.serializeRDFToHTML(RDFUtils.getFileInHomeDir(pathToRMInHomeDir));		
+		String format = "N-TRIPLE";
+		Model textAnnotationsModel = RDFUtils.loadModelInHomeDir(pathToRMInHomeDir, format);
+		StringWriter stringWriter = new StringWriter();
+		textAnnotationsModel.write(stringWriter, "TURTLE");		
+		return RDFUtils.serializeRDFToHTML(stringWriter.toString());		
 	}
 	
 	

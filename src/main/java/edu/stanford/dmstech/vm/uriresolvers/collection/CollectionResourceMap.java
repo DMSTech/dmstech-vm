@@ -17,8 +17,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Path;
 
 import edu.stanford.dmstech.vm.Config;
-import edu.stanford.dmstech.vm.uriresolvers.AnnotationUtils;
-import edu.stanford.dmstech.vm.uriresolvers.RDFUtils;
+import edu.stanford.dmstech.vm.RDFUtils;
 import edu.stanford.dmstech.vm.uriresolvers.ResourceMapSerialization;
 
 import com.hp.hpl.jena.rdf.model.Model;
@@ -48,7 +47,7 @@ public class CollectionResourceMap {
 	@Path("Collection.html")  
 	@Produces("text/turtle;charset=utf-8")
 	public String getResourceMapAsHTML(@PathParam("collectionId") final String collectionId) throws Exception {
-		return AnnotationUtils.serializeRDFToHTML(RDFUtils.getFileInHomeDir(collectionId + "/" + Config.collectionFileName));		
+		return RDFUtils.serializeRDFToHTML(RDFUtils.getFileInHomeDir(collectionId + "/" + Config.collectionFileName));		
 	}
 
 }

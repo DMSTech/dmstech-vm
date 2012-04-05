@@ -24,7 +24,8 @@ import com.hp.hpl.jena.vocabulary.DCTerms;
 import com.hp.hpl.jena.vocabulary.RDF;
 
 import edu.stanford.dmstech.vm.DMSTechRDFConstants;
-import edu.stanford.dmstech.vm.uriresolvers.RDFUtils;
+import edu.stanford.dmstech.vm.RDFUtils;
+import edu.stanford.dmstech.vm.SharedCanvasUtil;
 import edu.stanford.dmstech.vm.uriresolvers.canvas.CanvasTextAnnoResourceMap;
 
 public class SharedCanvas {
@@ -113,7 +114,7 @@ public class SharedCanvas {
 	}
 	private List<RDFNode> extractSingleRDFListFromModel(Model model) throws Exception {
 		List<RDFNode> theList = null;
-		ResIterator resIter = model.listSubjectsWithProperty(RDF.type, rdfConstants.sequenceClass);
+		ResIterator resIter = model.listSubjectsWithProperty(RDF.type, rdfConstants.scSequenceClass);
 		if (resIter.hasNext()){
 			// from http://tech.groups.yahoo.com/group/jena-dev/message/6769
 			//RDFList l = (RDFList) x.getPropertyValue( p ).as( RDFList.class );
@@ -265,20 +266,6 @@ public class SharedCanvas {
 	}
 
 
-	private Resource createAggregationAndRMWithoutList(Model model, String aggregationURI, Resource dmsAggregationType) {
-		Resource aggregation = model.createResource(aggregationURI)
-				.addProperty(RDF.type, rdfConstants.oreAggregationClass)
-				.addProperty(RDF.type, RDF.List)
-				.addProperty(RDF.type, dmsAggregationType);
-		
-		model.createResource(aggregationURI + ".xml")
-		.addProperty(RDF.type, rdfConstants.oreResourceMapClass)
-		.addProperty(rdfConstants.oreDescribes, aggregation)
-		.addProperty(DCTerms.created, model.createTypedLiteral(W3CDTF_NOW, DMSTechRDFConstants.DCTERMS_NAMESPACE + "W3CDTF"))
-		.addProperty(DC.format, "application/rdf+xml");						
-		// .addProperty(DCTerms.creator, ?? )	
-		return aggregation;
-	}
 	
 	
 	
@@ -323,16 +310,9 @@ public class SharedCanvas {
 		
 		manifestAggregation = model.createResource(getManifestAggregationURI())
 				.addProperty(RDF.type, rdfConstants.oreAggregationClass)		
-				.addProperty(RDF.type, rdfConstants.manifestClass)
+				.addProperty(RDF.type, rdfConstants.scManifestClass)
 				.addProperty(rdfConstants.oreAggregates, imageAnnoAggregation)
-				.addProperty(rdfConstants.oreAggregates, sequenceAggregation);
- 
-		// add the resource map that describes the aggregation
-		model.createResource(getManifestRMURI())
-				.addProperty(RDF.type, rdfConstants.oreResourceMapClass)
-				.addProperty(rdfConstants.oreDescribes, manifestAggregation)
-				.addProperty(DCTerms.created, model.createTypedLiteral(W3CDTF_NOW, rdfConstants.DCTERMS_NAMESPACE + "W3CDTF"))
-				.addProperty(DC.format, "application/rdf+xml")
+				.addProperty(rdfConstants.oreAggregates, sequenceAggregation)
 				.addProperty(DC.title, manuscriptTitle)	
 				.addProperty(rdfConstants.teiMsNameProperty, manuscriptName)	
 				.addProperty(rdfConstants.teiCollectionProperty, collectionId)	
@@ -342,27 +322,35 @@ public class SharedCanvas {
 				.addProperty(rdfConstants.teiInstitutionProperty, institutionName)	
 				.addProperty(rdfConstants.teiSettlementProperty, settlementName)	
 				.addProperty(rdfConstants.teiRegionProperty, regionName)	
-				.addProperty(rdfConstants.teiCountryProperty, countryName);
+				.addProperty(rdfConstants.teiCountryProperty, countryName);;
+ 
+		// add the resource map that describes the aggregation
+		model.createResource(getManifestRMURI())
+				.addProperty(RDF.type, rdfConstants.oreResourceMapClass)
+				.addProperty(rdfConstants.oreDescribes, manifestAggregation)
+				.addProperty(DCTerms.created, model.createTypedLiteral(W3CDTF_NOW, rdfConstants.DCTERMS_NAMESPACE + "W3CDTF"))
+				.addProperty(DC.format, "application/rdf+xml");
+				
 				
 				// .addProperty(DCTerms.creator, ?? )	
 		return manifestAggregation;
 	}
 
 	private Resource createSequenceAggregationAndRMInModel(Model model) {		
-		return createAggregationAndRMFromList(canvasSequenceJavaList, model, getSequenceAggregationURI(), rdfConstants.sequenceClass);	
+		return createAggregationAndRMFromList(canvasSequenceJavaList, model, getSequenceAggregationURI(), rdfConstants.scSequenceClass);	
 	}
 
 	private Resource createAnnoAggregationAndRMInModel(Model model) {		
-		return createAggregationAndRMFromList(annotationSequenceJavaList, model, getImageAnnosAggregationURI(), rdfConstants.imageAnnotationListClass);
+		return createAggregationAndRMFromList(annotationSequenceJavaList, model, getImageAnnosAggregationURI(), rdfConstants.scImageAnnotationListClass);
 		
 	}
 
 	private Resource createSequenceAggregationAndRMWithoutList(Model model) {		
-		return createAggregationAndRMWithoutList(model, getSequenceAggregationURI(), rdfConstants.sequenceClass);		
+		return SharedCanvasUtil.addResourceMapAndAggregationToModel(model, getSequenceAggregationURI(), rdfConstants.scSequenceClass, W3CDTF_NOW);		
 	}
 
 	private Resource createAnnoAggregationAndRMInModelWithoutList(Model model) {		
-		return createAggregationAndRMWithoutList(model, getImageAnnosAggregationURI(), rdfConstants.imageAnnotationListClass);
+		return SharedCanvasUtil.addResourceMapAndAggregationToModel(model, getImageAnnosAggregationURI(), rdfConstants.scImageAnnotationListClass, W3CDTF_NOW);
 				
 		
 	}
@@ -372,7 +360,7 @@ public class SharedCanvas {
 				.addProperty(DC.title, title)
 				.addProperty(rdfConstants.exifWidth, width)
 				.addProperty(rdfConstants.exifHeight, height)
-				.addProperty(RDF.type, rdfConstants.dmsCanvasClass);	
+				.addProperty(RDF.type, rdfConstants.scCanvasClass);	
 				 /* <rdf:Description rdf:about="http://dms-data.stanford.edu/Stanford/kq131cs7229/image-24">
 				    <dc:title>f. 17r</dc:title>
 				    <exif:width>3907</exif:width>
@@ -385,8 +373,8 @@ public class SharedCanvas {
     	return imageAnnosResourceMapModel.createResource(imageURI)
 				.addProperty(rdfConstants.exifWidth, width)
 				.addProperty(rdfConstants.exifHeight, height)
-				.addProperty(RDF.type, rdfConstants.dmsImageClass)
-				.addProperty(RDF.type, rdfConstants.dmsImageBodyClass);
+				.addProperty(RDF.type, rdfConstants.scImageClass)
+				.addProperty(RDF.type, rdfConstants.scImageBodyClass);
 				  /*<rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0003">
 				    <exif:width>4016</exif:width>
 				    <exif:height>5888</exif:height>
@@ -400,7 +388,7 @@ public class SharedCanvas {
 				.addProperty(rdfConstants.oacHasBodyProperty, imageBody)
 				.addProperty(rdfConstants.oacHasTargetProperty, canvasTarget)
 				.addProperty(RDF.type, rdfConstants.oacAnnotationType)
-				.addProperty(RDF.type, rdfConstants.dmsImageAnnotationClass);
+				.addProperty(RDF.type, rdfConstants.scImageAnnotationClass);
 				 /* <rdf:Description rdf:about="http://dms-data.stanford.edu/Stanford/kq131cs7229/imageanno/image-10">
 				    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0010"/>
 				    <oac:hasTarget rdf:resource="http://dms-data.stanford.edu/Stanford/kq131cs7229/image-10"/>

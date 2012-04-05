@@ -20,16 +20,22 @@ public class DMSTechRDFConstants {
 	public static final String EXIF_NAMESPACE = "http://www.w3.org/2003/12/exif/ns#";
 	public static final String TEI_NAMESPACE = "http://www.tei-c.org/ns/1.0/";
 
-	// dmstech specific types
-	public Resource textAnnotationClass;
-	public Resource transactionClass;
-	public Resource sequenceClass;
-	public Resource imageAnnotationListClass;
-	public Resource manifestClass;
-	public Resource dmsImageAnnotationClass;
-	public Resource dmsImageClass;
-	public Resource dmsImageBodyClass;
-	public Resource dmsCanvasClass;
+	// shared canvas specific types and properties
+	public Resource scTextAnnotationClass;
+	public Resource scZoneAnnotationClass;
+	public Resource scImageAnnotationClass;
+	public Resource scTransactionClass;
+	public Resource scSequenceClass;
+	public Resource scImageAnnotationListClass;
+	public Resource scTextAnnotationListClass;
+	public Resource scZoneAnnotationListClass;	
+	public Resource scManifestClass;
+	public Resource scImageClass;
+	public Resource scImageBodyClass;
+	public Resource scCanvasClass;
+	public Property scHasTextAnnotations;
+	public Property scHasImageAnnotations;
+	public Property scHasZoneAnnotations;
 
 	// exif properties
 	public Property exifHeight;
@@ -40,7 +46,7 @@ public class DMSTechRDFConstants {
 	public Resource httpPostResource;
 
 	// cnt properties and types
-	public Property cntRestProperty;
+	public Property cntCharsProperty;
 	public Property cntCharEncProperty;
 	public Resource cntAsTxtType;
 
@@ -68,6 +74,7 @@ public class DMSTechRDFConstants {
 	public Property teiIdnoProperty;
 	public Property teiAltIdentifierProperty;
 	public Property teiMsNameProperty;
+
 	
 	
 	private DMSTechRDFConstants() {
@@ -104,25 +111,36 @@ public class DMSTechRDFConstants {
 		initializingModel.setNsPrefix("tei", TEI_NAMESPACE);
 
 		// dmstech properties and types
-		textAnnotationClass = initializingModel
-				.createResource("http://dms.stanford.edu/ns/TextAnnotation");
-		transactionClass = initializingModel
+		scTextAnnotationClass = initializingModel
+				.createResource(SHARED_CANVAS_NAMESPACE + "TextAnnotation");
+		scTransactionClass = initializingModel
 				.createResource(SHARED_CANVAS_NAMESPACE + "Transaction");
-		sequenceClass = initializingModel
+		scSequenceClass = initializingModel
 				.createResource(SHARED_CANVAS_NAMESPACE + "Sequence");
-		imageAnnotationListClass = initializingModel
+		scImageAnnotationListClass = initializingModel
 				.createResource(SHARED_CANVAS_NAMESPACE + "ImageAnnotationList");
-		manifestClass = initializingModel
+		scTextAnnotationListClass = initializingModel
+				.createResource(SHARED_CANVAS_NAMESPACE + "TextAnnotationList");
+		scZoneAnnotationListClass = initializingModel
+				.createResource(SHARED_CANVAS_NAMESPACE + "ZoneAnnotationList");
+		scManifestClass = initializingModel
 				.createResource(SHARED_CANVAS_NAMESPACE + "Manifest");
-		dmsImageAnnotationClass= initializingModel
+		scImageAnnotationClass= initializingModel
 				.createResource(SHARED_CANVAS_NAMESPACE + "ImageAnnotation");
-		dmsImageClass = initializingModel
+		scZoneAnnotationClass = initializingModel
+				.createResource(SHARED_CANVAS_NAMESPACE + "ZoneAnnotation");
+		scImageClass = initializingModel
 				.createResource(SHARED_CANVAS_NAMESPACE + "Image");
-		dmsImageBodyClass = initializingModel
+		scImageBodyClass = initializingModel
 				.createResource(SHARED_CANVAS_NAMESPACE + "ImageBody");
-		dmsCanvasClass = initializingModel
+		scCanvasClass = initializingModel
 				.createResource(SHARED_CANVAS_NAMESPACE + "Canvas");
-		
+		scHasTextAnnotations = initializingModel
+				.createProperty(SHARED_CANVAS_NAMESPACE, "hasTextAnnotations");
+		scHasImageAnnotations = initializingModel
+				.createProperty(SHARED_CANVAS_NAMESPACE, "hasImageAnnotations");
+		scHasZoneAnnotations = initializingModel
+				.createProperty(SHARED_CANVAS_NAMESPACE, "hasZoneAnnotations");
 		
 		// exif properties
 		exifHeight = initializingModel.createProperty(EXIF_NAMESPACE,
@@ -136,8 +154,8 @@ public class DMSTechRDFConstants {
 		httpPostResource = initializingModel.createResource(HTTP_NAMESPACE
 				+ "POST");
 
-		cntRestProperty = initializingModel.createProperty(CNT_NAMESPACE,
-				"rest");
+		cntCharsProperty = initializingModel.createProperty(CNT_NAMESPACE,
+				"chars");
 		cntCharEncProperty = initializingModel.createProperty(
 				CNT_NAMESPACE, "characterEncoding");
 		cntAsTxtType = initializingModel.createResource(CNT_NAMESPACE
@@ -169,23 +187,23 @@ public class DMSTechRDFConstants {
 		
 		// TEI properties
 		teiCountryProperty = initializingModel.createProperty(
-				OAC_NAMESPACE, "country");
+				TEI_NAMESPACE, "country");
 		teiRegionProperty = initializingModel.createProperty(
-				OAC_NAMESPACE, "region");
+				TEI_NAMESPACE, "region");
 		teiSettlementProperty = initializingModel.createProperty(
-				OAC_NAMESPACE, "settlement");
+				TEI_NAMESPACE, "settlement");
 		teiInstitutionProperty = initializingModel.createProperty(
-				OAC_NAMESPACE, "institution");
+				TEI_NAMESPACE, "institution");
 		teiRepositoryProperty = initializingModel.createProperty(
-				OAC_NAMESPACE, "repository");
+				TEI_NAMESPACE, "repository");
 		teiCollectionProperty = initializingModel.createProperty(
-				OAC_NAMESPACE, "collection");
+				TEI_NAMESPACE, "collection");
 		teiIdnoProperty = initializingModel.createProperty(
-				OAC_NAMESPACE, "idno");
+				TEI_NAMESPACE, "idno");
 		teiAltIdentifierProperty = initializingModel.createProperty(
-				OAC_NAMESPACE, "altIdentifier");
+				TEI_NAMESPACE, "altIdentifier");
 		teiMsNameProperty = initializingModel.createProperty(
-				OAC_NAMESPACE, "msName");
+				TEI_NAMESPACE, "msName");
 		
 	}
 }
