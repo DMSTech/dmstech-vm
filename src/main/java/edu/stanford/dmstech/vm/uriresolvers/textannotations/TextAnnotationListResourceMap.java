@@ -19,12 +19,11 @@ import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.RDFUtils;
 import edu.stanford.dmstech.vm.SharedCanvasUtil;
 
-@Path("/{collectionId}/{manuscriptId}/")
 public class TextAnnotationListResourceMap {
  
 
 	@GET
-	@Path("/TextAnnotations.xml") 
+	@Path("/{collectionId}/{manuscriptId}/TextAnnotations.xml") 
 	@Produces("application/rdf+xml")
 	public String getResourceMapAsXML(
 			@PathParam("collectionId") final String collectionId,
@@ -35,7 +34,7 @@ public class TextAnnotationListResourceMap {
 	}
 		
 	@GET
-	@Path("/TextAnnotations.ttl")  
+	@Path("/{collectionId}/{manuscriptId}/TextAnnotations.ttl")  
 	@Produces("text/turtle;charset=utf-8")
 	public String getResourceMapAsTurtle(
 			@PathParam("collectionId") final String collectionId,
@@ -46,7 +45,7 @@ public class TextAnnotationListResourceMap {
 	}
 
 	@GET
-	@Path("/TextAnnotations.html")  
+	@Path("/{collectionId}/{manuscriptId}/TextAnnotations.html")  
 	@Produces("text/html;charset=utf-8")
 	public String getResourceMapAsHTML(
 			@PathParam("collectionId") final String collectionId,

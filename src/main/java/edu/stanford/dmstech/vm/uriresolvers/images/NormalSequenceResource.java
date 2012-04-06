@@ -25,11 +25,10 @@ import edu.stanford.dmstech.vm.SharedCanvasUtil;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.sun.jersey.api.NotFoundException;
 
-@Path("/{collectionId}/{manuscriptId}/")
 public class NormalSequenceResource {
 
 	@GET
-	@Path("/NormalSequence.xml") 
+	@Path("/{collectionId}/{manuscriptId}/NormalSequence.xml") 
 	@Produces("application/rdf+xml")
 	public String getResourceMapAsXML(
 			@PathParam("collectionId") final String collectionId,
@@ -40,7 +39,7 @@ public class NormalSequenceResource {
 	}
 		
 	@GET
-	@Path("/NormalSequence.ttl")  
+	@Path("/{collectionId}/{manuscriptId}/NormalSequence.ttl")  
 	@Produces("text/turtle;charset=utf-8")
 	public String getResourceMapAsTurtle(
 			@PathParam("collectionId") final String collectionId,
@@ -51,7 +50,7 @@ public class NormalSequenceResource {
 	}
 
 	@GET
-	@Path("/ManifNormalSequenceest.html")  
+	@Path("/{collectionId}/{manuscriptId}/NormalSequence.html")  
 	@Produces("text/html;charset=utf-8")
 	public String getResourceMapAsHTML(
 			@PathParam("collectionId") final String collectionId,

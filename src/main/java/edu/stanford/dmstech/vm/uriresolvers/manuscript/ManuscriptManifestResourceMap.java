@@ -23,11 +23,11 @@ import edu.stanford.dmstech.vm.SharedCanvasUtil;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.sun.jersey.api.NotFoundException;
 
-@Path("/{collectionId}/{manuscriptId}/")
+
 public class ManuscriptManifestResourceMap {
 	
 	@GET
-	@Path("/Manifest.xml") 
+	@Path("/{collectionId}/{manuscriptId}/Manifest.xml") 
 	@Produces("application/rdf+xml")
 	public String getResourceMapAsXML(
 			@PathParam("collectionId") final String collectionId,
@@ -38,7 +38,7 @@ public class ManuscriptManifestResourceMap {
 	}
 		
 	@GET
-	@Path("/Manifest.ttl")  
+	@Path("/{collectionId}/{manuscriptId}/Manifest.ttl")  
 	@Produces("text/turtle;charset=utf-8")
 	public String getResourceMapAsTurtle(
 			@PathParam("collectionId") final String collectionId,
@@ -49,7 +49,7 @@ public class ManuscriptManifestResourceMap {
 	}
 
 	@GET
-	@Path("/Manifest.html")  
+	@Path("/{collectionId}/{manuscriptId}/Manifest.html")  
 	@Produces("text/html;charset=utf-8")
 	public String getResourceMapAsHTML(
 			@PathParam("collectionId") final String collectionId,

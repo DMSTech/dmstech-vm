@@ -19,9 +19,8 @@ import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.DMSTechRDFConstants;
 import edu.stanford.dmstech.vm.RDFUtils;
 import edu.stanford.dmstech.vm.SharedCanvasUtil;
-import edu.stanford.dmstech.vm.uriresolvers.ResourceMapSerialization;
 
-@Path("{collectionId}/{manuscriptId}/{canvasId}/ImageAnnotations.xml")
+
 public class CanvasImageAnnoResourceMap {
  	
 	@Context 
@@ -29,18 +28,21 @@ public class CanvasImageAnnoResourceMap {
 	
 	
 	@GET 
+	@Path("{collectionId}/{manuscriptId}/{canvasId}/ImageAnnotations.xml")
 	@Produces("application/rdf+xml")
 	public String redirectReqToXMLResourceMap() throws URISyntaxException, IOException {
 		return buildMap("RDF/XML");
 			} 
 	
 	@GET
+	@Path("{collectionId}/{manuscriptId}/{canvasId}/ImageAnnotations.ttl")
 	@Produces("text/turtle;charset=utf-8")
 	public String redirectReqToTurtleResourceMap() throws URISyntaxException, IOException {
 		return buildMap("TURTLE");
 	}
 
 	@GET
+	@Path("{collectionId}/{manuscriptId}/{canvasId}/ImageAnnotations.html")
 	@Produces("text/html;charset=utf-8")
 	public String redirectReqToHTMLResourceMap() throws URISyntaxException, TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException, IOException {		
 		String rdfAsXML = buildMap("RDF/XML");

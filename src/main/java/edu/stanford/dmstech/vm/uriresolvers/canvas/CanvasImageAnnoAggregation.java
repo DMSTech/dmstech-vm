@@ -8,7 +8,7 @@ import edu.stanford.dmstech.vm.uriresolvers.AggregationRedirect;
 
 public class CanvasImageAnnoAggregation {
  
-	@Path("/{collectionId}/{manuscriptId}/{canvasId}/imageannos")
+	@Path("/{collectionId}/{manuscriptId}/{canvasId}/ImageAnnotations")
 	public AggregationRedirect redirectToResourceMap(@Context UriInfo uriInfo) {
 		return new AggregationRedirect(uriInfo);
 	}

@@ -9,11 +9,10 @@ import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.RDFUtils;
 import edu.stanford.dmstech.vm.SharedCanvasUtil;
 
-@Path("/{collectionId}/{manuscriptId}/")
 public class ImageAnnotationListResourceMap {
 
 	@GET
-	@Path("/ImageAnnotations.xml") 
+	@Path("/{collectionId}/{manuscriptId}/ImageAnnotations.xml") 
 	@Produces("application/rdf+xml")
 	public String getResourceMapAsXML(
 			@PathParam("collectionId") final String collectionId,
@@ -24,7 +23,7 @@ public class ImageAnnotationListResourceMap {
 	}
 		
 	@GET
-	@Path("/ImageAnnotations.ttl")  
+	@Path("/{collectionId}/{manuscriptId}/ImageAnnotations.ttl")  
 	@Produces("text/turtle;charset=utf-8")
 	public String getResourceMapAsTurtle(
 			@PathParam("collectionId") final String collectionId,
@@ -35,7 +34,7 @@ public class ImageAnnotationListResourceMap {
 	}
 
 	@GET
-	@Path("/ImageAnnotations.html")  
+	@Path("/{collectionId}/{manuscriptId}/ImageAnnotations.html")  
 	@Produces("text/html;charset=utf-8")
 	public String getResourceMapAsHTML(
 			@PathParam("collectionId") final String collectionId,

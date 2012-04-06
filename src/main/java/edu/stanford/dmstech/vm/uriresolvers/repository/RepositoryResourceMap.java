@@ -19,21 +19,21 @@ import edu.stanford.dmstech.vm.SharedCanvasUtil;
 public class RepositoryResourceMap {
 
 	@GET
-	@Path("Repository.xml") 
+	@Path("/Repository.xml") 
 	@Produces("application/rdf+xml")
 	public String getResourceMapAsXML(@PathParam("collectionId") final String collectionId) throws Exception {  
 		return SharedCanvasUtil.getSerializedRDFFromHomeDir(Config.repositoryFileName, "RDF/XML");		
 	}
 		
 	@GET
-	@Path("Repository.ttl")  
+	@Path("/Repository.ttl")  
 	@Produces("text/turtle;charset=utf-8")
 	public String getResourceMapAsTurtle(@PathParam("collectionId") final String collectionId) throws Exception {
 		return SharedCanvasUtil.getSerializedRDFFromHomeDir(Config.repositoryFileName, "TURTLE");				
 	}
 
 	@GET
-	@Path("Repository.html")  
+	@Path("/Repository.html")  
 	@Produces("text/html;charset=utf-8")
 	public String getResourceMapAsHTML(@PathParam("collectionId") final String collectionId) throws Exception {		
 		return RDFUtils.serializeRDFToHTML(SharedCanvasUtil.getSerializedRDFFromHomeDir(Config.repositoryFileName, "RDF/XML"));		

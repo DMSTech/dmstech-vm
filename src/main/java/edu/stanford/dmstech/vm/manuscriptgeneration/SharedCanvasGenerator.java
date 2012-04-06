@@ -50,26 +50,29 @@ public class SharedCanvasGenerator {
 	 	config.initializeThisConfig();
 	     
 		SharedCanvasGenerator sharedCanvasGenerator = new SharedCanvasGenerator();
-		try {
-		sharedCanvasGenerator.generateSharedCanvasInDefaultDir(
-				"aManu name", 
-				"a Manu title", 
-				"collid 3223", 
-				"manuId 35", 
-				"altId 3", 
-				"a repoName", 
-				"institution name 2", 
-				"some settlement", 
-				"some region name", 
-				"some country", 
-				"myTestManu", 
-				false);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+		sharedCanvasGenerator.ingestTestManu();		
 	}
 	
+	public void ingestTestManu() {
+		try {
+			generateSharedCanvasInDefaultDir(
+					"aManu name", 
+					"a Manu title", 
+					"collid 3223", 
+					"manuId 35", 
+					"altId 3", 
+					"a repoName", 
+					"institution name 2", 
+					"some settlement", 
+					"some region name", 
+					"some country", 
+					"myTestManu", 
+					false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}		
+	}
+
 	public String generateSharedCanvasInDefaultDir(
 			String manuscriptName,
 			String manuscriptTitle, 

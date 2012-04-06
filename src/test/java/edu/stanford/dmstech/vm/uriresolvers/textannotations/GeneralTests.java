@@ -1,0 +1,33 @@
+package edu.stanford.dmstech.vm.uriresolvers.textannotations;
+
+import java.io.IOException;
+
+import org.apache.solr.client.solrj.SolrServerException;
+
+import edu.stanford.dmstech.vm.Config;
+import edu.stanford.dmstech.vm.indexing.SharedCanvasSOLRIndexer;
+import edu.stanford.dmstech.vm.manuscriptgeneration.SharedCanvasGenerator;
+import edu.stanford.dmstech.vm.tdb.SharedCanvasTDBManager;
+
+public class GeneralTests {
+
+	/*
+	 * Also want to manually delete any generated shared canvas files.  could do 
+	 * that here, but too dangerous.
+	 */
+	private void clearAllIndicesAndDirs() throws SolrServerException, IOException {
+		//BasicConfigurator.configure();
+		Config config = new Config();
+		config.initializeThisConfig();
+		new SharedCanvasGenerator().ingestTestManu();
+//		new SharedCanvasTDBManager().reindexAllLocalRDFData();
+//		new SharedCanvasSOLRIndexer().reindexAllLocalDataInSolr();
+	}
+	
+	public static void main(String[] args) throws IOException, SolrServerException {
+		
+		GeneralTests tester = new GeneralTests();
+		tester.clearAllIndicesAndDirs();
+
+		}
+}

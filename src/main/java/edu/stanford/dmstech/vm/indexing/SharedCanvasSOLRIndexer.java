@@ -76,6 +76,12 @@ public class SharedCanvasSOLRIndexer {
 			e.printStackTrace();
 		}
 	}
+	
+	public void deleteAll() throws SolrServerException, IOException {
+		SolrServer server = new CommonsHttpSolrServer(Config.solrServer);
+		server.deleteByQuery( "*:*" );  //delete everything in solr
+		server.commit();
+	}
 	public void reindexAllLocalDataInSolr() throws SolrServerException, IOException {
 		
 		SolrServer server = new CommonsHttpSolrServer(Config.solrServer);
@@ -89,8 +95,6 @@ public class SharedCanvasSOLRIndexer {
 	public void indexManuscript(String manuscriptURI) throws IOException, SolrServerException {
 
 		SolrServer server = new CommonsHttpSolrServer(Config.solrServer);
-		server.deleteByQuery( "*:*" );  //delete everything in solr
-		server.commit();
 		Model tdb = (new SharedCanvasTDBManager()).loadMainTDBDataset();
 		List<Resource> manuscript = new ArrayList<Resource>();
 		Resource manResource = tdb.createResource(manuscriptURI);
