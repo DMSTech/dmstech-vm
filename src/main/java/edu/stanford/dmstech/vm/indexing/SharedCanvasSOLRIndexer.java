@@ -116,7 +116,7 @@ public class SharedCanvasSOLRIndexer {
 			/*
 			 * 2.  get and index the  metadata from each manuscript resource
 			 */
-			SolrInputDocument manuscriptSolrDoc = createSOLRDocForManuscriptResource(manuscriptRes);
+			SolrInputDocument manuscriptSolrDoc = createSOLRDocForManuscriptResource(tdb, manuscriptRes);
 			
 			docs.add( manuscriptSolrDoc );
 			/*
@@ -144,7 +144,7 @@ public class SharedCanvasSOLRIndexer {
 				canvasSolrDoc.addField(RESULT_TYPE_FIELD, RESULT_TYPE_CANVAS);
 				canvasSolrDoc.addField(URI_FIELD, canvas.getURI());
 				canvasSolrDoc.addField(CANVAS_TITLE_FIELD, canvas.getPropertyResourceValue(DC.title));
-				addManuscriptMetadataToSolrDoc(manuscriptRes, canvasSolrDoc);
+				addManuscriptMetadataToSolrDoc(tdb, manuscriptRes, canvasSolrDoc);
 				
 				/* 
 				  * 5.  for each canvas, get all TextAnnotations that target the canvas.
@@ -184,35 +184,36 @@ public class SharedCanvasSOLRIndexer {
 	}
 
 
-	private SolrInputDocument createSOLRDocForManuscriptResource(Resource manuscriptRes) {
+	private SolrInputDocument createSOLRDocForManuscriptResource(Model tdb, Resource manuscriptRes) {
 		SolrInputDocument manuscriptSolrDoc = new SolrInputDocument();
 		manuscriptSolrDoc.addField(URI_FIELD, manuscriptRes.getURI());
 		manuscriptSolrDoc.addField(RESULT_TYPE_FIELD, RESULT_TYPE_MANUSCRIPT);
-		addManuscriptMetadataToSolrDoc(manuscriptRes, manuscriptSolrDoc);
+		addManuscriptMetadataToSolrDoc(tdb, manuscriptRes, manuscriptSolrDoc);
 		return manuscriptSolrDoc;
 	}
 
-	private void addManuscriptMetadataToSolrDoc(Resource manuscriptRes,
+	private void addManuscriptMetadataToSolrDoc(Model tdb, Resource manuscriptRes,
 			SolrInputDocument solrDoc) {
 		DMSTechRDFConstants sharedCanvasConstants = DMSTechRDFConstants.getInstance();
 		
-		addObjectsStringValueToDoc(manuscriptRes, DC.title, solrDoc, MANTITLE_FIELD);
-		addObjectsStringValueToDoc(manuscriptRes, sharedCanvasConstants.teiCountryProperty, solrDoc, COUNTRY_FIELD);
-		addObjectsStringValueToDoc(manuscriptRes, sharedCanvasConstants.teiRegionProperty, solrDoc, REGION_FIELD);
-		addObjectsStringValueToDoc(manuscriptRes, sharedCanvasConstants.teiSettlementProperty, solrDoc, SETTLEMENT_FIELD);
-		addObjectsStringValueToDoc(manuscriptRes, sharedCanvasConstants.teiInstitutionProperty, solrDoc, INSTITUTION_FIELD);
-		addObjectsStringValueToDoc(manuscriptRes, sharedCanvasConstants.teiRepositoryProperty, solrDoc, REPOSITORY_FIELD);
-		addObjectsStringValueToDoc(manuscriptRes, sharedCanvasConstants.teiCollectionProperty, solrDoc, COLLECTION_FIELD);
-		addObjectsStringValueToDoc(manuscriptRes, sharedCanvasConstants.teiIdnoProperty, solrDoc, IDNO_FIELD);
-		addObjectsStringValueToDoc(manuscriptRes, sharedCanvasConstants.teiAltIdentifierProperty, solrDoc, ALTID_FIELD);
-		addObjectsStringValueToDoc(manuscriptRes, sharedCanvasConstants.teiMsNameProperty, solrDoc, MANNAME_FIELD);
+		addObjectsStringValueToDoc(tdb, manuscriptRes, DC.title, solrDoc, MANTITLE_FIELD);
+		addObjectsStringValueToDoc(tdb, manuscriptRes, sharedCanvasConstants.teiCountryProperty, solrDoc, COUNTRY_FIELD);
+		addObjectsStringValueToDoc(tdb, manuscriptRes, sharedCanvasConstants.teiRegionProperty, solrDoc, REGION_FIELD);
+		addObjectsStringValueToDoc(tdb, manuscriptRes, sharedCanvasConstants.teiSettlementProperty, solrDoc, SETTLEMENT_FIELD);
+		addObjectsStringValueToDoc(tdb, manuscriptRes, sharedCanvasConstants.teiInstitutionProperty, solrDoc, INSTITUTION_FIELD);
+		addObjectsStringValueToDoc(tdb, manuscriptRes, sharedCanvasConstants.teiRepositoryProperty, solrDoc, REPOSITORY_FIELD);
+		addObjectsStringValueToDoc(tdb, manuscriptRes, sharedCanvasConstants.teiCollectionProperty, solrDoc, COLLECTION_FIELD);
+		addObjectsStringValueToDoc(tdb, manuscriptRes, sharedCanvasConstants.teiIdnoProperty, solrDoc, IDNO_FIELD);
+		addObjectsStringValueToDoc(tdb, manuscriptRes, sharedCanvasConstants.teiAltIdentifierProperty, solrDoc, ALTID_FIELD);
+		addObjectsStringValueToDoc(tdb, manuscriptRes, sharedCanvasConstants.teiMsNameProperty, solrDoc, MANNAME_FIELD);
 	}
 	
-	private void addObjectsStringValueToDoc(Resource subject, Property predicate, SolrInputDocument doc, String fieldName) {
-		Resource propertyResource = subject.getPropertyResourceValue(predicate);
-		if (propertyResource != null && propertyResource.isLiteral()) {
-			doc.addField(fieldName, propertyResource.asLiteral().getLexicalForm());
-		}
+	private void addObjectsStringValueToDoc(Model tdb, Resource subject, Property predicate, SolrInputDocument doc, String fieldName) {
+		
+		StmtIterator stmtIter = tdb.listStatements(subject, predicate, (RDFNode) null);
+		if (stmtIter.hasNext()) 
+			doc.addField(fieldName, stmtIter.nextStatement().getObject().asLiteral().getLexicalForm());
+		
 	}
 	
 

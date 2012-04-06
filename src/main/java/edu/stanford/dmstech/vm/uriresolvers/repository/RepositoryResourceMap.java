@@ -6,42 +6,40 @@ import java.net.URISyntaxException;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.RDFUtils;
+import edu.stanford.dmstech.vm.SharedCanvasUtil;
 
 
 public class RepositoryResourceMap {
 
-
-
 	@GET
-	@Path("/Repository.xml") 
+	@Path("Repository.xml") 
 	@Produces("application/rdf+xml")
-	public File getResourceMapAsXML() throws URISyntaxException {   	
-		return RDFUtils.getFileInHomeDir(Config.repositoryFileName);
+	public String getResourceMapAsXML(@PathParam("collectionId") final String collectionId) throws Exception {  
+		return SharedCanvasUtil.getSerializedRDFFromHomeDir(Config.repositoryFileName, "RDF/XML");		
 	}
 		
 	@GET
-	@Path("/Repository.ttl")  
+	@Path("Repository.ttl")  
 	@Produces("text/turtle;charset=utf-8")
-	public String getResourceMapAsTurtle() throws Exception {
-		Model textAnnotationsModel = RDFUtils.loadModelInHomeDir(Config.repositoryFileName);
-		StringWriter stringWriter = new StringWriter();
-		textAnnotationsModel.write(stringWriter, "TURTLE");
-		return stringWriter.toString();		
+	public String getResourceMapAsTurtle(@PathParam("collectionId") final String collectionId) throws Exception {
+		return SharedCanvasUtil.getSerializedRDFFromHomeDir(Config.repositoryFileName, "TURTLE");				
 	}
 
 	@GET
-	@Path("/Repository.html")  
-	@Produces("text/turtle;charset=utf-8")
-	public String getResourceMapAsHTML() throws Exception {
-		return RDFUtils.serializeRDFToHTML(RDFUtils.getFileInHomeDir(Config.repositoryFileName));		
+	@Path("Repository.html")  
+	@Produces("text/html;charset=utf-8")
+	public String getResourceMapAsHTML(@PathParam("collectionId") final String collectionId) throws Exception {		
+		return RDFUtils.serializeRDFToHTML(SharedCanvasUtil.getSerializedRDFFromHomeDir(Config.repositoryFileName, "RDF/XML"));		
 	}
 
+	
 }
 
 

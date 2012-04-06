@@ -18,36 +18,34 @@ import javax.ws.rs.Path;
 
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.RDFUtils;
+import edu.stanford.dmstech.vm.SharedCanvasUtil;
 import edu.stanford.dmstech.vm.uriresolvers.ResourceMapSerialization;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.sun.jersey.api.NotFoundException;
 
-@Path("/{collectionId}/")
+@Path("/{collectionId}")
 public class CollectionResourceMap {
 
 	@GET
 	@Path("Collection.xml") 
 	@Produces("application/rdf+xml")
-	public File getResourceMapAsXML(@PathParam("collectionId") final String collectionId) throws URISyntaxException {   	
-		return RDFUtils.getFileInHomeDir(collectionId + "/" + Config.collectionFileName);
+	public String getResourceMapAsXML(@PathParam("collectionId") final String collectionId) throws Exception {  
+		return SharedCanvasUtil.getSerializedRDFFromHomeDir(collectionId + "/" + Config.collectionFileName, "RDF/XML");		
 	}
 		
 	@GET
 	@Path("Collection.ttl")  
 	@Produces("text/turtle;charset=utf-8")
 	public String getResourceMapAsTurtle(@PathParam("collectionId") final String collectionId) throws Exception {
-		Model textAnnotationsModel = RDFUtils.loadModelInHomeDir(collectionId + "/" + Config.collectionFileName);
-		StringWriter stringWriter = new StringWriter();
-		textAnnotationsModel.write(stringWriter, "TURTLE");
-		return stringWriter.toString();		
+		return SharedCanvasUtil.getSerializedRDFFromHomeDir(collectionId + "/" + Config.collectionFileName, "TURTLE");				
 	}
 
 	@GET
 	@Path("Collection.html")  
-	@Produces("text/turtle;charset=utf-8")
-	public String getResourceMapAsHTML(@PathParam("collectionId") final String collectionId) throws Exception {
-		return RDFUtils.serializeRDFToHTML(RDFUtils.getFileInHomeDir(collectionId + "/" + Config.collectionFileName));		
+	@Produces("text/html;charset=utf-8")
+	public String getResourceMapAsHTML(@PathParam("collectionId") final String collectionId) throws Exception {		
+		return RDFUtils.serializeRDFToHTML(SharedCanvasUtil.getSerializedRDFFromHomeDir(collectionId + "/" + Config.collectionFileName, "RDF/XML"));		
 	}
 
 }

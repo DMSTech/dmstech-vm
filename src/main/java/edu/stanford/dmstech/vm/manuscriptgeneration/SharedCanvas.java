@@ -1,14 +1,13 @@
 package edu.stanford.dmstech.vm.manuscriptgeneration;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
+
+import javax.ws.rs.core.UriBuilder;
 
 import org.apache.commons.transaction.util.Jdk14Logger;
 import org.apache.commons.transaction.util.LoggerFacade;
@@ -361,12 +360,6 @@ public class SharedCanvas {
 				.addProperty(rdfConstants.exifWidth, width)
 				.addProperty(rdfConstants.exifHeight, height)
 				.addProperty(RDF.type, rdfConstants.scCanvasClass);	
-				 /* <rdf:Description rdf:about="http://dms-data.stanford.edu/Stanford/kq131cs7229/image-24">
-				    <dc:title>f. 17r</dc:title>
-				    <exif:width>3907</exif:width>
-				    <exif:height>5611</exif:height>
-				    <rdf:type rdf:resource="http://dms.stanford.edu/ns/Canvas"/>
-				  </rdf:Description> */
   }
   
     public Resource createImageBodyInModel(Model model, String imageURI, String width, String height) {
@@ -375,12 +368,6 @@ public class SharedCanvas {
 				.addProperty(rdfConstants.exifHeight, height)
 				.addProperty(RDF.type, rdfConstants.scImageClass)
 				.addProperty(RDF.type, rdfConstants.scImageBodyClass);
-				  /*<rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0003">
-				    <exif:width>4016</exif:width>
-				    <exif:height>5888</exif:height>
-				    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
-				    <rdf:type rdf:resource="http://dms.stanford.edu/ns/ImageBody"/>
-				  </rdf:Description>*/
     }
   
     public Resource createAnnotationInModel(Model model, String annotationURI, String width, String height, Resource imageBody, Resource canvasTarget) {
@@ -389,38 +376,33 @@ public class SharedCanvas {
 				.addProperty(rdfConstants.oacHasTargetProperty, canvasTarget)
 				.addProperty(RDF.type, rdfConstants.oacAnnotationType)
 				.addProperty(RDF.type, rdfConstants.scImageAnnotationClass);
-				 /* <rdf:Description rdf:about="http://dms-data.stanford.edu/Stanford/kq131cs7229/imageanno/image-10">
-				    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0010"/>
-				    <oac:hasTarget rdf:resource="http://dms-data.stanford.edu/Stanford/kq131cs7229/image-10"/>
-				    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
-				    <rdf:type rdf:resource="http://dms.stanford.edu/ns/ImageAnnotation"/>
-				  </rdf:Description> */
     }
 
     
     public String getManifestAggregationURI() {
-		return baseURI + "Manifest";
+    	return UriBuilder.fromUri(baseURI).path("Manifest").build().toString();
 	}
 	public String getManifestRMURI() {
 		return getManifestAggregationURI() + ".xml";
 	}
 	
 	private String getSequenceAggregationURI() {
-		return baseURI + "NormalSequence";
-	}
-	
+		return UriBuilder.fromUri(baseURI).path("NormalSequence").build().toString();		
+	}	
 	private String getImageAnnosAggregationURI() {
-		return baseURI + "ImageAnnotations";		
+		return UriBuilder.fromUri(baseURI).path("ImageAnnotations").build().toString();		
 	}
 	
 	public String getNewCanvasURI() {
-		return baseURI + UUID.randomUUID();
+		return UriBuilder.fromUri(baseURI).path(UUID.randomUUID().toString()).build().toString();	
 	}
 	public String getNewAnnotationURI(String canvasURI) {
-		return canvasURI + "/" + UUID.randomUUID();
+		return UriBuilder.fromUri(canvasURI).path(UUID.randomUUID().toString()).build().toString();		
 	}
 	public String getImageURI(String imageFileName) {
-		return baseURI + "images/" + imageFileName;
+		return UriBuilder.fromUri(baseURI).path("images").path(imageFileName).build().toString();
+		
+		
 	}
 	
 }

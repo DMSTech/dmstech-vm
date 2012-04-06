@@ -28,6 +28,13 @@ public class SharedCanvasUtil {
 
 	private static DMSTechRDFConstants rdfConstants = DMSTechRDFConstants.getInstance();
 	
+	public static String getSerializedRDFFromHomeDir(String relativePath, String format) throws Exception{		
+		Model textAnnotationsModel = RDFUtils.loadModelInHomeDir(relativePath, "N-TRIPLE");
+		StringWriter stringWriter = new StringWriter();
+		textAnnotationsModel.write(stringWriter, format);
+		return stringWriter.toString();		
+	}
+	
 	public static String getSerializedCanvasRDF(String canvasURI, String format) {
 		
 		Model canvasModel = ModelFactory.createDefaultModel();

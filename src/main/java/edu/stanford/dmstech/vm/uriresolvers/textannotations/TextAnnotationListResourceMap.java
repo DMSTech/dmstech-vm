@@ -17,18 +17,21 @@ import com.sun.jersey.api.NotFoundException;
 
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.RDFUtils;
+import edu.stanford.dmstech.vm.SharedCanvasUtil;
 
 @Path("/{collectionId}/{manuscriptId}/")
 public class TextAnnotationListResourceMap {
  
+
 	@GET
 	@Path("/TextAnnotations.xml") 
 	@Produces("application/rdf+xml")
-	public File getResourceMapAsXML(
+	public String getResourceMapAsXML(
 			@PathParam("collectionId") final String collectionId,
 			@PathParam("manuscriptId") final String manuscriptId
-			) throws URISyntaxException {   	
-		return RDFUtils.getFileInHomeDir(collectionId + "/" + manuscriptId + "/" + Config.textAnnotationFileName);
+			) throws Exception {   
+		return SharedCanvasUtil.getSerializedRDFFromHomeDir(collectionId + "/" + manuscriptId + "/" + Config.textAnnotationFileName, "RDF/XML");
+		
 	}
 		
 	@GET
@@ -38,22 +41,19 @@ public class TextAnnotationListResourceMap {
 			@PathParam("collectionId") final String collectionId,
 			@PathParam("manuscriptId") final String manuscriptId
 			) throws Exception {
-		Model textAnnotationsModel = RDFUtils.loadModelInHomeDir(collectionId + "/" + manuscriptId + "/" + Config.textAnnotationFileName);
-		StringWriter stringWriter = new StringWriter();
-		textAnnotationsModel.write(stringWriter, "TURTLE");
-		return stringWriter.toString();		
+		return SharedCanvasUtil.getSerializedRDFFromHomeDir(collectionId + "/" + manuscriptId + "/" + Config.textAnnotationFileName, "TURTLE");
+			
 	}
 
 	@GET
 	@Path("/TextAnnotations.html")  
-	@Produces("text/turtle;charset=utf-8")
+	@Produces("text/html;charset=utf-8")
 	public String getResourceMapAsHTML(
 			@PathParam("collectionId") final String collectionId,
 			@PathParam("manuscriptId") final String manuscriptId
 			) throws Exception {
-		return RDFUtils.serializeRDFToHTML(RDFUtils.getFileInHomeDir(collectionId + "/" + manuscriptId + "/" + Config.textAnnotationFileName));		
+		return RDFUtils.serializeRDFToHTML(SharedCanvasUtil.getSerializedRDFFromHomeDir(collectionId + "/" + manuscriptId + "/" + Config.textAnnotationFileName, "RDF/XML"));		
 	}
-		
 
 }
 

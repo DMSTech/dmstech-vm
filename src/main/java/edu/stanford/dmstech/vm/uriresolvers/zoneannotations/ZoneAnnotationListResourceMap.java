@@ -20,21 +20,23 @@ import javax.ws.rs.Path;
 
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.RDFUtils;
+import edu.stanford.dmstech.vm.SharedCanvasUtil;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.sun.jersey.api.NotFoundException;
 
-@Path("/{collectionId}/{manuscriptId}/")
+@Path("/{collectionId}/{manuscriptId}")
 public class ZoneAnnotationListResourceMap {
 
 	@GET
 	@Path("ZoneAnnotations.xml") 
 	@Produces("application/rdf+xml")
-	public File getResourceMapAsXML(
+	public String getResourceMapAsXML(
 			@PathParam("collectionId") final String collectionId,
 			@PathParam("manuscriptId") final String manuscriptId
-			) throws URISyntaxException {   	
-		return RDFUtils.getFileInHomeDir(collectionId + "/" + manuscriptId + "/" + Config.zoneAnnotationFileName);
+			) throws Exception {   
+		return SharedCanvasUtil.getSerializedRDFFromHomeDir(collectionId + "/" + manuscriptId + "/" + Config.zoneAnnotationFileName, "RDF/XML");
+		
 	}
 		
 	@GET
@@ -44,20 +46,18 @@ public class ZoneAnnotationListResourceMap {
 			@PathParam("collectionId") final String collectionId,
 			@PathParam("manuscriptId") final String manuscriptId
 			) throws Exception {
-		Model textAnnotationsModel = RDFUtils.loadModelInHomeDir(collectionId + "/" + manuscriptId + "/" + Config.zoneAnnotationFileName);
-		StringWriter stringWriter = new StringWriter();
-		textAnnotationsModel.write(stringWriter, "TURTLE");
-		return stringWriter.toString();		
+		return SharedCanvasUtil.getSerializedRDFFromHomeDir(collectionId + "/" + manuscriptId + "/" + Config.zoneAnnotationFileName, "TURTLE");
+			
 	}
 
 	@GET
 	@Path("ZoneAnnotations.html")  
-	@Produces("text/turtle;charset=utf-8")
+	@Produces("text/html;charset=utf-8")
 	public String getResourceMapAsHTML(
 			@PathParam("collectionId") final String collectionId,
 			@PathParam("manuscriptId") final String manuscriptId
 			) throws Exception {
-		return RDFUtils.serializeRDFToHTML(RDFUtils.getFileInHomeDir(collectionId + "/" + manuscriptId + "/" + Config.zoneAnnotationFileName));		
+		return RDFUtils.serializeRDFToHTML(SharedCanvasUtil.getSerializedRDFFromHomeDir(collectionId + "/" + manuscriptId + "/" + Config.zoneAnnotationFileName, "RDF/XML"));		
 	}
 		
 
