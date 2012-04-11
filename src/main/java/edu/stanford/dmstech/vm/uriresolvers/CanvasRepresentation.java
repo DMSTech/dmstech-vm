@@ -40,11 +40,11 @@ public class CanvasRepresentation {
 		
 	}
 	
-	need a new canvasConceptual class.
+	/*need a new canvasConceptual class.
 	
 	here i need to create another method in SharedCanvasUtil  that is like the getSerializedFromhomeDir method
 	but also like the getserialiedcnavasrdf.  so combines them into a new method.
-	
+	*/
 	@GET
 	@Produces("application/rdf+xml")
 	public String getCanvasAsXML() throws Exception {	
