@@ -5,6 +5,9 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
@@ -21,19 +24,41 @@ import com.hp.hpl.jena.vocabulary.DCTerms;
 import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
 
-import edu.stanford.dmstech.vm.tdb.SharedCanvasTDBManager;
+import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
 
 
 public class SharedCanvasUtil {
 
 	private static DMSTechRDFConstants rdfConstants = DMSTechRDFConstants.getInstance();
 	
-	public static String getSerializedRDFFromHomeDir(String relativePath, String format) throws Exception{		
+	public static Response getSerializedRDFFromHomeDir(String relativePath, String requestedFile) throws Exception{		
+		Model model = RDFUtils.loadModelInHomeDir(relativePath, "N-TRIPLE");
+		StringWriter stringWriter = new StringWriter();
+		String mediaType = null;
+		String result = null;
+		if (requestedFile.toLowerCase().endsWith(".xml")) {
+			model.write(stringWriter, "RDF/XML");
+			result = stringWriter.toString();	
+			mediaType = "application/rdf+xml";
+		} else if (requestedFile.toLowerCase().endsWith(".ttl")) {
+			model.write(stringWriter, "TURTLE");
+			result = stringWriter.toString();	
+			mediaType = "text/turtle;charset=utf-8";
+		} else {
+			model.write(stringWriter, "RDF/XML");
+			result = RDFUtils.serializeRDFToHTML(stringWriter.toString());
+			mediaType = MediaType.TEXT_HTML;
+		}
+
+		return Response.ok(result, mediaType).build();
+	}		
+
+	/*public static String getSerializedRDFFromHomeDir(String relativePath, String format) throws Exception{		
 		Model textAnnotationsModel = RDFUtils.loadModelInHomeDir(relativePath, "N-TRIPLE");
 		StringWriter stringWriter = new StringWriter();
 		textAnnotationsModel.write(stringWriter, format);
 		return stringWriter.toString();		
-	}
+	}*/
 	
 	public static String getSerializedCanvasRDF(String canvasURI, String format) {
 		

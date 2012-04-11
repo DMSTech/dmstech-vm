@@ -6,8 +6,8 @@ import org.apache.solr.client.solrj.SolrServerException;
 
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasSOLRIndexer;
+import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
 import edu.stanford.dmstech.vm.manuscriptgeneration.SharedCanvasGenerator;
-import edu.stanford.dmstech.vm.tdb.SharedCanvasTDBManager;
 
 public class GeneralTests {
 

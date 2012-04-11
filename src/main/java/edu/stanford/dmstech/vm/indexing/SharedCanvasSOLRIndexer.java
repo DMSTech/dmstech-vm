@@ -34,7 +34,6 @@ import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.DMSTechRDFConstants;
 import edu.stanford.dmstech.vm.RDFUtils;
 import edu.stanford.dmstech.vm.manuscriptgeneration.SharedCanvasGenerator;
-import edu.stanford.dmstech.vm.tdb.SharedCanvasTDBManager;
 
 public class SharedCanvasSOLRIndexer {
 

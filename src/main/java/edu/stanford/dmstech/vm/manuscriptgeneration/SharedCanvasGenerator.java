@@ -20,7 +20,7 @@ import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.DMSTechRDFConstants;
 import edu.stanford.dmstech.vm.RDFUtils;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasSOLRIndexer;
-import edu.stanford.dmstech.vm.tdb.SharedCanvasTDBManager;
+import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
 import gov.lanl.adore.djatoka.DjatokaEncodeParam;
 import gov.lanl.adore.djatoka.DjatokaException;
 import gov.lanl.adore.djatoka.ICompress;

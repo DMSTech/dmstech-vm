@@ -33,13 +33,12 @@ import com.hp.hpl.jena.vocabulary.RDF;
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.DMSTechRDFConstants;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasSOLRIndexer;
-import edu.stanford.dmstech.vm.tdb.SharedCanvasTDBManager;
-import edu.stanford.dmstech.vm.uriresolvers.canvas.CanvasTextAnnoResourceMap;
+import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
 
 public class AnnotationIngester {
 
 	private final String W3CDTF_NOW = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).format(new Date());
-	Logger logger = Logger.getLogger(CanvasTextAnnoResourceMap.class.getName());
+	Logger logger = Logger.getLogger(AnnotationIngester.class.getName());
 	LoggerFacade loggerFacade = null;
 	String resultURI = null;
 	DMSTechRDFConstants rdfConstants = null;

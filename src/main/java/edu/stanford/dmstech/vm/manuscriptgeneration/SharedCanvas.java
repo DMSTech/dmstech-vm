@@ -25,12 +25,11 @@ import com.hp.hpl.jena.vocabulary.RDF;
 import edu.stanford.dmstech.vm.DMSTechRDFConstants;
 import edu.stanford.dmstech.vm.RDFUtils;
 import edu.stanford.dmstech.vm.SharedCanvasUtil;
-import edu.stanford.dmstech.vm.uriresolvers.canvas.CanvasTextAnnoResourceMap;
 
 public class SharedCanvas {
 
 	public final String W3CDTF_NOW = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).format(new Date());
-	Logger logger = Logger.getLogger(CanvasTextAnnoResourceMap.class.getName());
+	Logger logger = Logger.getLogger(SharedCanvas.class.getName());
 	LoggerFacade loggerFacade = null;
 	
 	DMSTechRDFConstants rdfConstants = null;
