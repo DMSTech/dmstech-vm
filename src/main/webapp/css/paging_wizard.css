@@ -1,0 +1,63 @@
+#wizParent {
+	min-height: 100px;
+}
+
+#wizHome, #wizPrev {
+	float: left;
+    margin-right: 3px;
+}
+
+#wizNav {
+	float: left;
+	margin-left: 3px;
+    margin-top: 2px;
+	margin-right: -24px;
+}
+
+#wizSteps ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	max-height: 600px;
+	overflow: auto;
+}
+
+#wizSteps li {
+	padding: 5px;
+}
+
+#wizSteps li:hover {
+	background-color: #AED0EA;
+	cursor: pointer;
+}
+
+#wizLoading {
+	background: #eee url('../img/throbber.gif') no-repeat center center;
+	opacity: 0.75;
+	display: none;
+	position: absolute;
+	z-index: 100;
+}
+
+#wizPager {
+	text-align: center;
+	padding: 3px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#pagerCurrent {
+	width: 22px;
+	font-size: 10px;
+}
+
+#pagerPrev {
+	float: left;
+}
+
+#pagerNext {
+	float: right;
+}
+
+#wizHome:hover, #wizPrev:hover, #pagerPrev:hover, #pagerNext:hover {
+	cursor: pointer;
+}

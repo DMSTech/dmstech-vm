@@ -1,0 +1,77 @@
+#orderer {
+	padding: 10px;
+	overflow: auto;
+}
+
+#orderer > div {
+	width: auto;
+	float: left;
+	padding: 5px;
+	margin: 3px;
+	cursor: pointer;
+}
+
+#orderer .page {
+	border: 1px solid #fff;
+	background-color: #fff;
+	box-shadow: 1px 1px 2px #aaa;
+	height: 150px;
+	width: 100px;
+	display: table;
+}
+
+#orderer .cell {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+}
+
+#orderer .pageHover {
+	border: 1px solid #AED0EA;
+	background-color: #DEEDF7;
+}
+
+#orderer .pageSelected {
+	border: 1px solid #999;
+}
+
+.titleDialog {
+	border: 1px solid #999;
+	box-shadow: 1px 1px 2px #aaa;
+}
+
+.titleDialog label {
+    font-size: 12px;
+	margin: 7px 5px 5px;
+    float: left;
+}
+
+.titleDialog input {
+	width: 170px;
+	float: left;
+	margin-top: 3px;
+}
+
+.titleDialog .ui-dialog-titlebar {
+	display: none;
+}
+
+.titleDialog button {
+	float: left;
+	margin-left: 5px;
+}
+
+#orderButtons {
+	border-top: 1px solid #DDDDDD;
+    padding: 5px;
+	text-align: center;
+}
+
+#orderButtons > span {
+	margin-right: 10px;
+	margin-left: -5px;
+}
+
+#pageView {
+	background: transparent url('../img/throbber_large.gif') no-repeat center center;
+}

@@ -1,5 +1,9 @@
+body {
+	overflow: hidden;
+}
+
 #sidebar {
-	width: 200px;
+	width: 300px;
 	padding: 5px;
 	float: left;
 	margin: 0;
@@ -12,22 +16,24 @@
 
 #main {
 	padding: 5px;
-	margin: 0 0  0 220px;
+	margin: 0 0  0 320px;
 	background-position: top left !important;
 }
 
 #toolContent {
 	margin-top: 10px;
-	min-height: 400px;
+}
+
+#tools {
+	margin-top: 5px;
 }
 
 iframe {
-	width: 100%;
 	border: none;
 }
 
 #search input {
-	width: 130px;
+	width: 225px;
 }
 
 .jstree {

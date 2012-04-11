@@ -1,8 +1,12 @@
+var proxyString = '/dmstech/proxy.jsp';
+
 function Workbench() {
 	
 	this.currentTool = null;
 	
 	$(document).ready($.proxy(this.init, this));
+	
+	$(window).resize($.proxy(this.doResize, this));
 }
 
 Workbench.prototype.init = function() {
@@ -15,16 +19,20 @@ Workbench.prototype.init = function() {
 		}
 	}, this));
 	
-	this.localTree = new Tree({id: '#collectionsLocal'});
-	this.remoteTree = new Tree({id: '#collectionsRemote'});
+	this.pagingWizard = new PagingWizard({id: '#collectionsLocal'});
 	
 	this.viewer = new Viewer({id: '#toolContent'});
 	this.viewerZPR = new ViewerZPR({id: '#toolContent'});
+	this.orderer = new Orderer({id: '#toolContent'});
 	
 	this.tools = [{
 		id: 'viewer',
 		label: 'Viewer',
 		tool: this.viewer
+	},{
+		id: 'orderer',
+		label: 'Orderer',
+		tool: this.orderer
 	},{
 		id: 'tpen',
 		label: 'TPen',
@@ -42,7 +50,7 @@ Workbench.prototype.init = function() {
 	for (var i = 0; i < this.tools.length; i++) {
 		var tool = this.tools[i];
 		$('#tools').append('<input type="radio" id="'+tool.id+'Radio" name="toolsRadio" /><label for="'+tool.id+'Radio">'+tool.label+'</label>');
-		$('#tools input:last').data('tool', tool.tool);
+		$('#tools input:last').data('tool', tool);
 	}
 	
 	$('#tools').buttonset();
@@ -50,26 +58,36 @@ Workbench.prototype.init = function() {
 	
 	$('#tools input:first').trigger('click');
 	
-	eventManager.bind('tree.imageSelected', $.proxy(function(event, data) {
-		if (this.currentTool == 'viewer') {
-			this.viewer.showImage(event, data);
-		} else if (this.currentTool == 'enhanced') {
-			this.viewerZPR.showImage(event, data);
-		}
-	}, this));
+	this.doResize();
 };
 
 Workbench.prototype.toolChange = function(event) {
 	if (this.currentTool != null) {
 		this.currentTool.deactivate();
 	}
-	this.currentTool = $(event.target).data('tool');
+	var toolInfo = $(event.target).data('tool');
+	this.currentTool = toolInfo.tool;
 	this.currentTool.activate();
 };
 
 Workbench.prototype.searchTrees = function(query) {
 	this.localTree.tree.jstree('search', query);
 	this.remoteTree.tree.jstree('search', query);
+};
+
+Workbench.prototype.doResize = function() {
+	var height = $(window).height() - 80;
+	$('#toolContent').height(height);
+	this.currentTool.resize(height, $('#toolContent').width());
+};
+
+// general utility function
+var setPrefixesForDatabank = function(data, databank) {
+	var root = $(data).children()[0];
+	for (var i = 0; i < root.attributes.length; i++) {
+		var att = root.attributes[i];
+		databank.prefix(att.nodeName.split(':')[1], att.nodeValue);
+	}
 };
 
 workbench = new Workbench();

@@ -1,59 +1,17 @@
-#sidebar {
-	width: 300px;
-	padding: 5px;
-	float: left;
-	margin: 0;
-	background-position: top left !important;
-}
-
-#sidebar h2, #main h2 {
+#main h2 {
 	text-align: center;
 }
 
 #main {
 	padding: 5px;
-	margin: 0 0  0 320px;
+	margin: 0;
 	background-position: top left !important;
 }
 
 .section {
     margin: 10px 0;
-    padding: 10px;
 }
 
-label {
-    font-size: 12px;
-	margin-top: 2px;
-    margin-right: 10px;
-    float: left;
-    text-align: right;
-    width: 50px;
-}
-
-input {
-    display: block;
-    margin-bottom: 5px;
-	width: 175px;
-}
-
-.buttons {
+h2, p {
 	text-align: center;
-}
-
-#ordering {
-	float: left;
-}
-
-#ordering > div {
-	width: auto;
-	float: left;
-	padding: 5px;
-	margin: 3px;
-	cursor: pointer;
-}
-
-.page {
-	border: 1px solid #fff;
-	background-color: #fff;
-	box-shadow: 1px 1px 2px #aaa;
 }
