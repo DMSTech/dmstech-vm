@@ -3,6 +3,10 @@ function Tree(config) {
 	
 	this.id = this.config.id;
 	
+	var initData = config.data || [{
+		data: 'Loading...'
+	}];
+	
 	this.treeConfig = this.config.treeConfig != null ? this.config.treeConfig : {
 		plugins: ['themes', 'json_data', 'ui', 'search'],
 		themes: {
@@ -15,69 +19,100 @@ function Tree(config) {
 			case_insensitive: true
 		},
 		json_data: {
-			data: [{
-				data: 'Collection 1',
-				metadata: {collectionId: 'collectionId1'}
-			}]
+			progressive_render: true,
+			progressive_unload: true,
+			data: initData
 		}
 	};
+	
+	if (config.data == null) {
+		$(this.id).bind('loaded.jstree', $.proxy(function() {
+			this.tree.find('a').addClass('jstree-loading');
+		}, this));
+	}
 	
 	this.tree = $(this.id).jstree(this.treeConfig);
 	this.tree.bind('select_node.jstree', $.proxy(this.selectHandler, this));
 }
 
+Tree.prototype.populateTree = function(jsonNodes) {
+	this.tree.children('ul').children('li').each($.proxy(function(index, el) {
+		this.tree.jstree('delete_node', el);
+	}, this));
+	
+	for (var i = 0; i < jsonNodes.length; i++) {
+		this.tree.jstree('create_node', this.tree, 'last', jsonNodes[i]);
+	}
+};
+
 Tree.prototype.selectHandler = function(event, data) {
 	var node = data.rslt.obj;
 	var mdata = node.data();
-	if (mdata.collectionId) {
-		this.fetchCollection(mdata.collectionId, node);
-	} else if (mdata.manuscriptId) {
-		this.fetchManuscript(mdata.manuscriptId, node);
+	if (mdata.type == 'repository') {
+		
+	} else if (mdata.type == 'collection') {
+		node.children('a').addClass('jstree-loading');
+		this.fetchManifests(mdata.uris, node);
+	} else if (mdata.type == 'manifest') {
+		node.children('a').addClass('jstree-loading');
+		this.fetchSequence(mdata.iaUri, node);
 	} else if (mdata.bodyId) {
 		eventManager.trigger('tree.imageSelected', mdata);
 	}
 };
 
-Tree.prototype.fetchCollection = function(id, node) {
-	var qry = $.rdf(opts);
-	function parseManifest(query, uri) {
-		query.reset();
-		var manifests = [];
-		query
-			.where('?manifest rdf:type dms:Manifest')
-			.where('?manifest dc:title ?title')
-			.each(function() {
-				manifests.push({
-					id: this.manifest.value.toString(),
-					title: this.title.value.toString()
+Tree.prototype.fetchManifests = function(uris, node) {
+	var length = uris.length;//Math.min(uris.length, 10);
+	for (var i = 0; i < length; i++) {
+		var uri = uris[i];
+		$.ajax({
+			url: 'http://'+window.location.host+proxyString,
+			data: {
+				url: uri
+			},
+			success: $.proxy(function(data, status, xhr) {
+				var manifest = $.rdf.databank();
+				manifest.load(data);
+				setPrefixesForDatabank(data, manifest);
+				
+				var title = $.rdf({databank: manifest}).where('?manifest dc:title ?title').get(0).title.value;
+
+				var nsUri = $.rdf({databank: manifest})
+				.where('?ns rdf:type ?type')
+				.filter('type', /ns\/Sequence/)
+				.where('?ns ore:isDescribedBy ?uri').get(0).uri.value.toString();
+				
+				var iaUri = $.rdf({databank: manifest})
+				.where('?ns rdf:type ?type')
+				.filter('type', /ns\/ImageAnnotationList/)
+				.where('?ns ore:isDescribedBy ?uri').get(0).uri.value.toString();
+				
+				this.tree.jstree('create_node', node, 'last', {
+					data: title,
+					metadata: {
+						type: 'manifest',
+						nsUri: nsUri,
+						iaUri: iaUri
+					}
 				});
-			});
-		query.reset();
-		this.addManifestsToNode(node, manifests);
+				
+				if (i == length) {
+					this.tree.jstree('open_node', node);
+				}
+				
+			}, this)
+		});
 	}
-	fetchTriples('xml/Manifest.xml', qry, $.proxy(parseManifest, this));
 };
 
-Tree.prototype.fetchManuscript = function(id, node) {
+Tree.prototype.fetchSequence = function(iaUri, node) {
 	var qry = $.rdf(opts);
 	function parseAnnotations(qry, uri) {
 		var annotations = buildAllAnnos(qry);
+		eventManager.trigger('tree.sequenceSelected', [annotations]);
 		this.addAnnotationsToNode(node, annotations);
 	}
-	fetchTriples('xml/ImageAnnotations.xml', qry, $.proxy(parseAnnotations, this));
-};
-
-Tree.prototype.addManifestsToNode = function(node, manifests) {
-	for (var i = 0; i < manifests.length; i++) {
-		var m = manifests[i];
-		this.tree.jstree('create_node', node, 'last', {
-			data: m.title,
-			metadata: {
-				manuscriptId: m.id
-			}
-		});
-	}
-	this.tree.jstree('open_node', node);
+	fetchTriples('http://'+window.location.host+proxyString+'?url='+iaUri, qry, $.proxy(parseAnnotations, this));
 };
 
 Tree.prototype.addAnnotationsToNode = function(node, annotations) {

@@ -12,6 +12,8 @@
 .section {
     margin: 10px 0;
     padding: 10px;
+	width: 625px;
+	float: left;
 }
 
 label {
@@ -20,10 +22,15 @@ label {
     margin-right: 10px;
     float: left;
     text-align: right;
-    width: 120px;
+    width: 185px;
+}
+
+p.description {
+	margin: 10px 25px 10px 0;
 }
 
 #buttons {
+	clear: both;
 	margin-left: 250px;
 }
 
@@ -37,10 +44,24 @@ input {
 	width: 225px;
 }
 
+#parseFileName {
+	width: auto;
+	float: left;
+}
+
+#subdir {
+	padding: 2px;
+}
+
 h3 {
 	margin-bottom: 10px;
 	border: none;
 	border-bottom: 1px solid #A28BA2;
+}
+
+.technical {
+	font-family: "Courier New", Courier, monospace;
+	font-weight: bold;
 }
 
 .info {
@@ -87,4 +108,8 @@ h3 {
 
 .ui-state-highlight {
 	box-shadow: 2px 2px 4px #ccc;
+}
+
+.ui-widget-content {
+	font-weight: normal;
 }

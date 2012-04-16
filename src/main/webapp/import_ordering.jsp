@@ -1,26 +1,20 @@
 <%@ include file="head.jsp" %>
+<link href="css/orderer.css" type="text/css" rel="stylesheet"/>
 <link href="css/import_ordering.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="js/oac_js/jquery.rdfquery.rdfa-1.0.js"></script>
+<script type="text/javascript" src="js/oac_js/oac_utils.js"></script>
+<script type="text/javascript" src="js/oac_js/oac_rdf.js"></script>
+<script type="text/javascript" src="js/oac_js/oac_rdfjson.js"></script>
+<script type="text/javascript" src="js/event_manager.js"></script>
+<script type="text/javascript" src="js/workbench/orderer.js"></script>
 <script type="text/javascript" src="js/import_ordering.js"></script>
 </head>
 <body>
 <div id="content">
-	<div id="sidebar" class="ui-corner-all ui-widget-header">
-		<h2>Metadata</h2>
-		<div id="metadata" class="section ui-corner-all ui-widget-content">
-			<input type="hidden" name="id" value="" />
-			<label for="m1">Title:</label><input type="text" id="m1" name="title"/>
-		</div>
-		<div class="buttons">
-			<button>Apply</button>
-		</div>
-	</div>
 	<div id="main" class="ui-corner-all ui-widget-header">
 		<h2>Page Ordering</h2>
-		<div id="ordering" class="section ui-corner-all ui-widget-content"></div>
-		<div class="clear"></div>
-		<div class="buttons">
-			<button>Confirm</button>
-		</div>
+		<p>Click a page to edit its title, then click Ok or press Enter to confirm.  Double-click a page to view a larger version. Drag a page to re-order it.</p>
+		<div id="orderParent" class="section ui-corner-all ui-widget-content"></div>
 	</div>
 </div>
 </body>
