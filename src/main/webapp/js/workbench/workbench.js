@@ -1,4 +1,4 @@
-var proxyString = '/dmstech/proxy.jsp';
+var proxyString = window.location.pathname.match(/^.*\//)+'proxy.jsp';
 
 function Workbench() {
 	
