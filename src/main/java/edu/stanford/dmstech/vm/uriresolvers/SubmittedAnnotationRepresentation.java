@@ -1,9 +1,7 @@
 package edu.stanford.dmstech.vm.uriresolvers;
 
-import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
-import java.util.logging.Logger;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -17,13 +15,12 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.util.FileManager;
 
-import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.RDFUtils;
+import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
 
-@Path("/{collectionId}/{manuscriptId}/{canvasId}/{annoId}")
-public class AnnotationRepresentation {
+@Path("/submitted_annotations/{annoId}")
+public class SubmittedAnnotationRepresentation {
 
 	@GET
 	@Produces("application/rdf+xml")
@@ -59,26 +56,14 @@ public class AnnotationRepresentation {
 	private String getAllStatementsForAnnotation(UriInfo uriInfo, String manuscriptId, String canvasId, String serializeAs) {
 		StringWriter stringWriter = new StringWriter();		
 		String annotationURI = uriInfo.getAbsolutePath().toASCIIString();
-		Model textAnnotationsModel = loadTextAnnotationsModel(manuscriptId, canvasId);
-		ModelFactory.createDefaultModel().add(textAnnotationsModel.createResource(annotationURI).listProperties()).write(stringWriter, serializeAs);		
+		
+		SharedCanvasTDBManager tdbManager = new SharedCanvasTDBManager();
+		Model tdb = tdbManager.loadMainTDBDataset();	
+		
+		ModelFactory.createDefaultModel().add(tdb.createResource(annotationURI).listProperties()).write(stringWriter, serializeAs);		
 		return stringWriter.toString();
 	}
 
-	private Model loadTextAnnotationsModel(String manuscriptId, String canvasId) {
-		 Model model = ModelFactory.createDefaultModel();
-		 InputStream in = FileManager.get().open(getTextAnnosRelativeFileLocation(manuscriptId, canvasId));
-		 if (in == null) {
-		    throw new IllegalArgumentException(
-		                                 "File: " + getTextAnnosRelativeFileLocation(manuscriptId, canvasId) + " not found");
-		 }	
-		 model.read(in, null);
-		 return model;	
-	}
-
-			
-	private String getTextAnnosRelativeFileLocation(String manuscriptId, String canvasId) {
-		return "manuscripts/" + manuscriptId + "/canvas/" + canvasId + "/rdf/" + Config.getTextAnnotationFileName();
-	}
 	
 	
 	

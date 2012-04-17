@@ -17,6 +17,7 @@ import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.client.solrj.util.ClientUtils;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
@@ -165,7 +166,7 @@ public class SharedCanvasSOLRIndexer {
 					 */
 					String bodyText = null;
 					if (annotationBody.hasProperty(RDF.type, sharedCanvasConstants.cntAsTxtType)) {
-						bodyText = annotationBody.getProperty(sharedCanvasConstants.cntCharsProperty).getString();				
+						bodyText = annotationBody.getProperty(sharedCanvasConstants.cntRestProperty).getString();				
 					} else {
 						bodyText = RDFUtils.getTextFromURI(annotationBody.getURI());
 					}	
@@ -221,35 +222,41 @@ public class SharedCanvasSOLRIndexer {
 	
 
 	public void indexCanvasText(HashMap<String, List<String>> canvasTextToIndex) throws Exception {
-		SolrServer server = new CommonsHttpSolrServer(Config.solrServer);	
-		Collection<SolrInputDocument> docs = new ArrayList<SolrInputDocument>();
 		
-		for (Map.Entry<String, List<String>> entry: canvasTextToIndex.entrySet()) {
-			SolrInputDocument newCanvasSolrDoc = null;
-			String canvasURI = entry.getKey();
-			List<String> textsToAdd = entry.getValue();
-			// get the existing solr doc for the canvas
-			SolrQuery query = new SolrQuery();
-		    query.setQuery( "id:" + canvasURI);
-		    SolrDocumentList docResultList = server.query( query ).getResults();
-		    if (docs.size() != 1) {
-		    	throw new Exception("No canvas in local collection for canvas URI: " + canvasURI);
-		    	
-		    } 
-		    	SolrDocument oldCanvasSolrDoc = docResultList.get(0);
-		    	// copy the old solr doc to a new input doc
-		    	newCanvasSolrDoc = org.apache.solr.client.solrj.util.ClientUtils.toSolrInputDocument(oldCanvasSolrDoc);
-		  
-		    
-			for (String someText : textsToAdd) {
-				newCanvasSolrDoc.addField(ANNOTATION_TEXT_FIELD, someText);
-			}
+		
+		try {
+			SolrServer server = new CommonsHttpSolrServer(Config.solrServer);	
+			Collection<SolrInputDocument> docs = new ArrayList<SolrInputDocument>();
 			
-			// this will replace the old doc in solr
-			docs.add(newCanvasSolrDoc);
+			for (Map.Entry<String, List<String>> entry: canvasTextToIndex.entrySet()) {
+				SolrInputDocument newCanvasSolrDoc = null;
+				String canvasURI = entry.getKey();
+				List<String> textsToAdd = entry.getValue();
+				// get the existing solr doc for the canvas
+				SolrQuery query = new SolrQuery();
+			    query.setQuery( "uri:" + ClientUtils.escapeQueryChars(canvasURI));
+			    SolrDocumentList docResultList = server.query( query ).getResults();
+			    if (docs.size() != 1) {
+			    	throw new Exception("No canvas in local collection for canvas URI: " + canvasURI);
+			    	
+			    } 
+			    	SolrDocument oldCanvasSolrDoc = docResultList.get(0);
+			    	// copy the old solr doc to a new input doc
+			    	newCanvasSolrDoc = org.apache.solr.client.solrj.util.ClientUtils.toSolrInputDocument(oldCanvasSolrDoc);
+			  
+			    
+				for (String someText : textsToAdd) {
+					newCanvasSolrDoc.addField(ANNOTATION_TEXT_FIELD, someText);
+				}
+				
+				// this will replace the old doc in solr
+				docs.add(newCanvasSolrDoc);
+			}
+			server.add( docs );
+			server.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		server.add( docs );
-		server.commit();
 		
 	}
 

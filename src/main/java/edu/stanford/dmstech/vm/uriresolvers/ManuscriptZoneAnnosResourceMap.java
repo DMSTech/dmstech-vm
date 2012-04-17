@@ -9,7 +9,7 @@ import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.SharedCanvasUtil;
 
 
-@Path("{fileName: ZoneAnnotations\\.(?i)(xml|ttl|html)}")
+@Path("/{collectionId}/{manuscriptId}/{fileName: ZoneAnnotations\\.(?i)(xml|ttl|html)}")
 public class ManuscriptZoneAnnosResourceMap {
 	
 	@GET

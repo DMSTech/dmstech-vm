@@ -8,30 +8,30 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import edu.stanford.dmstech.vm.DMSTechRDFConstants;
 import edu.stanford.dmstech.vm.SharedCanvasUtil;
 
-@Path("{collectionId}/{manuscriptId}/{canvasId: (.*\\.html$|.*\\.xml$|.*\\.ttl$)}")
-public class CanvasRepresentation {
+@Path("/{collectionId}/{manuscriptId}/{canvasId}/{fileName: ImageAnnotations\\.(?i)(xml|ttl|html)}")
+public class CanvasImageAnnosResourceMap {
  
 	@Context 
 	UriInfo uriInfo;
-	
+
 	@GET
 	@Produces("application/rdf+xml")
-	public Response getCanvasRepresentationAsXML(
+	public Response getResourceMapAsXML(
 			@PathParam("collectionId") final String collectionId,
 			@PathParam("manuscriptId") final String manuscriptId,
 			@PathParam("canvasId") final String canvasId
 			) throws Exception {   
 		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
-		String canvasURI = originalRequest.substring(0, canvasId.lastIndexOf("."));
-		String fileExtension = originalRequest.substring(canvasId.lastIndexOf(".") + 1);
-		return SharedCanvasUtil.getSerializedCanvasRDF(canvasURI, fileExtension);
+		
+		return SharedCanvasUtil.buildResourceMapForCanvasAnnotations(originalRequest, "ImageAnnotation",  DMSTechRDFConstants.getInstance().scImageAnnotationListClass);
 		
 	}
+
 	
-
-
-
+	
+	
 	
 }

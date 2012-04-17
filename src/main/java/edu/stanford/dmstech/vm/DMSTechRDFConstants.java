@@ -46,7 +46,7 @@ public class DMSTechRDFConstants {
 	public Resource httpPostResource;
 
 	// cnt properties and types
-	public Property cntCharsProperty;
+	public Property cntRestProperty;
 	public Property cntCharEncProperty;
 	public Resource cntAsTxtType;
 
@@ -154,8 +154,8 @@ public class DMSTechRDFConstants {
 		httpPostResource = initializingModel.createResource(HTTP_NAMESPACE
 				+ "POST");
 
-		cntCharsProperty = initializingModel.createProperty(CNT_NAMESPACE,
-				"chars");
+		cntRestProperty = initializingModel.createProperty(CNT_NAMESPACE,
+				"rest");
 		cntCharEncProperty = initializingModel.createProperty(
 				CNT_NAMESPACE, "characterEncoding");
 		cntAsTxtType = initializingModel.createResource(CNT_NAMESPACE

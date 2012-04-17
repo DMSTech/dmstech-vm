@@ -61,10 +61,11 @@ public class SharedCanvasTDBManager {
 		}
 	}
 
-	public void indexFileListInMainDataset(List<String> fileList) {
+	public void indexFileListInHomeDirIntoMainDataset(List<String> fileList) {
 		Model mainTBDDataset = loadMainTDBDataset();
-		for (String filePath : fileList) {			
-			FileManager.get().readModel( mainTBDDataset, filePath);
+		for (String filePath : fileList) {	
+			String absolutePath = new File(Config.homeDirPath, filePath).getAbsolutePath(); 
+			FileManager.get().readModel( mainTBDDataset, absolutePath);
 		}
 	}
 

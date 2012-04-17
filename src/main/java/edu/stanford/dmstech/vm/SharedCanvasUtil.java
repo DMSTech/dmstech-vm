@@ -7,6 +7,9 @@ import java.util.Date;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -33,6 +36,7 @@ public class SharedCanvasUtil {
 	
 	public static Response getSerializedRDFFromHomeDir(String relativePath, String requestedFile) throws Exception{		
 		Model model = RDFUtils.loadModelInHomeDir(relativePath, "N-TRIPLE");
+		model.setNsPrefixes(rdfConstants.getInitializingModel());
 		StringWriter stringWriter = new StringWriter();
 		String mediaType = null;
 		String result = null;
@@ -53,14 +57,9 @@ public class SharedCanvasUtil {
 		return Response.ok(result, mediaType).build();
 	}		
 
-	/*public static String getSerializedRDFFromHomeDir(String relativePath, String format) throws Exception{		
-		Model textAnnotationsModel = RDFUtils.loadModelInHomeDir(relativePath, "N-TRIPLE");
-		StringWriter stringWriter = new StringWriter();
-		textAnnotationsModel.write(stringWriter, format);
-		return stringWriter.toString();		
-	}*/
+
 	
-	public static String getSerializedCanvasRDF(String canvasURI, String format) {
+	public static Response getSerializedCanvasRDF(String canvasURI, String fileExtension) throws TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {
 		
 		Model canvasModel = ModelFactory.createDefaultModel();
 		canvasModel.setNsPrefixes(rdfConstants.getInitializingModel());
@@ -68,7 +67,30 @@ public class SharedCanvasUtil {
 				  .addProperty(rdfConstants.scHasTextAnnotations, canvasURI  + "/TextAnnotations" )
 				  .addProperty(rdfConstants.scHasImageAnnotations, canvasURI  + "/ImageAnnotations" )
 				  .addProperty(rdfConstants.scHasZoneAnnotations, canvasURI  + "/ZoneAnnotations" );
-		  return RDFUtils.serializeModelToString(canvasModel, format);
+		
+		  
+		  return buildResponseFromModel(canvasModel, fileExtension);
+	}		
+	
+	public static Response buildResponseFromModel(Model model, String fileExtension) throws TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {
+		StringWriter stringWriter = new StringWriter();
+		String mediaType = null;
+		String result = null;
+		if (fileExtension.equals(".xml")) {
+			model.write(stringWriter, "RDF/XML");
+			result = stringWriter.toString();	
+			mediaType = "application/rdf+xml";
+		} else if (fileExtension.equals(".ttl")) {
+			model.write(stringWriter, "TURTLE");
+			result = stringWriter.toString();	
+			mediaType = "text/turtle;charset=utf-8";
+		} else {
+			model.write(stringWriter, "RDF/XML");
+			result = RDFUtils.serializeRDFToHTML(stringWriter.toString());
+			mediaType = MediaType.TEXT_HTML;
+		}
+
+		return Response.ok(result, mediaType).build();
 	}
 
 	public static Resource addResourceMapAndAggregationToModel(Model model, String aggregationURI, Resource dmsAggregationType, String dateCreated) {
@@ -87,13 +109,15 @@ public class SharedCanvasUtil {
 		return aggregation;
 	}
 	
-	public static String buildResourceMapForAnnotations(String format, String originalRequest, String annotationType, Resource annotationListClass) throws IOException {
+	public static Response buildResourceMapForCanvasAnnotations(String originalRequest, String annotationType, Resource annotationListClass) throws IOException, TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {
 		
 		String W3CDTF_NOW = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).format(new Date());
 		
 
 		String canvasURI = originalRequest.substring(0, originalRequest.lastIndexOf("/") );
 		String aggregationURI = originalRequest.substring(0, originalRequest.indexOf(".xml"));
+		String fileExtension = originalRequest.substring(originalRequest.lastIndexOf(".") + 1);
+		
 		Model canvasModel = ModelFactory.createDefaultModel();
 		
 		Resource aggregation = SharedCanvasUtil.addResourceMapAndAggregationToModel(canvasModel, aggregationURI, annotationListClass, W3CDTF_NOW);
@@ -143,9 +167,9 @@ public class SharedCanvasUtil {
 				if (! body.hasProperty(RDF.type, rdfConstants.cntAsTxtType)) {
 					// If the body isn't inline then get it and put it inline as an
 					// anonymous node sameAs'd to the original URI
-					Resource newAnonBody = canvasModel.createResource(AnonId.create())
+					canvasModel.createResource(AnonId.create())
 							.addProperty(RDF.type, rdfConstants.cntAsTxtType)
-							.addLiteral(rdfConstants.cntCharsProperty, RDFUtils.getTextFromURI(body.getURI()))
+							.addLiteral(rdfConstants.cntRestProperty, RDFUtils.getTextFromURI(body.getURI()))
 							.addLiteral(rdfConstants.cntCharEncProperty, "utf-8")
 							.addProperty(OWL.sameAs, body);					
 				}					
@@ -163,7 +187,8 @@ public class SharedCanvasUtil {
 		}				
 		}
 		qe.close();
-		return RDFUtils.serializeModelToString(canvasModel, format);
+		
+		return buildResponseFromModel(canvasModel, fileExtension);
 	
 	}
 }

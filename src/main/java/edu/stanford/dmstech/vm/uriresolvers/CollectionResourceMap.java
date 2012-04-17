@@ -9,7 +9,7 @@ import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.SharedCanvasUtil;
 
 
-@Path("/{collectionId}/{manuscriptId}/{fileName: ImageAnnotations\\.(?i)(xml|ttl|html)}")
+@Path("/{collectionId}/{fileName: Collection\\.(?i)(xml|ttl|html)}")
 public class CollectionResourceMap {
 
 	@GET

@@ -10,13 +10,12 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-
-@Path("/{collectiondId}/{manuscriptId}/Manifest")
-public class ManuscriptManifestAggregation {
-
+@Path("{collectionId}/{manuscriptId}/{canvasId}/TextAnnotations")
+public class CanvasTextAnnosAggregation {
+ 
 	@Context 
 	UriInfo uriInfo;
-	
+
 	@GET 
 	@Produces("application/rdf+xml")
 	public Response redirectReqToXMLResourceMap() throws URISyntaxException {
@@ -37,8 +36,10 @@ public class ManuscriptManifestAggregation {
 		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
 		return Response.seeOther(new URI(originalRequest + ".html")).build();
 	}
+
 	
-
-		
+	
+	
+	
+	
 }
-

@@ -44,6 +44,7 @@ public class Config implements ServletContextListener {
 	public static String defaultCollection = null;
 	public static String mainTDBDatasetDir = null;	
 	public static String solrServer = null;
+	public static String djatokaServer = null;
 	
 	public static  File homeDir = null;
 	
@@ -187,6 +188,14 @@ public class Config implements ServletContextListener {
 		Config.solrServer = solrServer;
 	}
 	
+	public static String getDjatokaServer() {
+		return djatokaServer;
+	}
+
+	public  void setDjatokaServer(String djatokaServer) {
+		Config.djatokaServer = djatokaServer;
+	}
+	
 	public static File getHomeDir() {
 		return homeDir;
 	}
@@ -230,11 +239,15 @@ public class Config implements ServletContextListener {
 		return getAbsolutePathToManuscriptDir(getDefaultCollection(), manuscriptSubDirectory);
 	}
 	
+	public static String getAbsolutePathToManuscriptsSequenceDir(String collectionId, String manuscriptId) {
+		return new File(getAbsolutePathToManuscriptDir(collectionId, manuscriptId), "sequences").getAbsolutePath();
+	}
+	
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
 		Config config = new Config();
 		config.initializeThisConfig();
-		System.out.println(config.getAbsolutePathToManuscriptDir("someColl", "someManu"));
+		System.out.println(Config.getAbsolutePathToManuscriptDir("someColl", "someManu"));
 	}
 	
 	
@@ -315,6 +328,7 @@ public class Config implements ServletContextListener {
 	    digester.addBeanPropertySetter("config/defaultCollection");
 	    digester.addBeanPropertySetter("config/mainTDBDatasetDir");
 	    digester.addBeanPropertySetter("config/solrServer");
+	    digester.addBeanPropertySetter("config/djatokaServer");
 	    
 
 	    try {

@@ -81,6 +81,17 @@ public class RDFUtils {
 		
 	}
 	
+	public static Model loadModelFromInputStream(InputStream input, String format) throws Exception {
+		 Model model = ModelFactory.createDefaultModel();
+		 if (input != null) {
+			 model.read(input, null, format);
+		 } else {
+			 logger.severe("Model File doesn't exist.");
+			 throw new Exception("Input stream was empty.");
+		 }
+		 return model;	
+	}
+	
 	public static Model loadModelInAbsoluteDir(String absolutePath, String format) throws Exception {
 		 Model model = ModelFactory.createDefaultModel();
 		 InputStream in = FileManager.get().open(absolutePath);
@@ -122,6 +133,8 @@ public class RDFUtils {
 		}
 			model.write(fout, format);
 	}
+	
+
 	
 	public static String serializeModelToString(Model model, String format) {
 		StringWriter stringWriter = new StringWriter();

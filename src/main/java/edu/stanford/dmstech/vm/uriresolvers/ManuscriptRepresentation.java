@@ -9,7 +9,7 @@ import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.SharedCanvasUtil;
 
 
-@Path("/{collectionId}/{manuscriptId}")
+@Path("/{collectionId}/{manuscriptId: (.*\\.html$|.*\\.xml$|.*\\.ttl$)}")
 public class ManuscriptRepresentation {
 	
 	@GET

@@ -1,5 +1,5 @@
 package edu.stanford.dmstech.vm.uriresolvers;
 
-public class TransactionLevel {
+public class TransactionRepresentation {
 
 }

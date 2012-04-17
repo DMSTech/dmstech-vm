@@ -1,4 +1,4 @@
-package edu.stanford.dmstech.vm.uriresolvers.ingest;
+package edu.stanford.dmstech.vm.uriresolvers.lookup;
 
 import java.io.IOException;
 
