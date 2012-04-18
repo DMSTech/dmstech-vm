@@ -1,0 +1,18 @@
+<config>
+	<repositoryFileName>Repository.nt</repositoryFileName>
+	<collectionFileName>Collection.nt</collectionFileName>
+	<normalSequenceFileName>NormalSequenceResourceMap.nt</normalSequenceFileName>
+	<manifestFileName>ManifestResourceMap.nt</manifestFileName>
+	<imageAnnotationFileName>ImgAnnoResourceMap.nt</imageAnnotationFileName>
+	<zoneAnnotationFileName>ZoneAnnoResourceMap.nt</zoneAnnotationFileName>
+	<textAnnotationFileName>TextAnnoResourceMap.nt</textAnnotationFileName>
+	<baseURIForIds>http://localhost:8080</baseURIForIds>
+	<baseURIForDocuments>http://localhost:8080</baseURIForDocuments>
+	<collectionSubDir>collections</collectionSubDir>
+	<textAnnosSubDir>submitted_annotations</textAnnosSubDir>
+	<transactionsSubDir>transactions</transactionsSubDir>
+	<defaultCollection>ingested</defaultCollection>
+	<mainTDBDatasetDir>repository_tbd_index</mainTDBDatasetDir>
+	<solrServer>http://localhost:8080/solr-sc</solrServer>
+	<djatokaServer>http://localhost:8080/adore-djatoka</djatokaServer>
+</config>

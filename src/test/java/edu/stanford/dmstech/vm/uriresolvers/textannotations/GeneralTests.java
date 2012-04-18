@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.solr.client.solrj.SolrServerException;
 
 import edu.stanford.dmstech.vm.Config;
+import edu.stanford.dmstech.vm.SharedCanvasUtil;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasSOLRIndexer;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
 import edu.stanford.dmstech.vm.manuscriptgeneration.SharedCanvasGenerator;
@@ -21,8 +22,9 @@ public class GeneralTests {
 		Config config = new Config();
 		config.initializeThisConfig();
 	//	new SharedCanvasGenerator().ingestTestManu();
-		new AnnotationIngester().test();
+	//	new AnnotationIngester().test();
 		
+		new SharedCanvasUtil().queryTest();
 //		new SharedCanvasTDBManager().reindexAllLocalRDFData();
 //		new SharedCanvasSOLRIndexer().reindexAllLocalDataInSolr();
 	}

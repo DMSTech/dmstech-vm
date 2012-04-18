@@ -16,6 +16,7 @@ import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.query.ResultSetFormatter;
 import com.hp.hpl.jena.rdf.model.AnonId;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
@@ -110,11 +111,66 @@ public class SharedCanvasUtil {
 	}
 	
 	public static Response buildResourceMapForManuscriptAnnotations(String originalRequest, String annotationType, Resource annotationListClass) throws TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {
-		Model manuscriptAnnoModel = ModelFactory.createDefaultModel();
+		
+		String W3CDTF_NOW = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).format(new Date());
+		
+		
+		String manuscriptURI = originalRequest.substring(0, originalRequest.lastIndexOf("/") );
+		String aggregationURI = originalRequest.substring(0, originalRequest.indexOf(".xml"));
 		String fileExtension = originalRequest.substring(originalRequest.lastIndexOf(".") + 1);
 		
+		Model manuscriptAnnoModel = ModelFactory.createDefaultModel(); 
+		
+		Resource aggregation = SharedCanvasUtil.addResourceMapAndAggregationToModel(manuscriptAnnoModel, aggregationURI, annotationListClass, W3CDTF_NOW);
+		SharedCanvasTDBManager tdbManager = new SharedCanvasTDBManager();
+		Model tdb = tdbManager.loadMainTDBDataset();	
+		
+		String queryString = "PREFIX oac: <http://www.openannotation.org/ns/> " +
+				"PREFIX sc: <http://www.shared-canvas.org/ns/> " +
+				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+				"PREFIX ore: <http://www.openarchives.org/ore/terms/> " +
+				"SELECT ?anno ?canvas ?body " +
+				"	WHERE {" +
+				   "<" +aggregationURI + "> ore:aggregates ?canvas ." +				
+				"	 ?anno oac:hasTarget ?canvas ." +
+				"	 ?anno oac:hasBody ?body" + 
+				"	}";
+
+		   Query query = QueryFactory.create(queryString);
+		   QueryExecution qe = QueryExecutionFactory.create(query, tdb);
+		   ResultSet results = qe.execSelect();
+	
+		   
+		   
 		return buildResponseFromModel(manuscriptAnnoModel, fileExtension);
 	}
+	
+	
+	public static void queryTest() {
+		
+		SharedCanvasTDBManager tdbManager = new SharedCanvasTDBManager();
+		Model tdb = tdbManager.loadMainTDBDataset();	
+		
+		String queryString = "PREFIX oac: <http://www.openannotation.org/ns/> " +
+				"PREFIX sc: <http://www.shared-canvas.org/ns/> " +
+				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+				"PREFIX ore: <http://www.openarchives.org/ore/terms/> " +
+				"SELECT  ?anno ?canvas ?body " +
+				"	WHERE {" +
+				   "" +
+				   "<http://localhost:8080/ingested/myTestManu/NormalSequence> ore:aggregates ?canvas ." +				
+				"	 ?anno oac:hasTarget ?canvas ." +
+				"	 ?anno oac:hasBody ?body" + 
+				"	}";
+
+		   Query query = QueryFactory.create(queryString);
+		   QueryExecution qe = QueryExecutionFactory.create(query, tdb);
+		   ResultSet results = qe.execSelect();
+		   System.out.println("---- XML ----");
+           ResultSetFormatter.outputAsXML(System.out, results);
+	
+	}
+	
 	public static Response buildResourceMapForCanvasAnnotations(String originalRequest, String annotationType, Resource annotationListClass) throws IOException, TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {
 		
 		String W3CDTF_NOW = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).format(new Date());
@@ -138,6 +194,7 @@ public class SharedCanvasUtil {
 				"	WHERE {" +
 				"	 ?anno oac:hasTarget <" + canvasURI + "> ." +
 				"	 ?anno rdf:type sc:" + annotationType  +
+			//	"    ?anno oad:hasBody ?body" + 
 				"	}";
 
 		   Query query = QueryFactory.create(queryString);
@@ -170,7 +227,7 @@ public class SharedCanvasUtil {
 				Resource body = bodies.nextStatement().getObject().asResource();
 				StmtIterator bodyStmts = tdb.listStatements(body, null, (RDFNode) null);
 				canvasModel.add(bodyStmts);
-				if (! body.hasProperty(RDF.type, rdfConstants.cntAsTxtType)) {
+				if (annotationType.equals(rdfConstants.oacTextAnnotationType) && ! body.hasProperty(RDF.type, rdfConstants.cntAsTxtType)) {
 					// If the body isn't inline then get it and put it inline as an
 					// anonymous node sameAs'd to the original URI
 					canvasModel.createResource(AnonId.create())
