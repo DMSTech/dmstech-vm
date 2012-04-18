@@ -14,15 +14,13 @@ import edu.stanford.dmstech.vm.SharedCanvasUtil;
 @Path("/{collectionId}/{manuscriptId}/{canvasId}/{fileName: TextAnnotations\\.(?i)(xml|ttl|html)}")
 public class CanvasTextAnnosResourceMap {
  
-	@Context 
-	UriInfo uriInfo;
-
 	@GET
 	@Produces("application/rdf+xml")
 	public Response getResourceMapAsXML(
 			@PathParam("collectionId") final String collectionId,
 			@PathParam("manuscriptId") final String manuscriptId,
-			@PathParam("canvasId") final String canvasId
+			@PathParam("canvasId") final String canvasId,
+			@Context UriInfo uriInfo
 			) throws Exception {   
 		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
 		

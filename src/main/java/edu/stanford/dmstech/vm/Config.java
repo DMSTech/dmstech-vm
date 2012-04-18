@@ -23,6 +23,7 @@ import org.xml.sax.SAXException;
 
 public class Config implements ServletContextListener {
 
+	private static final String SHAREDCANVAS_CONFIG_FILE_NAME = "sharedcanvas-config.xml";
 	private static final String LOG_FILE_NAME = "log.txt";
 	private final static Logger LOGGER = Logger.getLogger(Config.class.getName());
 	public static final String HOME_DIR_ENV_VAR = "SHARED_CANVAS_HOME";
@@ -304,7 +305,7 @@ public class Config implements ServletContextListener {
     }
 
 	private void loadConfigFile(File homeDir) {
-		File configFile = new File(homeDir, "config.xml");
+		File configFile = new File(homeDir, SHAREDCANVAS_CONFIG_FILE_NAME);
 		if (!configFile.exists()) {
 			LOGGER.severe("The config.xml file does not appear to exist in your " + HOME_DIR_ENV_VAR + " directory.");
 			System.out.println("The config.xml file does not appear to exist in your " + HOME_DIR_ENV_VAR + " directory.");			
