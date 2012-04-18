@@ -25,7 +25,7 @@ public class Config implements ServletContextListener {
 
 	private static final String LOG_FILE_NAME = "log.txt";
 	private final static Logger LOGGER = Logger.getLogger(Config.class.getName());
-	public static final String HOME_DIR_ENV_VAR = "KVM_HOME";
+	public static final String HOME_DIR_ENV_VAR = "SHARED_CANVAS_HOME";
 	
 	public static String homeDirPath = null;
 	public static  String repositoryFileName = null;
