@@ -109,6 +109,12 @@ public class SharedCanvasUtil {
 		return aggregation;
 	}
 	
+	public static Response buildResourceMapForManuscriptAnnotations(String originalRequest, String annotationType, Resource annotationListClass) throws TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {
+		Model manuscriptAnnoModel = ModelFactory.createDefaultModel();
+		String fileExtension = originalRequest.substring(originalRequest.lastIndexOf(".") + 1);
+		
+		return buildResponseFromModel(manuscriptAnnoModel, fileExtension);
+	}
 	public static Response buildResourceMapForCanvasAnnotations(String originalRequest, String annotationType, Resource annotationListClass) throws IOException, TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {
 		
 		String W3CDTF_NOW = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).format(new Date());
