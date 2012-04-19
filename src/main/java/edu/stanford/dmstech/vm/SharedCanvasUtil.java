@@ -62,14 +62,20 @@ public class SharedCanvasUtil {
 	
 	public static Response getSerializedCanvasRDF(String canvasURI, String fileExtension) throws TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {
 		
+		SharedCanvasTDBManager tdbManager = new SharedCanvasTDBManager();
+		Model tdb = tdbManager.loadMainTDBDataset();
+		 
 		Model canvasModel = ModelFactory.createDefaultModel();
 		canvasModel.setNsPrefixes(rdfConstants.getInitializingModel());
-		  canvasModel.createResource(canvasURI)
+		
+		canvasModel.createResource(canvasURI)
 				  .addProperty(rdfConstants.scHasTextAnnotations, canvasURI  + "/TextAnnotations" )
 				  .addProperty(rdfConstants.scHasImageAnnotations, canvasURI  + "/ImageAnnotations" )
 				  .addProperty(rdfConstants.scHasZoneAnnotations, canvasURI  + "/ZoneAnnotations" );
-		
-		  
+		 
+		Resource canvasResource = tdb.createResource(canvasURI);
+		  StmtIterator canvasStmtIter = tdb.listStatements(canvasResource, null, (RDFNode) null);
+		  canvasModel.add(canvasStmtIter);	  
 		  return buildResponseFromModel(canvasModel, fileExtension);
 	}		
 	
