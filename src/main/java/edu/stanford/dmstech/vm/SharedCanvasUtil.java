@@ -110,41 +110,6 @@ public class SharedCanvasUtil {
 		return aggregation;
 	}
 	
-	public static Response buildResourceMapForManuscriptAnnotations(String originalRequest, String annotationType, Resource annotationListClass) throws TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {
-		
-		String W3CDTF_NOW = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).format(new Date());
-		
-		
-		String manuscriptURI = originalRequest.substring(0, originalRequest.lastIndexOf("/") );
-		String aggregationURI = originalRequest.substring(0, originalRequest.indexOf(".xml"));
-		String fileExtension = originalRequest.substring(originalRequest.lastIndexOf(".") + 1);
-		
-		Model manuscriptAnnoModel = ModelFactory.createDefaultModel(); 
-		
-		Resource aggregation = SharedCanvasUtil.addResourceMapAndAggregationToModel(manuscriptAnnoModel, aggregationURI, annotationListClass, W3CDTF_NOW);
-		SharedCanvasTDBManager tdbManager = new SharedCanvasTDBManager();
-		Model tdb = tdbManager.loadMainTDBDataset();	
-		
-		String queryString = "PREFIX oac: <http://www.openannotation.org/ns/> " +
-				"PREFIX sc: <http://www.shared-canvas.org/ns/> " +
-				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
-				"PREFIX ore: <http://www.openarchives.org/ore/terms/> " +
-				"SELECT ?anno " +
-				"	WHERE {" +
-				   "<" +aggregationURI + "> ore:aggregates ?canvas ." +				
-				"	 ?anno oac:hasTarget ?canvas ." +
-				"	}";
-
-		   Query query = QueryFactory.create(queryString);
-		   QueryExecution qe = QueryExecutionFactory.create(query, tdb);
-		   ResultSet results = qe.execSelect();
-	
-		   
-		   
-		return buildResponseFromModel(manuscriptAnnoModel, fileExtension);
-	}
-	
-	
 	public static void queryTest() {
 		
 		SharedCanvasTDBManager tdbManager = new SharedCanvasTDBManager();
@@ -170,22 +135,34 @@ public class SharedCanvasUtil {
 	
 	}
 	
-	public static Response buildResourceMapForCanvasAnnotations(String originalRequest, String annotationType, Resource annotationListClass) throws IOException, TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {
-		
-		String W3CDTF_NOW = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).format(new Date());
-		
-
-		String canvasURI = originalRequest.substring(0, originalRequest.lastIndexOf("/") );
+	public static Response buildResourceMapForManuscriptAnnotations(String originalRequest, String annotationType, Resource annotationListClass) throws TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {
 		String aggregationURI = originalRequest.substring(0, originalRequest.indexOf(".xml"));
-		String fileExtension = originalRequest.substring(originalRequest.lastIndexOf(".") + 1);
+		String queryString = "PREFIX oac: <http://www.openannotation.org/ns/> " +
+				"PREFIX sc: <http://www.shared-canvas.org/ns/> " +
+				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+				"PREFIX ore: <http://www.openarchives.org/ore/terms/> " +
+				"SELECT ?anno " +
+				"	WHERE {" +
+				   "<" +aggregationURI + "> ore:aggregates ?canvas ." +				
+				"	 ?anno oac:hasTarget ?canvas ." +
+				"	}";
 		
-		Model canvasModel = ModelFactory.createDefaultModel();
+		try {
+			return buildAnnotationResourceMapResponse(originalRequest,
+					annotationType, annotationListClass, queryString);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return Response.serverError().build();
+		}
+	
 		
-		Resource aggregation = SharedCanvasUtil.addResourceMapAndAggregationToModel(canvasModel, aggregationURI, annotationListClass, W3CDTF_NOW);
-		SharedCanvasTDBManager tdbManager = new SharedCanvasTDBManager();
-		Model tdb = tdbManager.loadMainTDBDataset();	
-	//	Resource canvasResource = tdb.createResource(canvasURI);
-		
+	}
+	
+	
+
+	
+	public static Response buildResourceMapForCanvasAnnotations(String originalRequest, String annotationType, Resource annotationListClass){
+		String canvasURI = originalRequest.substring(0, originalRequest.lastIndexOf("/") );
 		String queryString = "PREFIX oac: <http://www.openannotation.org/ns/> " +
 				"PREFIX sc: <http://www.shared-canvas.org/ns/> " +
 				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
@@ -193,24 +170,50 @@ public class SharedCanvasUtil {
 				"	WHERE {" +
 				"	 ?anno oac:hasTarget <" + canvasURI + "> ." +
 				"	 ?anno rdf:type sc:" + annotationType  +
-			//	"    ?anno oad:hasBody ?body" + 
 				"	}";
+		
+		try {
+			return buildAnnotationResourceMapResponse(originalRequest,
+					annotationType, annotationListClass, queryString);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.serverError().build();
+		}
+	
+	}
+
+
+
+	private static Response buildAnnotationResourceMapResponse(
+			String originalRequest, String annotationType,
+			Resource annotationListClass, String queryString)
+			throws IOException, TransformerConfigurationException,
+			TransformerFactoryConfigurationError, TransformerException {
+		String W3CDTF_NOW = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).format(new Date());
+		
+		
+		String aggregationURI = originalRequest.substring(0, originalRequest.indexOf(".xml"));
+		String fileExtension = originalRequest.substring(originalRequest.lastIndexOf(".") + 1);
+		
+		Model model = ModelFactory.createDefaultModel();
+		
+		Resource aggregation = SharedCanvasUtil.addResourceMapAndAggregationToModel(model, aggregationURI, annotationListClass, W3CDTF_NOW);
+		SharedCanvasTDBManager tdbManager = new SharedCanvasTDBManager();
+		Model tdb = tdbManager.loadMainTDBDataset();	
 
 		   Query query = QueryFactory.create(queryString);
 		   QueryExecution qe = QueryExecutionFactory.create(query, tdb);
 		   ResultSet results = qe.execSelect();
-		   
-		   
-	//	ResIterator annoIter = tdb.listSubjectsWithProperty(rdfConstants.oacHasTargetProperty, canvasResource);
-		
+	
 		Resource nextListNode = aggregation;
+		
 		while (results.hasNext()) {
 			Resource annotation = results.nextSolution().getResource("anno");
-			canvasModel.createResource(annotation);
+			model.createResource(annotation);
 			// add all statements for which the annotation is the subject.
 			// i.e., everything 'about' the annotation
 			StmtIterator annoStmtIter = tdb.listStatements(annotation, null, (RDFNode) null);
-			canvasModel.add(annoStmtIter);
+			model.add(annoStmtIter);
 			StmtIterator targets = annotation.listProperties(rdfConstants.oacHasTargetProperty);
 			StmtIterator bodies = annotation.listProperties(rdfConstants.oacHasBodyProperty);
 			// add all statements for which the annotation target is the subject.
@@ -218,18 +221,18 @@ public class SharedCanvasUtil {
 			while (targets.hasNext()) {
 				Resource target = targets.nextStatement().getObject().asResource();
 				StmtIterator targetStmts = tdb.listStatements(target, null, (RDFNode) null);
-				canvasModel.add(targetStmts);
+				model.add(targetStmts);
 			}
 			// add all statements for which the annotation body is the subject.
 			// i.e, everything 'about' the body
 			while (bodies.hasNext()) {
 				Resource body = bodies.nextStatement().getObject().asResource();
 				StmtIterator bodyStmts = tdb.listStatements(body, null, (RDFNode) null);
-				canvasModel.add(bodyStmts);
+				model.add(bodyStmts);
 				if (annotationType.equals(rdfConstants.oacTextAnnotationType) && ! body.hasProperty(RDF.type, rdfConstants.cntAsTxtType)) {
 					// If the body isn't inline then get it and put it inline as an
 					// anonymous node sameAs'd to the original URI
-					canvasModel.createResource(AnonId.create())
+					model.createResource(AnonId.create())
 							.addProperty(RDF.type, rdfConstants.cntAsTxtType)
 							.addLiteral(rdfConstants.cntRestProperty, RDFUtils.getTextFromURI(body.getURI()))
 							.addLiteral(rdfConstants.cntCharEncProperty, "utf-8")
@@ -240,7 +243,7 @@ public class SharedCanvasUtil {
 			nextListNode.addProperty(RDF.first, annotation);
 	
 		if (! results.hasNext()) {	
-			Resource newListNode = canvasModel.createResource(AnonId.create());
+			Resource newListNode = model.createResource(AnonId.create());
 			nextListNode.addProperty(RDF.rest, newListNode);
 			nextListNode = newListNode;
 			
@@ -250,7 +253,6 @@ public class SharedCanvasUtil {
 		}
 		qe.close();
 		
-		return buildResponseFromModel(canvasModel, fileExtension);
-	
+		return buildResponseFromModel(model, fileExtension);
 	}
 }
