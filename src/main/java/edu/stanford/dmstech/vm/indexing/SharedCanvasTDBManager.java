@@ -174,6 +174,21 @@ private Model loadTDBDataset(String tbdDatasetPath) {
 	return tdb;
 }
 
+public  String queryMainDataset(String queryString) {
+	String result = "";
+	Model model = loadMainTDBDataset();
+	Query query = QueryFactory.create(queryString);
+
+	   QueryExecution qe = QueryExecutionFactory.create(query, model);
+	   ResultSet results = qe.execSelect();
+
+	   result = ResultSetFormatter.asXMLString(results);
+
+	   qe.close();
+	   return result;
+}
+
+
 private void printQueryResultToConsole(String queryString, Model model) {
 		Query query = QueryFactory.create(queryString);
 

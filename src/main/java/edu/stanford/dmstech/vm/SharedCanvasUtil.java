@@ -129,11 +129,10 @@ public class SharedCanvasUtil {
 				"PREFIX sc: <http://www.shared-canvas.org/ns/> " +
 				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
 				"PREFIX ore: <http://www.openarchives.org/ore/terms/> " +
-				"SELECT ?anno ?canvas ?body " +
+				"SELECT ?anno " +
 				"	WHERE {" +
 				   "<" +aggregationURI + "> ore:aggregates ?canvas ." +				
 				"	 ?anno oac:hasTarget ?canvas ." +
-				"	 ?anno oac:hasBody ?body" + 
 				"	}";
 
 		   Query query = QueryFactory.create(queryString);
