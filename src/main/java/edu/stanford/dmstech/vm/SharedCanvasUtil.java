@@ -73,6 +73,28 @@ public class SharedCanvasUtil {
 		  return buildResponseFromModel(canvasModel, fileExtension);
 	}		
 	
+	public static String buildStringFromModel(Model model, String fileExtension) throws TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {
+		StringWriter stringWriter = new StringWriter();
+		
+		String result = null;
+		if (fileExtension.equals(".xml")) {
+			model.write(stringWriter, "RDF/XML");
+			result = stringWriter.toString();	
+			
+		} else if (fileExtension.equals(".ttl")) {
+			model.write(stringWriter, "TURTLE");
+			result = stringWriter.toString();	
+			
+		} else {
+			model.write(stringWriter, "RDF/XML");
+			result = RDFUtils.serializeRDFToHTML(stringWriter.toString());
+			
+		}
+
+		return result;
+	}
+
+	
 	public static Response buildResponseFromModel(Model model, String fileExtension) throws TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {
 		StringWriter stringWriter = new StringWriter();
 		String mediaType = null;
@@ -110,33 +132,49 @@ public class SharedCanvasUtil {
 		return aggregation;
 	}
 	
-	public static void queryTest() {
+	public static String queryTest() {
 		
-		SharedCanvasTDBManager tdbManager = new SharedCanvasTDBManager();
-		Model tdb = tdbManager.loadMainTDBDataset();	
-		
+		String result = null;
+			
 		String queryString = "PREFIX oac: <http://www.openannotation.org/ns/> " +
 				"PREFIX sc: <http://www.shared-canvas.org/ns/> " +
 				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
 				"PREFIX ore: <http://www.openarchives.org/ore/terms/> " +
-				"SELECT  ?anno ?canvas ?body " +
+				"SELECT  ?anno " +
 				"	WHERE {" +
 				   "" +
 				   "<http://localhost:8080/ingested/myTestManu/NormalSequence> ore:aggregates ?canvas ." +				
 				"	 ?anno oac:hasTarget ?canvas ." +
-				"	 ?anno oac:hasBody ?body" + 
+				"	 ?anno rdf:type sc:" + "TextAnnotation"  +
 				"	}";
 
-		   Query query = QueryFactory.create(queryString);
-		   QueryExecution qe = QueryExecutionFactory.create(query, tdb);
-		   ResultSet results = qe.execSelect();
-		   System.out.println("---- XML ----");
-           ResultSetFormatter.outputAsXML(System.out, results);
+		Model model;
+		try {
+			model = buildAnnotationResourceMap("http://localhost:8080/ingested/myTestManu/NormalSequence.xml",
+					"TextAnnotation", rdfConstants.scTextAnnotationListClass, queryString);
+			result =  buildStringFromModel(model, "xml");
+			
+		} catch (TransformerConfigurationException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TransformerFactoryConfigurationError e) {
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return result;
+		
 	
 	}
 	
 	public static Response buildResourceMapForManuscriptAnnotations(String originalRequest, String annotationType, Resource annotationListClass) throws TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {
 		String aggregationURI = originalRequest.substring(0, originalRequest.indexOf(".xml"));
+		String fileExtension = originalRequest.substring(originalRequest.lastIndexOf(".") + 1);
+		
+		
 		String queryString = "PREFIX oac: <http://www.openannotation.org/ns/> " +
 				"PREFIX sc: <http://www.shared-canvas.org/ns/> " +
 				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
@@ -145,12 +183,15 @@ public class SharedCanvasUtil {
 				"	WHERE {" +
 				   "<" +aggregationURI + "> ore:aggregates ?canvas ." +				
 				"	 ?anno oac:hasTarget ?canvas ." +
+				"	 ?anno rdf:type sc:" + annotationType  +
 				"	}";
 		
 		try {
-			return buildAnnotationResourceMapResponse(originalRequest,
+			Model model = buildAnnotationResourceMap(originalRequest,
 					annotationType, annotationListClass, queryString);
-		} catch (IOException e) {
+			
+			return buildResponseFromModel(model, fileExtension);
+		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.serverError().build();
 		}
@@ -163,6 +204,8 @@ public class SharedCanvasUtil {
 	
 	public static Response buildResourceMapForCanvasAnnotations(String originalRequest, String annotationType, Resource annotationListClass){
 		String canvasURI = originalRequest.substring(0, originalRequest.lastIndexOf("/") );
+		String fileExtension = originalRequest.substring(originalRequest.lastIndexOf(".") + 1);
+		
 		String queryString = "PREFIX oac: <http://www.openannotation.org/ns/> " +
 				"PREFIX sc: <http://www.shared-canvas.org/ns/> " +
 				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
@@ -173,8 +216,9 @@ public class SharedCanvasUtil {
 				"	}";
 		
 		try {
-			return buildAnnotationResourceMapResponse(originalRequest,
+			Model model = buildAnnotationResourceMap(originalRequest,
 					annotationType, annotationListClass, queryString);
+			return buildResponseFromModel(model, fileExtension);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.serverError().build();
@@ -184,7 +228,7 @@ public class SharedCanvasUtil {
 
 
 
-	private static Response buildAnnotationResourceMapResponse(
+	private static Model buildAnnotationResourceMap(
 			String originalRequest, String annotationType,
 			Resource annotationListClass, String queryString)
 			throws IOException, TransformerConfigurationException,
@@ -193,9 +237,9 @@ public class SharedCanvasUtil {
 		
 		
 		String aggregationURI = originalRequest.substring(0, originalRequest.indexOf(".xml"));
-		String fileExtension = originalRequest.substring(originalRequest.lastIndexOf(".") + 1);
 		
 		Model model = ModelFactory.createDefaultModel();
+		model.setNsPrefixes(rdfConstants.getInitializingModel());
 		
 		Resource aggregation = SharedCanvasUtil.addResourceMapAndAggregationToModel(model, aggregationURI, annotationListClass, W3CDTF_NOW);
 		SharedCanvasTDBManager tdbManager = new SharedCanvasTDBManager();
@@ -253,6 +297,6 @@ public class SharedCanvasUtil {
 		}
 		qe.close();
 		
-		return buildResponseFromModel(model, fileExtension);
+		return model;
 	}
 }

@@ -24,7 +24,8 @@ public class GeneralTests {
 	//	new SharedCanvasGenerator().ingestTestManu();
 	//	new AnnotationIngester().test();
 		
-		new SharedCanvasUtil().queryTest();
+		String result = SharedCanvasUtil.queryTest();
+		System.out.println(result);
 //		new SharedCanvasTDBManager().reindexAllLocalRDFData();
 //		new SharedCanvasSOLRIndexer().reindexAllLocalDataInSolr();
 	}
