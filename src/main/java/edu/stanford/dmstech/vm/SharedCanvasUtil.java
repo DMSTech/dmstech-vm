@@ -145,13 +145,13 @@ public class SharedCanvasUtil {
 				   "" +
 				   "<http://localhost:8080/ingested/myTestManu/NormalSequence> ore:aggregates ?canvas ." +				
 				"	 ?anno oac:hasTarget ?canvas ." +
-				"	 ?anno rdf:type sc:" + "TextAnnotation"  +
+				"	 ?anno rdf:type sc:" + "ImageAnnotation"  +
 				"	}";
 
 		Model model;
 		try {
 			model = buildAnnotationResourceMap("http://localhost:8080/ingested/myTestManu/NormalSequence.xml",
-					"TextAnnotation", rdfConstants.scTextAnnotationListClass, queryString);
+					"TextAnnotation", rdfConstants.scImageAnnotationListClass, queryString);
 			result =  buildStringFromModel(model, "xml");
 			
 		} catch (TransformerConfigurationException e) {
@@ -249,7 +249,7 @@ public class SharedCanvasUtil {
 		   QueryExecution qe = QueryExecutionFactory.create(query, tdb);
 		   ResultSet results = qe.execSelect();
 	
-		Resource nextListNode = aggregation;
+		Resource currentRDFListNode = aggregation;
 		
 		while (results.hasNext()) {
 			Resource annotation = results.nextSolution().getResource("anno");
@@ -284,15 +284,15 @@ public class SharedCanvasUtil {
 				}					
 			}
 			aggregation.addProperty(rdfConstants.oreAggregates, annotation);		
-			nextListNode.addProperty(RDF.first, annotation);
+			currentRDFListNode.addProperty(RDF.first, annotation);
 	
-		if (! results.hasNext()) {	
+		if ( results.hasNext()) {	
 			Resource newListNode = model.createResource(AnonId.create());
-			nextListNode.addProperty(RDF.rest, newListNode);
-			nextListNode = newListNode;
+			currentRDFListNode.addProperty(RDF.rest, newListNode);
+			currentRDFListNode = newListNode;
 			
 		} else {
-			nextListNode.addProperty(RDF.rest, RDF.nil);
+			currentRDFListNode.addProperty(RDF.rest, RDF.nil);
 		}				
 		}
 		qe.close();

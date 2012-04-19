@@ -21,7 +21,7 @@ public class ManuscriptSequenceResourceMap {
 			@PathParam("sequenceId") final String sequenceId
 			) throws Exception {   
 		String sequenceIdWithoutExtension = sequenceId.substring(0, sequenceId.lastIndexOf("."));
-		return SharedCanvasUtil.getSerializedRDFFromHomeDir(Config.collectionSubDir + "/" + collectionId + "/" + manuscriptId + "/" + sequenceIdWithoutExtension, sequenceId);
+		return SharedCanvasUtil.getSerializedRDFFromHomeDir(Config.collectionSubDir + "/" + collectionId + "/" + manuscriptId + "/rdf/" + sequenceIdWithoutExtension, sequenceId);
 		
 	}
 		

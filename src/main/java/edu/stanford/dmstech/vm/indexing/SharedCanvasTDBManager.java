@@ -135,18 +135,10 @@ public  void loadIntoDatasetUsingLock(String datasetPath, String sourcePath ) {
     dsg.close();
 }
 
-public void tdbTest() {
-	String tbdDir = "/Users/jameschartrand/STANFORD_KVM_HOME/repository_tbd_index/";
-//	String source = "/Users/jameschartrand/STANFORD_KVM_HOME/testImages/rdf/ImageAnnotations.nt";
-	  
-//	loadFileIntoTBDModel(tbdDir, source);
+public void tdbListAllStmtsTest() {
 	
-	Model tdbModel = loadTDBDataset(tbdDir);
-	
-//   String queryString = "PREFIX sc: <http://www.shared-canvas.org/ns/> SELECT * WHERE { ?x sc:hasTarget ?y }";
-//	String queryString = "PREFIX oac: <http://www.openannotation.org/ns/> SELECT * WHERE { ?x oac:hasTarget ?y }";
- //  printQueryResultToConsole(queryString, tdbModel);
- 
+
+	Model tdbModel = loadMainTDBDataset();
     listAllStatementsInModelToConsole(tdbModel);	   
 }
 
@@ -230,7 +222,7 @@ public static void main(String[] args) throws IOException {
 		SharedCanvasTDBManager sharedCanvasTDBManager = new SharedCanvasTDBManager();
 		
 		sharedCanvasTDBManager.reindexAllLocalRDFData();
-		sharedCanvasTDBManager.tdbTest();
+		sharedCanvasTDBManager.tdbListAllStmtsTest();
 		
 	
 	  

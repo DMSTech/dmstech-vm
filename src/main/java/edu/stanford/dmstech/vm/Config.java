@@ -293,9 +293,13 @@ public class Config implements ServletContextListener {
          	return;
          }	
          	
-         File manuscriptsDataAndImagesDirectory = new File(homeDir, "data");
-         if ( ! manuscriptsDataAndImagesDirectory.exists() ) {
-         	manuscriptsDataAndImagesDirectory.mkdir();
+         File collectionsDir = new File(homeDir, Config.collectionSubDir);
+         if ( ! collectionsDir.exists() ) {
+        	 collectionsDir.mkdir();
+         }
+         File defaultCollectionDir = new File(collectionsDir, Config.defaultCollection);
+         if (!defaultCollectionDir.exists()) {
+        	 collectionsDir.mkdir();
          }
          
          configureRootLogger(homeDir);		
@@ -347,7 +351,7 @@ public class Config implements ServletContextListener {
 	private void configureRootLogger(File homeDir) {
 		// configure the root logger, from which our other loggers will inherit
 			try {
-				textFileHandler = new FileHandler(homeDir.getAbsolutePath() + "/" + LOG_FILE_NAME);
+				textFileHandler = new FileHandler(homeDir.getAbsolutePath() + "/logs/" + LOG_FILE_NAME);
 			} catch (SecurityException e) {
 				e.printStackTrace();
 				System.out.println("Couldn't open the log.txt file for logging in the directory to which the environment variable, " + HOME_DIR_ENV_VAR + ", points.");

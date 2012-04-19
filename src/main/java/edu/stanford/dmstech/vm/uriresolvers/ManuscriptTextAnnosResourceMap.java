@@ -7,7 +7,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.DMSTechRDFConstants;
 import edu.stanford.dmstech.vm.SharedCanvasUtil;
 

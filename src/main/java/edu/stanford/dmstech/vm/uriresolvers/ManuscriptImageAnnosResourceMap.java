@@ -18,7 +18,7 @@ public class ManuscriptImageAnnosResourceMap {
 			@PathParam("manuscriptId") final String manuscriptId,
 			@PathParam("fileName") final String requestedFileName
 			) throws Exception {
-		return SharedCanvasUtil.getSerializedRDFFromHomeDir(Config.collectionSubDir + "/" + collectionId + "/" + manuscriptId + "/" + Config.imageAnnotationFileName, requestedFileName);
+		return SharedCanvasUtil.getSerializedRDFFromHomeDir(Config.collectionSubDir + "/" + collectionId + "/" + manuscriptId + "/rdf/" + Config.imageAnnotationFileName, requestedFileName);
 			
 	}
 

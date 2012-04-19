@@ -22,10 +22,11 @@ public class GeneralTests {
 		Config config = new Config();
 		config.initializeThisConfig();
 	//	new SharedCanvasGenerator().ingestTestManu();
+		new SharedCanvasTDBManager().tdbListAllStmtsTest();
 	//	new AnnotationIngester().test();
 		
-		String result = SharedCanvasUtil.queryTest();
-		System.out.println(result);
+	//	String result = SharedCanvasUtil.queryTest();
+	//	System.out.println(result);
 //		new SharedCanvasTDBManager().reindexAllLocalRDFData();
 //		new SharedCanvasSOLRIndexer().reindexAllLocalDataInSolr();
 	}
