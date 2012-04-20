@@ -17,7 +17,7 @@
     
     <http://localhost:8080/vm/sc/Repository.xml>     <http://www.openarchives.org/ore/terms/describes> <http://localhost:8080/vm/sc/Repository> .
     
-    <http://localhost:8080/vm/sc/Stanford/Collection>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Manifest> .
+    <http://localhost:8080/vm/sc/Stanford/Collection>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.shared-canvas.org/ns/Manifest> .
     
     <http://localhost:8080/vm/sc/Stanford/Collection>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/Aggregation> .
     
