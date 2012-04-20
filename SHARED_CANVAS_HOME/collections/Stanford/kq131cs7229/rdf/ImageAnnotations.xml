@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:exif="http://www.w3.org/2003/12/exif/ns#"
+   xmlns:oac="http://www.openannotation.org/ns/"
+   xmlns:ore="http://www.openarchives.org/ore/terms/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:sc="http://www.shared-canvas.org/ns/"
+>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0021">
+    <exif:width>3883</exif:width>
+    <exif:height>5587</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-16/anno-16">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0016"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-16"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-1">
+    <dc:title>f. 8r</dc:title>
+    <exif:width>4019</exif:width>
+    <exif:height>5575</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil30">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-28/anno-28"/>
+    <rdf:rest rdf:nodeID="TvhHadil31"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil14">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-2/anno-2"/>
+    <rdf:rest rdf:nodeID="TvhHadil15"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-13/anno-13">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0013"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-13"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-17/anno-17">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0017"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-17"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil19">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-23/anno-23"/>
+    <rdf:rest rdf:nodeID="TvhHadil20"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0035">
+    <exif:width>2767</exif:width>
+    <exif:height>3840</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-18/anno-18">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0018"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-18"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil18">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-24/anno-24"/>
+    <rdf:rest rdf:nodeID="TvhHadil19"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil6">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-19/anno-19"/>
+    <rdf:rest rdf:nodeID="TvhHadil7"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-17">
+    <dc:title>f. 18r</dc:title>
+    <exif:width>3823</exif:width>
+    <exif:height>5491</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0034">
+    <exif:width>3955</exif:width>
+    <exif:height>5588</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0023">
+    <exif:width>3859</exif:width>
+    <exif:height>5599</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-32">
+    <dc:title>f. 4r</dc:title>
+    <exif:width>3931</exif:width>
+    <exif:height>5528</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-27">
+    <dc:title>f. 93v</dc:title>
+    <exif:width>4003</exif:width>
+    <exif:height>5599</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil24">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-30/anno-30"/>
+    <rdf:rest rdf:nodeID="TvhHadil25"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-19">
+    <dc:title>f. 9r</dc:title>
+    <exif:width>3883</exif:width>
+    <exif:height>5551</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/sulmss_misc305_008r_SM">
+    <exif:width>4019</exif:width>
+    <exif:height>5575</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0014">
+    <exif:width>4099</exif:width>
+    <exif:height>5587</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil16">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-4/anno-4"/>
+    <rdf:rest rdf:nodeID="TvhHadil17"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-25">
+    <dc:title>f. 94v</dc:title>
+    <exif:width>4194</exif:width>
+    <exif:height>5635</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-3/anno-3">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0003"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-3"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-20/anno-20">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0020"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-20"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil31">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-27/anno-27"/>
+    <rdf:rest rdf:nodeID="TvhHadil32"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-7">
+    <dc:title>f. 13v</dc:title>
+    <exif:width>4063</exif:width>
+    <exif:height>5467</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0007">
+    <exif:width>4063</exif:width>
+    <exif:height>5467</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-2/anno-2">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0002"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-2"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil34">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-14/anno-14"/>
+    <rdf:rest rdf:nodeID="TvhHadil35"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-32/anno-32">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0032"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-32"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-30">
+    <dc:title>f. 21r</dc:title>
+    <exif:width>3884</exif:width>
+    <exif:height>5504</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-2">
+    <dc:title>f. 16r</dc:title>
+    <exif:width>4344</exif:width>
+    <exif:height>6573</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0032">
+    <exif:width>3931</exif:width>
+    <exif:height>5528</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-28/anno-28">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0028"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-28"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil10">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-8/anno-8"/>
+    <rdf:rest rdf:nodeID="TvhHadil11"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-30/anno-30">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0030"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-30"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-33">
+    <dc:title>f. 67r</dc:title>
+    <exif:width>4015</exif:width>
+    <exif:height>5552</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-29">
+    <dc:title>f. 21v</dc:title>
+    <exif:width>3992</exif:width>
+    <exif:height>5492</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0028">
+    <exif:width>3943</exif:width>
+    <exif:height>5695</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil33">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-25/anno-25"/>
+    <rdf:rest rdf:nodeID="TvhHadil34"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0013">
+    <exif:width>4039</exif:width>
+    <exif:height>5575</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-23/anno-23">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0023"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-23"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0025">
+    <exif:width>4194</exif:width>
+    <exif:height>5635</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-3">
+    <dc:title>f. 16v</dc:title>
+    <exif:width>4016</exif:width>
+    <exif:height>5888</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil29">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-34/anno-34"/>
+    <rdf:rest rdf:nodeID="TvhHadil30"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-20">
+    <dc:title>f. 9v</dc:title>
+    <exif:width>3943</exif:width>
+    <exif:height>5503</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0006">
+    <exif:width>3728</exif:width>
+    <exif:height>5467</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-21/anno-21">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0021"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-21"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-14">
+    <dc:title>f. 99bisr</dc:title>
+    <exif:width>4099</exif:width>
+    <exif:height>5587</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0024">
+    <exif:width>3907</exif:width>
+    <exif:height>5611</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-31/anno-31">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0031"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-31"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil32">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-26/anno-26"/>
+    <rdf:rest rdf:nodeID="TvhHadil33"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil7">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-20/anno-20"/>
+    <rdf:rest rdf:nodeID="TvhHadil8"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil36">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-15/anno-15"/>
+    <rdf:rest rdf:nodeID="TvhHadil37"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil8">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-11/anno-11"/>
+    <rdf:rest rdf:nodeID="TvhHadil9"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0026">
+    <exif:width>4183</exif:width>
+    <exif:height>5731</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-28">
+    <dc:title>f. 93r</dc:title>
+    <exif:width>3943</exif:width>
+    <exif:height>5695</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-5/anno-5">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/sulmss_misc305_016bv_SM"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-5"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-18">
+    <dc:title>f. 18v</dc:title>
+    <exif:width>3859</exif:width>
+    <exif:height>5611</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-36">
+    <dc:title>f. 19v</dc:title>
+    <exif:width>2767</exif:width>
+    <exif:height>3840</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0022">
+    <exif:width>3979</exif:width>
+    <exif:height>5611</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0018">
+    <exif:width>3859</exif:width>
+    <exif:height>5611</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0010">
+    <exif:width>3907</exif:width>
+    <exif:height>5503</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/ImageAnnotations.xml">
+    <dc:format>application/rdf+xml</dc:format>
+    <ore:describes rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/ImageAnnotations"/>
+    <rdf:type rdf:resource="http://www.openarchives.org/ore/terms/ResourceMap"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-14/anno-14">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0014"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-14"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-10">
+    <dc:title>f. 14r</dc:title>
+    <exif:width>3907</exif:width>
+    <exif:height>5503</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-15/anno-15">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0015"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-15"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0031">
+    <exif:width>3945</exif:width>
+    <exif:height>5527</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil9">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-12/anno-12"/>
+    <rdf:rest rdf:nodeID="TvhHadil10"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0033">
+    <exif:width>4015</exif:width>
+    <exif:height>5552</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-29/anno-29">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0029"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-29"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-11">
+    <dc:title>f. 11r</dc:title>
+    <exif:width>3943</exif:width>
+    <exif:height>5503</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-12/anno-12">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0012"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-12"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-5">
+    <dc:title>f. 16bisv</dc:title>
+    <exif:width>3925</exif:width>
+    <exif:height>5888</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0011">
+    <exif:width>3943</exif:width>
+    <exif:height>5503</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil15">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-3/anno-3"/>
+    <rdf:rest rdf:nodeID="TvhHadil16"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-1/anno-1">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/sulmss_misc305_008r_SM"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-1"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil20">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-17/anno-17"/>
+    <rdf:rest rdf:nodeID="TvhHadil21"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil13">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-9/anno-9"/>
+    <rdf:rest rdf:nodeID="TvhHadil14"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-11/anno-11">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0011"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-11"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-22">
+    <dc:title>f. 23r</dc:title>
+    <exif:width>3979</exif:width>
+    <exif:height>5611</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-21">
+    <dc:title>f. 23v</dc:title>
+    <exif:width>3883</exif:width>
+    <exif:height>5587</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-6/anno-6">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0006"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-6"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil22">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-35/anno-35"/>
+    <rdf:rest rdf:nodeID="TvhHadil23"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-8/anno-8">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0008"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-8"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil12">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-10/anno-10"/>
+    <rdf:rest rdf:nodeID="TvhHadil13"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-16">
+    <dc:title>f. 104v</dc:title>
+    <exif:width>3931</exif:width>
+    <exif:height>5515</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-9">
+    <dc:title>f. 14v</dc:title>
+    <exif:width>3859</exif:width>
+    <exif:height>5491</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-19/anno-19">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0019"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-19"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-9/anno-9">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0009"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-9"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil5">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-6/anno-6"/>
+    <rdf:rest rdf:nodeID="TvhHadil6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-4">
+    <dc:title>f. 16bisr</dc:title>
+    <exif:width>4085</exif:width>
+    <exif:height>5842</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil37">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-16/anno-16"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0015">
+    <exif:width>4027</exif:width>
+    <exif:height>5527</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-7/anno-7">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0007"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-7"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0029">
+    <exif:width>3992</exif:width>
+    <exif:height>5492</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-36/anno-36">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0036"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-36"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil21">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-18/anno-18"/>
+    <rdf:rest rdf:nodeID="TvhHadil22"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0012">
+    <exif:width>3871</exif:width>
+    <exif:height>5515</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-13">
+    <dc:title>f. 99bisv</dc:title>
+    <exif:width>4039</exif:width>
+    <exif:height>5575</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-8">
+    <dc:title>f. 13r</dc:title>
+    <exif:width>3990</exif:width>
+    <exif:height>5431</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-24/anno-24">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0024"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-24"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil23">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-36/anno-36"/>
+    <rdf:rest rdf:nodeID="TvhHadil24"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0009">
+    <exif:width>3859</exif:width>
+    <exif:height>5491</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0017">
+    <exif:width>3823</exif:width>
+    <exif:height>5491</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0008">
+    <exif:width>3990</exif:width>
+    <exif:height>5431</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-4/anno-4">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0004"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-4"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-25/anno-25">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0025"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-25"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil35">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-13/anno-13"/>
+    <rdf:rest rdf:nodeID="TvhHadil36"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-22/anno-22">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0022"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-22"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-33/anno-33">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0033"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-33"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-12">
+    <dc:title>f. 11v</dc:title>
+    <exif:width>3871</exif:width>
+    <exif:height>5515</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil26">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-22/anno-22"/>
+    <rdf:rest rdf:nodeID="TvhHadil27"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil11">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-7/anno-7"/>
+    <rdf:rest rdf:nodeID="TvhHadil12"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil4">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-1/anno-1"/>
+    <rdf:rest rdf:nodeID="TvhHadil5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0027">
+    <exif:width>4003</exif:width>
+    <exif:height>5599</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-34/anno-34">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0034"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-34"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-34">
+    <dc:title>f. 67v</dc:title>
+    <exif:width>3955</exif:width>
+    <exif:height>5588</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0036">
+    <exif:width>2767</exif:width>
+    <exif:height>3840</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0016">
+    <exif:width>3931</exif:width>
+    <exif:height>5515</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-31">
+    <dc:title>f. 4v</dc:title>
+    <exif:width>3945</exif:width>
+    <exif:height>5527</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil27">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-21/anno-21"/>
+    <rdf:rest rdf:nodeID="TvhHadil28"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-26">
+    <dc:title>f. 94r</dc:title>
+    <exif:width>4183</exif:width>
+    <exif:height>5731</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-6">
+    <dc:title>f. 8v</dc:title>
+    <exif:width>3728</exif:width>
+    <exif:height>5467</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil3">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-31/anno-31"/>
+    <rdf:rest rdf:nodeID="TvhHadil4"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0019">
+    <exif:width>3883</exif:width>
+    <exif:height>5551</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/sulmss_misc305_016bv_SM">
+    <exif:width>3925</exif:width>
+    <exif:height>5888</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil17">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-5/anno-5"/>
+    <rdf:rest rdf:nodeID="TvhHadil18"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-35">
+    <dc:title>f. 19r</dc:title>
+    <exif:width>2767</exif:width>
+    <exif:height>3840</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-23">
+    <dc:title>f. 17v</dc:title>
+    <exif:width>3859</exif:width>
+    <exif:height>5599</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/ImageAnnotations">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-32/anno-32"/>
+    <rdf:type rdf:resource="http://www.openarchives.org/ore/terms/Aggregation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageCollection"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+    <rdf:rest rdf:nodeID="TvhHadil3"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-1/anno-1"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-25/anno-25"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-30/anno-30"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-11/anno-11"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-22/anno-22"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-16/anno-16"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-33/anno-33"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-17/anno-17"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-6/anno-6"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-23/anno-23"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-8/anno-8"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-18/anno-18"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-19/anno-19"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-9/anno-9"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-21/anno-21"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-34/anno-34"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-13/anno-13"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-31/anno-31"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-7/anno-7"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-28/anno-28"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-5/anno-5"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-27/anno-27"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-3/anno-3"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-20/anno-20"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-14/anno-14"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-36/anno-36"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-15/anno-15"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-2/anno-2"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-32/anno-32"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-35/anno-35"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-24/anno-24"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-10/anno-10"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-29/anno-29"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-12/anno-12"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-4/anno-4"/>
+    <ore:aggregates rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-26/anno-26"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil25">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-29/anno-29"/>
+    <rdf:rest rdf:nodeID="TvhHadil26"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0030">
+    <exif:width>3884</exif:width>
+    <exif:height>5504</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0002">
+    <exif:width>4344</exif:width>
+    <exif:height>6573</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0020">
+    <exif:width>3943</exif:width>
+    <exif:height>5503</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-15">
+    <dc:title>f. 104r</dc:title>
+    <exif:width>4027</exif:width>
+    <exif:height>5527</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0004">
+    <exif:width>4085</exif:width>
+    <exif:height>5842</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-35/anno-35">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0035"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-35"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-24">
+    <dc:title>f. 17r</dc:title>
+    <exif:width>3907</exif:width>
+    <exif:height>5611</exif:height>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/Canvas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0003">
+    <exif:width>4016</exif:width>
+    <exif:height>5888</exif:height>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageBody"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-10/anno-10">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0010"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-10"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-27/anno-27">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0027"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-27"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="TvhHadil28">
+    <rdf:first rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-33/anno-33"/>
+    <rdf:rest rdf:nodeID="TvhHadil29"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-26/anno-26">
+    <oac:hasBody rdf:resource="http://stacks.stanford.edu/image/kq131cs7229/kq131cs7229_05_0026"/>
+    <oac:hasTarget rdf:resource="http://localhost:8080/Stanford/vm/sc/kq131cs7229/image-26"/>
+    <rdf:type rdf:resource="http://www.openannotation.org/ns/Annotation"/>
+    <rdf:type rdf:resource="http://www.shared-canvas.org/ns/ImageAnnotation"/>
+  </rdf:Description>
+</rdf:RDF>

@@ -1,0 +1,59 @@
+
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/ImageAnnotations>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/Aggregation> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/ImageAnnotations>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.shared-canvas.org/ns/ImageAnnotationList> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/ImageAnnotations>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/ImageAnnotations>     <http://www.openarchives.org/ore/terms/isDescribedBy> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/ImageAnnotations.xml> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/ImageAnnotations.xml>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/ResourceMap> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/ImageAnnotations.xml>     <http://purl.org/dc/elements/1.1/format> "application/rdf+xml" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/Manifest>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/Aggregation> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/Manifest>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.shared-canvas.org/ns/Manifest> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/Manifest>     <http://purl.org/dc/elements/1.1/identifier> "Stanford, Stanford University Libraries, Misc 305" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/Manifest>     <http://purl.org/dc/elements/1.1/title> "Manuscript fragment of the Gospels and Canonical Epistles, glossed" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/Manifest>     <http://www.openarchives.org/ore/terms/aggregates> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/ImageAnnotations> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/Manifest>     <http://www.openarchives.org/ore/terms/aggregates> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/sequences/OriginalSequence> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/Manifest>     <http://www.tei-c.org/ns/1.0/altIdentifier> "druid:kq131cs7229" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/Manifest>     <http://www.tei-c.org/ns/1.0/collection> "" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/Manifest>     <http://www.tei-c.org/ns/1.0/country> "United States of America" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/Manifest>     <http://www.tei-c.org/ns/1.0/idno> "Misc 305" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/Manifest>     <http://www.tei-c.org/ns/1.0/institution> "Stanford University" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/Manifest>     <http://www.tei-c.org/ns/1.0/repository> "Stanford University Libraries" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/Manifest>     <http://www.tei-c.org/ns/1.0/settlement> "Stanford, CA" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/Manifest.xml>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/ResourceMap> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/Manifest.xml>     <http://purl.org/dc/elements/1.1/format> "application/rdf+xml" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/Manifest.xml>     <http://www.openarchives.org/ore/terms/describes> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/Manifest> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/sequences/OriginalSequence>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/Aggregation> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/sequences/OriginalSequence>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.shared-canvas.org/ns/Sequence> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/sequences/OriginalSequence>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/sequences/OriginalSequence>     <http://www.openarchives.org/ore/terms/isDescribedBy> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/sequences/OriginalSequence.xml> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/sequences/OriginalSequence.xml>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/ResourceMap> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/sequences/OriginalSequence.xml>     <http://purl.org/dc/elements/1.1/format> "application/rdf+xml" .
+    
+

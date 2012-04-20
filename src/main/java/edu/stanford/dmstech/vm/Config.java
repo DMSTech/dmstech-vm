@@ -273,7 +273,7 @@ public class Config implements ServletContextListener {
 	}
 	
     public void contextInitialized(ServletContextEvent event) {
-    	
+    	System.out.println("IN THE CONFIG.");
        initializeThisConfig();
     }
 

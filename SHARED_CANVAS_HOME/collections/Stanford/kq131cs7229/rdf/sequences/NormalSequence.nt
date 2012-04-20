@@ -1,0 +1,441 @@
+
+    
+    _:ali36     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-32> .
+    
+    _:ali36     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali35 .
+    
+    _:ali35     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-31> .
+    
+    _:ali35     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali34 .
+    
+    _:ali34     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-1> .
+    
+    _:ali34     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali33 .
+    
+    _:ali33     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-6> .
+    
+    _:ali33     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali32 .
+    
+    _:ali32     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-19> .
+    
+    _:ali32     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali31 .
+    
+    _:ali31     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-20> .
+    
+    _:ali31     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali30 .
+    
+    _:ali30     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-11> .
+    
+    _:ali30     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali29 .
+    
+    _:ali29     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-12> .
+    
+    _:ali29     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali28 .
+    
+    _:ali28     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-8> .
+    
+    _:ali28     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali27 .
+    
+    _:ali27     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-7> .
+    
+    _:ali27     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali26 .
+    
+    _:ali26     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-10> .
+    
+    _:ali26     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali25 .
+    
+    _:ali25     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-9> .
+    
+    _:ali25     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali24 .
+    
+    _:ali24     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-2> .
+    
+    _:ali24     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali23 .
+    
+    _:ali23     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-3> .
+    
+    _:ali23     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali22 .
+    
+    _:ali22     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-4> .
+    
+    _:ali22     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali21 .
+    
+    _:ali21     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-5> .
+    
+    _:ali21     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali20 .
+    
+    _:ali20     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-24> .
+    
+    _:ali20     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali19 .
+    
+    _:ali19     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-23> .
+    
+    _:ali19     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali18 .
+    
+    _:ali18     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-17> .
+    
+    _:ali18     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali17 .
+    
+    _:ali17     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-18> .
+    
+    _:ali17     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali16 .
+    
+    _:ali16     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-35> .
+    
+    _:ali16     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali15 .
+    
+    _:ali15     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-36> .
+    
+    _:ali15     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali14 .
+    
+    _:ali14     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-30> .
+    
+    _:ali14     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali13 .
+    
+    _:ali13     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-29> .
+    
+    _:ali13     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali12 .
+    
+    _:ali12     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-22> .
+    
+    _:ali12     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali11 .
+    
+    _:ali11     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-21> .
+    
+    _:ali11     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali10 .
+    
+    _:ali10     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-33> .
+    
+    _:ali10     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali9 .
+    
+    _:ali9     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-34> .
+    
+    _:ali9     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali8 .
+    
+    _:ali8     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-28> .
+    
+    _:ali8     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali7 .
+    
+    _:ali7     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-27> .
+    
+    _:ali7     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali6 .
+    
+    _:ali6     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-26> .
+    
+    _:ali6     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali5 .
+    
+    _:ali5     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-25> .
+    
+    _:ali5     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali4 .
+    
+    _:ali4     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-14> .
+    
+    _:ali4     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali3 .
+    
+    _:ali3     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-13> .
+    
+    _:ali3     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali2 .
+    
+    _:ali2     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-15> .
+    
+    _:ali2     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:ali1 .
+    
+    _:ali1     <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-16> .
+    
+    _:ali1     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-1>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-1>     <http://purl.org/dc/elements/1.1/title> "f. 8r" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-1>     <http://www.w3.org/2003/12/exif/ns#height> "5575"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-1>     <http://www.w3.org/2003/12/exif/ns#width> "4019"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-10>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-10>     <http://purl.org/dc/elements/1.1/title> "f. 14r" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-10>     <http://www.w3.org/2003/12/exif/ns#height> "5503"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-10>     <http://www.w3.org/2003/12/exif/ns#width> "3907"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-11>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-11>     <http://purl.org/dc/elements/1.1/title> "f. 11r" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-11>     <http://www.w3.org/2003/12/exif/ns#height> "5503"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-11>     <http://www.w3.org/2003/12/exif/ns#width> "3943"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-12>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-12>     <http://purl.org/dc/elements/1.1/title> "f. 11v" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-12>     <http://www.w3.org/2003/12/exif/ns#height> "5515"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-12>     <http://www.w3.org/2003/12/exif/ns#width> "3871"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-13>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-13>     <http://purl.org/dc/elements/1.1/title> "f. 99bisv" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-13>     <http://www.w3.org/2003/12/exif/ns#height> "5575"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-13>     <http://www.w3.org/2003/12/exif/ns#width> "4039"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-14>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-14>     <http://purl.org/dc/elements/1.1/title> "f. 99bisr" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-14>     <http://www.w3.org/2003/12/exif/ns#height> "5587"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-14>     <http://www.w3.org/2003/12/exif/ns#width> "4099"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-15>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-15>     <http://purl.org/dc/elements/1.1/title> "f. 104r" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-15>     <http://www.w3.org/2003/12/exif/ns#height> "5527"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-15>     <http://www.w3.org/2003/12/exif/ns#width> "4027"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-16>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-16>     <http://purl.org/dc/elements/1.1/title> "f. 104v" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-16>     <http://www.w3.org/2003/12/exif/ns#height> "5515"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-16>     <http://www.w3.org/2003/12/exif/ns#width> "3931"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-17>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-17>     <http://purl.org/dc/elements/1.1/title> "f. 18r" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-17>     <http://www.w3.org/2003/12/exif/ns#height> "5491"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-17>     <http://www.w3.org/2003/12/exif/ns#width> "3823"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-18>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-18>     <http://purl.org/dc/elements/1.1/title> "f. 18v" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-18>     <http://www.w3.org/2003/12/exif/ns#height> "5611"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-18>     <http://www.w3.org/2003/12/exif/ns#width> "3859"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-19>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-19>     <http://purl.org/dc/elements/1.1/title> "f. 9r" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-19>     <http://www.w3.org/2003/12/exif/ns#height> "5551"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-19>     <http://www.w3.org/2003/12/exif/ns#width> "3883"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-2>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-2>     <http://purl.org/dc/elements/1.1/title> "f. 16r" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-2>     <http://www.w3.org/2003/12/exif/ns#height> "6573"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-2>     <http://www.w3.org/2003/12/exif/ns#width> "4344"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-20>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-20>     <http://purl.org/dc/elements/1.1/title> "f. 9v" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-20>     <http://www.w3.org/2003/12/exif/ns#height> "5503"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-20>     <http://www.w3.org/2003/12/exif/ns#width> "3943"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-21>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-21>     <http://purl.org/dc/elements/1.1/title> "f. 23v" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-21>     <http://www.w3.org/2003/12/exif/ns#height> "5587"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-21>     <http://www.w3.org/2003/12/exif/ns#width> "3883"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-22>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-22>     <http://purl.org/dc/elements/1.1/title> "f. 23r" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-22>     <http://www.w3.org/2003/12/exif/ns#height> "5611"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-22>     <http://www.w3.org/2003/12/exif/ns#width> "3979"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-23>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-23>     <http://purl.org/dc/elements/1.1/title> "f. 17v" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-23>     <http://www.w3.org/2003/12/exif/ns#height> "5599"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-23>     <http://www.w3.org/2003/12/exif/ns#width> "3859"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-24>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-24>     <http://purl.org/dc/elements/1.1/title> "f. 17r" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-24>     <http://www.w3.org/2003/12/exif/ns#height> "5611"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-24>     <http://www.w3.org/2003/12/exif/ns#width> "3907"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-25>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-25>     <http://purl.org/dc/elements/1.1/title> "f. 94v" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-25>     <http://www.w3.org/2003/12/exif/ns#height> "5635"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-25>     <http://www.w3.org/2003/12/exif/ns#width> "4194"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-26>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-26>     <http://purl.org/dc/elements/1.1/title> "f. 94r" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-26>     <http://www.w3.org/2003/12/exif/ns#height> "5731"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-26>     <http://www.w3.org/2003/12/exif/ns#width> "4183"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-27>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-27>     <http://purl.org/dc/elements/1.1/title> "f. 93v" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-27>     <http://www.w3.org/2003/12/exif/ns#height> "5599"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-27>     <http://www.w3.org/2003/12/exif/ns#width> "4003"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-28>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-28>     <http://purl.org/dc/elements/1.1/title> "f. 93r" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-28>     <http://www.w3.org/2003/12/exif/ns#height> "5695"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-28>     <http://www.w3.org/2003/12/exif/ns#width> "3943"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-29>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-29>     <http://purl.org/dc/elements/1.1/title> "f. 21v" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-29>     <http://www.w3.org/2003/12/exif/ns#height> "5492"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-29>     <http://www.w3.org/2003/12/exif/ns#width> "3992"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-3>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-3>     <http://purl.org/dc/elements/1.1/title> "f. 16v" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-3>     <http://www.w3.org/2003/12/exif/ns#height> "5888"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-3>     <http://www.w3.org/2003/12/exif/ns#width> "4016"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-30>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-30>     <http://purl.org/dc/elements/1.1/title> "f. 21r" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-30>     <http://www.w3.org/2003/12/exif/ns#height> "5504"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-30>     <http://www.w3.org/2003/12/exif/ns#width> "3884"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-31>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-31>     <http://purl.org/dc/elements/1.1/title> "f. 4v" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-31>     <http://www.w3.org/2003/12/exif/ns#height> "5527"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-31>     <http://www.w3.org/2003/12/exif/ns#width> "3945"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-32>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-32>     <http://purl.org/dc/elements/1.1/title> "f. 4r" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-32>     <http://www.w3.org/2003/12/exif/ns#height> "5528"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-32>     <http://www.w3.org/2003/12/exif/ns#width> "3931"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-33>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-33>     <http://purl.org/dc/elements/1.1/title> "f. 67r" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-33>     <http://www.w3.org/2003/12/exif/ns#height> "5552"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-33>     <http://www.w3.org/2003/12/exif/ns#width> "4015"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-34>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-34>     <http://purl.org/dc/elements/1.1/title> "f. 67v" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-34>     <http://www.w3.org/2003/12/exif/ns#height> "5588"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-34>     <http://www.w3.org/2003/12/exif/ns#width> "3955"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-35>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-35>     <http://purl.org/dc/elements/1.1/title> "f. 19r" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-35>     <http://www.w3.org/2003/12/exif/ns#height> "3840"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-35>     <http://www.w3.org/2003/12/exif/ns#width> "2767"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-36>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-36>     <http://purl.org/dc/elements/1.1/title> "f. 19v" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-36>     <http://www.w3.org/2003/12/exif/ns#height> "3840"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-36>     <http://www.w3.org/2003/12/exif/ns#width> "2767"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-4>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-4>     <http://purl.org/dc/elements/1.1/title> "f. 16bisr" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-4>     <http://www.w3.org/2003/12/exif/ns#height> "5842"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-4>     <http://www.w3.org/2003/12/exif/ns#width> "4085"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-5>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-5>     <http://purl.org/dc/elements/1.1/title> "f. 16bisv" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-5>     <http://www.w3.org/2003/12/exif/ns#height> "5888"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-5>     <http://www.w3.org/2003/12/exif/ns#width> "3925"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-6>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-6>     <http://purl.org/dc/elements/1.1/title> "f. 8v" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-6>     <http://www.w3.org/2003/12/exif/ns#height> "5467"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-6>     <http://www.w3.org/2003/12/exif/ns#width> "3728"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-7>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-7>     <http://purl.org/dc/elements/1.1/title> "f. 13v" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-7>     <http://www.w3.org/2003/12/exif/ns#height> "5467"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-7>     <http://www.w3.org/2003/12/exif/ns#width> "4063"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-8>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-8>     <http://purl.org/dc/elements/1.1/title> "f. 13r" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-8>     <http://www.w3.org/2003/12/exif/ns#height> "5431"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-8>     <http://www.w3.org/2003/12/exif/ns#width> "3990"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-9>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dms.stanford.edu/ns/Canvas> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-9>     <http://purl.org/dc/elements/1.1/title> "f. 14v" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-9>     <http://www.w3.org/2003/12/exif/ns#height> "5491"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/canvas-9>     <http://www.w3.org/2003/12/exif/ns#width> "3859"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/sequences/OriginalSequence.xml>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/ResourceMap> .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/sequences/OriginalSequence.xml>     <http://purl.org/dc/elements/1.1/format> "application/rdf+xml" .
+    
+    <http://localhost:8080/Stanford/vm/sc/kq131cs7229/sequences/OriginalSequence.xml>     <http://www.openarchives.org/ore/terms/describes> _:ali36 .
+    
+
