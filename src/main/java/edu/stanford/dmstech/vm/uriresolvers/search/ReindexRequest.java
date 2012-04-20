@@ -20,8 +20,8 @@ public Response getSparqlResult(@QueryParam("solr") final boolean reindexSolr, @
 	
 	
 	try {
-		if (reindexSolr) new SharedCanvasTDBManager().reindexAllLocalRDFData();
-		if (reindexTripleStore) new SharedCanvasSOLRIndexer().reindexAllLocalDataInSolr();
+		if (reindexTripleStore) new SharedCanvasTDBManager().reindexAllLocalRDFData();
+		if (reindexSolr) new SharedCanvasSOLRIndexer().reindexAllLocalDataInSolr();		
 	} catch (IOException e) {
 		e.printStackTrace();
 		Response.serverError().build();
@@ -32,5 +32,6 @@ public Response getSparqlResult(@QueryParam("solr") final boolean reindexSolr, @
 	
 	return Response.ok().build();
 }
+
 
 }

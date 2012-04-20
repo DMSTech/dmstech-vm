@@ -41,6 +41,7 @@ public class Config implements ServletContextListener {
 	public static String baseURIForDocuments = null;	
 	public static String collectionSubDir = null;
 	public static String textAnnosSubDir = null;
+	public static String textAnnosBodiesSubDir = null;
 	public static String transactionsSubDir = null;
 	public static String defaultCollection = null;
 	public static String mainTDBDatasetDir = null;	
@@ -157,6 +158,14 @@ public class Config implements ServletContextListener {
 		Config.textAnnosSubDir = textAnnosSubDir;
 	}
 
+	public static String getTextAnnosBodiesSubDir() {
+		return textAnnosSubDir;
+	}
+
+	public  void setTextAnnosBodiesSubDir(String textAnnosBodiesSubDir) {
+		Config.textAnnosBodiesSubDir = textAnnosBodiesSubDir;
+	}
+	
 	public static String getTransactionsSubDir() {
 		return transactionsSubDir;
 	}
@@ -240,6 +249,10 @@ public class Config implements ServletContextListener {
 		return getAbsolutePathToManuscriptDir(getDefaultCollection(), manuscriptSubDirectory);
 	}
 	
+	public static String getAbsolutePathToManuscriptSequenceSourceFile(String collectionId, String manuscriptId, String sequenceId) {
+		return new File(getAbsolutePathToManuscriptsSequenceDir(collectionId, manuscriptId), sequenceId + ".nt").getAbsolutePath();
+	}
+	
 	public static String getAbsolutePathToManuscriptsSequenceDir(String collectionId, String manuscriptId) {
 		return new File(getAbsolutePathToManuscriptDir(collectionId, manuscriptId), "sequences").getAbsolutePath();
 	}
@@ -293,6 +306,10 @@ public class Config implements ServletContextListener {
          	return;
          }	
          	
+         configureRootLogger(homeDir);		
+  		
+         loadConfigFile(homeDir);  
+         
          File collectionsDir = new File(homeDir, Config.collectionSubDir);
          if ( ! collectionsDir.exists() ) {
         	 collectionsDir.mkdir();
@@ -301,10 +318,27 @@ public class Config implements ServletContextListener {
          if (!defaultCollectionDir.exists()) {
         	 collectionsDir.mkdir();
          }
+         File transactionsDir = new File(homeDir, Config.transactionsSubDir);
+         if (!transactionsDir.exists()) {
+        	 transactionsDir.mkdir();
+         }
+         File textAnnosDir = new File(homeDir, Config.textAnnosSubDir);
+         if (!textAnnosDir.exists()) {
+        	 textAnnosDir.mkdir();
+         }
+         File annotationBodyDir = new File(homeDir, Config.textAnnosBodiesSubDir);
+         if (!annotationBodyDir.exists()) {
+        	 annotationBodyDir.mkdir();
+         }
+         File repositoryTDBIndexDir = new File(homeDir, Config.mainTDBDatasetDir);
+         if (!repositoryTDBIndexDir.exists()) {
+        	 repositoryTDBIndexDir.mkdir();
+         }
+         File tempDir = new File(homeDir, "temp");
+         if (!tempDir.exists()) {
+        	 tempDir.mkdir();
+         }
          
-         configureRootLogger(homeDir);		
- 		
-         loadConfigFile(homeDir);  
 
     }
 
@@ -329,6 +363,7 @@ public class Config implements ServletContextListener {
 	    digester.addBeanPropertySetter("config/baseURIForDocuments");
 	    digester.addBeanPropertySetter("config/collectionSubDir");
 	    digester.addBeanPropertySetter("config/textAnnosSubDir");
+	    digester.addBeanPropertySetter("config/textAnnosBodiesSubDir");
 	    digester.addBeanPropertySetter("config/transactionsSubDir");
 	    digester.addBeanPropertySetter("config/defaultCollection");
 	    digester.addBeanPropertySetter("config/mainTDBDatasetDir");

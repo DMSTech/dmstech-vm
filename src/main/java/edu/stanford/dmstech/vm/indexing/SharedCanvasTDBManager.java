@@ -50,11 +50,15 @@ public class SharedCanvasTDBManager {
 		recursivelyIndexAllNtripleFilesIn(Config.getAbsolutePathToTransactionsDir(), tdb);	
 	}
 	
+	public void emptyMainTDBIndex() {
+		 Model tdb = loadTDBDataset(Config.getAbsolutePathToMainTBDDir());	
+		 tdb.removeAll();
+	}
 
 	
 	public void recursivelyIndexAllNtripleFilesIn(String directoryPath, Model tdb) {
 		FileFilter nTripleSourceFileFilter = new nTripleSourceFileFilter();
-		ArrayList<File> files = IOUtils.getFileList(directoryPath, nTripleSourceFileFilter, false);
+		ArrayList<File> files = IOUtils.getFileList(directoryPath, nTripleSourceFileFilter, true);
 		for (File f : files) {
 			if (f.isDirectory()) recursivelyIndexAllNtripleFilesIn(f.getAbsolutePath(), tdb);
 			FileManager.get().readModel( tdb, f.getAbsolutePath());		

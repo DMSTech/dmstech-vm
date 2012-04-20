@@ -19,7 +19,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey REST Service</servlet-name>
-		<url-pattern>/rs/*</url-pattern>
+		<url-pattern>/sc/*</url-pattern>
 	</servlet-mapping>
 	
 </web-app>

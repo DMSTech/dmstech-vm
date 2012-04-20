@@ -6,10 +6,11 @@
 	<imageAnnotationFileName>ImgAnnoResourceMap.nt</imageAnnotationFileName>
 	<zoneAnnotationFileName>ZoneAnnoResourceMap.nt</zoneAnnotationFileName>
 	<textAnnotationFileName>TextAnnoResourceMap.nt</textAnnotationFileName>
-	<baseURIForIds>http://localhost:8080</baseURIForIds>
-	<baseURIForDocuments>http://localhost:8080</baseURIForDocuments>
+	<baseURIForIds>http://localhost:8080/vm/sc</baseURIForIds>
+	<baseURIForDocuments>http://localhost:8080/vm/sc</baseURIForDocuments>
 	<collectionSubDir>collections</collectionSubDir>
 	<textAnnosSubDir>submitted_annotations</textAnnosSubDir>
+	<textAnnosBodiesSubDir>annotation_body_texts</textAnnosBodiesSubDir>
 	<transactionsSubDir>transactions</transactionsSubDir>
 	<defaultCollection>ingested</defaultCollection>
 	<mainTDBDatasetDir>repository_tbd_index</mainTDBDatasetDir>

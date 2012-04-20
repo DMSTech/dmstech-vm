@@ -10,6 +10,7 @@ import edu.stanford.dmstech.vm.indexing.SharedCanvasSOLRIndexer;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
 import edu.stanford.dmstech.vm.manuscriptgeneration.SharedCanvasGenerator;
 import edu.stanford.dmstech.vm.uriresolvers.ingest.AnnotationIngester;
+import edu.stanford.dmstech.vm.uriresolvers.search.ReindexRequest;
 
 public class GeneralTests {
 
@@ -21,10 +22,16 @@ public class GeneralTests {
 		//BasicConfigurator.configure();
 		Config config = new Config();
 		config.initializeThisConfig();
+		new AnnotationIngester().test();
 	//	new SharedCanvasGenerator().ingestTestManu();
+		new SharedCanvasTDBManager().emptyMainTDBIndex();
 		new SharedCanvasTDBManager().tdbListAllStmtsTest();
-	//	new AnnotationIngester().test();
+		System.out.println("Should be empty above this.");
+		boolean reindexSolr = true;
+		boolean reindexTripleStore = true;
+		new ReindexRequest().getSparqlResult(reindexSolr, reindexTripleStore);
 		
+		new SharedCanvasTDBManager().tdbListAllStmtsTest();
 	//	String result = SharedCanvasUtil.queryTest();
 	//	System.out.println(result);
 //		new SharedCanvasTDBManager().reindexAllLocalRDFData();

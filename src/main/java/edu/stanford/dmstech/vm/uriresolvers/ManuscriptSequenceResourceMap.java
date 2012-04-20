@@ -18,10 +18,11 @@ public class ManuscriptSequenceResourceMap {
 	public Response getSequenceResourceMapAsXML(
 			@PathParam("collectionId") final String collectionId,
 			@PathParam("manuscriptId") final String manuscriptId,
-			@PathParam("sequenceId") final String sequenceId
+			@PathParam("sequenceFileName") final String sequenceFileName
 			) throws Exception {   
-		String sequenceIdWithoutExtension = sequenceId.substring(0, sequenceId.lastIndexOf("."));
-		return SharedCanvasUtil.getSerializedRDFFromHomeDir(Config.collectionSubDir + "/" + collectionId + "/" + manuscriptId + "/rdf/" + sequenceIdWithoutExtension, sequenceId);
+		String sequenceId = sequenceFileName.substring(0, sequenceFileName.lastIndexOf("."));
+		String pathToSourceRDF = Config.getAbsolutePathToManuscriptSequenceSourceFile( collectionId, manuscriptId, sequenceId);
+		return SharedCanvasUtil.getSerializedRDFFromDir(pathToSourceRDF, sequenceFileName);
 		
 	}
 		

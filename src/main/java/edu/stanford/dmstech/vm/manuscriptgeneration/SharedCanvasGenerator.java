@@ -40,6 +40,7 @@ public class SharedCanvasGenerator {
 	 SharedCanvas sharedCanvasInstance = null;
 	 String directoryPathForManuscript = null;
 	 String baseURIForManuscript = null;
+	 String manuscriptSubDirectory = null;
 	 
 	public static void main(String[] args) {
 		
@@ -91,6 +92,7 @@ public class SharedCanvasGenerator {
 		
 		directoryPathForManuscript = Config.getAbsolutePathToManuDirInDefaultCollection(manuscriptSubDirectory);
 		baseURIForManuscript = Config.getBaseURIForManuscriptInDefaultCollection(manuscriptSubDirectory);
+		this.manuscriptSubDirectory = manuscriptSubDirectory;
 		
 		sharedCanvasInstance = SharedCanvas.createNewSharedCanvasModel(
 				baseURIForManuscript,
@@ -174,15 +176,16 @@ public class SharedCanvasGenerator {
 	}
 	
 	private void saveManuscriptRDF() {
-		//"RDF/XML", "RDF/XML-ABBREV", "N-TRIPLE", "N3" and "TURTLE". 
-		// for N3 output the language can be specified as: 
-		// "N3-PP", "N3-PLAIN" or "N3-TRIPLE", which controls the style of N3 produced.
+
 		String format = "N-TRIPLE";
+		String collectionId = Config.defaultCollection;
+		String sequenceId = Config.normalSequenceFileName;
+		String manuscriptId = manuscriptSubDirectory;
 		File dirForRDF = new File(directoryPathForManuscript, "rdf");
 		if (!dirForRDF.exists()) dirForRDF.mkdir();
-		String manifestFilePath = new File(dirForRDF, "Manifest.nt").getAbsolutePath();
-		String imageAnnotationsFilePath = new File(dirForRDF, "ImageAnnotations.nt").getAbsolutePath();
-		String normalSequenceFilePath = new File(dirForRDF, "NormalSequence.nt").getAbsolutePath();
+		String manifestFilePath = new File(dirForRDF, Config.manifestFileName).getAbsolutePath();
+		String imageAnnotationsFilePath = new File(dirForRDF, Config.imageAnnotationFileName).getAbsolutePath();
+		String normalSequenceFilePath = Config.getAbsolutePathToManuscriptSequenceSourceFile( collectionId, manuscriptId, sequenceId);
 		
 		sharedCanvasInstance.serializeManifestResourceMapToFile(manifestFilePath, format);
 		sharedCanvasInstance.serializeImageAnnoResourceMapToFile(imageAnnotationsFilePath, format);
@@ -191,9 +194,9 @@ public class SharedCanvasGenerator {
 	}
 	
 	private void indexManuscriptRDF() {
-		String manifestFilePath = directoryPathForManuscript + "/rdf/Manifest.nt";
-		String imageAnnotationsFilePath = directoryPathForManuscript + "/rdf/ImageAnnotations.nt";
-		String normalSequenceFilePath = directoryPathForManuscript + "/rdf/NormalSequence.nt";
+		String manifestFilePath = directoryPathForManuscript + "/rdf/" + Config.manifestFileName;
+		String imageAnnotationsFilePath = directoryPathForManuscript + "/rdf/" + Config.imageAnnotationFileName;
+		String normalSequenceFilePath = directoryPathForManuscript + "/rdf/sequences/" + Config.normalSequenceFileName;
 		
 		
 		SharedCanvasTDBManager scTDBManager = new SharedCanvasTDBManager();

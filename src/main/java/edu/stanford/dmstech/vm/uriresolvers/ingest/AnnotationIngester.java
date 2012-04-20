@@ -1,6 +1,7 @@
 package edu.stanford.dmstech.vm.uriresolvers.ingest;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -13,7 +14,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import javax.ws.rs.core.Response;
 
@@ -59,11 +63,11 @@ public class AnnotationIngester {
 				"    </oac:Body>\n" + 
 				"  <sc:TextAnnotation rdf:about=\"URN:woohoo\">\n" + 
 				"    <oac:hasBody rdf:resource=\"URN:uuid:751183c0-d182-11df-bd3b-0800200c9a66\"/>\n" + 
-				"    <oac:hasTarget rdf:resource=\"http://dms-data.stanford.edu/Stanford/kq131cs7229/image-1\"/>\n" + 
+				"    <oac:hasTarget rdf:resource=\"http://localhost:8080/Stanford/kq131cs7229/canvas-1\"/>\n" + 
 				"    <rdf:type rdf:resource=\"http://www.openannotation.org/ns/Annotation\"/>\n" + 
-				"    <rdf:type rdf:resource=\"http://dms.stanford.edu/ns/TextAnnotation\"/>\n" + 
+				"    <rdf:type rdf:resource=\"http://www.shared-canvas.org/ns/TextAnnotation\"/>\n" + 
 				"  </sc:TextAnnotation>\n" + 
-				"  <sc:Canvas rdf:about=\"http://dms-data.stanford.edu/Stanford/kq131cs7229/image-1\">\n" + 
+				"  <sc:Canvas rdf:about=\"http://localhost:8080/Stanford/kq131cs7229/canvas-1\">\n" + 
 				"    <dc:title>f. 8r</dc:title>\n" + 
 				"    <exif:width>4019</exif:width>\n" + 
 				"    <exif:height>5575</exif:height>\n" +    
@@ -85,6 +89,9 @@ public class AnnotationIngester {
 	private final String W3CDTF_NOW = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).format(new Date());
 	Logger logger = Logger.getLogger(AnnotationIngester.class.getName());
 	LoggerFacade loggerFacade = null;
+	private static final String LOG_FILE_NAME = "log.txt";
+	static private FileHandler textFileHandler;	
+	static private SimpleFormatter textFormatter;
 	String resultURI = null;
 	DMSTechRDFConstants rdfConstants = null;
 	Model incomingAnnotationsModel = null;
@@ -100,10 +107,29 @@ public class AnnotationIngester {
 	HashMap<String, List<String>> canvasTextToIndex = new HashMap<String, List<String>>();
 	ArrayList<String> filesToAddToTDB = new ArrayList<String>();
 	
+	private void configureLogger() {
+			try {
+				textFileHandler = new FileHandler(Config.homeDir.getAbsolutePath() + "/logs/annotationIngest.txt");
+			} catch (SecurityException e) {
+				e.printStackTrace();
+				System.out.println("Couldn't open the log.txt file for logging in the directory to which the environment variable, " + Config.HOME_DIR_ENV_VAR + ", points.");
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("Couldn't open the log.txt file for logging in the directory to which the environment variable, " + Config.HOME_DIR_ENV_VAR + ", points.");
+			}
+			logger.setLevel(Level.INFO);
+			textFormatter = new SimpleFormatter();
+			textFileHandler.setFormatter(textFormatter);
+			logger.addHandler(textFileHandler);
+			loggerFacade = new Jdk14Logger(logger);
+			
+	}
+	
 	public Response saveAnnotations(InputStream inputStream) throws IOException {
 		
 		try {			
-			loggerFacade = new Jdk14Logger(logger);
+			
+			configureLogger();
 			rdfConstants = DMSTechRDFConstants.getInstance();
 			incomingAnnotationsModel = ModelFactory.createDefaultModel();
 			
@@ -191,7 +217,7 @@ public class AnnotationIngester {
 					Resource newBody = newModelToWrite.createResource( getNewTextAnnoBodyURI(uuid), rdfConstants.oacBodyType)
 											.addProperty(OWL.sameAs, oldBody)
 											.addProperty(RDF.type, DCTypes.Text);
-					newAnnotationResource.addProperty(rdfConstants.oacHasTargetProperty, newBody); 
+					newAnnotationResource.addProperty(rdfConstants.oacHasBodyProperty, newBody); 
 					String textBodyRelativeFileLocation = getTextBodyRelativeFileLocation(uuid);
 					OutputStream foutForAnnoBodyText = frm.writeResource(txId, textBodyRelativeFileLocation, true);
 		        	foutForAnnoBodyText.write(bodyText.getBytes());

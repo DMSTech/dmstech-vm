@@ -153,11 +153,10 @@ public class SharedCanvasSOLRIndexer {
 				/* 
 				  * 5.  for each canvas, get all TextAnnotations that target the canvas.
 				  */
-				StmtIterator annotationIter = tdb.listStatements(null, sharedCanvasConstants.oacHasTargetProperty, (RDFNode) null);
+				StmtIterator annotationIter = tdb.listStatements(null, RDF.type, sharedCanvasConstants.oacTextAnnotationType);
 				while (annotationIter.hasNext()) {
 					Resource annotation = annotationIter.next().getSubject();
-					if (! annotation.hasProperty(RDF.type, sharedCanvasConstants.oacTextAnnotationType)) continue;
-					/*
+						/*
 					  *  6.  for each TextAnnotation, get the Body.
 					  */
 					Resource annotationBody = annotation.getPropertyResourceValue(sharedCanvasConstants.oacHasBodyProperty);
@@ -165,7 +164,7 @@ public class SharedCanvasSOLRIndexer {
 					  * 7.  if inline body, then index the text immediately, otherwise get the text from the body's URI
 					 */
 					String bodyText = null;
-					if (annotationBody.hasProperty(RDF.type, sharedCanvasConstants.cntAsTxtType)) {
+					if (annotationBody.hasProperty(RDF.type, sharedCanvasConstants.cntRestProperty)) {
 						bodyText = annotationBody.getProperty(sharedCanvasConstants.cntRestProperty).getString();				
 					} else {
 						bodyText = RDFUtils.getTextFromURI(annotationBody.getURI());
@@ -179,9 +178,10 @@ public class SharedCanvasSOLRIndexer {
 			count++;
 
 		}
-
-		server.add( docs );
-		server.commit();
+		if (! docs.isEmpty()) {
+			server.add( docs );
+			server.commit();
+		}
 
 		System.out.println(count + " docs indexed.");
 		
@@ -222,8 +222,7 @@ public class SharedCanvasSOLRIndexer {
 	
 
 	public void indexCanvasText(HashMap<String, List<String>> canvasTextToIndex) throws Exception {
-		
-		
+			
 		try {
 			SolrServer server = new CommonsHttpSolrServer(Config.solrServer);	
 			Collection<SolrInputDocument> docs = new ArrayList<SolrInputDocument>();
@@ -236,24 +235,24 @@ public class SharedCanvasSOLRIndexer {
 				SolrQuery query = new SolrQuery();
 			    query.setQuery( "uri:" + ClientUtils.escapeQueryChars(canvasURI));
 			    SolrDocumentList docResultList = server.query( query ).getResults();
-			    if (docs.size() != 1) {
-			    	throw new Exception("No canvas in local collection for canvas URI: " + canvasURI);
-			    	
-			    } 
+			    if (docs.size() == 1) {
+			    	// we only index if we have a matching canvas
 			    	SolrDocument oldCanvasSolrDoc = docResultList.get(0);
 			    	// copy the old solr doc to a new input doc
 			    	newCanvasSolrDoc = org.apache.solr.client.solrj.util.ClientUtils.toSolrInputDocument(oldCanvasSolrDoc);
-			  
-			    
-				for (String someText : textsToAdd) {
-					newCanvasSolrDoc.addField(ANNOTATION_TEXT_FIELD, someText);
-				}
+			  			    
+			    	for (String someText : textsToAdd) {
+			    		newCanvasSolrDoc.addField(ANNOTATION_TEXT_FIELD, someText);
+			    	}
 				
-				// this will replace the old doc in solr
-				docs.add(newCanvasSolrDoc);
+			    	// this will replace the old doc in solr
+			    	docs.add(newCanvasSolrDoc);
+			    }
 			}
-			server.add( docs );
-			server.commit();
+			if (!docs.isEmpty()) {
+				server.add( docs );
+				server.commit();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

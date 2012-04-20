@@ -46,9 +46,7 @@ public class ManuscriptSequenceAggregation {
 		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
 		return Response.seeOther(new URI(originalRequest + ".html")).build();
 	}
-
-
-		
+	
 	@PUT
 	public Response replaceSequence(
 			@PathParam("collectionId") final String collectionId,
