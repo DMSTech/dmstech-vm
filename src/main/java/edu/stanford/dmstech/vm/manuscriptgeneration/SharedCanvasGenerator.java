@@ -40,7 +40,8 @@ public class SharedCanvasGenerator {
 	 SharedCanvas sharedCanvasInstance = null;
 	 String directoryPathForManuscript = null;
 	 String baseURIForManuscript = null;
-	 String manuscriptSubDirectory = null;
+	 String manuscriptIdForIngest = null;
+	 String collectionIdForIngest = null;
 	 
 	public static void main(String[] args) {
 		
@@ -68,6 +69,7 @@ public class SharedCanvasGenerator {
 					"some region name", 
 					"some country", 
 					"myTestManu", 
+					"ingested",
 					false);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -85,14 +87,16 @@ public class SharedCanvasGenerator {
 			String settlementName, 
 			String regionName, 
 			String countryName, 
-			String manuscriptSubDirectory, 
+			String manuscriptIdForIngest, 
+			String collectionIdForIngest,
 			boolean parseTitle
 		) throws Exception {
 	
 		
-		directoryPathForManuscript = Config.getAbsolutePathToManuDirInDefaultCollection(manuscriptSubDirectory);
-		baseURIForManuscript = Config.getBaseURIForManuscriptInDefaultCollection(manuscriptSubDirectory);
-		this.manuscriptSubDirectory = manuscriptSubDirectory;
+		directoryPathForManuscript = Config.getAbsolutePathToManuDirInDefaultCollection(manuscriptIdForIngest);
+		baseURIForManuscript = Config.getBaseURIForManuscriptInDefaultCollection(manuscriptIdForIngest);
+		this.manuscriptIdForIngest = manuscriptIdForIngest;
+		this.collectionIdForIngest = collectionIdForIngest;
 		
 		sharedCanvasInstance = SharedCanvas.createNewSharedCanvasModel(
 				baseURIForManuscript,
@@ -178,14 +182,16 @@ public class SharedCanvasGenerator {
 	private void saveManuscriptRDF() {
 
 		String format = "N-TRIPLE";
-		String collectionId = Config.defaultCollection;
-		String sequenceId = Config.normalSequenceFileName;
-		String manuscriptId = manuscriptSubDirectory;
+	//	String collectionId = Config.defaultCollection;
+		String sequenceId = Config.normalSequenceFileName.substring(0, Config.normalSequenceFileName.lastIndexOf("."));
+	//	String manuscriptId = manuscriptSubDirectory;
 		File dirForRDF = new File(directoryPathForManuscript, "rdf");
 		if (!dirForRDF.exists()) dirForRDF.mkdir();
+		File dirForSequences = new File(dirForRDF, "sequences");
+		if (!dirForSequences.exists()) dirForSequences.mkdir();
 		String manifestFilePath = new File(dirForRDF, Config.manifestFileName).getAbsolutePath();
 		String imageAnnotationsFilePath = new File(dirForRDF, Config.imageAnnotationFileName).getAbsolutePath();
-		String normalSequenceFilePath = Config.getAbsolutePathToManuscriptSequenceSourceFile( collectionId, manuscriptId, sequenceId);
+		String normalSequenceFilePath = Config.getAbsolutePathToManuscriptSequenceSourceFile( collectionIdForIngest, manuscriptIdForIngest, sequenceId);
 		
 		sharedCanvasInstance.serializeManifestResourceMapToFile(manifestFilePath, format);
 		sharedCanvasInstance.serializeImageAnnoResourceMapToFile(imageAnnotationsFilePath, format);
