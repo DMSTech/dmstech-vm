@@ -10,7 +10,7 @@ import edu.stanford.dmstech.vm.SharedCanvasUtil;
 
 
 @Path("/{collectionId}/{manuscriptId}/{fileName: Manifest\\.(?i)(xml|ttl|html)}")
-public class ManuscriptManifestRepresentation {
+public class ManuscriptManifestResoureMap {
 	
 	@GET
 	public Response getRepresentation(

@@ -185,7 +185,7 @@ public class SharedCanvasUtil {
 	}
 	
 	public static Response buildResourceMapForManuscriptAnnotations(String originalRequest, String annotationType, Resource annotationListClass) throws TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {
-		String aggregationURI = originalRequest.substring(0, originalRequest.indexOf(".xml"));
+		String aggregationURI = originalRequest.substring(0, originalRequest.lastIndexOf("."));
 		String fileExtension = originalRequest.substring(originalRequest.lastIndexOf(".") + 1);
 		
 		
@@ -250,7 +250,7 @@ public class SharedCanvasUtil {
 		String W3CDTF_NOW = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).format(new Date());
 		
 		
-		String aggregationURI = originalRequest.substring(0, originalRequest.indexOf(".xml"));
+		String aggregationURI = originalRequest.substring(0, originalRequest.lastIndexOf("."));
 		
 		Model model = ModelFactory.createDefaultModel();
 		model.setNsPrefixes(rdfConstants.getInitializingModel());

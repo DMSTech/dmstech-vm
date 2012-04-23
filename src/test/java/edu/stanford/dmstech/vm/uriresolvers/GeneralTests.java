@@ -1,14 +1,11 @@
-package edu.stanford.dmstech.vm.uriresolvers.textannotations;
+package edu.stanford.dmstech.vm.uriresolvers;
 
 import java.io.IOException;
 
 import org.apache.solr.client.solrj.SolrServerException;
 
 import edu.stanford.dmstech.vm.Config;
-import edu.stanford.dmstech.vm.SharedCanvasUtil;
-import edu.stanford.dmstech.vm.indexing.SharedCanvasSOLRIndexer;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
-import edu.stanford.dmstech.vm.manuscriptgeneration.SharedCanvasGenerator;
 import edu.stanford.dmstech.vm.uriresolvers.ingest.AnnotationIngester;
 import edu.stanford.dmstech.vm.uriresolvers.search.ReindexRequest;
 
