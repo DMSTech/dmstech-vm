@@ -1,0 +1,391 @@
+Apr 23, 2012 10:40:16 AM com.sun.jersey.api.core.PackagesResourceConfig init
+INFO: Scanning for root resource and provider classes in the packages:
+  edu.stanford.dmstech.vm.uriresolvers
+Apr 23, 2012 10:40:16 AM com.sun.jersey.api.core.ScanningResourceConfig logClasses
+INFO: Root resource classes found:
+  class edu.stanford.dmstech.vm.uriresolvers.ManuscriptImageAnnosResourceMap
+  class edu.stanford.dmstech.vm.uriresolvers.ManuscriptConceptual
+  class edu.stanford.dmstech.vm.uriresolvers.ManuscriptImageAnnosAggregation
+  class edu.stanford.dmstech.vm.uriresolvers.CanvasRepresentation
+  class edu.stanford.dmstech.vm.uriresolvers.ManuscriptZoneAnnosResourceMap
+  class edu.stanford.dmstech.vm.uriresolvers.CanvasZoneAnnosAggregration
+  class edu.stanford.dmstech.vm.uriresolvers.CanvasImageAnnosResourceMap
+  class edu.stanford.dmstech.vm.uriresolvers.ManuscriptTextAnnosAggregation
+  class edu.stanford.dmstech.vm.uriresolvers.RepositoryResourceMap
+  class edu.stanford.dmstech.vm.uriresolvers.search.ReindexRequest
+  class edu.stanford.dmstech.vm.uriresolvers.CollectionResourceMap
+  class edu.stanford.dmstech.vm.uriresolvers.CanvasTextAnnosAggregation
+  class edu.stanford.dmstech.vm.uriresolvers.ManuscriptManifestResoureMap
+  class edu.stanford.dmstech.vm.uriresolvers.ManuscriptRepresentation
+  class edu.stanford.dmstech.vm.uriresolvers.CanvasConceptual
+  class edu.stanford.dmstech.vm.uriresolvers.ManuscriptSequenceAggregation
+  class edu.stanford.dmstech.vm.uriresolvers.ManuscriptTextAnnosResourceMap
+  class edu.stanford.dmstech.vm.uriresolvers.TextResource
+  class edu.stanford.dmstech.vm.uriresolvers.SubmittedAnnotationRepresentation
+  class edu.stanford.dmstech.vm.uriresolvers.RepositoryAggregation
+  class edu.stanford.dmstech.vm.uriresolvers.ingest.AnnotationIngest
+  class edu.stanford.dmstech.vm.uriresolvers.SequenceSubmission
+  class edu.stanford.dmstech.vm.uriresolvers.ManuscriptZoneAnnosAggregation
+  class edu.stanford.dmstech.vm.uriresolvers.CollectionAggregation
+  class edu.stanford.dmstech.vm.uriresolvers.ManuscriptManifestAggregation
+  class edu.stanford.dmstech.vm.uriresolvers.ImageResource
+  class edu.stanford.dmstech.vm.uriresolvers.search.SparqlQuery
+  class edu.stanford.dmstech.vm.uriresolvers.ManuscriptSequenceResourceMap
+  class edu.stanford.dmstech.vm.uriresolvers.CanvasImageAnnosAggregation
+  class edu.stanford.dmstech.vm.uriresolvers.lookup.DjatokaServerLookup
+  class edu.stanford.dmstech.vm.uriresolvers.CuratedAnnotationRepresentation
+  class edu.stanford.dmstech.vm.uriresolvers.lookup.IngestDirectoryLookup
+  class edu.stanford.dmstech.vm.uriresolvers.CanvasTextAnnosResourceMap
+  class edu.stanford.dmstech.vm.uriresolvers.CanvasZoneAnnosResourceMap
+Apr 23, 2012 10:40:16 AM com.sun.jersey.api.core.ScanningResourceConfig init
+INFO: No provider classes found.
+Apr 23, 2012 10:40:16 AM com.sun.jersey.server.impl.application.WebApplicationImpl _initiate
+INFO: Initiating Jersey application, version 'Jersey: 1.8 06/24/2011 12:17 PM'
+Apr 23, 2012 10:40:17 AM org.apache.solr.core.SolrResourceLoader locateSolrHome
+INFO: Using JNDI solr.home: /Users/jameschartrand/Documents/workspace_2011_07_05_russell/solr-sc/solr_home
+Apr 23, 2012 10:40:17 AM org.apache.solr.core.SolrResourceLoader <init>
+INFO: Solr home set to '/Users/jameschartrand/Documents/workspace_2011_07_05_russell/solr-sc/solr_home/'
+Apr 23, 2012 10:40:17 AM org.apache.solr.servlet.SolrDispatchFilter init
+INFO: SolrDispatchFilter.init()
+Apr 23, 2012 10:40:17 AM org.apache.solr.core.SolrResourceLoader locateSolrHome
+INFO: Using JNDI solr.home: /Users/jameschartrand/Documents/workspace_2011_07_05_russell/solr-sc/solr_home
+Apr 23, 2012 10:40:17 AM org.apache.solr.core.CoreContainer$Initializer initialize
+INFO: looking for solr.xml: /Users/jameschartrand/Documents/workspace_2011_07_05_russell/solr-sc/solr_home/solr.xml
+Apr 23, 2012 10:40:17 AM org.apache.solr.core.SolrResourceLoader <init>
+INFO: Solr home set to '/Users/jameschartrand/Documents/workspace_2011_07_05_russell/solr-sc/solr_home/'
+Apr 23, 2012 10:40:17 AM org.apache.solr.core.SolrConfig initLibs
+INFO: Adding specified lib dirs to ClassLoader
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.SolrConfig <init>
+INFO: Loaded SolrConfig: solrconfig.xml
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.SolrCore <init>
+INFO: Opening new SolrCore at /Users/jameschartrand/Documents/workspace_2011_07_05_russell/solr-sc/solr_home/, dataDir=./solr/data/
+Apr 23, 2012 10:40:18 AM org.apache.solr.schema.IndexSchema readSchema
+INFO: Reading Solr Schema
+Apr 23, 2012 10:40:18 AM org.apache.solr.schema.IndexSchema readSchema
+INFO: Schema name=example
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created string: org.apache.solr.schema.StrField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created boolean: org.apache.solr.schema.BoolField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created binary: org.apache.solr.schema.BinaryField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created int: org.apache.solr.schema.TrieIntField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created float: org.apache.solr.schema.TrieFloatField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created long: org.apache.solr.schema.TrieLongField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created double: org.apache.solr.schema.TrieDoubleField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created tint: org.apache.solr.schema.TrieIntField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created tfloat: org.apache.solr.schema.TrieFloatField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created tlong: org.apache.solr.schema.TrieLongField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created tdouble: org.apache.solr.schema.TrieDoubleField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created date: org.apache.solr.schema.TrieDateField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created tdate: org.apache.solr.schema.TrieDateField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created pint: org.apache.solr.schema.IntField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created plong: org.apache.solr.schema.LongField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created pfloat: org.apache.solr.schema.FloatField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created pdouble: org.apache.solr.schema.DoubleField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created pdate: org.apache.solr.schema.DateField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created sint: org.apache.solr.schema.SortableIntField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created slong: org.apache.solr.schema.SortableLongField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created sfloat: org.apache.solr.schema.SortableFloatField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created sdouble: org.apache.solr.schema.SortableDoubleField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created random: org.apache.solr.schema.RandomSortField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.WhitespaceTokenizerFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created text_ws: org.apache.solr.schema.TextField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.WhitespaceTokenizerFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.SynonymFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.StopFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.WordDelimiterFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.LowerCaseFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.SnowballPorterFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.WhitespaceTokenizerFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.StopFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.WordDelimiterFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.LowerCaseFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.SnowballPorterFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created text: org.apache.solr.schema.TextField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.WhitespaceTokenizerFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.SynonymFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.StopFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.WordDelimiterFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.LowerCaseFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.SnowballPorterFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.RemoveDuplicatesTokenFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created textTight: org.apache.solr.schema.TextField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.WhitespaceTokenizerFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.SynonymFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.StopFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.WordDelimiterFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.LowerCaseFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.WhitespaceTokenizerFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.StopFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.WordDelimiterFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.LowerCaseFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created textgen: org.apache.solr.schema.TextField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.WhitespaceTokenizerFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.SynonymFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.StopFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.WordDelimiterFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.LowerCaseFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.WhitespaceTokenizerFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.StopFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.WordDelimiterFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.LowerCaseFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.ReversedWildcardFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created text_rev: org.apache.solr.schema.TextField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.KeywordTokenizerFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.LowerCaseFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.TrimFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.PatternReplaceFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created alphaOnlySort: org.apache.solr.schema.TextField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.StandardTokenizerFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.DoubleMetaphoneFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created phonetic: org.apache.solr.schema.TextField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.WhitespaceTokenizerFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.DelimitedPayloadTokenFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created payloads: org.apache.solr.schema.TextField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.KeywordTokenizerFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created null: org.apache.solr.analysis.LowerCaseFilterFactory
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created lowercase: org.apache.solr.schema.TextField
+Apr 23, 2012 10:40:18 AM org.apache.solr.util.plugin.AbstractPluginLoader load
+INFO: created ignored: org.apache.solr.schema.StrField
+Apr 23, 2012 10:40:18 AM org.apache.solr.schema.IndexSchema readSchema
+INFO: default search field is text
+Apr 23, 2012 10:40:18 AM org.apache.solr.schema.IndexSchema readSchema
+INFO: query parser default operator is OR
+Apr 23, 2012 10:40:18 AM org.apache.solr.schema.IndexSchema readSchema
+INFO: unique key field: uri
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.JmxMonitoredMap <init>
+INFO: JMX monitoring is enabled. Adding Solr mbeans to JMX Server: com.sun.jmx.mbeanserver.JmxMBeanServer@366025e7
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.SolrCore initListeners
+INFO: Added SolrEventListener: org.apache.solr.core.QuerySenderListener{queries=[]}
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.SolrCore initListeners
+INFO: Added SolrEventListener: org.apache.solr.core.QuerySenderListener{queries=[{q=solr rocks,start=0,rows=10}, {q=static firstSearcher warming query from solrconfig.xml}]}
+Apr 23, 2012 10:40:18 AM org.apache.solr.request.XSLTResponseWriter init
+INFO: xsltCacheLifetimeSeconds=5
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: created standard: solr.SearchHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: created dismax: solr.SearchHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: created partitioned: solr.SearchHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: created /spell: solr.SearchHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: created tvrh: org.apache.solr.handler.component.SearchHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: adding lazy requestHandler: org.apache.solr.handler.extraction.ExtractingRequestHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: created /update/extract: org.apache.solr.handler.extraction.ExtractingRequestHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: created /terms: org.apache.solr.handler.component.SearchHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: adding lazy requestHandler: solr.SearchHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: created /elevate: solr.SearchHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: created /update: solr.XmlUpdateRequestHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: created /update/javabin: solr.BinaryUpdateRequestHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: created /analysis/document: solr.DocumentAnalysisRequestHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: created /analysis/field: solr.FieldAnalysisRequestHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: adding lazy requestHandler: solr.CSVRequestHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: created /update/csv: solr.CSVRequestHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: created /admin/: org.apache.solr.handler.admin.AdminHandlers
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: created /admin/ping: PingRequestHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.RequestHandlers initHandlersFromConfig
+INFO: created /debug/dump: solr.DumpRequestHandler
+Apr 23, 2012 10:40:18 AM org.apache.solr.search.SolrIndexSearcher <init>
+INFO: Opening Searcher@7c3cfaab main
+Apr 23, 2012 10:40:18 AM org.apache.solr.update.DirectUpdateHandler2$CommitTracker <init>
+INFO: AutoCommit: disabled
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SpellCheckComponent inform
+INFO: Initializing spell checkers
+Apr 23, 2012 10:40:18 AM org.apache.solr.spelling.AbstractLuceneSpellChecker init
+INFO: Using WhitespaceAnalzyer for dictionary: default
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SpellCheckComponent inform
+WARNING: No queryConverter defined, using default converter
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.QueryElevationComponent inform
+INFO: Loading QueryElevation from: /Users/jameschartrand/Documents/workspace_2011_07_05_russell/solr-sc/solr_home/conf/elevate.xml
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.QueryComponent@6d3cba41
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.FacetComponent@2de8396e
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.MoreLikeThisComponent@69127c4d
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.HighlightComponent@3c9ed91f
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.StatsComponent@60c0a150
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  debug component:org.apache.solr.handler.component.DebugComponent@69ebcd0
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.QueryComponent@6d3cba41
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.FacetComponent@2de8396e
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.MoreLikeThisComponent@69127c4d
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.HighlightComponent@3c9ed91f
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.StatsComponent@60c0a150
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  debug component:org.apache.solr.handler.component.DebugComponent@69ebcd0
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.QueryComponent@6d3cba41
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.FacetComponent@2de8396e
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.MoreLikeThisComponent@69127c4d
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.HighlightComponent@3c9ed91f
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.StatsComponent@60c0a150
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  debug component:org.apache.solr.handler.component.DebugComponent@69ebcd0
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.QueryComponent@6d3cba41
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.FacetComponent@2de8396e
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.MoreLikeThisComponent@69127c4d
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.HighlightComponent@3c9ed91f
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.StatsComponent@60c0a150
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.SpellCheckComponent@1f7dff15
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  debug component:org.apache.solr.handler.component.DebugComponent@69ebcd0
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.QueryComponent@6d3cba41
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.FacetComponent@2de8396e
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.MoreLikeThisComponent@69127c4d
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.HighlightComponent@3c9ed91f
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.StatsComponent@60c0a150
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.TermVectorComponent@8f5cbda
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  debug component:org.apache.solr.handler.component.DebugComponent@69ebcd0
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SearchHandler inform
+INFO: Adding  component:org.apache.solr.handler.component.TermsComponent@411a59ce
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.QuerySenderListener newSearcher
+INFO: QuerySenderListener sending requests to Searcher@7c3cfaab main
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.CoreContainer register
+INFO: registering core: 
+Apr 23, 2012 10:40:18 AM org.apache.solr.servlet.SolrDispatchFilter init
+INFO: user.dir=/Applications/eclipse_indigo_russell/Eclipse.app/Contents/MacOS
+Apr 23, 2012 10:40:18 AM org.apache.solr.servlet.SolrDispatchFilter init
+INFO: SolrDispatchFilter.init() done
+Apr 23, 2012 10:40:18 AM org.apache.solr.servlet.SolrServlet init
+INFO: SolrServlet.init()
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.SolrResourceLoader locateSolrHome
+INFO: Using JNDI solr.home: /Users/jameschartrand/Documents/workspace_2011_07_05_russell/solr-sc/solr_home
+Apr 23, 2012 10:40:18 AM org.apache.solr.servlet.SolrServlet init
+INFO: SolrServlet.init() done
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.SolrResourceLoader locateSolrHome
+INFO: Using JNDI solr.home: /Users/jameschartrand/Documents/workspace_2011_07_05_russell/solr-sc/solr_home
+Apr 23, 2012 10:40:18 AM org.apache.solr.servlet.SolrUpdateServlet init
+INFO: SolrUpdateServlet.init() done
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.SolrCore execute
+INFO: [] webapp=null path=null params={start=0&event=firstSearcher&q=solr+rocks&rows=10} hits=0 status=0 QTime=45 
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.SolrCore execute
+INFO: [] webapp=null path=null params={event=firstSearcher&q=static+firstSearcher+warming+query+from+solrconfig.xml} hits=0 status=0 QTime=3 
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.QuerySenderListener newSearcher
+INFO: QuerySenderListener done.
+Apr 23, 2012 10:40:18 AM org.apache.solr.handler.component.SpellCheckComponent$SpellCheckerListener newSearcher
+INFO: Loading spell index for spellchecker: default
+Apr 23, 2012 10:40:18 AM org.apache.solr.core.SolrCore registerSearcher
+INFO: [] Registered new searcher Searcher@7c3cfaab main
+Apr 23, 2012 10:40:19 AM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["http-bio-8080"]
+Apr 23, 2012 10:40:19 AM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["ajp-bio-8009"]
+Apr 23, 2012 10:40:19 AM org.apache.catalina.startup.Catalina start
+INFO: Server startup in 4263 ms
