@@ -36,6 +36,8 @@ public class DMSTechRDFConstants {
 	public Property scHasTextAnnotations;
 	public Property scHasImageAnnotations;
 	public Property scHasZoneAnnotations;
+	public Resource scRepositoryClass;
+	public Resource scCollectionClass;
 
 	// exif properties
 	public Property exifHeight;
@@ -125,6 +127,10 @@ public class DMSTechRDFConstants {
 				.createResource(SHARED_CANVAS_NAMESPACE + "ZoneAnnotationList");
 		scManifestClass = initializingModel
 				.createResource(SHARED_CANVAS_NAMESPACE + "Manifest");
+		scRepositoryClass = initializingModel
+				.createResource(SHARED_CANVAS_NAMESPACE + "Repository");
+		scCollectionClass = initializingModel
+				.createResource(SHARED_CANVAS_NAMESPACE + "Collection");
 		scImageAnnotationClass= initializingModel
 				.createResource(SHARED_CANVAS_NAMESPACE + "ImageAnnotation");
 		scZoneAnnotationClass = initializingModel

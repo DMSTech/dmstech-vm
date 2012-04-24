@@ -1,7 +1,7 @@
 
     
     <http://localhost:8080/vm/sc/Stanford/Collection>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/Aggregation> .
-    
+    <http://localhost:8080/vm/sc/Stanford/Collection>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.shared-canvas.org/ns/Collection> .
     <http://localhost:8080/vm/sc/Stanford/Collection>     <http://purl.org/dc/elements/1.1/title> "Manuscripts held at Stanford University Libraries" .
     
     <http://localhost:8080/vm/sc/Stanford/Collection>     <http://www.openarchives.org/ore/terms/aggregates> <http://localhost:8080/vm/sc/Stanford/kq131cs7229/Manifest> .

@@ -234,7 +234,7 @@ public class SharedCanvasGenerator {
 				.addProperty(rdfConstants.oreDescribes, manifestAggregation)
 				.addProperty(DC.format, "application/rdf+xml");						
 		
-		ResIterator resIter = collectionManifestModel.listSubjectsWithProperty(RDF.type, rdfConstants.oreAggregationClass);
+		ResIterator resIter = collectionManifestModel.listSubjectsWithProperty(RDF.type, rdfConstants.scCollectionClass);
 		while (resIter.hasNext()){
 			Resource aggregationResource = resIter.nextResource();	
 			aggregationResource.addProperty(rdfConstants.oreAggregates, manifestAggregation);
