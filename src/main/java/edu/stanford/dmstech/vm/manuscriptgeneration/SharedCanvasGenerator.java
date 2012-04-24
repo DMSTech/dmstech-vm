@@ -68,7 +68,7 @@ public class SharedCanvasGenerator {
 					"some settlement", 
 					"some region name", 
 					"some country", 
-					"myTestManu", 
+					"test1", 
 					"ingested",
 					false);
 			} catch (Exception e) {

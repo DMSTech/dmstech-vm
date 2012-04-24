@@ -63,7 +63,7 @@ public class ManuscriptConceptualTest {
          	statusCode(201).
          	header("Location", endsWith("/vm/sc/ingested/test1")).
          when().
-         put("/vm/sc/ingest/test1");
+         put("/vm/sc/ingested/test1");
 	}
 
 	

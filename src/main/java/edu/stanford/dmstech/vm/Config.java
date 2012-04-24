@@ -306,9 +306,16 @@ public class Config implements ServletContextListener {
          	return;
          }	
          	
+         File logDir = new File(homeDir, "logs");
+         if (!logDir.exists()) {
+        	 logDir.mkdir();
+         }
+         
          configureRootLogger(homeDir);		
   		
          loadConfigFile(homeDir);  
+         
+         
          
          File collectionsDir = new File(homeDir, Config.collectionSubDir);
          if ( ! collectionsDir.exists() ) {
