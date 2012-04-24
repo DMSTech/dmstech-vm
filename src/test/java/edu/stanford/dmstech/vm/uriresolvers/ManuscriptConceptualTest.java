@@ -46,22 +46,22 @@ public class ManuscriptConceptualTest {
 	@Test
 	public void testSubmitNewManuscript() {
 		 given().
-	       param("manname", "The name of our test manuscript.").
-	       param("mantitle", "The title of our test manuscript.").
-	       param("collection", "The name of the manuscript's collection.").
-	       param("idno", "The identifier for the manuscript.").
-	       param("altid", "An alternate identifier for the manuscript.").
-	       param("repository", "The repository holding our manuscript.").
-	       param("institution", "The institution holding our manuscript.").
-	       param("settlement", "Some settlement.").
-	       param("region", "Some region.").
-	       param("country", "Some country.").
-	       param("parseFileNames", "false").
+	       formParam("manname", "The name of our test manuscript.").
+	       formParam("mantitle", "The title of our test manuscript.").
+	       formParam("collection", "The name of the manuscript's collection.").
+	       formParam("idno", "The identifier for the manuscript.").
+	       formParam("altid", "An alternate identifier for the manuscript.").
+	       formParam("repository", "The repository holding our manuscript.").
+	       formParam("institution", "The institution holding our manuscript.").
+	       formParam("settlement", "Some settlement.").
+	       formParam("region", "Some region.").
+	       formParam("country", "Some country.").
+	       formParam("parseFileNames", "false").
 		 	redirects().follow(false).
          	header("Accept", "text/html;charset=utf-8").
          expect().
          	statusCode(201).
-         	header("Location", endsWith("/vm/sc/ingest/test1")).
+         	header("Location", endsWith("/vm/sc/ingested/test1")).
          when().
          put("/vm/sc/ingest/test1");
 	}

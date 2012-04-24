@@ -15,7 +15,7 @@ import javax.ws.rs.core.UriInfo;
 import edu.stanford.dmstech.vm.manuscriptgeneration.SharedCanvasGenerator;
 
 
-@Path("/{collectiondId}/{manuscriptId}")
+@Path("/{collectionId}/{manuscriptId}")
 public class ManuscriptConceptual {
 
 	@Context 

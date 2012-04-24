@@ -9,17 +9,19 @@ import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.SharedCanvasUtil;
 
 
-@Path("/{collectionId}/{manuscriptId: (.*\\.html$|.*\\.xml$|.*\\.ttl$)}")
+@Path("/{collectionId}/{manuscriptFile: (.*\\.html$|.*\\.xml$|.*\\.ttl$)}")
 public class ManuscriptRepresentation {
 	
 	@GET
 	public Response getRepresentation(
 			@PathParam("collectionId") final String collectionId,
-			@PathParam("manuscriptId") final String manuscriptId
+			@PathParam("manuscriptFile") final String manuscriptFile
 			) throws Exception {
 		// TODO need to build manuscript RDF here, probably like the canvas.
 		// for now just return the manifest
-		return SharedCanvasUtil.getSerializedRDFFromHomeDir(Config.collectionSubDir + "/" + collectionId + "/" + manuscriptId + "/" + Config.manifestFileName, Config.manifestFileName  + ".xml");
+		String manuscriptId = manuscriptFile.substring(0, manuscriptFile.lastIndexOf("."));
+		String requestedExtension = manuscriptFile.substring(manuscriptFile.lastIndexOf("."));
+		return SharedCanvasUtil.getSerializedRDFFromHomeDir(Config.collectionSubDir + "/" + collectionId + "/" + manuscriptId + "/rdf/" + Config.manifestFileName, Config.manifestFileName  + requestedExtension);
 			
 	}
 	

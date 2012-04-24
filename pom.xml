@@ -8,6 +8,11 @@
   <name>vm Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
+  <dependency>
+	<groupId>commons-transaction</groupId>
+	<artifactId>commons-transaction</artifactId>
+	<version>1.2</version>
+</dependency>
     <dependency>
 		<groupId>org.hamcrest</groupId>
 		<artifactId>hamcrest-core</artifactId>
@@ -87,11 +92,7 @@
     <artifactId>mysql-connector-java</artifactId>
     <version>5.1.6</version>
 </dependency>
-<dependency>
-	<groupId>commons-transaction</groupId>
-	<artifactId>commons-transaction</artifactId>
-	<version>1.2</version>
-</dependency>
+
 <dependency>
 	<groupId>org.json</groupId>
 	<artifactId>json</artifactId>
@@ -102,55 +103,49 @@
 		<artifactId>jta</artifactId>
 		<version>1.1</version>
 	</dependency>         
-<!--  djatoka dependencies, all local -->
+<!--  djatoka dependencies follow, these all have to be installed to the local maven repo:
+mvn install:install-file -Dfile=/usr/local/adore-djatoka-1.1/dist/adore-djatoka-1.1.jar -DgroupId=gov.lanl.adore.djatoka -DartifactId=djatoka -Dversion=1.1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=/usr/local/adore-djatoka-1.1/lib/kdu_jni.jar -DgroupId=kdu -DartifactId=kdu_jni -Dversion=0.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=/usr/local/adore-djatoka-1.1/lib/ij-ImageIO.jar -DgroupId=imagej -DartifactId=ij-ImageIO -Dversion=0.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=/usr/local/adore-djatoka-1.1/lib/ij.jar -DgroupId=imagej -DartifactId=ij -Dversion=0.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=/usr/local/adore-djatoka-1.1/lib/jai_core.jar -DgroupId=jai -DartifactId=jai-core -Dversion=0.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=/usr/local/adore-djatoka-1.1/lib/jai_codec.jar -DgroupId=jai -DartifactId=jai-codec -Dversion=0.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=/usr/local/adore-djatoka-1.1/lib/uk.co.mmscomputing.imageio.tiff.jar -DgroupId=imageIO -DartifactId=image-io-tiff -Dversion=0.0.0 -Dpackaging=jar
+ -->
 	<dependency>
       <groupId>gov.lanl.adore.djatoka</groupId>
       <artifactId>djatoka</artifactId>
       <version>1.1.0</version>
-      <scope>system</scope>
-      <systemPath>/usr/local/adore-djatoka-1.1/dist/adore-djatoka-1.1.jar</systemPath>
 	</dependency>
 	<dependency>
 			<groupId>kdu</groupId>
 			<artifactId>kdu_jni</artifactId>
 			<version>0.0.0</version>
-			<scope>system</scope>
-			<systemPath>/usr/local/adore-djatoka-1.1/lib/kdu_jni.jar</systemPath>
 	</dependency>
 	<dependency>
 			<groupId>imagej</groupId>
 			<artifactId>ij-ImageIO</artifactId>
 			<version>0.0.0</version>
-			<scope>system</scope>
-			<systemPath>/usr/local/adore-djatoka-1.1/lib/ij-ImageIO.jar</systemPath>
 	</dependency>	
 	<dependency>
 			<groupId>imagej</groupId>
 			<artifactId>ij</artifactId>
 			<version>0.0.0</version>
-			<scope>system</scope>
-			<systemPath>/usr/local/adore-djatoka-1.1/lib/ij.jar</systemPath>
 	</dependency>
 	<dependency>
 			<groupId>jai</groupId>
 			<artifactId>jai-core</artifactId>
 			<version>0.0.0</version>
-			<scope>system</scope>
-			<systemPath>/usr/local/adore-djatoka-1.1/lib/jai_core.jar</systemPath>
 	</dependency>	
 	<dependency>
 			<groupId>jai</groupId>
 			<artifactId>jai-codec</artifactId>
 			<version>0.0.0</version>
-			<scope>system</scope>
-			<systemPath>/usr/local/adore-djatoka-1.1/lib/jai_codec.jar</systemPath>
 	</dependency>
 	<dependency>
 			<groupId>imageIO</groupId>
 			<artifactId>image-io-tiff</artifactId>
 			<version>0.0.0</version>
-			<scope>system</scope>
-			<systemPath>/usr/local/adore-djatoka-1.1/lib/uk.co.mmscomputing.imageio.tiff.jar</systemPath>
 	</dependency>		
   </dependencies>
    <repositories>

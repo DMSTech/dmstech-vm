@@ -118,7 +118,7 @@ public class SharedCanvasGenerator {
 		indexInSolr();
 		addManuscriptToDefaultCollectionList();
 		
-		return baseURIForManuscript + "Manifest";
+		return baseURIForManuscript;
 	
 	}
 
