@@ -18,7 +18,7 @@ public class ManuscriptTextAnnosResourceMapTest {
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229/TextAnnotations.xml");
+	    get("/dms/sc/Stanford/kq131cs7229/TextAnnotations.xml");
 	}
 
 	@Test
@@ -26,11 +26,11 @@ public class ManuscriptTextAnnosResourceMapTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/vm/sc/Stanford/kq131cs7229")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229/TextAnnotations.ttl");
+	    get("/dms/sc/Stanford/kq131cs7229/TextAnnotations.ttl");
 	}
 	
 	@Test
@@ -38,11 +38,11 @@ public class ManuscriptTextAnnosResourceMapTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/vm/sc/Stanford/kq131cs7229")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229/TextAnnotations.html");
+	    get("/dms/sc/Stanford/kq131cs7229/TextAnnotations.html");
 	}
 	
 	

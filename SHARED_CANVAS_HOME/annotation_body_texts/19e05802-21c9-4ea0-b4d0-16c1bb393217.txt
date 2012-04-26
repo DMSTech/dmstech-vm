@@ -1,0 +1,2 @@
+            A test annotation of canvas-3 in the Stanford Collection.
+        

@@ -17,7 +17,7 @@ public class ManuscriptZoneAnnosResourceMapTest {
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229/ZoneAnnotations.xml");
+	    get("/dms/sc/Stanford/kq131cs7229/ZoneAnnotations.xml");
 	}
 
 	@Test
@@ -25,11 +25,11 @@ public class ManuscriptZoneAnnosResourceMapTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/vm/sc/Stanford/kq131cs7229")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229/ZoneAnnotations.ttl");
+	    get("/dms/sc/Stanford/kq131cs7229/ZoneAnnotations.ttl");
 	}
 	
 	@Test
@@ -37,11 +37,11 @@ public class ManuscriptZoneAnnosResourceMapTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/vm/sc/Stanford/kq131cs7229")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229/ZoneAnnotations.html");
+	    get("/dms/sc/Stanford/kq131cs7229/ZoneAnnotations.html");
 	}
 	
 }

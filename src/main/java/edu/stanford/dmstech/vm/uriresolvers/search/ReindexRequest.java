@@ -2,7 +2,9 @@ package edu.stanford.dmstech.vm.uriresolvers.search;
 
 import java.io.IOException;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
@@ -15,8 +17,8 @@ import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
 @Path("/reindex")
 public class ReindexRequest {
 
-@GET
-public Response getSparqlResult(@QueryParam("solr") final boolean reindexSolr, @QueryParam("triple") final boolean reindexTripleStore) {
+@POST
+public Response getSparqlResult(@FormParam("solr") final boolean reindexSolr, @FormParam("triple") final boolean reindexTripleStore) {
 	
 	
 	try {

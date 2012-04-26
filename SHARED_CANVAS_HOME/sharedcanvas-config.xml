@@ -6,8 +6,8 @@
 	<imageAnnotationFileName>ImageAnnotations.nt</imageAnnotationFileName>
 	<zoneAnnotationFileName>ZoneAnnotations.nt</zoneAnnotationFileName>
 	<textAnnotationFileName>TextAnnotations.nt</textAnnotationFileName>
-	<baseURIForIds>http://localhost:8080/vm/sc</baseURIForIds>
-	<baseURIForDocuments>http://localhost:8080/vm/sc</baseURIForDocuments>
+	<baseURIForIds>http://localhost:8080/dms/sc</baseURIForIds>
+	<baseURIForDocuments>http://localhost:8080/dms/sc</baseURIForDocuments>
 	<collectionSubDir>collections</collectionSubDir>
 	<textAnnosSubDir>submitted_annotations</textAnnosSubDir>
 	<textAnnosBodiesSubDir>annotation_body_texts</textAnnosBodiesSubDir>

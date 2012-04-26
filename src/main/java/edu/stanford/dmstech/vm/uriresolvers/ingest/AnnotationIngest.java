@@ -12,7 +12,6 @@ import javax.ws.rs.core.Response;
 public class AnnotationIngest {
 	
 	@POST
-	@Produces("application/rdf+xml")
 	public Response saveAnnotations(
 			InputStream inputStream) throws IOException {	
 			return (new AnnotationIngester().saveAnnotations(inputStream));

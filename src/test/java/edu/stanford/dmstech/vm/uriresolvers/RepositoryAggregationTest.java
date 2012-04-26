@@ -14,9 +14,9 @@ public class RepositoryAggregationTest {
          	header("Accept", "application/rdf+xml").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Repository.xml")).
+         	header("Location", endsWith("/dms/sc/Repository.xml")).
          when().
-         get("/vm/sc/Repository");
+         get("/dms/sc/Repository");
 	}
 	
 	@Test
@@ -26,9 +26,9 @@ public class RepositoryAggregationTest {
          	header("Accept", "text/turtle;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Repository.ttl")).
+         	header("Location", endsWith("/dms/sc/Repository.ttl")).
          when().
-         get("/vm/sc/Repository");
+         get("/dms/sc/Repository");
 	}
 	
 	@Test
@@ -38,9 +38,9 @@ public class RepositoryAggregationTest {
          	header("Accept", "text/html;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Repository.html")).
+         	header("Location", endsWith("/dms/sc/Repository.html")).
          when().
-         get("/vm/sc/Repository");
+         get("/dms/sc/Repository");
 	}
 	
 

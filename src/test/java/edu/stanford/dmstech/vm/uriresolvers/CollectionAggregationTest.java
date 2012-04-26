@@ -14,9 +14,9 @@ public class CollectionAggregationTest {
          	header("Accept", "application/rdf+xml").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/Collection.xml")).
+         	header("Location", endsWith("/dms/sc/Stanford/Collection.xml")).
          when().
-         get("/vm/sc/Stanford/Collection");
+         get("/dms/sc/Stanford/Collection");
 	}
 	
 	@Test
@@ -26,9 +26,9 @@ public class CollectionAggregationTest {
          	header("Accept", "text/turtle;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/Collection.ttl")).
+         	header("Location", endsWith("/dms/sc/Stanford/Collection.ttl")).
          when().
-         get("/vm/sc/Stanford/Collection");
+         get("/dms/sc/Stanford/Collection");
 	}
 	
 	@Test
@@ -38,9 +38,9 @@ public class CollectionAggregationTest {
          	header("Accept", "text/html;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/Collection.html")).
+         	header("Location", endsWith("/dms/sc/Stanford/Collection.html")).
          when().
-         get("/vm/sc/Stanford/Collection");
+         get("/dms/sc/Stanford/Collection");
 	}
 	
 

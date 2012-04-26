@@ -14,9 +14,9 @@ public class ManuscriptImageAnnosAggregationTest {
          	header("Accept", "application/rdf+xml").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/kq131cs7229/ImageAnnotations.xml")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/ImageAnnotations.xml")).
          when().
-         get("/vm/sc/Stanford/kq131cs7229/ImageAnnotations");
+         get("/dms/sc/Stanford/kq131cs7229/ImageAnnotations");
 	}
 	
 	@Test
@@ -26,9 +26,9 @@ public class ManuscriptImageAnnosAggregationTest {
          	header("Accept", "text/turtle;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/kq131cs7229/ImageAnnotations.ttl")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/ImageAnnotations.ttl")).
          when().
-         get("/vm/sc/Stanford/kq131cs7229/ImageAnnotations");
+         get("/dms/sc/Stanford/kq131cs7229/ImageAnnotations");
 	}
 	
 	@Test
@@ -38,8 +38,8 @@ public class ManuscriptImageAnnosAggregationTest {
          	header("Accept", "text/html;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/kq131cs7229/ImageAnnotations.html")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/ImageAnnotations.html")).
          when().
-         get("/vm/sc/Stanford/kq131cs7229/ImageAnnotations");
+         get("/dms/sc/Stanford/kq131cs7229/ImageAnnotations");
 	}
 }

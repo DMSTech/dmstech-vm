@@ -111,6 +111,8 @@ mvn install:install-file -Dfile=/usr/local/adore-djatoka-1.1/lib/ij.jar -DgroupI
 mvn install:install-file -Dfile=/usr/local/adore-djatoka-1.1/lib/jai_core.jar -DgroupId=jai -DartifactId=jai-core -Dversion=0.0.0 -Dpackaging=jar
 mvn install:install-file -Dfile=/usr/local/adore-djatoka-1.1/lib/jai_codec.jar -DgroupId=jai -DartifactId=jai-codec -Dversion=0.0.0 -Dpackaging=jar
 mvn install:install-file -Dfile=/usr/local/adore-djatoka-1.1/lib/uk.co.mmscomputing.imageio.tiff.jar -DgroupId=imageIO -DartifactId=image-io-tiff -Dversion=0.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=/usr/local/adore-djatoka-1.1/lib/mlibwrapper_jai.jar -DgroupId=jai -DartifactId=mlibwrapper_jai -Dversion=0.0.0 -Dpackaging=jar
+
  -->
 	<dependency>
       <groupId>gov.lanl.adore.djatoka</groupId>
@@ -146,7 +148,12 @@ mvn install:install-file -Dfile=/usr/local/adore-djatoka-1.1/lib/uk.co.mmscomput
 			<groupId>imageIO</groupId>
 			<artifactId>image-io-tiff</artifactId>
 			<version>0.0.0</version>
-	</dependency>		
+	</dependency>	
+		<dependency>
+			<groupId>jai</groupId>
+			<artifactId>mlibwrapper_jai</artifactId>
+			<version>0.0.0</version>
+	</dependency>	
   </dependencies>
    <repositories>
  <repository>

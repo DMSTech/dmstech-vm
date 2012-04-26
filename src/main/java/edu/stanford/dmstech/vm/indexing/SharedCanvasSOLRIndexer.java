@@ -138,9 +138,12 @@ public class SharedCanvasSOLRIndexer {
 			}
 			
 			/*
-			 * 4.  loop over the canvas list
+			 * 4.  loop over the canvas list, if there is one
 			 */
-			StmtIterator canvasIter = sequenceAggregation.listProperties(sharedCanvasConstants.oreAggregates);
+
+			if (sequenceAggregation != null) {
+				StmtIterator canvasIter = sequenceAggregation.listProperties(sharedCanvasConstants.oreAggregates);
+			
 			while (canvasIter.hasNext()) {
 				Resource canvas = canvasIter.next().getObject().asResource();
 				if (! canvas.hasProperty(RDF.type, sharedCanvasConstants.scCanvasClass)) continue;
@@ -153,9 +156,11 @@ public class SharedCanvasSOLRIndexer {
 				/* 
 				  * 5.  for each canvas, get all TextAnnotations that target the canvas.
 				  */
-				StmtIterator annotationIter = tdb.listStatements(null, RDF.type, sharedCanvasConstants.oacTextAnnotationType);
+				StmtIterator annotationIter = tdb.listStatements(null, sharedCanvasConstants.oacHasTargetProperty, canvas);
 				while (annotationIter.hasNext()) {
 					Resource annotation = annotationIter.next().getSubject();
+					// TODO:  replace this with SPARQL query on TDB to avoid type check
+					if (! annotation.hasProperty(RDF.type, sharedCanvasConstants.oacTextAnnotationType)) continue;
 						/*
 					  *  6.  for each TextAnnotation, get the Body.
 					  */
@@ -173,7 +178,8 @@ public class SharedCanvasSOLRIndexer {
 					canvasSolrDoc.addField(ANNOTATION_TEXT_FIELD, bodyText);
 				}
 				docs.add(canvasSolrDoc);
-			}										
+			}
+			}
 			
 			count++;
 

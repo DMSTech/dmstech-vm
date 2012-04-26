@@ -19,7 +19,7 @@ public class RepositoryResourceMapTest {
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Repository.xml");
+	    get("/dms/sc/Repository.xml");
 	}
 
 	@Test
@@ -27,11 +27,11 @@ public class RepositoryResourceMapTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/vm/sc/Stanford")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford")	    			
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Repository.ttl");
+	    get("/dms/sc/Repository.ttl");
 	}
 	
 	@Test
@@ -39,11 +39,11 @@ public class RepositoryResourceMapTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/vm/sc/Stanford")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford")	    			
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Repository.html");
+	    get("/dms/sc/Repository.html");
 	}
 	
 	

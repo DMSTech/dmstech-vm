@@ -19,7 +19,7 @@ public class CollectionResourceMapTest {
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/Collection.xml");
+	    get("/dms/sc/Stanford/Collection.xml");
 	}
 
 	@Test
@@ -27,11 +27,11 @@ public class CollectionResourceMapTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/vm/sc/Stanford/kq131cs7229")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/Collection.ttl");
+	    get("/dms/sc/Stanford/Collection.ttl");
 	}
 	
 	@Test
@@ -39,11 +39,11 @@ public class CollectionResourceMapTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/vm/sc/Stanford/kq131cs7229")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/Collection.html");
+	    get("/dms/sc/Stanford/Collection.html");
 	}
 	
 	

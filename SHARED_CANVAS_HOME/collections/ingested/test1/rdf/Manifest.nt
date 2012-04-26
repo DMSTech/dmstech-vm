@@ -1,0 +1,32 @@
+<http://localhost:8080/dms/sc/ingested/test1/NormalSequence> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.shared-canvas.org/ns/Sequence> .
+<http://localhost:8080/dms/sc/ingested/test1/NormalSequence> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .
+<http://localhost:8080/dms/sc/ingested/test1/NormalSequence> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/Aggregation> .
+<http://localhost:8080/dms/sc/ingested/test1/ImageAnnotations> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.shared-canvas.org/ns/ImageAnnotationList> .
+<http://localhost:8080/dms/sc/ingested/test1/ImageAnnotations> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .
+<http://localhost:8080/dms/sc/ingested/test1/ImageAnnotations> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/Aggregation> .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest.xml> <http://purl.org/dc/elements/1.1/format> "application/rdf+xml" .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest.xml> <http://purl.org/dc/terms/created> "2012-04-26T16:06:00-0400"^^<http://purl.org/dc/terms/W3CDTF> .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest.xml> <http://www.openarchives.org/ore/terms/describes> <http://localhost:8080/dms/sc/ingested/test1/Manifest> .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest.xml> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/ResourceMap> .
+<http://localhost:8080/dms/sc/ingested/test1/ImageAnnotations.xml> <http://purl.org/dc/elements/1.1/format> "application/rdf+xml" .
+<http://localhost:8080/dms/sc/ingested/test1/ImageAnnotations.xml> <http://purl.org/dc/terms/created> "2012-04-26T16:06:00-0400"^^<http://purl.org/dc/terms/W3CDTF> .
+<http://localhost:8080/dms/sc/ingested/test1/ImageAnnotations.xml> <http://www.openarchives.org/ore/terms/describes> <http://localhost:8080/dms/sc/ingested/test1/ImageAnnotations> .
+<http://localhost:8080/dms/sc/ingested/test1/ImageAnnotations.xml> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/ResourceMap> .
+<http://localhost:8080/dms/sc/ingested/test1/NormalSequence.xml> <http://purl.org/dc/elements/1.1/format> "application/rdf+xml" .
+<http://localhost:8080/dms/sc/ingested/test1/NormalSequence.xml> <http://purl.org/dc/terms/created> "2012-04-26T16:06:00-0400"^^<http://purl.org/dc/terms/W3CDTF> .
+<http://localhost:8080/dms/sc/ingested/test1/NormalSequence.xml> <http://www.openarchives.org/ore/terms/describes> <http://localhost:8080/dms/sc/ingested/test1/NormalSequence> .
+<http://localhost:8080/dms/sc/ingested/test1/NormalSequence.xml> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/ResourceMap> .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest> <http://www.tei-c.org/ns/1.0/idno> "The identifier for the manuscript." .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest> <http://www.tei-c.org/ns/1.0/institution> "The institution holding our manuscript." .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.shared-canvas.org/ns/Manifest> .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest> <http://www.openarchives.org/ore/terms/aggregates> <http://localhost:8080/dms/sc/ingested/test1/NormalSequence> .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest> <http://purl.org/dc/elements/1.1/title> "The title of our test manuscript." .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest> <http://www.tei-c.org/ns/1.0/repository> "The repository holding our manuscript." .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest> <http://www.openarchives.org/ore/terms/aggregates> <http://localhost:8080/dms/sc/ingested/test1/ImageAnnotations> .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest> <http://www.tei-c.org/ns/1.0/altIdentifier> "An alternate identifier for the manuscript." .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest> <http://www.tei-c.org/ns/1.0/country> "Some country." .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/Aggregation> .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest> <http://www.tei-c.org/ns/1.0/settlement> "Some settlement." .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest> <http://www.tei-c.org/ns/1.0/collection> "The name of the manuscript's collection." .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest> <http://www.tei-c.org/ns/1.0/msName> "The name of our test manuscript." .
+<http://localhost:8080/dms/sc/ingested/test1/Manifest> <http://www.tei-c.org/ns/1.0/region> "Some region." .

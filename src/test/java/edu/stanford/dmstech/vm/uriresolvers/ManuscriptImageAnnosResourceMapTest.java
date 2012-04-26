@@ -19,7 +19,7 @@ public class ManuscriptImageAnnosResourceMapTest {
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229/ImageAnnotations.xml");
+	    get("/dms/sc/Stanford/kq131cs7229/ImageAnnotations.xml");
 	}
 
 	@Test
@@ -27,11 +27,11 @@ public class ManuscriptImageAnnosResourceMapTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/vm/sc/Stanford/kq131cs7229")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229/ImageAnnotations.ttl");
+	    get("/dms/sc/Stanford/kq131cs7229/ImageAnnotations.ttl");
 	}
 	
 	@Test
@@ -39,11 +39,11 @@ public class ManuscriptImageAnnosResourceMapTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/vm/sc/Stanford/kq131cs7229")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229/ImageAnnotations.html");
+	    get("/dms/sc/Stanford/kq131cs7229/ImageAnnotations.html");
 	}
 	
 	
