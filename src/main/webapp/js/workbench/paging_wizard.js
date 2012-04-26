@@ -274,14 +274,82 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 PagingWizard.prototype.fetchSequence = function(iaUri) {
 	this.loading(true);
 	
-	var qry = $.rdf(opts);
-	function parseAnnotations(qry, uri) {
-		var annotations = buildAllAnnos(qry);
-		eventManager.trigger('tree.sequenceSelected', [annotations]);
-		this.loading(false);
-		this.steps[2].init(annotations);
+	/* ordering code using rdfquery
+	var annotationsOrder = [];
+	var rest = '';
+	$.rdf({databank: qry.databank})
+	.where('?annos rdf:type ?type')
+	.filter('type', /terms\/Aggregation/)
+	.where('?annos rdf:first ?first')
+	.where('?annos rdf:rest ?rest')
+	.each(function(index, match) {
+		rest = match.rest.value.toString();
+		annotationsOrder.push(match.first.value.toString());
+	});
+	
+	function orderAnnotations(db, annotationsOrder, rest) {
+		var newRest;
+		$.rdf({databank: qry.databank})
+		.where(rest+' rdf:first ?first')
+		.where(rest+' rdf:rest ?rest')
+		.each(function(index, match) {
+			annotationsOrder.push(match.first.value.toString());
+			newRest = match.rest.value.toString();
+		});
+		if (newRest.match('22-rdf-syntax-ns#nil') == null) {
+			orderAnnotations(db, annotationsOrder, newRest);
+		}
 	}
-	fetchTriples('http://'+window.location.host+proxyString+'?url='+iaUri, qry, $.proxy(parseAnnotations, this));
+	orderAnnotations(qry.databank, annotationsOrder, rest);
+	*/
+	
+	$.ajax({
+		url: 'http://'+window.location.host+proxyString+'?url='+iaUri,
+		success: function(data, status, xhr, url) {
+			var annos = [];
+			var id = url.split('.xml')[0];
+			var list = $('rdf\\:Description[rdf\\:about="'+id+'"]', data);
+			var firstId = $('rdf\\:first', list).attr('rdf:resource');
+			var restId = $('rdf\\:rest', list).attr('rdf:nodeID');
+			
+			function getJsonForAnno(anno) {
+				var targetId = anno.children('oac\\:hasTarget').attr('rdf:resource');
+				var bodyId = anno.children('oac\\:hasBody').attr('rdf:resource');
+				var target = $('rdf\\:Description[rdf\\:about="'+targetId+'"]', data);
+				var body = $('rdf\\:Description[rdf\\:about="'+bodyId+'"]', data);
+				return {
+					title: target.children('dc\\:title').text(),
+					bodyId: bodyId,
+					width: body.children('exif\\:width').text(),
+					height: body.children('exif\\:height').text()
+				};
+			}
+			
+			var firstAnno = $('rdf\\:Description[rdf\\:about="'+firstId+'"]', data);
+			annos.push(getJsonForAnno(firstAnno));
+			
+			function getOrder(nodeId, count) {
+				var node = $('rdf\\:Description[rdf\\:nodeID="'+nodeId+'"]', data);
+				var firstId = $('rdf\\:first', node).attr('rdf:resource');
+				var firstAnno = $('rdf\\:Description[rdf\\:about="'+firstId+'"]', data);
+				annos.push(getJsonForAnno(firstAnno));
+				var restId = $('rdf\\:rest', node).attr('rdf:nodeID');
+				if (restId != undefined) {
+					count++;
+					if (count > 25) {
+						count = 0;
+						setTimeout(getOrder.createDelegate(this, [restId, count], 0), 50);
+					} else {
+						getOrder.apply(this, [restId, count]);
+					}
+				} else {
+					this.loading(false);
+					this.steps[2].init(annos);
+				}
+			}
+			getOrder.apply(this, [restId, 0]);
+		}.createDelegate(this, [iaUri], true)
+	});
 };
 
 PagingWizard.prototype.imagesPager = function(pageNum, annotations) {
@@ -312,9 +380,10 @@ PagingWizard.prototype.imagesPager = function(pageNum, annotations) {
 		cache = [];
 		for (var i = 0; i < annotations.length; i++) {
 			var a = annotations[i];
-			cache.push({title: a.targets[0].title, bodyId: a.body.id, width: a.body.width, height: a.body.height});
+//			cache.push({title: a.targets[0].title, bodyId: a.body.id, width: a.body.width, height: a.body.height});
+			cache.push(a);
 			
-			liString += '<li id="img_'+this.idCount+'">'+a.targets[0].title+'</li>';
+			liString += '<li id="img_'+this.idCount+'">'+a.title+'</li>';
 			this.idCount++;
 		}
 		buildPage.apply(this, [liString, cache]);
@@ -366,4 +435,21 @@ WizardStep.prototype.show = function() {
 
 WizardStep.prototype.hide = function() {
 	$(this.id).hide();
+};
+
+// createDelegate from Extjs
+Function.prototype.createDelegate = function(obj, args, appendArgs) {
+    var method = this;
+    return function() {
+        var callArgs = args || arguments;
+        if (appendArgs === true) {
+            callArgs = Array.prototype.slice.call(arguments, 0);
+            callArgs = callArgs.concat(args);
+        } else if (typeof appendArgs === 'number') {
+            callArgs = Array.prototype.slice.call(arguments, 0); // copy arguments first
+            var applyArgs = [appendArgs, 0].concat(args); // create method call params
+            Array.prototype.splice.apply(callArgs, applyArgs); // splice them in
+        }
+        return method.apply(obj || window, callArgs);
+    };
 };
