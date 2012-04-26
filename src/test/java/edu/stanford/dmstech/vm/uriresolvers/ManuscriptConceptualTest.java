@@ -14,9 +14,9 @@ public class ManuscriptConceptualTest {
          	header("Accept", "application/rdf+xml").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/kq131cs7229.xml")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229.xml")).
          when().
-         get("/vm/sc/Stanford/kq131cs7229");
+         get("/dms/sc/Stanford/kq131cs7229");
 	}
 	
 	@Test
@@ -26,9 +26,9 @@ public class ManuscriptConceptualTest {
          	header("Accept", "text/turtle;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/kq131cs7229.ttl")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229.ttl")).
          when().
-         get("/vm/sc/Stanford/kq131cs7229");
+         get("/dms/sc/Stanford/kq131cs7229");
 	}
 	
 	@Test
@@ -38,9 +38,9 @@ public class ManuscriptConceptualTest {
          	header("Accept", "text/html;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/kq131cs7229.html")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229.html")).
          when().
-         get("/vm/sc/Stanford/kq131cs7229");
+         get("/dms/sc/Stanford/kq131cs7229");
 	}
 	
 	@Test
@@ -61,9 +61,9 @@ public class ManuscriptConceptualTest {
          	header("Accept", "text/html;charset=utf-8").
          expect().
          	statusCode(201).
-         	header("Location", endsWith("/vm/sc/ingested/test1")).
+         	header("Location", endsWith("/dms/sc/ingested/test1")).
          when().
-         put("/vm/sc/ingested/test1");
+         put("/dms/sc/ingested/test1");
 	}
 
 	

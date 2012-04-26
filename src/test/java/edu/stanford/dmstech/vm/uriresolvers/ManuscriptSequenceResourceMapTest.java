@@ -18,7 +18,7 @@ public class ManuscriptSequenceResourceMapTest {
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229/sequence/OriginalSequence.xml");
+	    get("/dms/sc/Stanford/kq131cs7229/sequence/OriginalSequence.xml");
 	}
 
 	@Test
@@ -26,11 +26,11 @@ public class ManuscriptSequenceResourceMapTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/vm/sc/Stanford/kq131cs7229")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229/sequence/OriginalSequence.ttl");
+	    get("/dms/sc/Stanford/kq131cs7229/sequence/OriginalSequence.ttl");
 	}
 	
 	@Test
@@ -38,11 +38,11 @@ public class ManuscriptSequenceResourceMapTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/vm/sc/Stanford/kq131cs7229")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229/sequence/OriginalSequence.html");
+	    get("/dms/sc/Stanford/kq131cs7229/sequence/OriginalSequence.html");
 	}
 	
 

@@ -19,7 +19,7 @@ public class ManuscriptManifestResourceMapTest {
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229/Manifest.xml");
+	    get("/dms/sc/Stanford/kq131cs7229/Manifest.xml");
 	}
 
 	@Test
@@ -27,11 +27,11 @@ public class ManuscriptManifestResourceMapTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/vm/sc/Stanford/kq131cs7229")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229/Manifest.ttl");
+	    get("/dms/sc/Stanford/kq131cs7229/Manifest.ttl");
 	}
 	
 	@Test
@@ -39,11 +39,11 @@ public class ManuscriptManifestResourceMapTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/vm/sc/Stanford/kq131cs7229")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229/Manifest.html");
+	    get("/dms/sc/Stanford/kq131cs7229/Manifest.html");
 	}
 	
 	

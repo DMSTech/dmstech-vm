@@ -14,9 +14,9 @@ public class ManuscriptTextAnnosAggregationTest {
          	header("Accept", "application/rdf+xml").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/kq131cs7229/TextAnnotations.xml")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/TextAnnotations.xml")).
          when().
-         get("/vm/sc/Stanford/kq131cs7229/TextAnnotations");
+         get("/dms/sc/Stanford/kq131cs7229/TextAnnotations");
 	}
 	
 	@Test
@@ -26,9 +26,9 @@ public class ManuscriptTextAnnosAggregationTest {
          	header("Accept", "text/turtle;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/kq131cs7229/TextAnnotations.ttl")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/TextAnnotations.ttl")).
          when().
-         get("/vm/sc/Stanford/kq131cs7229/TextAnnotations");
+         get("/dms/sc/Stanford/kq131cs7229/TextAnnotations");
 	}
 	
 	@Test
@@ -38,9 +38,9 @@ public class ManuscriptTextAnnosAggregationTest {
          	header("Accept", "text/html;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/kq131cs7229/TextAnnotations.html")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/TextAnnotations.html")).
          when().
-         get("/vm/sc/Stanford/kq131cs7229/TextAnnotations");
+         get("/dms/sc/Stanford/kq131cs7229/TextAnnotations");
 	}
 	
 

@@ -19,7 +19,7 @@ public class ManuscriptRepresentationTest {
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229.xml");
+	    get("/dms/sc/Stanford/kq131cs7229.xml");
 	}
 
 	@Test
@@ -27,11 +27,11 @@ public class ManuscriptRepresentationTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/vm/sc/Stanford/kq131cs7229")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229.ttl");
+	    get("/dms/sc/Stanford/kq131cs7229.ttl");
 	}
 	
 	@Test
@@ -39,11 +39,11 @@ public class ManuscriptRepresentationTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/vm/sc/Stanford/kq131cs7229")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
-	    get("/vm/sc/Stanford/kq131cs7229.html");
+	    get("/dms/sc/Stanford/kq131cs7229.html");
 	}
 	
 	

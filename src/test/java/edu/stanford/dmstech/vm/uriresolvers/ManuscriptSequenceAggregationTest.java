@@ -14,9 +14,9 @@ public class ManuscriptSequenceAggregationTest {
          	header("Accept", "application/rdf+xml").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/kq131cs7229/sequence/OriginalSequence.xml")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/sequence/OriginalSequence.xml")).
          when().
-         get("/vm/sc/Stanford/kq131cs7229/sequence/OriginalSequence");
+         get("/dms/sc/Stanford/kq131cs7229/sequence/OriginalSequence");
 	}
 	
 	@Test
@@ -26,9 +26,9 @@ public class ManuscriptSequenceAggregationTest {
          	header("Accept", "text/turtle;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/kq131cs7229/sequence/OriginalSequence.ttl")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/sequence/OriginalSequence.ttl")).
          when().
-         get("/vm/sc/Stanford/kq131cs7229/sequence/OriginalSequence");
+         get("/dms/sc/Stanford/kq131cs7229/sequence/OriginalSequence");
 	}
 	
 	@Test
@@ -38,9 +38,9 @@ public class ManuscriptSequenceAggregationTest {
          	header("Accept", "text/html;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/kq131cs7229/sequence/OriginalSequence.html")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/sequence/OriginalSequence.html")).
          when().
-         get("/vm/sc/Stanford/kq131cs7229/sequence/OriginalSequence");
+         get("/dms/sc/Stanford/kq131cs7229/sequence/OriginalSequence");
 	}
 	
 

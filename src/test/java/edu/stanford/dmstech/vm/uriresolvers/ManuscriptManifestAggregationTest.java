@@ -14,9 +14,9 @@ public class ManuscriptManifestAggregationTest {
          	header("Accept", "application/rdf+xml").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/kq131cs7229/Manifest.xml")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/Manifest.xml")).
          when().
-         get("/vm/sc/Stanford/kq131cs7229/Manifest");
+         get("/dms/sc/Stanford/kq131cs7229/Manifest");
 	}
 	
 	@Test
@@ -26,9 +26,9 @@ public class ManuscriptManifestAggregationTest {
          	header("Accept", "text/turtle;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/kq131cs7229/Manifest.ttl")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/Manifest.ttl")).
          when().
-         get("/vm/sc/Stanford/kq131cs7229/Manifest");
+         get("/dms/sc/Stanford/kq131cs7229/Manifest");
 	}
 	
 	@Test
@@ -38,9 +38,9 @@ public class ManuscriptManifestAggregationTest {
          	header("Accept", "text/html;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/vm/sc/Stanford/kq131cs7229/Manifest.html")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/Manifest.html")).
          when().
-         get("/vm/sc/Stanford/kq131cs7229/Manifest");
+         get("/dms/sc/Stanford/kq131cs7229/Manifest");
 	}
 	
 

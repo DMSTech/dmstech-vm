@@ -1,0 +1,8 @@
+Apr 26, 2012 4:08:49 PM org.apache.commons.transaction.util.Jdk14Logger logInfo
+INFO: Starting RM at '/Users/jameschartrand/SHARED_CANVAS_HOME' / '/Users/jameschartrand/SHARED_CANVAS_HOME/temp'
+Apr 26, 2012 4:08:49 PM org.apache.commons.transaction.util.Jdk14Logger logInfo
+INFO: Started RM
+Apr 26, 2012 4:08:49 PM org.apache.commons.transaction.util.Jdk14Logger logInfo
+INFO: Starting RM at '/Users/jameschartrand/SHARED_CANVAS_HOME' / '/Users/jameschartrand/SHARED_CANVAS_HOME/temp'
+Apr 26, 2012 4:08:49 PM org.apache.commons.transaction.util.Jdk14Logger logInfo
+INFO: Started RM
