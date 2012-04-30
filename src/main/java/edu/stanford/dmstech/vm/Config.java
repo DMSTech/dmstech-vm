@@ -280,6 +280,9 @@ public class Config implements ServletContextListener {
     public void initializeThisConfig() {
     	 homeDirPath = System.getenv(HOME_DIR_ENV_VAR);
          
+    	 if (homeDirPath == null) {
+    		 homeDirPath = System.getProperty(HOME_DIR_ENV_VAR);
+    	 }
          if (homeDirPath == null || homeDirPath.trim().equals("")) {
          	System.out.println("The home directory environment variable, " + HOME_DIR_ENV_VAR + ", has not been set.");	
          	return;
