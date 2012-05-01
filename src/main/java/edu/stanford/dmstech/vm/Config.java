@@ -290,22 +290,22 @@ public class Config implements ServletContextListener {
          
          homeDir = new File(homeDirPath);
          if (! homeDir.exists()) {
-         	System.out.println("The home directory pointed to by the environment variable, " + HOME_DIR_ENV_VAR + ", does not exist.");	
+         	System.out.println("The home directory pointed to by the environment variable, " + HOME_DIR_ENV_VAR + ": " + homeDirPath + ", does not exist.");	
          	return;
          }       
          	
          if (! homeDir.canRead()) {
-         	System.out.println("The home directory pointed to by the environment variable, " + HOME_DIR_ENV_VAR + ", is not readable.  Please check your permissions.");	
+         	System.out.println("The home directory pointed to by the environment variable, " + HOME_DIR_ENV_VAR + ": " + homeDirPath + ", is not readable.  Please check your permissions.");	
          	return;
          }
          
          if (! homeDir.isDirectory()) {
-         	System.out.println("The home directory pointed to by the environment variable, " + HOME_DIR_ENV_VAR + ", doesn't appear to be a directory.");	
+         	System.out.println("The home directory pointed to by the environment variable, " + HOME_DIR_ENV_VAR + ": " + homeDirPath + ", doesn't appear to be a directory.");	
          	return;
          }	
          	
          if (! homeDir.canWrite()) {
-         	System.out.println("The home directory pointed to by the environment variable, " + HOME_DIR_ENV_VAR + ", is not writable.  Please check your permissions.");	
+         	System.out.println("The home directory pointed to by the environment variable, " + HOME_DIR_ENV_VAR + ": " + homeDirPath + ", is not writable.  Please check your permissions.");	
          	return;
          }	
          	
