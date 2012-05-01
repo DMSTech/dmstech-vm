@@ -1,0 +1,81 @@
+body {
+	overflow: hidden;
+}
+
+#sidebar {
+	width: 400px;
+	padding: 5px;
+	float: left;
+	margin: 0;
+	background-position: top left !important;
+	text-align: center;
+}
+
+h2 {
+	text-align: center;
+}
+
+#main {
+	padding: 5px;
+	margin: 0 0  0 420px;
+	background-position: top left !important;
+}
+
+#search {
+	font-size: 12px;
+}
+
+#search input {
+	width: 150px;
+}
+
+#search input, #search select[name="field"] {
+	margin: 0 5px;
+}
+
+#search .ui-button-text-only .ui-button-text {
+    padding: 0.2em 0.6em;
+}
+
+#firstRow {
+	margin-left: 14px;
+}
+
+.searchRow {
+	margin-bottom: 3px;
+}
+
+#results {
+	font-size: 11px;
+	color: #999;
+	overflow: auto;
+}
+
+#results {
+	background: none #fff !important;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	padding: 5px;
+}
+
+li:hover {
+	background-color: #DEEDF7;
+	cursor: pointer;
+}
+
+.label {
+	color: #777;
+}
+
+.title {
+	text-decoration: underline;
+	color: #333;
+	font-size: 12px;
+}
