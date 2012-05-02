@@ -8,7 +8,7 @@ import javax.ws.rs.Produces;
 
 import edu.stanford.dmstech.vm.Config;
 
-@Path("/ingest/ingestdirectory")
+@Path("/lookup/ingestdirectory")
 public class IngestDirectoryLookup {
 
 	
