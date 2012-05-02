@@ -93,6 +93,9 @@ public class RDFUtils {
 	}
 	
 	public static Model loadModelInAbsoluteDir(String absolutePath, String format) throws Exception {
+		logger.info("ABSOLUTE PATH: " + absolutePath);
+		logger.info("REQUESTED FORMAT: " + format);
+		
 		 Model model = ModelFactory.createDefaultModel();
 		 InputStream in = FileManager.get().open(absolutePath);
 		 if (in != null) {

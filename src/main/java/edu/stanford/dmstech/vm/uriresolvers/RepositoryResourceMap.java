@@ -18,6 +18,7 @@ public class RepositoryResourceMap {
 		
 	@GET
 	public Response getRepresentation(@PathParam("fileName") final String requestedFileName) throws Exception{
+		
 		return SharedCanvasUtil.getSerializedRDFFromHomeDir(Config.repositoryFileName, requestedFileName);
 		
 	}

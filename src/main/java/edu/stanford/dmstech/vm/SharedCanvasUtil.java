@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -34,8 +35,13 @@ import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
 public class SharedCanvasUtil {
 
 	private static DMSTechRDFConstants rdfConstants = DMSTechRDFConstants.getInstance();
+	private final static Logger LOGGER = Logger.getLogger(SharedCanvasUtil.class.getName());
+
 	
 	public static Response getSerializedRDFFromHomeDir(String relativePath, String requestedFile) throws Exception{		
+		LOGGER.info("RELATIVE PATH TO RDF: " + relativePath);
+		LOGGER.info("REQUESTED FILE: " + requestedFile);
+		
 		Model model = RDFUtils.loadModelInHomeDir(relativePath, "N-TRIPLE");
 		return getSerializedRDFForModel(model, requestedFile);
 	}		
