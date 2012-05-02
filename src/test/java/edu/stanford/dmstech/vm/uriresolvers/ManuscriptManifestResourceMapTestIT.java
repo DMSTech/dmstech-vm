@@ -6,7 +6,7 @@ import static org.hamcrest.Matchers.hasXPath;
 
 import org.junit.Test;
 
-public class ManuscriptManifestResourceMapTest {
+public class ManuscriptManifestResourceMapTestIT {
 
 
 	

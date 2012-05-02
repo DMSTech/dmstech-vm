@@ -5,7 +5,7 @@ import static org.hamcrest.Matchers.endsWith;
 
 import org.junit.Test;
 
-public class ManuscriptZoneAnnosAggregationTest {
+public class ManuscriptTextAnnosAggregationTestIT {
 
 	@Test
 	public void testRedirectToXML() {
@@ -14,9 +14,9 @@ public class ManuscriptZoneAnnosAggregationTest {
          	header("Accept", "application/rdf+xml").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/ZoneAnnotations.xml")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/TextAnnotations.xml")).
          when().
-         get("/dms/sc/Stanford/kq131cs7229/ZoneAnnotations");
+         get("/dms/sc/Stanford/kq131cs7229/TextAnnotations");
 	}
 	
 	@Test
@@ -26,9 +26,9 @@ public class ManuscriptZoneAnnosAggregationTest {
          	header("Accept", "text/turtle;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/ZoneAnnotations.ttl")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/TextAnnotations.ttl")).
          when().
-         get("/dms/sc/Stanford/kq131cs7229/ZoneAnnotations");
+         get("/dms/sc/Stanford/kq131cs7229/TextAnnotations");
 	}
 	
 	@Test
@@ -38,9 +38,9 @@ public class ManuscriptZoneAnnosAggregationTest {
          	header("Accept", "text/html;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/ZoneAnnotations.html")).
+         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/TextAnnotations.html")).
          when().
-         get("/dms/sc/Stanford/kq131cs7229/ZoneAnnotations");
+         get("/dms/sc/Stanford/kq131cs7229/TextAnnotations");
 	}
 	
 

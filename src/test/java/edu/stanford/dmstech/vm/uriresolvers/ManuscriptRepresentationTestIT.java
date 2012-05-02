@@ -6,10 +6,12 @@ import static org.hamcrest.Matchers.hasXPath;
 
 import org.junit.Test;
 
-public class ManuscriptZoneAnnosResourceMapTest {
+public class ManuscriptRepresentationTestIT {
+
+
 	
 	@Test
-	public void testGetAsXML() {
+	public void testGetManifestAsXML() {
 		expect().
 	    	statusCode(200).
 	    	body(
@@ -17,11 +19,11 @@ public class ManuscriptZoneAnnosResourceMapTest {
 	    		).
 	    when().
 	    with().
-	    get("/dms/sc/Stanford/kq131cs7229/ZoneAnnotations.xml");
+	    get("/dms/sc/Stanford/kq131cs7229.xml");
 	}
 
 	@Test
-	public void testGetAsTurtle() {
+	public void testGetManifestAsTurtle() {
 		expect().
 	    	statusCode(200).
 	    	body(
@@ -29,11 +31,11 @@ public class ManuscriptZoneAnnosResourceMapTest {
 	    		).
 	    when().
 	    with().
-	    get("/dms/sc/Stanford/kq131cs7229/ZoneAnnotations.ttl");
+	    get("/dms/sc/Stanford/kq131cs7229.ttl");
 	}
 	
 	@Test
-	public void testGetAsHTML() {
+	public void testGetManifestAsHTML() {
 		expect().
 	    	statusCode(200).
 	    	body(
@@ -41,7 +43,9 @@ public class ManuscriptZoneAnnosResourceMapTest {
 	    		).
 	    when().
 	    with().
-	    get("/dms/sc/Stanford/kq131cs7229/ZoneAnnotations.html");
+	    get("/dms/sc/Stanford/kq131cs7229.html");
 	}
 	
+	
+
 }

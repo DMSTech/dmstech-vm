@@ -6,7 +6,7 @@ import static org.hamcrest.Matchers.hasXPath;
 
 import org.junit.Test;
 
-public class RepositoryResourceMapTest {
+public class CollectionResourceMapTestIT {
 
 
 	
@@ -19,7 +19,7 @@ public class RepositoryResourceMapTest {
 	    		).
 	    when().
 	    with().
-	    get("/dms/sc/Repository.xml");
+	    get("/dms/sc/Stanford/Collection.xml");
 	}
 
 	@Test
@@ -27,11 +27,11 @@ public class RepositoryResourceMapTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/dms/sc/Stanford")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
-	    get("/dms/sc/Repository.ttl");
+	    get("/dms/sc/Stanford/Collection.ttl");
 	}
 	
 	@Test
@@ -39,11 +39,11 @@ public class RepositoryResourceMapTest {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/dms/sc/Stanford")	    			
+	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
-	    get("/dms/sc/Repository.html");
+	    get("/dms/sc/Stanford/Collection.html");
 	}
 	
 	

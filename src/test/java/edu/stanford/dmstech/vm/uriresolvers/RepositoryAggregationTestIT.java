@@ -5,7 +5,7 @@ import static org.hamcrest.Matchers.endsWith;
 
 import org.junit.Test;
 
-public class ManuscriptManifestAggregationTest {
+public class RepositoryAggregationTestIT {
 
 	@Test
 	public void testManifestRedirectToXML() {
@@ -14,9 +14,9 @@ public class ManuscriptManifestAggregationTest {
          	header("Accept", "application/rdf+xml").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/Manifest.xml")).
+         	header("Location", endsWith("/dms/sc/Repository.xml")).
          when().
-         get("/dms/sc/Stanford/kq131cs7229/Manifest");
+         get("/dms/sc/Repository");
 	}
 	
 	@Test
@@ -26,9 +26,9 @@ public class ManuscriptManifestAggregationTest {
          	header("Accept", "text/turtle;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/Manifest.ttl")).
+         	header("Location", endsWith("/dms/sc/Repository.ttl")).
          when().
-         get("/dms/sc/Stanford/kq131cs7229/Manifest");
+         get("/dms/sc/Repository");
 	}
 	
 	@Test
@@ -38,9 +38,9 @@ public class ManuscriptManifestAggregationTest {
          	header("Accept", "text/html;charset=utf-8").
          expect().
          	statusCode(303).
-         	header("Location", endsWith("/dms/sc/Stanford/kq131cs7229/Manifest.html")).
+         	header("Location", endsWith("/dms/sc/Repository.html")).
          when().
-         get("/dms/sc/Stanford/kq131cs7229/Manifest");
+         get("/dms/sc/Repository");
 	}
 	
 

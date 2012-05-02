@@ -5,7 +5,7 @@ import static org.hamcrest.Matchers.endsWith;
 
 import org.junit.Test;
 
-public class ReindexRequestTest {
+public class ReindexRequestTestIT {
 
 	
 	

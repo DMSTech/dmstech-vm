@@ -6,10 +6,9 @@ import static org.hamcrest.Matchers.hasXPath;
 
 import org.junit.Test;
 
-public class ManuscriptImageAnnosResourceMapTest {
+public class ManuscriptTextAnnosResourceMapTestIT {
 
 
-	
 	@Test
 	public void testGetAsXML() {
 		expect().
@@ -19,7 +18,7 @@ public class ManuscriptImageAnnosResourceMapTest {
 	    		).
 	    when().
 	    with().
-	    get("/dms/sc/Stanford/kq131cs7229/ImageAnnotations.xml");
+	    get("/dms/sc/Stanford/kq131cs7229/TextAnnotations.xml");
 	}
 
 	@Test
@@ -31,7 +30,7 @@ public class ManuscriptImageAnnosResourceMapTest {
 	    		).
 	    when().
 	    with().
-	    get("/dms/sc/Stanford/kq131cs7229/ImageAnnotations.ttl");
+	    get("/dms/sc/Stanford/kq131cs7229/TextAnnotations.ttl");
 	}
 	
 	@Test
@@ -43,7 +42,7 @@ public class ManuscriptImageAnnosResourceMapTest {
 	    		).
 	    when().
 	    with().
-	    get("/dms/sc/Stanford/kq131cs7229/ImageAnnotations.html");
+	    get("/dms/sc/Stanford/kq131cs7229/TextAnnotations.html");
 	}
 	
 	
