@@ -27,7 +27,7 @@ public class RepositoryResourceMapTestIT {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/dms/sc/Stanford")	    			
+	    			containsString("/dms/sc/Stanford")	    			
 	    		).
 	    when().
 	    with().
@@ -39,7 +39,7 @@ public class RepositoryResourceMapTestIT {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/dms/sc/Stanford")	    			
+	    			containsString("/dms/sc/Stanford")	    			
 	    		).
 	    when().
 	    with().

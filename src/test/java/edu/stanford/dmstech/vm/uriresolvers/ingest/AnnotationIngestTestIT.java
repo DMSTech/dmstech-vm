@@ -25,11 +25,11 @@ public class AnnotationIngestTestIT {
 			"    </oac:Body>\n" + 
 			"  <sc:TextAnnotation rdf:about=\"URN:woohoo\">\n" + 
 			"    <oac:hasBody rdf:resource=\"URN:uuid:751183c0-d182-11df-bd3b-0800200c9a66\"/>\n" + 
-			"    <oac:hasTarget rdf:resource=\"http://localhost:8080/dms/sc/Stanford/kq131cs7229/canvas-1\"/>\n" + 
+			"    <oac:hasTarget rdf:resource=\"http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/canvas-1\"/>\n" + 
 			"    <rdf:type rdf:resource=\"http://www.openannotation.org/ns/Annotation\"/>\n" + 
 			"    <rdf:type rdf:resource=\"http://www.shared-canvas.org/ns/TextAnnotation\"/>\n" + 
 			"  </sc:TextAnnotation>\n" + 
-			"  <sc:Canvas rdf:about=\"http://localhost:8080/dms/sc/Stanford/kq131cs7229/canvas-1\">\n" + 
+			"  <sc:Canvas rdf:about=\"http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/canvas-1\">\n" + 
 			"    <dc:title>f. 8r</dc:title>\n" + 
 			"    <exif:width>4019</exif:width>\n" + 
 			"    <exif:height>5575</exif:height>\n" +    
@@ -55,51 +55,51 @@ public class AnnotationIngestTestIT {
 			"    </oac:Body>\n" + 
 			"  <sc:TextAnnotation rdf:about=\"URN:aTextAnnoTestURN\">\n" + 
 			"    <oac:hasBody rdf:resource=\"URN:aTextBodyTestURN\"/>\n" + 
-			"    <oac:hasTarget rdf:resource=\"http://localhost:8080/dms/sc/Stanford/kq131cs7229/canvas-2\"/>\n" + 
+			"    <oac:hasTarget rdf:resource=\"http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/canvas-2\"/>\n" + 
 			"    <rdf:type rdf:resource=\"http://www.openannotation.org/ns/Annotation\"/>\n" + 
 			"    <rdf:type rdf:resource=\"http://www.shared-canvas.org/ns/TextAnnotation\"/>\n" + 
 			"  </sc:TextAnnotation>\n" + 
-			"  <sc:Canvas rdf:about=\"http://localhost:8080/dms/sc/Stanford/kq131cs7229/canvas-2\">\n" + 
+			"  <sc:Canvas rdf:about=\"http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/canvas-2\">\n" + 
 			"    <dc:title>f. 8r</dc:title>\n" + 
 			"    <exif:width>4019</exif:width>\n" + 
 			"    <exif:height>5575</exif:height>\n" +    
 			"  </sc:Canvas>" +
 			"  <oac:Body rdf:about=\"URN:aTextBodyTestURN2\">" + 
-					"        <rdf:type rdf:resource=\"http://www.w3.org/2008/content#ContentAsText\"/>" + 
-					"        <cnt:rest rdf:parseType=\"Literal\">" + 
-					"            A test annotation of canvas-2 in the Stanford Collection.\n" + 
-					"        </cnt:rest>\n" + 
-					"        <cnt:characterEncoding>utf-8</cnt:characterEncoding>\n" + 
-					"    </oac:Body>\n" + 
-					"  <sc:TextAnnotation rdf:about=\"URN:aTextAnnoTestURN2\">\n" + 
-					"    <oac:hasBody rdf:resource=\"URN:aTextBodyTestURN2\"/>\n" + 
-					"    <oac:hasTarget rdf:resource=\"http://localhost:8080/dms/sc/Stanford/kq131cs7229/canvas-2\"/>\n" + 
-					"    <rdf:type rdf:resource=\"http://www.openannotation.org/ns/Annotation\"/>\n" + 
-					"    <rdf:type rdf:resource=\"http://www.shared-canvas.org/ns/TextAnnotation\"/>\n" + 
-					"  </sc:TextAnnotation>\n" + 
-					"  <sc:Canvas rdf:about=\"http://localhost:8080/dms/sc/Stanford/kq131cs7229/canvas-2\">\n" + 
-					"    <dc:title>f. 8r</dc:title>\n" + 
-					"    <exif:width>4019</exif:width>\n" + 
-					"    <exif:height>5575</exif:height>\n" +    
-					"  </sc:Canvas>" +
-					"  <oac:Body rdf:about=\"URN:aTextBodyTestURN3\">" + 
-					"        <rdf:type rdf:resource=\"http://www.w3.org/2008/content#ContentAsText\"/>" + 
-					"        <cnt:rest rdf:parseType=\"Literal\">" + 
-					"            A test annotation of canvas-3 in the Stanford Collection.\n" + 
-					"        </cnt:rest>\n" + 
-					"        <cnt:characterEncoding>utf-8</cnt:characterEncoding>\n" + 
-					"    </oac:Body>\n" + 
-					"  <sc:TextAnnotation rdf:about=\"URN:aTextAnnoTestURN3\">\n" + 
-					"    <oac:hasBody rdf:resource=\"URN:aTextBodyTestURN3\"/>\n" + 
-					"    <oac:hasTarget rdf:resource=\"http://localhost:8080/dms/sc/Stanford/kq131cs7229/canvas-3\"/>\n" + 
-					"    <rdf:type rdf:resource=\"http://www.openannotation.org/ns/Annotation\"/>\n" + 
-					"    <rdf:type rdf:resource=\"http://www.shared-canvas.org/ns/TextAnnotation\"/>\n" + 
-					"  </sc:TextAnnotation>\n" + 
-					"  <sc:Canvas rdf:about=\"http://localhost:8080/dms/sc/Stanford/kq131cs7229/canvas-3\">\n" + 
-					"    <dc:title>f. 8r</dc:title>\n" + 
-					"    <exif:width>4019</exif:width>\n" + 
-					"    <exif:height>5575</exif:height>\n" +    
-					"  </sc:Canvas>" +
+			"        <rdf:type rdf:resource=\"http://www.w3.org/2008/content#ContentAsText\"/>" + 
+			"        <cnt:rest rdf:parseType=\"Literal\">" + 
+			"            A test annotation of canvas-2 in the Stanford Collection.\n" + 
+			"        </cnt:rest>\n" + 
+			"        <cnt:characterEncoding>utf-8</cnt:characterEncoding>\n" + 
+			"    </oac:Body>\n" + 
+			"  <sc:TextAnnotation rdf:about=\"URN:aTextAnnoTestURN2\">\n" + 
+			"    <oac:hasBody rdf:resource=\"URN:aTextBodyTestURN2\"/>\n" + 
+			"    <oac:hasTarget rdf:resource=\"http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/canvas-2\"/>\n" + 
+			"    <rdf:type rdf:resource=\"http://www.openannotation.org/ns/Annotation\"/>\n" + 
+			"    <rdf:type rdf:resource=\"http://www.shared-canvas.org/ns/TextAnnotation\"/>\n" + 
+			"  </sc:TextAnnotation>\n" + 
+			"  <sc:Canvas rdf:about=\"http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/canvas-2\">\n" + 
+			"    <dc:title>f. 8r</dc:title>\n" + 
+			"    <exif:width>4019</exif:width>\n" + 
+			"    <exif:height>5575</exif:height>\n" +    
+			"  </sc:Canvas>" +
+			"  <oac:Body rdf:about=\"URN:aTextBodyTestURN3\">" + 
+			"        <rdf:type rdf:resource=\"http://www.w3.org/2008/content#ContentAsText\"/>" + 
+			"        <cnt:rest rdf:parseType=\"Literal\">" + 
+			"            A test annotation of canvas-3 in the Stanford Collection.\n" + 
+			"        </cnt:rest>\n" + 
+			"        <cnt:characterEncoding>utf-8</cnt:characterEncoding>\n" + 
+			"    </oac:Body>\n" + 
+			"  <sc:TextAnnotation rdf:about=\"URN:aTextAnnoTestURN3\">\n" + 
+			"    <oac:hasBody rdf:resource=\"URN:aTextBodyTestURN3\"/>\n" + 
+			"    <oac:hasTarget rdf:resource=\"http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/canvas-3\"/>\n" + 
+			"    <rdf:type rdf:resource=\"http://www.openannotation.org/ns/Annotation\"/>\n" + 
+			"    <rdf:type rdf:resource=\"http://www.shared-canvas.org/ns/TextAnnotation\"/>\n" + 
+			"  </sc:TextAnnotation>\n" + 
+			"  <sc:Canvas rdf:about=\"http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/canvas-3\">\n" + 
+			"    <dc:title>f. 8r</dc:title>\n" + 
+			"    <exif:width>4019</exif:width>\n" + 
+			"    <exif:height>5575</exif:height>\n" +    
+			"  </sc:Canvas>" +
 			"</rdf:RDF>";
 	
 	@Test

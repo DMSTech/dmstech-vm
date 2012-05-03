@@ -25,7 +25,7 @@ public class ManuscriptZoneAnnosResourceMapTestIT {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
+	    			containsString("/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
@@ -37,7 +37,7 @@ public class ManuscriptZoneAnnosResourceMapTestIT {
 		expect().
 	    	statusCode(200).
 	    	body(
-	    			containsString("http://localhost:8080/dms/sc/Stanford/kq131cs7229")	    			
+	    			containsString("/dms/sc/Stanford/kq131cs7229")	    			
 	    		).
 	    when().
 	    with().
