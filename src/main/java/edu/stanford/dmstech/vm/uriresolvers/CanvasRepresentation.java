@@ -24,8 +24,8 @@ public class CanvasRepresentation {
 			@PathParam("canvasId") final String canvasId
 			) throws Exception {   
 		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
-		String canvasURI = originalRequest.substring(0, canvasId.lastIndexOf("."));
-		String fileExtension = originalRequest.substring(canvasId.lastIndexOf(".") + 1);
+		String canvasURI = originalRequest.substring(0, originalRequest.lastIndexOf("."));
+		String fileExtension = canvasId.substring(canvasId.lastIndexOf(".") + 1);
 		return SharedCanvasUtil.getSerializedCanvasRDF(canvasURI, fileExtension);
 		
 	}

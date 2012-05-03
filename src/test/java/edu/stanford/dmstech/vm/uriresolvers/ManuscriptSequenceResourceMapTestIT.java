@@ -18,7 +18,7 @@ public class ManuscriptSequenceResourceMapTestIT {
 	    		).
 	    when().
 	    with().
-	    get("/dms/sc/Stanford/kq131cs7229/sequence/OriginalSequence.xml");
+	    get("/dms/sc/Stanford/kq131cs7229/sequences/OriginalSequence.xml");
 	}
 
 	@Test
@@ -30,7 +30,7 @@ public class ManuscriptSequenceResourceMapTestIT {
 	    		).
 	    when().
 	    with().
-	    get("/dms/sc/Stanford/kq131cs7229/sequence/OriginalSequence.ttl");
+	    get("/dms/sc/Stanford/kq131cs7229/sequences/OriginalSequence.ttl");
 	}
 	
 	@Test
@@ -42,7 +42,7 @@ public class ManuscriptSequenceResourceMapTestIT {
 	    		).
 	    when().
 	    with().
-	    get("/dms/sc/Stanford/kq131cs7229/sequence/OriginalSequence.html");
+	    get("/dms/sc/Stanford/kq131cs7229/sequences/OriginalSequence.html");
 	}
 	
 

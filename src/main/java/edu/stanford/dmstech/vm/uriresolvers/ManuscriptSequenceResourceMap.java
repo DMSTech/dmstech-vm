@@ -10,7 +10,7 @@ import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.SharedCanvasUtil;
 
 
-@Path("/{collectionId}/{manuscriptId}/sequence/{sequenceFileName: (.*\\.html$|.*\\.xml$|.*\\.ttl$)}") 
+@Path("/{collectionId}/{manuscriptId}/sequences/{sequenceFileName: (.*\\.html$|.*\\.xml$|.*\\.ttl$)}") 
 public class ManuscriptSequenceResourceMap {	
 	
 	@GET

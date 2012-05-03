@@ -20,7 +20,7 @@ import edu.stanford.dmstech.vm.RDFUtils;
 
 
 
-@Path("/{collectiondId}/{manuscriptId}/sequence/{sequenceId: (?!.*\\.html$|.*\\.xml$|.*\\.ttl$).*}")
+@Path("/{collectiondId}/{manuscriptId}/sequences/{sequenceId: (?!.*\\.html$|.*\\.xml$|.*\\.ttl$).*}")
 public class ManuscriptSequenceAggregation {	
 	
 	@Context 
