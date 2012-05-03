@@ -1,5 +1,17 @@
 $(document).ready(function() {
 	var host = window.location.host;
+	var path = window.location.pathname.match(/^.*\//)[0];
+	var solrUrl = null;
+	$.ajax({
+		url: 'http://'+host+path+'sc/lookup/solr',
+		type: 'GET',
+		success: function(data, status, xhr) {
+			solrUrl = data;
+		},
+		error: function() {
+			alert('There was an error getting the solr url.');
+		}
+	});
 	
 	var logicSelect = '<select name="logic">'+
 	'<option value="">Or</option>'+
@@ -97,7 +109,7 @@ $(document).ready(function() {
 		if (queryString == '') queryString = '*:*'; // return everything
 		
 		$.ajax({
-			url: 'http://'+host+'/solr/select/',
+			url: solrUrl+'/select',
 			data: {
 				q: queryString,
 				wt: 'json'
@@ -150,6 +162,15 @@ $(document).ready(function() {
 				resultString += '</ul>';
 				
 				$('#results').html(resultString);
+				$('#results li').click(function(event) {
+					var uri;
+					if ($(event.target).is('li')) {
+						uri = $(event.target).children('input').val();
+					} else {
+						uri = $(event.target).parents('li').children('input').val();
+					}
+					window.location = 'workbench.jsp?manifest='+encodeURIComponent(uri);
+				});
 			}
 		});
 	}

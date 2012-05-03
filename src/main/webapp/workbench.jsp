@@ -25,15 +25,17 @@
 			<input type="text" name="search" />
 			<button>Search</button>
 		</div>
-		<h3>Local</h3>
-		<div id="collectionsLocal" class="ui-corner-all ui-widget-content"></div>
-		<h3>Remote</h3>
-		<div id="collectionsRemote" class="ui-corner-all ui-widget-content"></div>
+		<div id="collections">
+			<div id="collectionsSelector">
+				<input type="radio" name="collectionsRadio" id="localRadio"/><label for="localRadio">Local</label>
+				<input type="radio" name="collectionsRadio" id="remoteRadio"/><label for="remoteRadio">Remote</label>
+			</div>
+			<div id="collectionsLocal" class="ui-corner-all ui-widget-content"></div>
+			<div id="collectionsRemote" class="ui-corner-all ui-widget-content"></div>
+		</div>
 	</div>
 	<div id="main" class="ui-corner-all ui-widget-header">
-		<div style="text-align: center;">
-			<div id="tools"></div>
-		</div>
+		<div id="tools"></div>
 		<div id="toolContent" class="ui-corner-all ui-widget-content"></div>
 	</div>
 </div>

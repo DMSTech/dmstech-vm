@@ -1,7 +1,8 @@
-var proxyString = window.location.pathname.match(/^.*\//)+'proxy.jsp';
-
 function Workbench() {
+	this.host = window.location.host;
+	this.path = window.location.pathname.match(/^.*\//)[0];
 	
+	this.currentCollection = null;
 	this.currentTool = null;
 	
 	$(document).ready($.proxy(this.init, this));
@@ -19,7 +20,21 @@ Workbench.prototype.init = function() {
 		}
 	}, this));
 	
-	this.pagingWizard = new PagingWizard({id: '#collectionsLocal'});
+	$('#collectionsSelector').buttonset();
+	$('#collectionsSelector input').click($.proxy(this.collectionsChange, this));
+	
+	var manifest = getParameterByName('manifest');
+	this.localPagingWizard = new PagingWizard({
+		id: '#collectionsLocal',
+		url: 'http://'+this.host+this.path+'sc/Repository.xml',
+		manifest: manifest
+	});
+	this.remotePagingWizard = new PagingWizard({
+		id: '#collectionsRemote',
+		url: 'http://dms-data.stanford.edu/Repository.xml'
+	});
+	
+	$('#collections input:first').trigger('click');
 	
 	this.viewer = new Viewer({id: '#toolContent'});
 	this.viewerZPR = new ViewerZPR({id: '#toolContent'});
@@ -61,18 +76,28 @@ Workbench.prototype.init = function() {
 	this.doResize();
 };
 
+Workbench.prototype.collectionsChange = function(event) {
+	if ($(event.target).attr('id').match('local')) {
+		this.currentCollection = this.localPagingWizard;
+		this.remotePagingWizard.hide();
+	} else {
+		this.currentCollection = this.remotePagingWizard;
+		this.localPagingWizard.hide();
+	}
+	this.currentCollection.show();
+};
+
 Workbench.prototype.toolChange = function(event) {
 	if (this.currentTool != null) {
 		this.currentTool.deactivate();
 	}
 	var toolInfo = $(event.target).data('tool');
 	this.currentTool = toolInfo.tool;
-	this.currentTool.activate();
-};
-
-Workbench.prototype.searchTrees = function(query) {
-	this.localTree.tree.jstree('search', query);
-	this.remoteTree.tree.jstree('search', query);
+	var data = null;
+	if (toolInfo.id == 'orderer' && this.currentCollection.currentStep == 2) {
+		data = this.currentCollection.getCurrentStep().cache;
+	}
+	this.currentTool.activate(data);
 };
 
 Workbench.prototype.doResize = function() {
@@ -81,7 +106,7 @@ Workbench.prototype.doResize = function() {
 	this.currentTool.resize(height, $('#toolContent').width());
 };
 
-// general utility function
+// general utility functions
 var setPrefixesForDatabank = function(data, databank) {
 	var root = $(data).children()[0];
 	for (var i = 0; i < root.attributes.length; i++) {
@@ -89,5 +114,18 @@ var setPrefixesForDatabank = function(data, databank) {
 		databank.prefix(att.nodeName.split(':')[1], att.nodeValue);
 	}
 };
+
+var getParameterByName = function(name) {
+	name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+	var regexS = "[\\?&]" + name + "=([^&#]*)";
+	var regex = new RegExp(regexS);
+	var results = regex.exec(window.location.search);
+	if (results == null) {
+		return null;
+	} else {
+		return decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+};
+
 
 workbench = new Workbench();

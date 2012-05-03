@@ -1,4 +1,7 @@
 $(document).ready(function() {
+	var host = window.location.host;
+	var path = window.location.pathname.match(/^.*\//)[0];
+	
 	var orderer = new Orderer({id: '#orderParent'});
 	
 	function doResize() {
@@ -11,10 +14,9 @@ $(document).ready(function() {
 	orderer.activate();
 	doResize();
 	
-	var proxyString = '/dmstech/proxy.jsp';
 	var qry = $.rdf(opts);
-	fetchTriples('http://'+window.location.host+proxyString+'?url=http://dms-data.stanford.edu/Stanford/kq131cs7229/ImageAnnotations.xml', qry, function() {
+	fetchTriples('http://'+host+path+'proxy.jsp?url=http://dms-data.stanford.edu/Stanford/kq131cs7229/ImageAnnotations.xml', qry, function() {
 		var annotations = buildAllAnnos(qry);
-		eventManager.trigger('tree.sequenceSelected', [annotations]);
+		eventManager.trigger('sequenceSelected', [annotations]);
 	});
 });

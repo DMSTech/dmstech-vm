@@ -26,11 +26,11 @@ Viewer.prototype.showImage = function(event, data) {
 Viewer.prototype.activate = function() {
 	$(this.id).html('<iframe></iframe>');
 	this.resize($(this.id).height(), $(this.id).width());
-	eventManager.bind('tree.imageSelected', $.proxy(this.showImage, this));
+	eventManager.bind('imageSelected', $.proxy(this.showImage, this));
 };
 
 Viewer.prototype.deactivate = function() {
-	eventManager.unbind('tree.imageSelected', this.showImage);
+	eventManager.unbind('imageSelected', this.showImage);
 };
 
 Viewer.prototype.resize = function(height, width) {
