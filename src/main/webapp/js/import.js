@@ -1,13 +1,14 @@
 $(document).ready(function() {
 	var host = window.location.host;
+	var path = window.location.pathname.match(/^.*\//)[0];
 	$.ajax({
-		url: 'http://'+host+'/ingest/ingestdirectory',
+		url: 'http://'+host+path+'sc/lookup/ingestdirectory',
 		type: 'GET',
 		success: function(data, status, xhr) {
 			$('#directoryPath').html(data);
 		},
 		error: function() {
-			$('#directoryPath').html('[DIRECTORY]');
+			alert('There was an error getting the ingest directory.');
 		}
 	});
 	
@@ -32,14 +33,16 @@ $(document).ready(function() {
 		var manuscriptId = $('#subdir').val();
 		
 		$.ajax({
-			url: 'http://'+host+'/'+collectionId+'/'+manuscriptId,
+			url: 'http://'+host+'/dms/sc/'+collectionId+'/'+manuscriptId,
 			type: 'PUT',
 			data: info,
 			success: function(data, status, xhr) {
-				window.location = 'import_ordering.jsp';
+				console.log(data, status);
+//				window.location = 'import_ordering.jsp';
 			},
-			error: function() {
-				window.location = 'import_ordering.jsp';
+			error: function(xhr, status, msg) {
+				console.log(status, msg);
+//				window.location = 'import_ordering.jsp';
 			}
 		});
 	});

@@ -21,10 +21,10 @@
 <div id="content">
 	<div id="sidebar" class="ui-corner-all ui-widget-header">
 		<h2>Collections Browser</h2>
-		<div id="search">
+		<!-- div id="search">
 			<input type="text" name="search" />
 			<button>Search</button>
-		</div>
+		</div-->
 		<div id="collections">
 			<div id="collectionsSelector">
 				<input type="radio" name="collectionsRadio" id="localRadio"/><label for="localRadio">Local</label>

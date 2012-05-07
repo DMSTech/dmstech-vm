@@ -11,6 +11,12 @@ body {
 	text-align: center;
 }
 
+.searchTool {
+	padding: 5px;
+	margin: 5px 0;
+	font-size: 12px;
+}
+
 h2 {
 	text-align: center;
 }
@@ -21,12 +27,26 @@ h2 {
 	background-position: top left !important;
 }
 
-#search {
-	font-size: 12px;
+#showReindexDialog {
+	float: right;
+	margin-left: -65px;
+}
+
+#indexing {
+	margin: 5px 0 0 45px;
+}
+
+.loading {
+	background: transparent url('../img/throbber.gif') no-repeat left center;
+}
+
+#indexing span {
+	margin-left: 20px;
+	vertical-align: middle;
 }
 
 #search input {
-	width: 150px;
+	width: 140px;
 }
 
 #search input, #search select[name="field"] {
@@ -45,9 +65,14 @@ h2 {
 	margin-bottom: 3px;
 }
 
+#sparqlQuery {
+	width: 350px;
+	height: 100px;
+}
+
 #results {
 	font-size: 11px;
-	color: #999;
+	color: #666;
 	overflow: auto;
 }
 
@@ -71,11 +96,16 @@ li:hover {
 }
 
 .label {
-	color: #777;
+	color: #999;
 }
 
 .title {
 	text-decoration: underline;
-	color: #333;
+	color: #222;
+	font-size: 12px;
+}
+
+.error {
+	color: red;
 	font-size: 12px;
 }

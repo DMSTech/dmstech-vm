@@ -11,14 +11,14 @@ function Workbench() {
 }
 
 Workbench.prototype.init = function() {
-	$('#search button').button().click($.proxy(function() {
-		this.searchTrees($('#search input')[0].value);
-	}, this));
-	$('#search input').keyup($.proxy(function(event) {
-		if (event.which == 13) {
-			this.searchTrees($('#search input')[0].value);
-		}
-	}, this));
+//	$('#search button').button().click($.proxy(function() {
+//		this.doSearch($('#search input')[0].value);
+//	}, this));
+//	$('#search input').keyup($.proxy(function(event) {
+//		if (event.which == 13) {
+//			this.doSearch($('#search input')[0].value);
+//		}
+//	}, this));
 	
 	$('#collectionsSelector').buttonset();
 	$('#collectionsSelector input').click($.proxy(this.collectionsChange, this));
