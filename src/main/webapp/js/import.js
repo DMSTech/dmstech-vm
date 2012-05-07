@@ -33,15 +33,19 @@ $(document).ready(function() {
 		var manuscriptId = $('#subdir').val();
 		
 		$.ajax({
-			url: 'http://'+host+'/dms/sc/'+collectionId+'/'+manuscriptId,
+			url: 'http://'+host+path+'sc/'+collectionId+'/'+manuscriptId,
 			type: 'PUT',
 			data: info,
 			success: function(data, status, xhr) {
-				console.log(data, status);
+				if (console || window.console) {
+					console.log(data, status);
+				}
 //				window.location = 'import_ordering.jsp';
 			},
 			error: function(xhr, status, msg) {
-				console.log(status, msg);
+				if (console || window.console) {
+					console.log(status, msg);
+				}
 //				window.location = 'import_ordering.jsp';
 			}
 		});
