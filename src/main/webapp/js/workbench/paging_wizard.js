@@ -1,96 +1,108 @@
 function PagingWizard(config) {
 	this.config = config;
 	
+	this.collectionsUrl = this.config.url;
 	this.id = this.config.id;
-	
 	this.pageSize = this.config.pageSize == null ? 20 : this.config.pageSize;
+	this.initManifest = this.config.manifest;
 	
 	this.idCount = 0;
 	
 	this.currentStep = 0;
 	
+	this.host = window.location.host;
+	this.path = window.location.pathname.match(/^.*\//)[0];
+	
 	$(this.id).html(''+
-	'<div id="wizParent">'+
-		'<div id="wizNav">'+
-			'<span id="wizPrev" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-triangle-1-w"></span></span>'+
+	'<div class="wizParent">'+
+		'<div class="wizNav">'+
+			'<span class="wizPrev" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-triangle-1-w"></span></span>'+
 		'</div>'+
-		'<div id="wizSteps">'+
-			'<div id="wizCollections"><h2>Collections</h2><ul></ul></div>'+
-			'<div id="wizManifests"><h2>Manifests</h2><ul></ul></div>'+
-			'<div id="wizImages"><h2>Images</h2><ul></ul></div>'+
+		'<div class="wizSteps">'+
+			'<div class="wizCollections"><h2>Collections</h2><ul></ul></div>'+
+			'<div class="wizManifests"><h2>Manifests</h2><ul></ul></div>'+
+			'<div class="wizImages"><h2>Images</h2><ul></ul></div>'+
 		'</div>'+
-		'<div id="wizPager">'+
-			'<span id="pagerPrev" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-triangle-1-w"></span></span>'+
-			'Page <input type="text" id="pagerCurrent" /> of <span id="pagerTotal"></span>'+
-			'<span id="pagerNext" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-triangle-1-e"></span></span>'+
+		'<div class="wizPager">'+
+			'<span class="pagerPrev" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-triangle-1-w"></span></span>'+
+			'Page <input type="text" class="pagerCurrent" /> of <span class="pagerTotal"></span>'+
+			'<span class="pagerNext" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-triangle-1-e"></span></span>'+
 			'<div class="clear"></div>'+
 		'</div>'+
 	'</div>'+
-	'<div id="wizLoading" class="ui-corner-all ui-widget-content"></div>');
+	'<div class="wizLoading" class="ui-corner-all ui-widget-content"></div>');
 	
 	this.steps = [new WizardStep({
 		wiz: this,
-		id: '#wizCollections',
+		id: 'wizCollections',
 		pagerFunction: this.collectionsPager
 	}),new WizardStep({
 		wiz: this,
-		id: '#wizManifests',
+		id: 'wizManifests',
 		pagerFunction: this.manifestsPager
 	}),new WizardStep({
 		wiz: this,
-		id: '#wizImages',
+		id: 'wizImages',
 		pagerFunction: this.imagesPager
 	})];
 	
-	$('#wizLoading').offset($(this.id).offset());
-	
-	$('#wizPrev').hover(function() {
+	$(this.id+' .wizPrev').hover(function() {
 		$(this).toggleClass('ui-state-hover');
 	}).click($.proxy(function() {
 		if (this.currentStep > 0) {
 			this.showStep(this.currentStep - 1);
 		}
 	}, this));
-	$('#pagerPrev').hover(function() {
+	$(this.id+' .pagerPrev').hover(function() {
 		$(this).toggleClass('ui-state-hover');
 	}).click($.proxy(function() {
 		this.getPage('prev');
 	}, this));
-	$('#pagerNext').hover(function() {
+	$(this.id+' .pagerNext').hover(function() {
 		$(this).toggleClass('ui-state-hover');
 	}).click($.proxy(function() {
 		this.getPage('next');
 	}, this));
 	
-	$('#pagerCurrent').keyup($.proxy(function(event) {
+	$(this.id+' .pagerCurrent').keyup($.proxy(function(event) {
 		if (event.which == 13) {
-			var page = $('#pagerCurrent').val();
+			var page = $(this.id+' .pagerCurrent').val();
 			if (page.match(/\D/) == null) {
 				this.getPage(parseInt(page));
 			}
 		}
 	}, this));
 	
-	$('#wizManifests').hide();
-	$('#wizImages').hide();
-	$('#wizPager').hide();
+	$(this.id+' .wizManifests').hide();
+	$(this.id+' .wizImages').hide();
+	$(this.id+' .wizPager').hide();
 	
 	this.initCollections();
 }
 
+PagingWizard.prototype.show = function() {
+	$(this.id).show();
+	var offset = $(this.id).offset();
+	$(this.id+' .wizLoading').css({top: offset.top, left: offset.left});
+};
+
+PagingWizard.prototype.hide = function() {
+	$(this.id).hide();
+};
+
 PagingWizard.prototype.loading = function(isLoading) {
 	if (isLoading) {
-		$('#wizLoading')
+		$(this.id+' .wizLoading')
 			.outerHeight($(this.id).outerHeight())
 			.outerWidth($(this.id).outerWidth())
 			.show();
 	} else {
-		$('#wizLoading').hide();
+		$(this.id+' .wizLoading').hide();
 	}
 };
 
 PagingWizard.prototype.getPage = function(opt) {
-	var currLev = this.steps[this.currentStep];
+	var currLev = this.getCurrentStep();
 	
 	if (opt == 'next') {
 		currLev.currentPage++;
@@ -109,7 +121,7 @@ PagingWizard.prototype.getPage = function(opt) {
 	
 	currLev.pagerFunction.apply(this, [currLev.currentPage, currItems]);
 
-	$('#pagerCurrent').val(currLev.currentPage+1);
+	$(this.id+' .pagerCurrent').val(currLev.currentPage+1);
 };
 
 PagingWizard.prototype.showStep = function(index) {
@@ -118,12 +130,16 @@ PagingWizard.prototype.showStep = function(index) {
 	this.steps[this.currentStep].show();
 };
 
+PagingWizard.prototype.getCurrentStep = function() {
+	return this.steps[this.currentStep];
+};
+
 PagingWizard.prototype.initCollections = function() {
 	this.loading(true);
 	$.ajax({
-		url: 'http://'+window.location.host+proxyString,
+		url: 'http://'+this.host+this.path+'proxy.jsp',
 		data: {
-			url: 'http://dms-data.stanford.edu/Repository.xml'
+			url: this.collectionsUrl
 		},
 		success: $.proxy(function(data, status, xhr) {
 			var repository = $.rdf.databank();
@@ -169,6 +185,9 @@ PagingWizard.prototype.initCollections = function() {
 						if (count == uris.length) {
 							this.loading(false);
 							this.steps[0].init(localCollections);
+							if (this.initManifest != null) {
+								this.loadManifestURI(this.initManifest);
+							}
 						}
 					}, this),
 					error: function() {
@@ -181,29 +200,33 @@ PagingWizard.prototype.initCollections = function() {
 };
 
 PagingWizard.prototype.collectionsPager = function(pageNum, collections) {	
-	$('#wizCollections ul').empty();
+	$(this.id+' .wizCollections ul').empty();
 	
 	for (var i = 0; i < collections.length; i++) {
 		var c = collections[i];
-		$('#wizCollections ul').append('<li id="col_'+this.idCount+'">'+c.data+'</li>');
-		$('#col_'+this.idCount).data('uris', c.metadata.uris);
+		$(this.id+' .wizCollections ul').append('<li>'+c.data+'</li>');
+		$(this.id+' .wizCollections ul li:last').data('uris', c.metadata.uris);
 		this.idCount++;
 	}
 	
-	$('#wizCollections li').click($.proxy(function(event) {
-		this.steps[1].init(($(event.target).data('uris')));
+	$(this.id+' .wizCollections li').click($.proxy(function(event) {
+		this.steps[1].init($(event.target).data('uris'));
 	}, this));
 	
 	this.showStep(0);
 };
 
+PagingWizard.prototype.loadManifestURI = function(uri) {
+	this.steps[1].init([uri]);
+};
+
 PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
-	$('#wizManifests ul').empty();
+	$(this.id+' .wizManifests ul').empty();
 	
 	function buildPage(liString, cache) {
-		$('#wizManifests ul').append(liString);
+		$(this.id+' .wizManifests ul').append(liString);
 		
-		$('#wizManifests li').each($.proxy(function(index, el) {
+		$(this.id+' .wizManifests li').each($.proxy(function(index, el) {
 			var data = cache[index];
 			$(el).data('iaUri', data.iaUri);
 			$(el).data('nsUri', data.nsUri);
@@ -213,7 +236,7 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 		}, this));
 	}
 	
-	var cache = $('#wizManifests').data('page'+pageNum);
+	var cache = $(this.id+' .wizManifests').data('page'+pageNum);
 	var liString = '';
 	
 	if (cache != null) {
@@ -229,7 +252,7 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 		for (var i = 0; i < uris.length; i++) {
 			var uri = uris[i];
 			$.ajax({
-				url: 'http://'+window.location.host+proxyString,
+				url: 'http://'+this.host+this.path+'proxy.jsp',
 				data: {
 					url: uri
 				},
@@ -262,7 +285,7 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 						
 						this.showStep(1);
 						
-						$('#wizManifests').data('page'+pageNum, cache);
+						$(this.id+' .wizManifests').data('page'+pageNum, cache);
 					}
 					
 				}, this)
@@ -304,7 +327,7 @@ PagingWizard.prototype.fetchSequence = function(iaUri) {
 	*/
 	
 	$.ajax({
-		url: 'http://'+window.location.host+proxyString+'?url='+iaUri,
+		url: 'http://'+this.host+this.path+'proxy.jsp?url='+iaUri,
 		success: function(data, status, xhr, url) {
 			var annos = [];
 			var id = url.split('.xml')[0];
@@ -318,6 +341,7 @@ PagingWizard.prototype.fetchSequence = function(iaUri) {
 				var target = $('rdf\\:Description[rdf\\:about="'+targetId+'"]', data);
 				var body = $('rdf\\:Description[rdf\\:about="'+bodyId+'"]', data);
 				return {
+					id: targetId,
 					title: target.children('dc\\:title').text(),
 					bodyId: bodyId,
 					width: body.children('exif\\:width').text(),
@@ -345,6 +369,7 @@ PagingWizard.prototype.fetchSequence = function(iaUri) {
 				} else {
 					this.loading(false);
 					this.steps[2].init(annos);
+					eventManager.trigger('sequenceSelected', [annos]);
 				}
 			}
 			getOrder.apply(this, [restId, 0]);
@@ -353,21 +378,21 @@ PagingWizard.prototype.fetchSequence = function(iaUri) {
 };
 
 PagingWizard.prototype.imagesPager = function(pageNum, annotations) {
-	$('#wizImages ul').empty();
+	$(this.id+' .wizImages ul').empty();
 	
 	function buildPage(liString, cache) {
-		$('#wizImages ul').append(liString);
+		$(this.id+' .wizImages ul').append(liString);
 		
-		$('#wizImages li').each($.proxy(function(index, el) {
+		$(this.id+' .wizImages li').each($.proxy(function(index, el) {
 			var data = cache[index];
 			$(el).data('metadata', {title: data.title, bodyId: data.bodyId, width: data.width, height: data.height});
 			$(el).click($.proxy(function(event) {
-				eventManager.trigger('tree.imageSelected', $(event.target).data('metadata'));
+				eventManager.trigger('imageSelected', $(event.target).data('metadata'));
 			}, this));
 		}, this));
 	}
 	
-	var cache = $('#wizImages').data('page'+pageNum);
+	var cache = $(this.id+' .wizImages').data('page'+pageNum);
 	var liString = '';
 	if (cache != null) {
 		for (var i = 0; i < cache.length; i++) {
@@ -388,7 +413,7 @@ PagingWizard.prototype.imagesPager = function(pageNum, annotations) {
 		}
 		buildPage.apply(this, [liString, cache]);
 		this.showStep(2);
-		$('#wizImages').data('page'+pageNum, cache);
+		$(this.id+' .wizImages').data('page'+pageNum, cache);
 	}
 };
 
@@ -404,37 +429,37 @@ function WizardStep(config) {
 WizardStep.prototype.init = function(items) {
 	var totalPages = Math.ceil(items.length / this.wiz.pageSize);
 	
-	$(this.id).removeData();
+	$(this.wiz.id+' .'+this.id).removeData();
 	
 	this.cache = items;
 	this.currentPage = 0;
 	this.totalPages = totalPages;
 	
 	if (items.length > this.wiz.pageSize) {
-		$('#wizPager').show();
-		$('#pagerCurrent').val(1);
-		$('#pagerTotal').html(totalPages);
+		$(this.wiz.id+' .wizPager').show();
+		$(this.wiz.id+' .pagerCurrent').val(1);
+		$(this.wiz.id+' .pagerTotal').html(totalPages);
 		var curritems = items.slice(0, this.wiz.pageSize);
 		this.pagerFunction.apply(this.wiz, [0, curritems]);
 	} else {
-		$('#wizPager').hide();
+		$(this.wiz.id+' .wizPager').hide();
 		this.pagerFunction.apply(this.wiz, [0, items]);
 	}
 };
 
 WizardStep.prototype.show = function() {
-	$(this.id).show();
+	$(this.wiz.id+' .'+this.id).show();
 	if (this.cache.length > this.wiz.pageSize) {
-		$('#pagerCurrent').val(this.currentPage+1);
-		$('#pagerTotal').html(this.totalPages);
-		$('#wizPager').show();
+		$(this.wiz.id+' .pagerCurrent').val(this.currentPage+1);
+		$(this.wiz.id+' .pagerTotal').html(this.totalPages);
+		$(this.wiz.id+' .wizPager').show();
 	} else {
-		$('#wizPager').hide();
+		$(this.wiz.id+' .wizPager').hide();
 	}
 };
 
 WizardStep.prototype.hide = function() {
-	$(this.id).hide();
+	$(this.wiz.id+' .'+this.id).hide();
 };
 
 // createDelegate from Extjs

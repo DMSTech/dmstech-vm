@@ -1,5 +1,19 @@
 $(document).ready(function() {
+	var currentSearchTool = 'solr';
+	
 	var host = window.location.host;
+	var path = window.location.pathname.match(/^.*\//)[0];
+	var solrUrl = null;
+	$.ajax({
+		url: 'http://'+host+path+'sc/lookup/solr',
+		type: 'GET',
+		success: function(data, status, xhr) {
+			solrUrl = data;
+		},
+		error: function() {
+			alert('There was an error getting the solr url.');
+		}
+	});
 	
 	var logicSelect = '<select name="logic">'+
 	'<option value="">Or</option>'+
@@ -54,7 +68,11 @@ $(document).ready(function() {
 		
 		$('#search > div:last input').on('keyup', function(event) {
 			if (event.which == 13) {
-				doSearch();
+				if (currentSearchTool == 'solr') {
+					doSolrSearch();
+				} else {
+					doSparqlSearch();
+				}
 			}
 		});
 	}
@@ -62,18 +80,86 @@ $(document).ready(function() {
 	function init() {
 		$(window).resize(doResize);
 		
+		$('#searchSelector').buttonset();
+		$('#searchSelector input').click(function(event) {
+			if ($(event.target).attr('id').match('solr')) {
+				$('#solrSearch').show();
+				$('#sparqlSearch').hide();
+				currentSearchTool = 'solr';
+			} else {
+				$('#solrSearch').hide();
+				$('#sparqlSearch').show();
+				currentSearchTool = 'sparql';
+			}
+		});
+		$('#searchSelector input:first').click();
+		$('#sparqlSearch textarea').val('SELECT ?x ?mname WHERE {?x <http://purl.org/dc/elements/1.1/identifier> ?mname}');
+		
 		buildRow(true);
 		
 		$('#searchButton').button().click(function() {
-			doSearch();
+			if (currentSearchTool == 'solr') {
+				doSolrSearch();
+			} else {
+				doSparqlSearch();
+			}
 		});
 		$('#clearButton').button().click(function() {
-			$('#search').empty();
-			buildRow(true);
+			if (currentSearchTool == 'solr') {
+				$('#search').empty();
+				buildRow(true);
+			} else {
+				$('#sparqlQuery').val('');
+			}
+		});
+		$('#showReindexDialog').button().click(function() {
+			$('#reindexDialog input').prop('checked', false);
+			$('#reindexDialog').next().find('button:first').button('enable');
+			$('#indexing').hide();
+			$('#reindexDialog').dialog('open');
+		});
+		
+		$('#reindexDialog').dialog({
+			title: 'Reindex',
+			modal: true,
+			width: 200,
+			height: 150,
+			autoOpen: false,
+			resizable: false,
+			buttons: {
+				'Reindex': function() {
+					$('#reindexDialog').next().find('button:first').button('disable');
+					$('#indexing').show().addClass('loading');
+					$('#status').text('Indexing');
+					var solr = $('#reindexDialog input[name=solr]').prop('checked');
+					var sparql = $('#reindexDialog input[name=sparql]').prop('checked');
+					$.ajax({
+						url: 'http://'+host+path+'sc/reindex',
+						type: 'POST',
+						data: {
+							solr: solr,
+							sparql: sparql
+						},
+						success: function(data, status, xhr) {
+							$('#reindexDialog').next().find('button:first').button('enable');
+							$('#indexing').removeClass('loading');
+							$('#status').text('Success!');
+						},
+						error: function() {
+							$('#reindexDialog').next().find('button:first').button('enable');
+							$('#indexing').removeClass('loading');
+							$('#status').text('Error!');
+						}
+					});
+				},
+				'Close': function() {
+					$(this).dialog('close');
+				}
+			}
 		});
 	}
 	
-	function doSearch() {
+	function doSolrSearch() {
 		var queryString = '';
 		
 		$('#search > div').each(function(index, item) {
@@ -97,7 +183,7 @@ $(document).ready(function() {
 		if (queryString == '') queryString = '*:*'; // return everything
 		
 		$.ajax({
-			url: 'http://'+host+'/solr/select/',
+			url: solrUrl+'/select',
 			data: {
 				q: queryString,
 				wt: 'json'
@@ -110,45 +196,94 @@ $(document).ready(function() {
 				var resultString = '<ul>';
 				if (docs.length == 0) {
 					resultString += '<li>No results.</li>';
-				}
-				for (var i = 0; i < docs.length; i++) {
-					var d = docs[i];
-					var type = d.resulttype;
-					var title = '';
-					if (type == 'canvas') {
-						title = d.canvastitle;
-					} else {
-						title = d.mantitle;
-					}
-					var digitalLocation = '';
-					var physicalLocation = '';
-					var locationKeys = ['repository','collection','institution','settlement','region','country'];
-					for (var j = 0; j < 2; j++) {
-						var l = d[locationKeys[j]];
-						if (l != undefined && l != '') {
-							digitalLocation += l +', ';
+				} else {
+					for (var i = 0; i < docs.length; i++) {
+						var d = docs[i];
+						var type = d.resulttype;
+						var title = '';
+						if (type == 'canvas') {
+							title = d.canvastitle;
+						} else {
+							title = d.mantitle;
 						}
-					}
-					digitalLocation = digitalLocation.slice(0, digitalLocation.length-2);
-					for (var j = 2; j < locationKeys.length; j++) {
-						var l = d[locationKeys[j]];
-						if (l != undefined && l != '') {
-							physicalLocation += l +', ';
+						var digitalLocation = '';
+						var physicalLocation = '';
+						var locationKeys = ['repository','collection','institution','settlement','region','country'];
+						for (var j = 0; j < 2; j++) {
+							var l = d[locationKeys[j]];
+							if (l != undefined && l != '') {
+								digitalLocation += l +', ';
+							}
 						}
+						digitalLocation = digitalLocation.slice(0, digitalLocation.length-2);
+						for (var j = 2; j < locationKeys.length; j++) {
+							var l = d[locationKeys[j]];
+							if (l != undefined && l != '') {
+								physicalLocation += l +', ';
+							}
+						}
+						physicalLocation = physicalLocation.slice(0, physicalLocation.length-2);
+						
+						resultString += '<li>'+
+							'<div class="title">'+title+'</div>'+
+							'<div class="digitalLocation"><span class="label">Digital Location:</span> '+digitalLocation+'</div>'+
+							'<div class="physicalLocation"><span class="label">Physical Location:</span> '+physicalLocation+'</div>'+
+							'<div class="idno"><span class="label">Idno:</span> '+d.idno+'</div>'+
+							'<div class="altid"><span class="label">Alt. ID:</span> '+d.altid+'</div>'+
+							'<input type="hidden" name="uri" value="'+d.uri+'" />'+
+						'</li>';
 					}
-					physicalLocation = physicalLocation.slice(0, physicalLocation.length-2);
-					
-					resultString += '<li>'+
-						'<div class="title">'+title+'</div>'+
-						'<div class="digitalLocation"><span class="label">Digital Location:</span> '+digitalLocation+'</div>'+
-						'<div class="physicalLocation"><span class="label">Physical Location:</span> '+physicalLocation+'</div>'+
-						'<div class="idno"><span class="label">Idno:</span> '+d.idno+'</div>'+
-						'<div class="altid"><span class="label">Alt. ID:</span> '+d.altid+'</div>'+
-						'<input type="hidden" name="uri" value="'+d.uri+'" />'+
-					'</li>';
 				}
 				resultString += '</ul>';
 				
+				$('#results').html(resultString);
+				$('#results li').click(function(event) {
+					var uri;
+					if ($(event.target).is('li')) {
+						uri = $(event.target).children('input').val();
+					} else {
+						uri = $(event.target).parents('li').children('input').val();
+					}
+					window.location = 'workbench.jsp?manifest='+encodeURIComponent(uri);
+				});
+			}
+		});
+	}
+	
+	function doSparqlSearch() {
+		var queryString = $('#sparqlQuery').val();
+		$.ajax({
+			url: 'http://'+host+path+'sc/sparql',
+			data: {
+				q: queryString
+			},
+			dataType: 'xml',
+			success: function(data, status, xhr) {
+				$('#results').empty();
+				var resultString = '<ul>';
+				var results = $('result', data);
+				if (results.length == 0) {
+					resultString += '<li>No results.</li>';
+				} else {
+					results.each(function(index, item) {
+						resultString += '<li>';
+						$('binding', item).each(function(index2, item2) {
+							resultString += '<div><span class="label">'+$(item2).attr('name')+': </span>'+$(item2).children().text()+'</div>';
+						});
+						resultString += '</li>';
+					});
+				}
+				resultString += '</ul>';
+				$('#results').html(resultString);
+			},
+			error: function(xhr, status, error) {
+				var text = xhr.responseText;
+				var msg = text.match(/<pre>.*(?=\n|\r)/);
+				if (msg != null) {
+					msg = msg[0].replace('<pre>', '');
+				}
+				$('#results').empty();
+				var resultString = '<ul><li class="error">'+msg+'</li></ul>';
 				$('#results').html(resultString);
 			}
 		});

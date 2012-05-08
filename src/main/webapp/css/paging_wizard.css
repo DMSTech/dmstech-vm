@@ -1,20 +1,20 @@
-#wizParent {
+.wizParent {
 	min-height: 100px;
 }
 
-#wizHome, #wizPrev {
+.wizHome, .wizPrev {
 	float: left;
     margin-right: 3px;
 }
 
-#wizNav {
+.wizNav {
 	float: left;
 	margin-left: 3px;
     margin-top: 2px;
 	margin-right: -24px;
 }
 
-#wizSteps ul {
+.wizSteps ul {
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -22,16 +22,16 @@
 	overflow: auto;
 }
 
-#wizSteps li {
+.wizSteps li {
 	padding: 5px;
 }
 
-#wizSteps li:hover {
+.wizSteps li:hover {
 	background-color: #AED0EA;
 	cursor: pointer;
 }
 
-#wizLoading {
+.wizLoading {
 	background: #eee url('../img/throbber.gif') no-repeat center center;
 	opacity: 0.75;
 	display: none;
@@ -39,25 +39,29 @@
 	z-index: 100;
 }
 
-#wizPager {
+.wizPager {
 	text-align: center;
 	padding: 3px;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-#pagerCurrent {
+.pagerCurrent {
 	width: 22px;
 	font-size: 10px;
 }
 
-#pagerPrev {
+.pagerPrev {
 	float: left;
 }
 
-#pagerNext {
+.pagerNext {
 	float: right;
 }
 
-#wizHome:hover, #wizPrev:hover, #pagerPrev:hover, #pagerNext:hover {
+.wizHome:hover, .wizPrev:hover, .pagerPrev:hover, .pagerNext:hover {
 	cursor: pointer;
+}
+
+.wizLoading {
+	content: "";
 }

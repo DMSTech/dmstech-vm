@@ -18,11 +18,11 @@ ViewerZPR.prototype.showImage = function(event, data) {
 ViewerZPR.prototype.activate = function() {
 	$(this.id).html('<div id="zpr_viewer"/>');
 	this.resize($(this.id).height(), $(this.id).width());
-	eventManager.bind('tree.imageSelected', $.proxy(this.showImage, this));
+	eventManager.bind('imageSelected', $.proxy(this.showImage, this));
 };
 
 ViewerZPR.prototype.deactivate = function() {
-	eventManager.unbind('tree.imageSelected', this.showImage);
+	eventManager.unbind('imageSelected', this.showImage);
 };
 
 ViewerZPR.prototype.resize = function(height, width) {

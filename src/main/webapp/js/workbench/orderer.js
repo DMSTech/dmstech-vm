@@ -43,16 +43,16 @@ Orderer.prototype.processSequence = function(event, data) {
 	for (var i = 0; i < data.length; i++) {
 		var a = data[i];
 		var thumbUrl = 'img/manu_thumb.png';
-		if (a.body.id.indexOf('stacks') != -1) {
-			thumbUrl = a.body.id+'?w=100&h=140';
+		if (a.bodyId.indexOf('stacks') != -1) {
+			thumbUrl = a.bodyId+'?w=100&h=140';
 		}
 		$('#orderer').append('<div id="page_'+count+'" class="page ui-corner-all"><div class="cell"><img src="'+thumbUrl+'" /></div></div>');
 		$('#page_'+count)
 		.data('uri', a.id)
-		.data('title', a.targets[0].title)
-		.data('bodyId', a.body.id)
-		.data('width', a.body.width)
-		.data('height', a.body.height);
+		.data('title', a.title)
+		.data('bodyId', a.bodyId)
+		.data('width', a.width)
+		.data('height', a.height);
 		count++;
 	}
 	
@@ -168,7 +168,7 @@ Orderer.prototype.submit = function() {
 	$.ajax(config);
 };
 
-Orderer.prototype.activate = function() {
+Orderer.prototype.activate = function(data) {
 	$(this.id).html('<div id="orderer"></div>');
 	$('#orderer').sortable({
 		placeholder: "ui-state-highlight",
@@ -194,12 +194,16 @@ Orderer.prototype.activate = function() {
 	
 	this.resize($(this.id).height(), $(this.id).width());
 	$(document).bind('click', this._handleDocClick);
-	eventManager.bind('tree.sequenceSelected', $.proxy(this.processSequence, this));
+	eventManager.bind('sequenceSelected', $.proxy(this.processSequence, this));
+	
+	if (data != null) {
+		this.processSequence(null, data);
+	}
 };
 
 Orderer.prototype.deactivate = function() {
 	$(document).unbind('click', this._handleDocClick);
-	eventManager.unbind('tree.sequenceSelected', this.processSequence);
+	eventManager.unbind('sequenceSelected', this.processSequence);
 };
 
 Orderer.prototype.resize = function(height, width) {
