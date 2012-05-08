@@ -44,7 +44,7 @@ public class GeneralTests {
 		final long endTime2;
 		String sparqlResult;
 		try {
-			sparqlResult = pageListGenerator.resultFromSPARQL(sequenceURI);
+	//		sparqlResult = pageListGenerator.resultFromSPARQL(sequenceURI);
 		} finally {
 		  endTime2 = System.nanoTime();
 		}
@@ -55,7 +55,7 @@ public class GeneralTests {
 		System.out.println(modelResult);
 		
 		System.out.println("\n\n\nSPARQL RESULT:  ");
-		System.out.println(sparqlResult);
+	//	System.out.println(sparqlResult);
 		
 		//new AnnotationIngester().test();
 	//	new SharedCanvasGenerator().ingestTestManu();

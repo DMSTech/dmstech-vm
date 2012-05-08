@@ -1,8 +1,5 @@
 package edu.stanford.dmstech.vm.uriresolvers;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -10,41 +7,25 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.hp.hpl.jena.query.Query;
-import com.hp.hpl.jena.query.QueryExecution;
-import com.hp.hpl.jena.query.QueryExecutionFactory;
-import com.hp.hpl.jena.query.QueryFactory;
-import com.hp.hpl.jena.query.QuerySolution;
-import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.rdf.model.AnonId;
 import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.RDFList;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.ResIterator;
-import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.DC;
-import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
 
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.DMSTechRDFConstants;
 import edu.stanford.dmstech.vm.RDFUtils;
-import edu.stanford.dmstech.vm.SharedCanvasUtil;
-import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
 
 
-@Path("/{collectionId}/{manuscriptId}/sequences/{sequenceFileName: (.*\\.json$)}") 
+@Path("/{collectionId}/{manuscriptId}/sequences/optimized/{sequenceFileName: (.*\\.json$)}") 
 public class OptimizedManuscriptPageList {	
 	
 	DMSTechRDFConstants rdfConstants = DMSTechRDFConstants.getInstance();
@@ -74,7 +55,7 @@ public class OptimizedManuscriptPageList {
 		Model annoModel = RDFUtils.loadModelInAbsoluteDir(pathToAnnoRDF, "N-TRIPLE");
 		
 		List<RDFNode> orderedCanvasList = extractSingleRDFListFromModel(sequenceModel);
-		System.out.println("The list from the model has " + orderedCanvasList.size() + " entries.");
+	//	System.out.println("The list from the model has " + orderedCanvasList.size() + " entries.");
 		for (RDFNode canvasNode : orderedCanvasList) {
 			StmtIterator annosIter = annoModel.listStatements(null, rdfConstants.oacHasTargetProperty, canvasNode);
 			if (annosIter.hasNext()) {
@@ -107,7 +88,7 @@ public class OptimizedManuscriptPageList {
 		return theList;
 	}
 	
-	public  String resultFromSPARQL(String sequenceURI) throws JSONException {
+	/*public  String resultFromSPARQL(String sequenceURI) throws JSONException {
 
 		JSONArray jsonResult = new JSONArray();
 		
@@ -157,7 +138,7 @@ public class OptimizedManuscriptPageList {
 	
 	return jsonResult.toString(4);
 	
-}
+}*/
 
 }
 
