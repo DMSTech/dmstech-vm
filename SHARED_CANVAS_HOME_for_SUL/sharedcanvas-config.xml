@@ -6,14 +6,14 @@
 	<imageAnnotationFileName>ImageAnnotations.nt</imageAnnotationFileName>
 	<zoneAnnotationFileName>ZoneAnnotations.nt</zoneAnnotationFileName>
 	<textAnnotationFileName>TextAnnotations.nt</textAnnotationFileName>
-	<baseURIForIds>http://sul-dms-dev.stanford.edu//dms/sc</baseURIForIds>
-	<baseURIForDocuments>http://sul-dms-dev.stanford.edu//dms/sc</baseURIForDocuments>
+	<baseURIForIds>http://sul-dms-dev.stanford.edu/dms/sc</baseURIForIds>
+	<baseURIForDocuments>http://sul-dms-dev.stanford.edu/dms/sc</baseURIForDocuments>
 	<collectionSubDir>collections</collectionSubDir>
 	<textAnnosSubDir>submitted_annotations</textAnnosSubDir>
 	<textAnnosBodiesSubDir>annotation_body_texts</textAnnosBodiesSubDir>
 	<transactionsSubDir>transactions</transactionsSubDir>
 	<defaultCollection>ingested</defaultCollection>
 	<mainTDBDatasetDir>repository_tbd_index</mainTDBDatasetDir>
-	<solrServer>http://sul-dms-dev.stanford.edu//solr</solrServer>
-	<djatokaServer>http://sul-dms-dev.stanford.edu//djatoka</djatokaServer>
+	<solrServer>http://sul-dms-dev.stanford.edu/solr</solrServer>
+	<djatokaServer>http://sul-dms-dev.stanford.edu/djatoka</djatokaServer>
 </config>
