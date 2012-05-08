@@ -1,2 +1,0 @@
-            A test annotation of canvas-2 in the Stanford Collection.
-        

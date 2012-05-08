@@ -1,0 +1,17 @@
+<http://sul-dms-data.stanford.edu/dms/sc/Repository>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/Aggregation> .
+<http://sul-dms-data.stanford.edu/dms/sc/Repository> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.shared-canvas.org/ns/Repository> .
+<http://sul-dms-data.stanford.edu/dms/sc/Repository>     <http://purl.org/dc/elements/1.1/title> "Manuscripts hosted by the Stanford University Libraries" .
+<http://sul-dms-data.stanford.edu/dms/sc/Repository>     <http://www.openarchives.org/ore/terms/aggregates> <http://sul-dms-data.stanford.edu/dms/sc/Stanford/Collection> .
+<http://sul-dms-data.stanford.edu/dms/sc/Repository>     <http://www.tei-c.org/ns/1.0/country> "United States of America" .
+<http://sul-dms-data.stanford.edu/dms/sc/Repository>     <http://www.tei-c.org/ns/1.0/repository> "Stanford University Libraries" .
+<http://sul-dms-data.stanford.edu/dms/sc/Repository>     <http://www.tei-c.org/ns/1.0/settlement> "Stanford" .
+<http://sul-dms-data.stanford.edu/dms/sc/Repository.xml>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/ResourceMap> .
+<http://sul-dms-data.stanford.edu/dms/sc/Repository.xml>     <http://purl.org/dc/elements/1.1/format> "application/rdf+xml" .
+<http://sul-dms-data.stanford.edu/dms/sc/Repository.xml>     <http://www.openarchives.org/ore/terms/describes> <http://sul-dms-data.stanford.edu/dms/sc/Repository> .
+<http://sul-dms-data.stanford.edu/dms/sc/Stanford/Collection>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.shared-canvas.org/ns/Manifest> .
+<http://sul-dms-data.stanford.edu/dms/sc/Stanford/Collection>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/Aggregation> .
+<http://sul-dms-data.stanford.edu/dms/sc/Stanford/Collection>     <http://www.openarchives.org/ore/terms/isDescribedBy> <http://sul-dms-data.stanford.edu/dms/sc/Stanford/Collection.xml> .
+<http://sul-dms-data.stanford.edu/dms/sc/Stanford/Collection.xml>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/ResourceMap> .
+<http://sul-dms-data.stanford.edu/dms/sc/Stanford/Collection.xml>     <http://purl.org/dc/elements/1.1/format> "application/rdf+xml" .
+<http://sul-dms-data.stanford.edu/dms/sc/Stanford/Collection.xml>     <http://www.openarchives.org/ore/terms/describes> <http://sul-dms-data.stanford.edu/dms/sc/Stanford/Collection> .
+    
