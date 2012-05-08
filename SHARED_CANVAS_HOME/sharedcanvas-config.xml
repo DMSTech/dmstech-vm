@@ -14,6 +14,6 @@
 	<transactionsSubDir>transactions</transactionsSubDir>
 	<defaultCollection>ingested</defaultCollection>
 	<mainTDBDatasetDir>repository_tbd_index</mainTDBDatasetDir>
-	<solrServer>http://localhost:8080/solr-sc</solrServer>
-	<djatokaServer>http://localhost:8080/adore-djatoka</djatokaServer>
+	<solrServer>http://localhost:8080/solr</solrServer>
+	<djatokaServer>http://localhost:8080/djatoka</djatokaServer>
 </config>
