@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.logging.Logger;
 
 import javax.xml.transform.Transformer;
@@ -17,6 +18,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.stream.StreamSource;
+
+import org.apache.commons.io.IOUtils;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
@@ -47,7 +50,12 @@ public class RDFUtils {
 	}
 
 	public static String getTextFromURI(String uri) throws IOException {
-	     return (String) new URL(uri).getContent();
+		URL url = new URL(uri);
+		URLConnection con = url.openConnection();
+		InputStream in = con.getInputStream();
+		String encoding = con.getContentEncoding();
+		encoding = encoding == null ? "UTF-8" : encoding;
+		return IOUtils.toString(in, encoding);
 	}
 	
 	private static String transformToHTML(StreamSource xmlStreamSource)

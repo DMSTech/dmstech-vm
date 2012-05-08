@@ -159,7 +159,7 @@ public class Config implements ServletContextListener {
 	}
 
 	public static String getTextAnnosBodiesSubDir() {
-		return textAnnosSubDir;
+		return textAnnosBodiesSubDir;
 	}
 
 	public  void setTextAnnosBodiesSubDir(String textAnnosBodiesSubDir) {
@@ -220,6 +220,10 @@ public class Config implements ServletContextListener {
 		return (new File(homeDirPath, getTextAnnosSubDir())).getAbsolutePath();
 	}
 	
+	public static String getAbsolutePathToTextAnnosBodiesDir() {
+		return (new File(homeDirPath, getTextAnnosBodiesSubDir())).getAbsolutePath();
+	}
+	
 	public static String getAbsolutePathToTransactionsDir() {
 		return (new File(homeDirPath, getTransactionsSubDir())).getAbsolutePath();
 	}
@@ -251,6 +255,14 @@ public class Config implements ServletContextListener {
 	
 	public static String getAbsolutePathToManuscriptSequenceSourceFile(String collectionId, String manuscriptId, String sequenceId) {
 		return new File(getAbsolutePathToManuscriptsSequenceDir(collectionId, manuscriptId), sequenceId + ".nt").getAbsolutePath();
+	}
+	
+	public static String getAbsolutePathToManuscriptImageAnnoFile(String collectionId, String manuscriptId) {
+		return new File(getAbsolutePathToManuscriptRDFDir(collectionId, manuscriptId), getImageAnnotationFileName()).getAbsolutePath();
+	}
+	
+	public static String getAbsolutePathToManuscriptRDFDir(String collectionId, String manuscriptId) {
+		return new File(getAbsolutePathToManuscriptDir(collectionId, manuscriptId), "rdf").getAbsolutePath();
 	}
 	
 	public static String getAbsolutePathToManuscriptsSequenceDir(String collectionId, String manuscriptId) {

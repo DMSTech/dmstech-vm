@@ -110,6 +110,7 @@ public class SharedCanvas {
 		canvasSequenceJavaList = extractSingleRDFListFromModel(sequenceRM);
 
 	}
+	
 	private List<RDFNode> extractSingleRDFListFromModel(Model model) throws Exception {
 		List<RDFNode> theList = null;
 		ResIterator resIter = model.listSubjectsWithProperty(RDF.type, rdfConstants.scSequenceClass);

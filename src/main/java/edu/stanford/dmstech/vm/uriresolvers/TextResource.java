@@ -10,20 +10,20 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
+
 import edu.stanford.dmstech.vm.Config;
+import groovyx.net.http.ContentType;
 
 
-	@Path("/annotation_body_texts/{filename}")
+	@Path("/annotation_body_texts/{text_id}")
 	public class TextResource {
 
 		@GET
-		@Produces("image/jp2")
+		@Produces("text/plain")
 		public Response redirectToResourceMap(
-				@PathParam("collectionId") String collectionId,
-				@PathParam("manuscriptId") String manuscriptId,
-				@PathParam("filename") String filename) {
+				@PathParam("text_id") String textId) {
 			
-		    File f = new File(Config.getAbsolutePathToManuscriptDir(collectionId, manuscriptId), filename);
+		    File f = new File(Config.getAbsolutePathToTextAnnosBodiesDir(), textId + ".txt");
 
 		    if (!f.exists()) {
 		        throw new WebApplicationException(404);

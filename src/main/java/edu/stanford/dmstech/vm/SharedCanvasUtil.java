@@ -46,12 +46,15 @@ public class SharedCanvasUtil {
 		return getSerializedRDFForModel(model, requestedFile);
 	}		
 
+
+	
 	public static Response getSerializedRDFFromDir(String absolutePath, String requestedFile) throws Exception{		
 		Model model = RDFUtils.loadModelInAbsoluteDir(absolutePath, "N-TRIPLE");
-		return getSerializedRDFForModel(model, requestedFile);
-		
+		return getSerializedRDFForModel(model, requestedFile);		
 	}		
 
+
+	
 	private static Response getSerializedRDFForModel(Model model, String requestedFile) throws TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {
 		model.setNsPrefixes(rdfConstants.getInitializingModel());
 		StringWriter stringWriter = new StringWriter();
