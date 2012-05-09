@@ -1,0 +1,57 @@
+hr {
+	border: none;
+	border-top: 1px solid #999;
+	margin: 10px 0 0 0;
+}
+
+button {
+	margin-top: 10px;
+}
+
+.section {
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.buttonsParent {
+	text-align: center;
+}
+
+.loading {
+	background: transparent url('../img/throbber.gif') no-repeat left center;
+}
+
+#statusParent {
+	margin: 10px 0;
+}
+
+#statusIcon {
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	margin-right: 3px;
+}
+
+#status {
+	position: relative;
+    top: -3px;
+}
+
+#reindex, #data {
+	background-position: left top !important;
+    padding: 10px;
+    float: left;
+    margin-right: 10px;
+}
+
+#reindex {
+	width: 200px;
+}
+
+#data {
+	width: 300px;
+}
+
+#content h2 {
+    text-align: center;
+}

@@ -18,6 +18,7 @@
 <link href="js/zpr/css/zpr.css" type="text/css" rel="stylesheet"/>
 </head>
 <body>
+<%@ include file="header.jsp" %>
 <div id="content">
 	<div id="sidebar" class="ui-corner-all ui-widget-header">
 		<h2>Collections Browser</h2>

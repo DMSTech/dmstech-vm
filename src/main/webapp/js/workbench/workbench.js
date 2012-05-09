@@ -10,16 +10,7 @@ function Workbench() {
 	$(window).resize($.proxy(this.doResize, this));
 }
 
-Workbench.prototype.init = function() {
-//	$('#search button').button().click($.proxy(function() {
-//		this.doSearch($('#search input')[0].value);
-//	}, this));
-//	$('#search input').keyup($.proxy(function(event) {
-//		if (event.which == 13) {
-//			this.doSearch($('#search input')[0].value);
-//		}
-//	}, this));
-	
+Workbench.prototype.init = function() {	
 	$('#collectionsSelector').buttonset();
 	$('#collectionsSelector input').click($.proxy(this.collectionsChange, this));
 	
@@ -101,7 +92,7 @@ Workbench.prototype.toolChange = function(event) {
 };
 
 Workbench.prototype.doResize = function() {
-	var height = $(window).height() - 80;
+	var height = $(window).height() - 104;
 	$('#toolContent').height(height);
 	this.currentTool.resize(height, $('#toolContent').width());
 };

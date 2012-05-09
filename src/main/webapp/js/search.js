@@ -112,51 +112,6 @@ $(document).ready(function() {
 				$('#sparqlQuery').val('');
 			}
 		});
-		$('#showReindexDialog').button().click(function() {
-			$('#reindexDialog input').prop('checked', false);
-			$('#reindexDialog').next().find('button:first').button('enable');
-			$('#indexing').hide();
-			$('#reindexDialog').dialog('open');
-		});
-		
-		$('#reindexDialog').dialog({
-			title: 'Reindex',
-			modal: true,
-			width: 200,
-			height: 150,
-			autoOpen: false,
-			resizable: false,
-			buttons: {
-				'Reindex': function() {
-					$('#reindexDialog').next().find('button:first').button('disable');
-					$('#indexing').show().addClass('loading');
-					$('#status').text('Indexing');
-					var solr = $('#reindexDialog input[name=solr]').prop('checked');
-					var sparql = $('#reindexDialog input[name=sparql]').prop('checked');
-					$.ajax({
-						url: 'http://'+host+path+'sc/reindex',
-						type: 'POST',
-						data: {
-							solr: solr,
-							sparql: sparql
-						},
-						success: function(data, status, xhr) {
-							$('#reindexDialog').next().find('button:first').button('enable');
-							$('#indexing').removeClass('loading');
-							$('#status').text('Success!');
-						},
-						error: function() {
-							$('#reindexDialog').next().find('button:first').button('enable');
-							$('#indexing').removeClass('loading');
-							$('#status').text('Error!');
-						}
-					});
-				},
-				'Close': function() {
-					$(this).dialog('close');
-				}
-			}
-		});
 	}
 	
 	function doSolrSearch() {
@@ -290,7 +245,7 @@ $(document).ready(function() {
 	}
 	
 	function doResize() {
-		var height = $(window).height() - 60;
+		var height = $(window).height() - 84;
 		$('#results').height(height);
 	}
 	

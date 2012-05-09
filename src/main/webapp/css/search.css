@@ -27,24 +27,6 @@ h2 {
 	background-position: top left !important;
 }
 
-#showReindexDialog {
-	float: right;
-	margin-left: -65px;
-}
-
-#indexing {
-	margin: 5px 0 0 45px;
-}
-
-.loading {
-	background: transparent url('../img/throbber.gif') no-repeat left center;
-}
-
-#indexing span {
-	margin-left: 20px;
-	vertical-align: middle;
-}
-
 #search input {
 	width: 140px;
 }

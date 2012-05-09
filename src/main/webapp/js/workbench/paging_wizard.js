@@ -136,11 +136,12 @@ PagingWizard.prototype.getCurrentStep = function() {
 
 PagingWizard.prototype.initCollections = function() {
 	this.loading(true);
+	var url = this.collectionsUrl;
+	if (url.match('localhost') == null) {
+		url = 'http://'+this.host+this.path+'proxy.jsp?url='+url;
+	}
 	$.ajax({
-		url: 'http://'+this.host+this.path+'proxy.jsp',
-		data: {
-			url: this.collectionsUrl
-		},
+		url: url,
 		success: $.proxy(function(data, status, xhr) {
 			var repository = $.rdf.databank();
 			repository.load(data);
@@ -157,11 +158,12 @@ PagingWizard.prototype.initCollections = function() {
 			
 			var count = 0;
 			for (var i = 0; i < uris.length; i++) {
+				var url = uris[i];
+				if (url.match('localhost') == null) {
+					url = 'http://'+this.host+this.path+'proxy.jsp?url='+url;
+				}
 				$.ajax({
-					url: 'proxy.jsp',
-					data: {
-						url: uris[i],
-					},
+					url: url,
 					success: $.proxy(function(data, status, xhr) {
 						var collection = $.rdf.databank();
 						collection.load(data);
@@ -250,12 +252,12 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 		this.loading(true);
 		cache = [];
 		for (var i = 0; i < uris.length; i++) {
-			var uri = uris[i];
+			var url = uris[i];
+			if (url.match('localhost') == null) {
+				url = 'http://'+this.host+this.path+'proxy.jsp?url='+url;
+			}
 			$.ajax({
-				url: 'http://'+this.host+this.path+'proxy.jsp',
-				data: {
-					url: uri
-				},
+				url: url,
 				success: $.proxy(function(data, status, xhr) {
 					var manifest = $.rdf.databank();
 					manifest.load(data);
@@ -325,9 +327,11 @@ PagingWizard.prototype.fetchSequence = function(iaUri) {
 	}
 	orderAnnotations(qry.databank, annotationsOrder, rest);
 	*/
-	
+	if (iaUri.match('localhost') == null) {
+		iaUri = 'http://'+this.host+this.path+'proxy.jsp?url='+iaUri;
+	}
 	$.ajax({
-		url: 'http://'+this.host+this.path+'proxy.jsp?url='+iaUri,
+		url: iaUri,
 		success: function(data, status, xhr, url) {
 			var annos = [];
 			var id = url.split('.xml')[0];

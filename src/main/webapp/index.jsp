@@ -9,7 +9,10 @@
 			window.location = 'import.jsp';
 		});
 		$('button:eq(2)').button().click(function() {
-			window.location = 'explore.jsp';
+			window.location = 'search.jsp';
+		});
+		$('button:eq(3)').button().click(function() {
+			window.location = 'admin.jsp';
 		});
 	});
 </script>
@@ -20,9 +23,10 @@
 		<h1>DMSTech</h1>
 		<h2>Manuscripts Workbench</h2>
 		<div>
-			<button>Work With Manuscript Images</button>
-			<button>Import Your Manuscript Images</button>
-			<button>Explore the Underlying Data</button>
+			<button>Browse Manuscripts</button>
+			<button>Import a Manuscript</button>
+			<button>Search Manuscripts</button>
+			<button>Local Repository Admin</button>
 		</div>
 	</div>
 </div>
