@@ -271,7 +271,6 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 					.where('?ns ore:isDescribedBy ?uri').get(0);
 					var ns = entry.ns.value.toString();
 					var nsUri = entry.uri.value.toString();
-					console.log(ns, nsUri);
 					
 					var iaUri = $.rdf({databank: manifest})
 					.where('?ns rdf:type ?type')
@@ -352,7 +351,6 @@ PagingWizard.prototype.fetchSequence = function(iaUri) {
 			var restId = $('rdf\\:rest', list).attr('rdf:nodeID');
 			
 			function getJsonForAnno(anno) {
-				console.log(anno);
 				var targetId = anno.children('oac\\:hasTarget').attr('rdf:resource');
 				var bodyId = anno.children('oac\\:hasBody').attr('rdf:resource');
 				var target = $('rdf\\:Description[rdf\\:about="'+targetId+'"]', data);
