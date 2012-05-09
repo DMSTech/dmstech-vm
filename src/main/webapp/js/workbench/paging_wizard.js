@@ -264,11 +264,14 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 					setPrefixesForDatabank(data, manifest);
 					
 					var title = $.rdf({databank: manifest}).where('?manifest dc:title ?title').get(0).title.value;
-		
-					var nsUri = $.rdf({databank: manifest})
+					
+					var entry = $.rdf({databank: manifest})
 					.where('?ns rdf:type ?type')
 					.filter('type', /ns\/Sequence/)
-					.where('?ns ore:isDescribedBy ?uri').get(0).uri.value.toString();
+					.where('?ns ore:isDescribedBy ?uri').get(0);
+					var ns = entry.ns.value.toString();
+					var nsUri = entry.uri.value.toString();
+					console.log(ns, nsUri);
 					
 					var iaUri = $.rdf({databank: manifest})
 					.where('?ns rdf:type ?type')
@@ -334,12 +337,22 @@ PagingWizard.prototype.fetchSequence = function(iaUri) {
 		url: iaUri,
 		success: function(data, status, xhr, url) {
 			var annos = [];
-			var id = url.split('.xml')[0];
-			var list = $('rdf\\:Description[rdf\\:about="'+id+'"]', data);
+			var id = url.split('?url=').pop();
+			var rdf = $('rdf\\:Description[rdf\\:about="'+id+'"]', data);
+			var oreDescribes = $('ore\\:describes', rdf);
+			var listId = oreDescribes.attr('rdf:resource');
+			var list;
+			if (listId != null) {
+				list = $('rdf\\:Description[rdf\\:about="'+listId+'"]', data);
+			} else {
+				listId = oreDescribes.attr('rdf:nodeID');
+				list = $('rdf\\:Description[rdf\\:nodeID="'+listId+'"]', data);
+			}
 			var firstId = $('rdf\\:first', list).attr('rdf:resource');
 			var restId = $('rdf\\:rest', list).attr('rdf:nodeID');
 			
 			function getJsonForAnno(anno) {
+				console.log(anno);
 				var targetId = anno.children('oac\\:hasTarget').attr('rdf:resource');
 				var bodyId = anno.children('oac\\:hasBody').attr('rdf:resource');
 				var target = $('rdf\\:Description[rdf\\:about="'+targetId+'"]', data);
