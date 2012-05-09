@@ -174,6 +174,12 @@ public class Config implements ServletContextListener {
 		Config.transactionsSubDir = transactionsSubDir;
 	}
 
+	public static String getLogsSubDir() {
+		// this is hardcoded rather than read from the 
+		// config file to allow logging problems reading the config file.
+		return "logs";
+	}
+	
 	public static String getDefaultCollection() {
 		return defaultCollection;
 	}
@@ -228,6 +234,10 @@ public class Config implements ServletContextListener {
 		return (new File(homeDirPath, getTransactionsSubDir())).getAbsolutePath();
 	}
 
+	public static String getAbsolutePathToLogsDir() {
+		return (new File(homeDirPath, getLogsSubDir())).getAbsolutePath();
+	}
+	
 	public static String getAbsolutePathToMainTBDDir() {
 		return (new File(homeDirPath, mainTDBDatasetDir)).getAbsolutePath();
 	}
@@ -321,7 +331,7 @@ public class Config implements ServletContextListener {
          	return;
          }	
          	
-         File logDir = new File(homeDir, "logs");
+         File logDir = new File(homeDir, getLogsSubDir());
          if (!logDir.exists()) {
         	 logDir.mkdir();
          }

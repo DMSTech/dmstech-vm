@@ -1,5 +1,7 @@
 package edu.stanford.dmstech.vm;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
@@ -11,6 +13,8 @@ import javax.ws.rs.core.Response;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
+
+import org.apache.commons.io.filefilter.FileFilterUtils;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -322,4 +326,78 @@ public class SharedCanvasUtil {
 		
 		return model;
 	}
+	public void deleteLogFiles() {
+		deleteTxtFiles(new File(Config.getAbsolutePathToLogsDir()));
+	}
+	
+	public void deleteTransactionFiles() {
+		deleteNtFiles(new File(Config.getAbsolutePathToTransactionsDir()));
+	}
+
+	public void deleteAnnotationFiles() {
+		deleteNtFiles(new File(Config.getAbsolutePathToTextAnnosDir()));
+		deleteTxtFiles(new File(Config.getAbsolutePathToTextAnnosBodiesDir()));
+	}
+	
+	public void deleteIngestedManuscripts() {
+		File defaultCollectionDir = new File(Config.getAbsolutePathToDefaultCollectionsDir());
+		if (defaultCollectionDir.exists()) {
+			FileFilter directoryFilter = FileFilterUtils.directoryFileFilter();
+			for (File manuDir: defaultCollectionDir.listFiles(directoryFilter)) {
+				deleteManuscriptDir(manuDir);
+			}
+
+		}		
+	}
+	
+	public void deleteManuscriptDir(File manuDir) {
+			
+		File rdfDir = new File(manuDir, "rdf");
+		File sequenceDir = new File(rdfDir, "sequences");
+		
+		deleteNtFiles(sequenceDir);		
+		deleteDSStoreFile(sequenceDir);
+		sequenceDir.delete();
+		
+		deleteNtFiles(rdfDir);		
+		deleteDSStoreFile(rdfDir);
+		rdfDir.delete();
+			
+	   deleteAllFiles(manuDir);
+	   deleteDSStoreFile(manuDir);
+	   manuDir.delete();
+	   
+	}
+	
+	private void deleteNtFiles(File dir) {
+		FileFilter fileFilter = FileFilterUtils.suffixFileFilter(".nt");
+		deleteAllFiles(dir, fileFilter);
+	}
+	
+	private void deleteTxtFiles(File dir) {
+		FileFilter fileFilter = FileFilterUtils.suffixFileFilter(".txt");
+		deleteAllFiles(dir, fileFilter);
+	}
+	
+	private void deleteAllFiles(File dir, FileFilter fileFilter) {
+			if (dir.exists()) {			
+			for (File file: dir.listFiles(fileFilter)) {
+				file.delete();
+			}
+		}
+	}
+	
+	private void deleteAllFiles(File dir) {
+		if (dir.exists()) {			
+		for (File file: dir.listFiles()) {
+			file.delete();
+		}
+	}
+}
+	
+	private void deleteDSStoreFile(File dir) {
+		 File osxStoreFileinDir = new File(dir, ".DS_Store");
+			if (osxStoreFileinDir.exists()) osxStoreFileinDir.delete();
+	}
+	
 }

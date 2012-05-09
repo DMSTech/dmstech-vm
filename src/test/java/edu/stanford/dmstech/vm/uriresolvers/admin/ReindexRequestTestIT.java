@@ -1,4 +1,4 @@
-package edu.stanford.dmstech.vm.uriresolvers.search;
+package edu.stanford.dmstech.vm.uriresolvers.admin;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
