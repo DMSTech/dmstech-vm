@@ -18,7 +18,7 @@ public class ManuscriptManifestResoureMap {
 			@PathParam("manuscriptId") final String manuscriptId,
 			@PathParam("fileName") final String requestedFileName
 			) throws Exception {
-		return SharedCanvasUtil.getSerializedRDFFromHomeDir(Config.collectionSubDir + "/" + collectionId + "/" + manuscriptId + "/rdf/" + Config.manifestFileName, requestedFileName);
+		return SharedCanvasUtil.getSerializedRDFFromDir(Config.getAbsolutePathToManuscriptManifestFile(collectionId, manuscriptId), requestedFileName);
 			
 	}
 	

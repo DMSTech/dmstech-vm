@@ -35,9 +35,9 @@ public class SharedCanvas {
 	DMSTechRDFConstants rdfConstants = null;
 	
 	// one model for each of the files we'll serialize
-	Model sequenceResourceMapModel;
-	Model imageAnnosResourceMapModel;
-	Model sharedCanvasManifestResourceMapModel;
+	Model sequenceResourceMapModel = null;
+	Model imageAnnosResourceMapModel = null;
+	Model sharedCanvasManifestResourceMapModel = null;
 
 	Resource manifestAggregation;
 	/*
@@ -93,7 +93,7 @@ public class SharedCanvas {
 		
 	}
 	
-	public static SharedCanvas loadSharedCanvasModelFromRMs(Model sequenceRM, Model annoRM, Model manifestRM, String baseURI) throws Exception {
+/*	public static SharedCanvas loadSharedCanvasModelFromRMs(Model sequenceRM, Model annoRM, Model manifestRM, String baseURI) throws Exception {
 		// set the local RMs, then pull the image annos into anno ArrayList and canvases into sequence ArrayList
 		SharedCanvas sharedCanvasModel = new SharedCanvas();
 		sharedCanvasModel.initializeFromExistingModels(sequenceRM, annoRM, manifestRM, baseURI);		
@@ -138,7 +138,8 @@ public class SharedCanvas {
 		this.sequenceResourceMapModel = sequenceRM;
 		return this;
 	}
-
+*/
+	
 	private SharedCanvas initializeNewModel(
 			String baseURI,
 			String manuscriptName,
@@ -157,8 +158,6 @@ public class SharedCanvas {
 		canvasSequenceJavaList = new ArrayList<RDFNode>();
 		annotationSequenceJavaList = new ArrayList<RDFNode>();
 
-		sequenceResourceMapModel = ModelFactory.createDefaultModel();
-		imageAnnosResourceMapModel = ModelFactory.createDefaultModel();
 		sharedCanvasManifestResourceMapModel = ModelFactory.createDefaultModel();
 		
 		sequenceResourceMapModel.setNsPrefixes(rdfConstants.getInitializingModel());
@@ -203,29 +202,26 @@ public class SharedCanvas {
 				
 	}
 	
-	/** We rebuild the aggregation and resourcemap everytime model is requested
-	 * in case something new has been added.
-	 * @return
-	 */
+
 	public Model getImageAnnoResourceMap() {
-		deleteAllAggregationsAndRMFromModel(imageAnnosResourceMapModel);
-		createAnnoAggregationAndRMInModel(imageAnnosResourceMapModel);
+		if (imageAnnosResourceMapModel == null ) {
+			imageAnnosResourceMapModel = ModelFactory.createDefaultModel();
+			createAnnoAggregationAndRMInModel(imageAnnosResourceMapModel);
+		}
 		return imageAnnosResourceMapModel;
 	}
 	
-
 	public void serializeImageAnnoResourceMapToFile(String pathToFile, String format){
 		RDFUtils.serializeModelToFile(getImageAnnoResourceMap(), pathToFile, format);
 	}
 
 
-	/** We rebuild the aggregation and resourcemap everytime the  model is requested
-	 * in case something new has been added.
-	 * @return
-	 */
 	public Model getNormalSequenceResourceMap() {
-		deleteAllAggregationsAndRMFromModel(sequenceResourceMapModel);
-		createSequenceAggregationAndRMInModel(sequenceResourceMapModel);
+		if (sequenceResourceMapModel == null) {
+			sequenceResourceMapModel = ModelFactory.createDefaultModel();
+			createSequenceAggregationAndRMInModel(sequenceResourceMapModel);
+		}
+
 		return sequenceResourceMapModel;
 	}	
 	public void serializeNormalSequenceResourceMapToFile(String pathToFile, String format){
@@ -244,7 +240,7 @@ public class SharedCanvas {
 	}
 	
 	
-	private void deleteAllAggregationsAndRMFromModel(Model model) {
+/*	private void deleteAllAggregationsAndRMFromModel(Model model) {
 		ResIterator resourceMapResIter = model.listSubjectsWithProperty(RDF.type, rdfConstants.oreResourceMapClass);
 		while (resourceMapResIter.hasNext()){
 			Resource resourceMapResource = resourceMapResIter.nextResource();	
@@ -265,7 +261,7 @@ public class SharedCanvas {
 	}
 
 
-	
+	*/
 	
 	
 	private Resource createAggregationAndRMFromList(List<RDFNode> resourceList, Model model, String aggregationURI, Resource dmsAggregationType) {
@@ -304,8 +300,8 @@ public class SharedCanvas {
 			String countryName
 			) {
 		
-		Resource sequenceAggregation = createSequenceAggregationAndRMWithoutList(sharedCanvasManifestResourceMapModel);
-		Resource imageAnnoAggregation = createAnnoAggregationAndRMInModelWithoutList(sharedCanvasManifestResourceMapModel);		
+		Resource sequenceAggregation = SharedCanvasUtil.createSequenceAggregationAndRMWithoutList(sharedCanvasManifestResourceMapModel, getOptimizedSequenceURI(), getSequenceAggregationURI(), W3CDTF_NOW);
+		Resource imageAnnoAggregation = SharedCanvasUtil.createAnnoAggregationAndRMInModelWithoutList(sharedCanvasManifestResourceMapModel, getImageAnnosAggregationURI(), W3CDTF_NOW);	
 		
 		manifestAggregation = model.createResource(getManifestAggregationURI())
 				.addProperty(RDF.type, rdfConstants.oreAggregationClass)		
@@ -321,7 +317,8 @@ public class SharedCanvas {
 				.addProperty(rdfConstants.teiInstitutionProperty, institutionName)	
 				.addProperty(rdfConstants.teiSettlementProperty, settlementName)	
 				.addProperty(rdfConstants.teiRegionProperty, regionName)	
-				.addProperty(rdfConstants.teiCountryProperty, countryName);;
+				.addProperty(rdfConstants.teiCountryProperty, countryName)
+				.addProperty(rdfConstants.scNewSequenceEnpoint, model.createResource(getURIForPostingNewSequence()));
  
 		// add the resource map that describes the aggregation
 		model.createResource(getManifestRMURI())
@@ -335,8 +332,11 @@ public class SharedCanvas {
 		return manifestAggregation;
 	}
 
-	private Resource createSequenceAggregationAndRMInModel(Model model) {		
-		return createAggregationAndRMFromList(canvasSequenceJavaList, model, getSequenceAggregationURI(), rdfConstants.scSequenceClass);	
+	private Resource createSequenceAggregationAndRMInModel(Model model) {	
+		Resource optimizedSequenceURI = model.createResource(getOptimizedSequenceURI());		
+		Resource aggregation = createAggregationAndRMFromList(canvasSequenceJavaList, model, getSequenceAggregationURI(), rdfConstants.scSequenceClass);	
+		aggregation.addProperty(rdfConstants.scHasOptimizedSerialization, optimizedSequenceURI);
+		return aggregation;
 	}
 
 	private Resource createAnnoAggregationAndRMInModel(Model model) {		
@@ -344,15 +344,7 @@ public class SharedCanvas {
 		
 	}
 
-	private Resource createSequenceAggregationAndRMWithoutList(Model model) {		
-		return SharedCanvasUtil.addResourceMapAndAggregationToModel(model, getSequenceAggregationURI(), rdfConstants.scSequenceClass, W3CDTF_NOW);		
-	}
-
-	private Resource createAnnoAggregationAndRMInModelWithoutList(Model model) {		
-		return SharedCanvasUtil.addResourceMapAndAggregationToModel(model, getImageAnnosAggregationURI(), rdfConstants.scImageAnnotationListClass, W3CDTF_NOW);
-				
-		
-	}
+	
 	
 	public Resource createCanvasInModel(Model model, String width, String height, String title, String canvasURI) {		
 		return model.createResource(canvasURI)
@@ -384,10 +376,15 @@ public class SharedCanvas {
 	}
 	public String getManifestRMURI() {
 		return getManifestAggregationURI() + ".xml";
+	}	
+	private String getURIForPostingNewSequence() {
+		return UriBuilder.fromUri(baseURI).path("sequences").build().toString();		
 	}
-	
 	private String getSequenceAggregationURI() {
-		return UriBuilder.fromUri(baseURI).path("NormalSequence").build().toString();		
+		return UriBuilder.fromUri(baseURI).path("sequences/OriginalSequence").build().toString();		
+	}	
+	private String getOptimizedSequenceURI() {
+		return UriBuilder.fromUri(baseURI).path("sequences/optimized/OriginalSequence").build().toString();		
 	}	
 	private String getImageAnnosAggregationURI() {
 		return UriBuilder.fromUri(baseURI).path("ImageAnnotations").build().toString();		
