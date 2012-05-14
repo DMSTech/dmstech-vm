@@ -54,7 +54,7 @@ public class SequenceSubmission {
 		
 		String absolutePathToManuscriptManifestFile = Config.getAbsolutePathToManuscriptManifestFile(collectionId, manuscriptId);
 		Model manifestModel = RDFUtils.loadModelInAbsoluteDir(absolutePathToManuscriptManifestFile, "N-TRIPLE");
-		System.out.println(RDFUtils.serializeModelToString(manifestModel, "N-TRIPLE"));
+	//	System.out.println(RDFUtils.serializeModelToString(manifestModel, "N-TRIPLE"));
 		boolean doesSequenceChoiceExist = manifestModel.contains(null, RDF.type, rdfConstants.scSequenceChoiceClass);
 		if (doesSequenceChoiceExist) {
 			Resource sequenceChoice = manifestModel.listSubjectsWithProperty(RDF.type, rdfConstants.scSequenceChoiceClass).nextResource();
@@ -97,12 +97,12 @@ public class SequenceSubmission {
 			
 		}
 		String W3CDTF_NOW = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).format(new Date());
-		System.out.println("just before adding the agregation: \n" + RDFUtils.serializeModelToString(manifestModel, "N-TRIPLE"));
+	//	System.out.println("just before adding the agregation: \n" + RDFUtils.serializeModelToString(manifestModel, "N-TRIPLE"));
 		
 		
 		SharedCanvasUtil.createSequenceAggregationAndRMWithoutList(manifestModel, newOptimizedSequenceURI, newSequenceURI, W3CDTF_NOW);
 		
-		System.out.println("after adding the agregation: \n" + RDFUtils.serializeModelToString(manifestModel, "N-TRIPLE"));
+	//	System.out.println("after adding the agregation: \n" + RDFUtils.serializeModelToString(manifestModel, "N-TRIPLE"));
 		
 		RDFUtils.serializeModelToFile(manifestModel, absolutePathToManuscriptManifestFile, "N-TRIPLE");
 		
