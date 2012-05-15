@@ -125,6 +125,7 @@ _:AX2dX5092362eX3aX136f01c3c15X3aXX2dX7fe7 <http://www.w3.org/1999/02/22-rdf-syn
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/canvas-23> <http://www.w3.org/2003/12/exif/ns#height> "5599"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/canvas-23> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.shared-canvas.org/ns/Canvas> .
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/canvas-23> <http://www.w3.org/2003/12/exif/ns#width> "3859"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/sequences/OriginalSequence>     <http://www.shared-canvas.org/ns/hasOptimizedSerialization> <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/sequences/optimized/OriginalSequence> .
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/sequences/OriginalSequence> <http://www.openarchives.org/ore/terms/aggregates> <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/canvas-27> .
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/sequences/OriginalSequence> <http://www.openarchives.org/ore/terms/aggregates> <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/canvas-20> .
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/sequences/OriginalSequence> <http://www.openarchives.org/ore/terms/aggregates> <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/canvas-32> .
