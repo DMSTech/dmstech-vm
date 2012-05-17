@@ -160,8 +160,7 @@ public class SharedCanvas {
 
 		sharedCanvasManifestResourceMapModel = ModelFactory.createDefaultModel();
 		
-		sequenceResourceMapModel.setNsPrefixes(rdfConstants.getInitializingModel());
-		imageAnnosResourceMapModel.setNsPrefixes(rdfConstants.getInitializingModel());
+		
 		sharedCanvasManifestResourceMapModel.setNsPrefixes(rdfConstants.getInitializingModel());
 		//create the manifest
 		createManifestInModel(
@@ -207,6 +206,8 @@ public class SharedCanvas {
 		if (imageAnnosResourceMapModel == null ) {
 			imageAnnosResourceMapModel = ModelFactory.createDefaultModel();
 			createAnnoAggregationAndRMInModel(imageAnnosResourceMapModel);
+			imageAnnosResourceMapModel.setNsPrefixes(rdfConstants.getInitializingModel());
+			
 		}
 		return imageAnnosResourceMapModel;
 	}
@@ -220,6 +221,7 @@ public class SharedCanvas {
 		if (sequenceResourceMapModel == null) {
 			sequenceResourceMapModel = ModelFactory.createDefaultModel();
 			createSequenceAggregationAndRMInModel(sequenceResourceMapModel);
+			sequenceResourceMapModel.setNsPrefixes(rdfConstants.getInitializingModel());
 		}
 
 		return sequenceResourceMapModel;
