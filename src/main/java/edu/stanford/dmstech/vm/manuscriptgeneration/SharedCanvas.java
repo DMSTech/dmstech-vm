@@ -191,12 +191,12 @@ public class SharedCanvas {
 		String annotationURI = getNewAnnotationURI(canvasURI);
 		
 		// populate image annotation resource map and aggregation
-		Resource imageBody = createImageBodyInModel(imageAnnosResourceMapModel, imageURI, width, height);
-		Resource canvasTargetInAnnoRM = createCanvasInModel(imageAnnosResourceMapModel, width, height, pageTitle, canvasURI);
-		Resource annotation = createAnnotationInModel(imageAnnosResourceMapModel, annotationURI, width, height, imageBody, canvasTargetInAnnoRM);
+		Resource imageBody = createImageBodyInModel(getImageAnnoResourceMap(), imageURI, width, height);
+		Resource canvasTargetInAnnoRM = createCanvasInModel(getImageAnnoResourceMap(), width, height, pageTitle, canvasURI);
+		Resource annotation = createAnnotationInModel(getImageAnnoResourceMap(), annotationURI, width, height, imageBody, canvasTargetInAnnoRM);
 		annotationSequenceJavaList.add(annotation);
 		
-		Resource canvasTargetInSeqRM = createCanvasInModel(sequenceResourceMapModel, width, height, pageTitle, canvasURI);
+		Resource canvasTargetInSeqRM = createCanvasInModel(getNormalSequenceResourceMap(), width, height, pageTitle, canvasURI);
 		canvasSequenceJavaList.add(canvasTargetInSeqRM);
 				
 	}

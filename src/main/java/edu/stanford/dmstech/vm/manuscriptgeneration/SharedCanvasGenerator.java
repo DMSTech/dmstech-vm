@@ -173,7 +173,7 @@ public class SharedCanvasGenerator {
 		    ImageRecord dim = imageInfo.getImageRecord();
 		    String width = String.valueOf(dim.getWidth());
 		    String height = String.valueOf(dim.getHeight());
-		    System.out.println("width:  " + width + " and height: " + height + " and page title: " + pageTitle + " and filename: " + imageFileName);
+		//    System.out.println("width:  " + width + " and height: " + height + " and page title: " + pageTitle + " and filename: " + imageFileName);
 		    sharedCanvasInstance.addImageToSharedCanvas(imageFileName, pageTitle, width, height);					
 		   
 		    
