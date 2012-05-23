@@ -8,12 +8,16 @@
 	<div id="importer" class="ui-corner-all ui-widget-header">
 		<h2>Shared Canvas Generation</h2>
 		<div class="section ui-corner-all ui-widget-content">
-			<div class="info"><span class="icon"></span><p>JP2 images are generated for each image.</p></div>
 			<h3>Manuscript Directory and Images</h3>
+			<div class="info"><span class="icon"></span><p>JP2 images are generated for each image.</p></div>
 			<p class="description">Please create a subdirectory in the following directory on your machine:  <span id="directoryPath" class="technical"></span></p>
 			<p class="description">The name you give the subdirectory will be used to identify your manuscript in the local system.  It can be anything, e.g. <span class="technical">2323432</span> but should not contain characters other than numbers and letters.  No spaces are allowed in the directory or file names.</p>
 			<p class="description">Place the images you wish to ingest into the newly created subdirectory. Valid image file types are: <span class="technical">tif</span>, <span class="technical">tiff</span>, <span class="technical">jpg</span>, <span class="technical">jpeg</span>, <span class="technical">jp2</span>, <span class="technical">png</span>, <span class="technical">gif</span>, <span class="technical">bmp</span>.</p>
 			<label for="subdir">Subdirectory Name:</label><input type="text" id="subdir" name="subdir"/>
+			<hr/>
+			<p class="description">If you don't have access to the manuscipt computer, you can upload images in a ZIP file from your own computer. This will override the subdirectory name above.</p>
+			<label for="zipupload">ZIP File:</label><input type="file" name="file" id="zipupload" />
+			<hr/>
 			<p class="description">If you wish you may order your pages and provide page titles by naming the image files this way: <span class="technical">pageNumber_pageTitle</span>.  For example, <span class="technical">1_firstPage.tif</span> will be set as page 1 with title 'firstPage'.  No spaces may be included in the file name.</p>
 			<p class="description">After ingest you may reorder the pages and provide different titles.</p>
 			<p class="description">You do not need to name your files this way, or check the box, and may still reorder and name your pages after ingest.</p>

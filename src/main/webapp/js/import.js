@@ -17,38 +17,50 @@ $(document).ready(function() {
 	});
 	
 	$('button:eq(0)').button().click(function() {
-		var info = {};
-		
 		if ($('#subdir').val().match(/[^\w]/) != null) {
 			$('#subdir').addClass('ui-state-error');
 			alert('The subdirectory name may only contain letters and numbers.');
 			return;
 		}
 		
-		$('#importer input').each(function(index, el) {
-			info[$(this).attr('name')] = $(this).val();
-		});
-		
 		var collectionId = 'ingested';
 		var manuscriptId = $('#subdir').val();
 		
-		$.ajax({
-			url: 'http://'+host+path+'sc/'+collectionId+'/'+manuscriptId,
-			type: 'PUT',
-			data: info,
-			success: function(data, status, xhr) {
-				if (console || window.console) {
-					console.log(data, status);
-				}
-//				window.location = 'import_ordering.jsp';
-			},
-			error: function(xhr, status, msg) {
-				if (console || window.console) {
-					console.log(status, msg);
-				}
-//				window.location = 'import_ordering.jsp';
-			}
+		var formData = new FormData();
+		$('#importer input[type!="file"]').each(function(index, el) {
+			formData.append($(this).attr('name'), $(this).val());
 		});
+		
+		var zip = $('#zipupload')[0];
+		if (zip.files.length > 0) {
+			formData.append('file', zip.files[0]);
+		}
+		
+		// need to use this, since jquery ajax doesn't support formdata object
+		var req = new XMLHttpRequest();
+		req.addEventListener('load', function(e) {
+			if (req.status == '201') {
+				window.location = 'import_ordering.jsp?uri='+request.responseText;
+			} else {
+				alert('An error has occurred: '+req.statusText);
+			}
+		}, false);
+		req.addEventListener('error', function(e) {
+			alert('An error has occurred: '+req.statusText);
+		}, false);
+		
+		req.open('PUT', 'http://'+host+path+'sc/'+collectionId+'/'+manuscriptId);
+		req.send(formData);
+		
+//		$.ajax({
+//			url: 'http://'+host+path+'sc/'+collectionId+'/'+manuscriptId,
+//			type: 'PUT',
+//			data: info,
+//			success: function(data, status, xhr) {
+//			},
+//			error: function(xhr, status, msg) {
+//			}
+//		});
 	});
 	$('button:eq(1)').button().click(function() {
 		window.location = 'index.jsp';

@@ -2,11 +2,13 @@ function Viewer(config) {
 	this.config = config;
 	
 	this.id = this.config.id;
+	
+	this.current = null;
 }
 
 Viewer.prototype.showImage = function(event, data) {
-	var id = this.id;
-	$(id+' iframe').attr('src', 'loading.htm');
+	this.current = data;
+	$(this.id+' iframe').attr('src', 'loading.htm');
 	
 //	$.ajax(data.bodyId+'.json', {
 //		dataType: 'json',
@@ -24,7 +26,16 @@ Viewer.prototype.showImage = function(event, data) {
 };
 
 Viewer.prototype.activate = function() {
-	$(this.id).html('<iframe></iframe>');
+	$(this.id).html(''+
+	'<iframe></iframe>'+
+	'<div class="bottomButtons clear">'+
+		'<button id="tpenTranscribe">Transcribe in TPen</button>'+
+	'</div>');
+	$('#tpenTranscribe').button().click($.proxy(function() {
+		var url = 'http://'+window.location.host+'/TPEN/parkerRedirect.jsp?canvas='+this.current.canvasURI;
+		window.open(url, 'tpen');
+	}, this));
+	
 	this.resize($(this.id).height(), $(this.id).width());
 	eventManager.bind('imageSelected', $.proxy(this.showImage, this));
 };
@@ -34,5 +45,5 @@ Viewer.prototype.deactivate = function() {
 };
 
 Viewer.prototype.resize = function(height, width) {
-	$(this.id+' iframe').height(height).width(width);
+	$(this.id+' iframe').height(height-40).width(width);
 };

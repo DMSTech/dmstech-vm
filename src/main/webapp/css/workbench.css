@@ -42,6 +42,12 @@ iframe {
 	border: none;
 }
 
+.bottomButtons {
+    border-top: 1px solid #DDDDDD;
+    padding: 5px;
+    text-align: center;
+}
+
 #search input {
 	width: 225px;
 }

@@ -8,3 +8,4 @@
 		<script type="text/javascript" src="js/jquery/jquery-1.7.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery/jquery-ui-1.8.17.custom.min.js"></script>
 		<script type="text/javascript" src="js/action_dialog.js"></script>
+		<script type="text/javascript" src="js/utilities.js"></script>

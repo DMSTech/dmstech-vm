@@ -501,7 +501,7 @@ PagingWizard.prototype.imagesPager = function(pageNum, annotations) {
 		
 		$(this.id+' .wizImages li').each($.proxy(function(index, el) {
 			var data = cache[index];
-			$(el).data('metadata', {canvasTitle: data.canvasTitle, imageURI: data.imageURI, width: data.width, height: data.height});
+			$(el).data('metadata', data);
 			$(el).click($.proxy(function(event) {
 				eventManager.trigger('imageSelected', $(event.target).data('metadata'));
 			}, this));
