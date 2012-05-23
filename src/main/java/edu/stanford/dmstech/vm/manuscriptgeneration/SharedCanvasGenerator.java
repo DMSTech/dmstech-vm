@@ -151,21 +151,25 @@ public class SharedCanvasGenerator {
 				ZipEntry zentry = zippedInputStream.getNextEntry();
 				System.out.println("Name of current Zip Entry : " + zentry + "\n");
 				while (zentry != null) {
+				
 				  String entryName = zentry.getName();
+				  
 				  System.out.println("Name of  Zip Entry : " + entryName);
+				  
+				  if ( ! zentry.isDirectory() && ! entryName.contains("/") ) {
 				 
-				  File fileToSave = new File(directoryForManuscript, entryName);
-				  FileOutputStream outstream = new FileOutputStream(fileToSave);
-				  int n;
-
-				  while ((n = zippedInputStream.read(buf, 0, 1024)) > -1) {
-				    outstream.write(buf, 0, n);
-
+					  File fileToSave = new File(directoryForManuscript, entryName);
+					  FileOutputStream outstream = new FileOutputStream(fileToSave);
+					  int n;
+	
+					  while ((n = zippedInputStream.read(buf, 0, 1024)) > -1) {
+					    outstream.write(buf, 0, n);
+	
+					  }
+					  System.out.println("Extracted Image File : "
+					      + entryName);
+					  outstream.close();
 				  }
-				  System.out.println("Extracted Image File : "
-				      + entryName);
-				  outstream.close();
-
 				  zippedInputStream.closeEntry();
 				  zentry = zippedInputStream.getNextEntry();
 				  
