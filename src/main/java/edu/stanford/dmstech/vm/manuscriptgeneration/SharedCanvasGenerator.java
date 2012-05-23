@@ -66,14 +66,13 @@ public class SharedCanvasGenerator {
 	public void ingestTestManu() {
 		try {
 			
-			String fName = "bharat.zip";
-		    ZipInputStream zinstream = new ZipInputStream(
-		        new FileInputStream(fName));
+			String fName = "/Users/jameschartrand/ImageUploadTest.zip";
+		    FileInputStream instream = new FileInputStream(fName);
 		    
 			generateSharedCanvasInDefaultDir(
 					"aManu name", 
 					"a Manu title", 
-					"cma_1955_74", 
+					"fileUploadTest", 
 					"manuId 35", 
 					"altId 3", 
 					"a repoName", 
@@ -81,10 +80,10 @@ public class SharedCanvasGenerator {
 					"some settlement", 
 					"some region name", 
 					"some country", 
-					"cma_1955_74", 
+					"fileUploadTest", 
 					"ingested",
 					false,
-					zinstream);
+					instream);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}		
@@ -109,6 +108,7 @@ public class SharedCanvasGenerator {
 	
 		
 		directoryPathForManuscript = Config.getAbsolutePathToManuDirInDefaultCollection(manuscriptIdForIngest);
+		
 		baseURIForManuscript = Config.getBaseURIForManuscriptInDefaultCollection(manuscriptIdForIngest);
 		this.manuscriptIdForIngest = manuscriptIdForIngest;
 		this.collectionIdForIngest = collectionIdForIngest;
@@ -142,7 +142,9 @@ public class SharedCanvasGenerator {
 	}
 
 	private void saveZippedFilesToManuscriptDir(InputStream inputStream) {
-		 	ZipInputStream zippedInputStream;
+		 File directoryForManuscript = new File(directoryPathForManuscript);
+		  if (!directoryForManuscript.exists()) directoryForManuscript.mkdir();
+		 	ZipInputStream zippedInputStream = null;
 			try {
 				byte[] buf = new byte[1024];
 				zippedInputStream = new ZipInputStream(inputStream);
@@ -151,7 +153,8 @@ public class SharedCanvasGenerator {
 				while (zentry != null) {
 				  String entryName = zentry.getName();
 				  System.out.println("Name of  Zip Entry : " + entryName);
-				  File fileToSave = new File(directoryPathForManuscript, entryName);
+				 
+				  File fileToSave = new File(directoryForManuscript, entryName);
 				  FileOutputStream outstream = new FileOutputStream(fileToSave);
 				  int n;
 
@@ -165,7 +168,7 @@ public class SharedCanvasGenerator {
 
 				  zippedInputStream.closeEntry();
 				  zentry = zippedInputStream.getNextEntry();
-				  zippedInputStream.close();
+				  
 				}
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -173,7 +176,11 @@ public class SharedCanvasGenerator {
 				e.printStackTrace();
 			} finally {
 				
-
+				try {
+					zippedInputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		    
 		
