@@ -31,9 +31,6 @@
 			</div>
 		</div>
 	</div>
-	<div id="statusDialog">
-		<div id="statusParent"><span id="statusIcon"></span><span id="status"></span></div>
-	</div>
 	<div id="resetDialog">
 		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>Are you sure?<br/>This will delete all new data you've entered including: ingested collections, annotations, logs, and recorded transactions.</p>
 	</div>

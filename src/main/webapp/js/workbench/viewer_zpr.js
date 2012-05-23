@@ -8,7 +8,7 @@ function ViewerZPR(config) {
 
 ViewerZPR.prototype.showImage = function(event, data) {
 	this.zpr = new zpr('zpr_viewer', {
-		imageStacksURL: data.bodyId,
+		imageStacksURL: data.imageURI,
 		width: data.width,
 		height: data.height,
 		marqueeImgSize: 125

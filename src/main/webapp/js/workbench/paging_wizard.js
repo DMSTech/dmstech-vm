@@ -1,7 +1,9 @@
 function PagingWizard(config) {
 	this.config = config;
 	
-	this.collectionsUrl = this.config.url;
+	this.type = this.config.type;
+	
+	this.initialUrl = this.config.url;
 	this.id = this.config.id;
 	this.pageSize = this.config.pageSize == null ? 20 : this.config.pageSize;
 	this.initManifest = this.config.manifest;
@@ -19,6 +21,7 @@ function PagingWizard(config) {
 			'<span class="wizPrev" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-triangle-1-w"></span></span>'+
 		'</div>'+
 		'<div class="wizSteps">'+
+			'<div class="wizRepositories"><h2>Repositories</h2><ul></ul></div>'+
 			'<div class="wizCollections"><h2>Collections</h2><ul></ul></div>'+
 			'<div class="wizManifests"><h2>Manifests</h2><ul></ul></div>'+
 			'<div class="wizImages"><h2>Images</h2><ul></ul></div>'+
@@ -33,6 +36,10 @@ function PagingWizard(config) {
 	'<div class="wizLoading" class="ui-corner-all ui-widget-content"></div>');
 	
 	this.steps = [new WizardStep({
+		wiz: this,
+		id: 'wizRepositories',
+		pagerFunction: this.repositoriesPager
+	}),new WizardStep({
 		wiz: this,
 		id: 'wizCollections',
 		pagerFunction: this.collectionsPager
@@ -49,7 +56,7 @@ function PagingWizard(config) {
 	$(this.id+' .wizPrev').hover(function() {
 		$(this).toggleClass('ui-state-hover');
 	}).click($.proxy(function() {
-		if (this.currentStep > 0) {
+		if (this.type == 'remote' && this.currentStep > 0 || this.type == 'local' && this.currentStep > 1) {
 			this.showStep(this.currentStep - 1);
 		}
 	}, this));
@@ -77,7 +84,13 @@ function PagingWizard(config) {
 	$(this.id+' .wizImages').hide();
 	$(this.id+' .wizPager').hide();
 	
-	this.initCollections();
+	if (this.type == 'remote') {
+		$(this.id+' .wizCollections').hide();
+		this.initRepositories(this.initialUrl);
+	} else {
+		$(this.id+' .wizRepositories').hide();
+		this.initCollections(this.initialUrl);
+	}
 }
 
 PagingWizard.prototype.show = function() {
@@ -134,9 +147,84 @@ PagingWizard.prototype.getCurrentStep = function() {
 	return this.steps[this.currentStep];
 };
 
-PagingWizard.prototype.initCollections = function() {
+PagingWizard.prototype.initRepositories = function(url) {
 	this.loading(true);
-	var url = this.collectionsUrl;
+	if (url.match('localhost') == null) {
+		url = 'http://'+this.host+this.path+'proxy.jsp?url='+url;
+	}
+	$.ajax({
+		url: url,
+		success: $.proxy(function(data, status, xhr) {
+			var repository = $.rdf.databank();
+			repository.load(data);
+			setPrefixesForDatabank(data, repository);
+			
+			var uris = [];
+			var repositories = [];
+			
+			$.rdf({databank: repository})
+			.where('?repository ore:aggregates ?uri')
+			.each(function(index, match) {
+				uris.push(match.uri.value.toString()+'.xml');
+			});
+			
+			var count = 0;
+			for (var i = 0; i < uris.length; i++) {
+				var url = uris[i];
+				if (url.match('localhost') == null) {
+					url = 'http://'+this.host+this.path+'proxy.jsp?url='+url;
+				}
+				$.ajax({
+					url: url,
+					success: $.proxy(function(data, status, xhr) {
+						var repository = $.rdf.databank();
+						repository.load(data);
+						setPrefixesForDatabank(data, repository);
+						
+						var title = $.rdf({databank: repository}).where('?repository dc:title ?title').get(0).title.value;
+						
+						repositories.push({
+							data: title,
+							metadata: {
+								type: 'repository',
+								uri: url
+							}
+						});
+						
+						count++;
+						if (count == uris.length) {
+							this.loading(false);
+							this.steps[0].init(repositories);
+						}
+					}, this),
+					error: function() {
+						count++;
+					}
+				});
+			}
+		}, this)
+	});
+};
+
+PagingWizard.prototype.repositoriesPager = function(pageNum, repositories) {	
+	$(this.id+' .wizRepositories ul').empty();
+	
+	for (var i = 0; i < repositories.length; i++) {
+		var r = repositories[i];
+		$(this.id+' .wizRepositories ul').append('<li>'+r.data+'</li>');
+		$(this.id+' .wizRepositories ul li:last').data('uri', r.metadata.uri);
+		this.idCount++;
+	}
+	
+	$(this.id+' .wizRepositories li').click($.proxy(function(event) {
+		this.initCollections($(event.target).data('uri'));
+	}, this));
+	
+	this.showStep(0);
+};
+
+PagingWizard.prototype.initCollections = function(url) {
+	this.loading(true);
 	if (url.match('localhost') == null) {
 		url = 'http://'+this.host+this.path+'proxy.jsp?url='+url;
 	}
@@ -186,7 +274,7 @@ PagingWizard.prototype.initCollections = function() {
 						count++;
 						if (count == uris.length) {
 							this.loading(false);
-							this.steps[0].init(localCollections);
+							this.steps[1].init(localCollections);
 							if (this.initManifest != null) {
 								this.loadManifestURI(this.initManifest);
 							}
@@ -212,14 +300,14 @@ PagingWizard.prototype.collectionsPager = function(pageNum, collections) {
 	}
 	
 	$(this.id+' .wizCollections li').click($.proxy(function(event) {
-		this.steps[1].init($(event.target).data('uris'));
+		this.steps[2].init($(event.target).data('uris'));
 	}, this));
 	
-	this.showStep(0);
+	this.showStep(1);
 };
 
 PagingWizard.prototype.loadManifestURI = function(uri) {
-	this.steps[1].init([uri]);
+	this.steps[2].init([uri]);
 };
 
 PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
@@ -233,7 +321,7 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 			$(el).data('iaUri', data.iaUri);
 			$(el).data('nsUri', data.nsUri);
 			$(el).click($.proxy(function(event) {
-				$.proxy(this.fetchSequence($(event.target).data('iaUri')), this);
+				$.proxy(this.fetchSequence($(event.target).data()), this);
 			}, this));
 		}, this));
 	}
@@ -270,14 +358,14 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 					.filter('type', /ns\/Sequence/)
 					.where('?ns ore:isDescribedBy ?uri').get(0);
 					var ns = entry.ns.value.toString();
-					var nsUri = entry.uri.value.toString();
+//					var nsUri = entry.uri.value.toString();
 					
 					var iaUri = $.rdf({databank: manifest})
 					.where('?ns rdf:type ?type')
 					.filter('type', /ns\/ImageAnnotationList/)
 					.where('?ns ore:isDescribedBy ?uri').get(0).uri.value.toString();
 					
-					cache.push({title: title, nsUri: nsUri, iaUri: iaUri});
+					cache.push({title: title, nsUri: ns, iaUri: iaUri});
 					
 					liString += '<li id="man_'+this.idCount+'">'+title+'</li>';
 					this.idCount++;
@@ -287,7 +375,7 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 						
 						buildPage.apply(this, [liString, cache]);
 						
-						this.showStep(1);
+						this.showStep(2);
 						
 						$(this.id+' .wizManifests').data('page'+pageNum, cache);
 					}
@@ -298,7 +386,10 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 	}
 };
 
-PagingWizard.prototype.fetchSequence = function(iaUri) {
+PagingWizard.prototype.fetchSequence = function(data) {
+	var iaUri = data.iaUri;
+	var nsUri = data.nsUri;
+	
 	this.loading(true);
 	
 	/* ordering code using rdfquery
@@ -331,65 +422,75 @@ PagingWizard.prototype.fetchSequence = function(iaUri) {
 	*/
 	if (iaUri.match('localhost') == null) {
 		iaUri = 'http://'+this.host+this.path+'proxy.jsp?url='+iaUri;
-	}
-	$.ajax({
-		url: iaUri,
-		success: function(data, status, xhr, url) {
-			var annos = [];
-			var id = url.split('?url=').pop();
-			var rdf = $('rdf\\:Description[rdf\\:about="'+id+'"]', data);
-			var oreDescribes = $('ore\\:describes', rdf);
-			var listId = oreDescribes.attr('rdf:resource');
-			var list;
-			if (listId != null) {
-				list = $('rdf\\:Description[rdf\\:about="'+listId+'"]', data);
-			} else {
-				listId = oreDescribes.attr('rdf:nodeID');
-				list = $('rdf\\:Description[rdf\\:nodeID="'+listId+'"]', data);
-			}
-			var firstId = $('rdf\\:first', list).attr('rdf:resource');
-			var restId = $('rdf\\:rest', list).attr('rdf:nodeID');
-			
-			function getJsonForAnno(anno) {
-				var targetId = anno.children('oac\\:hasTarget').attr('rdf:resource');
-				var bodyId = anno.children('oac\\:hasBody').attr('rdf:resource');
-				var target = $('rdf\\:Description[rdf\\:about="'+targetId+'"]', data);
-				var body = $('rdf\\:Description[rdf\\:about="'+bodyId+'"]', data);
-				return {
-					id: targetId,
-					title: target.children('dc\\:title').text(),
-					bodyId: bodyId,
-					width: body.children('exif\\:width').text(),
-					height: body.children('exif\\:height').text()
-				};
-			}
-			
-			var firstAnno = $('rdf\\:Description[rdf\\:about="'+firstId+'"]', data);
-			annos.push(getJsonForAnno(firstAnno));
-			
-			function getOrder(nodeId, count) {
-				var node = $('rdf\\:Description[rdf\\:nodeID="'+nodeId+'"]', data);
-				var firstId = $('rdf\\:first', node).attr('rdf:resource');
+		$.ajax({
+			url: iaUri,
+			success: function(data, status, xhr, url) {
+				var annos = [];
+				var id = url.split('?url=').pop();
+				var rdf = $('rdf\\:Description[rdf\\:about="'+id+'"]', data);
+				var oreDescribes = $('ore\\:describes', rdf);
+				var listId = oreDescribes.attr('rdf:resource');
+				var list;
+				if (listId != null) {
+					list = $('rdf\\:Description[rdf\\:about="'+listId+'"]', data);
+				} else {
+					listId = oreDescribes.attr('rdf:nodeID');
+					list = $('rdf\\:Description[rdf\\:nodeID="'+listId+'"]', data);
+				}
+				var firstId = $('rdf\\:first', list).attr('rdf:resource');
+				var restId = $('rdf\\:rest', list).attr('rdf:nodeID');
+				
+				function getJsonForAnno(anno) {
+					var targetId = anno.children('oac\\:hasTarget').attr('rdf:resource');
+					var bodyId = anno.children('oac\\:hasBody').attr('rdf:resource');
+					var target = $('rdf\\:Description[rdf\\:about="'+targetId+'"]', data);
+					var body = $('rdf\\:Description[rdf\\:about="'+bodyId+'"]', data);
+					return {
+						canvasURI: targetId,
+						canvasTitle: target.children('dc\\:title').text(),
+						imageURI: bodyId,
+						width: body.children('exif\\:width').text(),
+						height: body.children('exif\\:height').text()
+					};
+				}
+				
 				var firstAnno = $('rdf\\:Description[rdf\\:about="'+firstId+'"]', data);
 				annos.push(getJsonForAnno(firstAnno));
-				var restId = $('rdf\\:rest', node).attr('rdf:nodeID');
-				if (restId != undefined) {
-					count++;
-					if (count > 25) {
-						count = 0;
-						setTimeout(getOrder.createDelegate(this, [restId, count], 0), 50);
+				
+				function getOrder(nodeId, count) {
+					var node = $('rdf\\:Description[rdf\\:nodeID="'+nodeId+'"]', data);
+					var firstId = $('rdf\\:first', node).attr('rdf:resource');
+					var firstAnno = $('rdf\\:Description[rdf\\:about="'+firstId+'"]', data);
+					annos.push(getJsonForAnno(firstAnno));
+					var restId = $('rdf\\:rest', node).attr('rdf:nodeID');
+					if (restId != undefined) {
+						count++;
+						if (count > 25) {
+							count = 0;
+							setTimeout(getOrder.createDelegate(this, [restId, count], 0), 50);
+						} else {
+							getOrder.apply(this, [restId, count]);
+						}
 					} else {
-						getOrder.apply(this, [restId, count]);
+						this.loading(false);
+						this.steps[3].init(annos);
+						eventManager.trigger('sequenceSelected', [annos]);
 					}
-				} else {
-					this.loading(false);
-					this.steps[2].init(annos);
-					eventManager.trigger('sequenceSelected', [annos]);
 				}
-			}
-			getOrder.apply(this, [restId, 0]);
-		}.createDelegate(this, [iaUri], true)
-	});
+				getOrder.apply(this, [restId, 0]);
+			}.createDelegate(this, [iaUri], true)
+		});
+	} else {
+		var optUrl = nsUri.replace(/(\/\w*$)/, '/optimized$1.json');
+		$.ajax({
+			url: optUrl,
+			success: $.proxy(function(data, status, xhr) {
+				this.loading(false);
+				this.steps[3].init(data, nsUri);
+				eventManager.trigger('sequenceSelected', [data, nsUri]);
+			}, this)
+		});
+	}
 };
 
 PagingWizard.prototype.imagesPager = function(pageNum, annotations) {
@@ -400,7 +501,7 @@ PagingWizard.prototype.imagesPager = function(pageNum, annotations) {
 		
 		$(this.id+' .wizImages li').each($.proxy(function(index, el) {
 			var data = cache[index];
-			$(el).data('metadata', {title: data.title, bodyId: data.bodyId, width: data.width, height: data.height});
+			$(el).data('metadata', {canvasTitle: data.canvasTitle, imageURI: data.imageURI, width: data.width, height: data.height});
 			$(el).click($.proxy(function(event) {
 				eventManager.trigger('imageSelected', $(event.target).data('metadata'));
 			}, this));
@@ -412,7 +513,7 @@ PagingWizard.prototype.imagesPager = function(pageNum, annotations) {
 	if (cache != null) {
 		for (var i = 0; i < cache.length; i++) {
 			var data = cache[i];
-			liString += '<li id="img_'+this.idCount+'">'+data.title+'</li>';
+			liString += '<li id="img_'+this.idCount+'">'+data.canvasTitle+'</li>';
 			this.idCount++;
 		}
 		buildPage.apply(this, [liString, cache]);
@@ -423,11 +524,11 @@ PagingWizard.prototype.imagesPager = function(pageNum, annotations) {
 //			cache.push({title: a.targets[0].title, bodyId: a.body.id, width: a.body.width, height: a.body.height});
 			cache.push(a);
 			
-			liString += '<li id="img_'+this.idCount+'">'+a.title+'</li>';
+			liString += '<li id="img_'+this.idCount+'">'+a.canvasTitle+'</li>';
 			this.idCount++;
 		}
 		buildPage.apply(this, [liString, cache]);
-		this.showStep(2);
+		this.showStep(3);
 		$(this.id+' .wizImages').data('page'+pageNum, cache);
 	}
 };
@@ -441,12 +542,18 @@ function WizardStep(config) {
 	this.pagerFunction = config.pagerFunction;
 }
 
-WizardStep.prototype.init = function(items) {
+/**
+ * Initialize a step in the wizard
+ * @param items The items to page through
+ * @param [data] Extra data associated with this step (ids, etc.), optional
+ */
+WizardStep.prototype.init = function(items, data) {
 	var totalPages = Math.ceil(items.length / this.wiz.pageSize);
 	
 	$(this.wiz.id+' .'+this.id).removeData();
 	
 	this.cache = items;
+	this.data = data;
 	this.currentPage = 0;
 	this.totalPages = totalPages;
 	

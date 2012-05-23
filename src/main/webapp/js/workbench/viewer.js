@@ -18,7 +18,7 @@ Viewer.prototype.showImage = function(event, data) {
 	setTimeout(function() {
 //		var iframeWidth = $(id+' iframe').width();
 //		var ratio = data.width / iframeWidth;
-		$('#toolContent iframe').attr('src', data.bodyId+'_large');
+		$('#toolContent iframe').attr('src', data.imageURI+'_large');
 //		$('#toolContent iframe').attr('height', data.height / ratio);
 	}, 150);
 };

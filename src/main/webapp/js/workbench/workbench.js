@@ -16,13 +16,15 @@ Workbench.prototype.init = function() {
 	
 	var manifest = getParameterByName('manifest');
 	this.localPagingWizard = new PagingWizard({
+		type: 'local',
 		id: '#collectionsLocal',
 		url: 'http://'+this.host+this.path+'sc/Repository.xml',
 		manifest: manifest
 	});
 	this.remotePagingWizard = new PagingWizard({
+		type: 'remote',
 		id: '#collectionsRemote',
-		url: 'http://dms-data.stanford.edu/Repository.xml'
+		url: 'http://dms-data.stanford.edu/Repositories.xml'
 	});
 	
 	$('#collections input:first').trigger('click');
@@ -39,14 +41,6 @@ Workbench.prototype.init = function() {
 		id: 'orderer',
 		label: 'Orderer',
 		tool: this.orderer
-	},{
-		id: 'tpen',
-		label: 'TPen',
-		tool: null
-	},{
-		id: 'dm',
-		label: 'DM',
-		tool: null
 	},{
 		id: 'enhancedViewer',
 		label: 'Enhanced Viewer',
@@ -85,8 +79,9 @@ Workbench.prototype.toolChange = function(event) {
 	var toolInfo = $(event.target).data('tool');
 	this.currentTool = toolInfo.tool;
 	var data = null;
-	if (toolInfo.id == 'orderer' && this.currentCollection.currentStep == 2) {
-		data = this.currentCollection.getCurrentStep().cache;
+	if (toolInfo.id == 'orderer' && this.currentCollection.currentStep == this.currentCollection.steps.length - 1) {
+		var step = this.currentCollection.getCurrentStep();
+		data = {items: step.cache, sequenceURI: step.data};
 	}
 	this.currentTool.activate(data);
 };
