@@ -86,6 +86,7 @@ public class ManuscriptConceptual {
 				uploadedInputStream
 				);
 		 
+		
 		return Response.created(new URI(manuscriptManifestURI)).entity(manuscriptManifestURI).build();
 		
 

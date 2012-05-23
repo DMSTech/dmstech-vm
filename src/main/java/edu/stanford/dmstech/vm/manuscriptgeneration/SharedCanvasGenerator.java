@@ -82,7 +82,7 @@ public class SharedCanvasGenerator {
 					"some country", 
 					"fileUploadTest", 
 					"ingested",
-					false,
+					false, 
 					instream);
 			} catch (Exception e) {
 				e.printStackTrace();
