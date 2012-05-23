@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="lib" path="/usr/local/adore-djatoka-1.1/lib/uk.co.mmscomputing.imageio.tiff.jar"/>
-	<classpathentry kind="lib" path="/usr/local/adore-djatoka-1.1/lib/junit-4.5.jar"/>
-	<classpathentry kind="lib" path="/usr/local/adore-djatoka-1.1/lib/log4j-1.2.8.jar"/>
-	<classpathentry kind="lib" path="/usr/local/adore-djatoka-1.1/lib/xalan.jar"/>
-	<classpathentry kind="lib" path="/usr/local/adore-djatoka-1.1/lib/adore-djatoka-1.1.jar"/>
-	<classpathentry kind="lib" path="/usr/local/adore-djatoka-1.1/lib/commons-cli-1.1.jar"/>
-	<classpathentry kind="lib" path="/usr/local/adore-djatoka-1.1/lib/commons-dbcp-1.2.2.jar"/>
-	<classpathentry kind="lib" path="/usr/local/adore-djatoka-1.1/lib/commons-pool-1.4.jar"/>
-	<classpathentry kind="lib" path="/usr/local/adore-djatoka-1.1/lib/ij-ImageIO.jar"/>
-	<classpathentry kind="lib" path="/usr/local/adore-djatoka-1.1/lib/ij.jar"/>
-	<classpathentry kind="lib" path="/usr/local/adore-djatoka-1.1/lib/jai_codec.jar"/>
-	<classpathentry kind="lib" path="/usr/local/adore-djatoka-1.1/lib/jai_core.jar"/>
-	<classpathentry kind="lib" path="/usr/local/adore-djatoka-1.1/lib/kdu_jni.jar"/>
-	<classpathentry kind="lib" path="/usr/local/adore-djatoka-1.1/lib/mlibwrapper_jai.jar"/>
-	<classpathentry kind="lib" path="/usr/local/adore-djatoka-1.1/lib/oom.jar"/>
-	<classpathentry kind="lib" path="/usr/local/adore-djatoka-1.1/lib/oomRef.jar"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>

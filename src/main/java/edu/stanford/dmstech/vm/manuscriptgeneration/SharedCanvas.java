@@ -201,33 +201,38 @@ public class SharedCanvas {
 				
 	}
 	
+	public Model getFinalImageAnnoResourceMap() {		
+		createAnnoAggregationAndRMInModel(getImageAnnoResourceMap());
+		return getImageAnnoResourceMap();
+	}
 
 	public Model getImageAnnoResourceMap() {
 		if (imageAnnosResourceMapModel == null ) {
 			imageAnnosResourceMapModel = ModelFactory.createDefaultModel();
-			createAnnoAggregationAndRMInModel(imageAnnosResourceMapModel);
-			imageAnnosResourceMapModel.setNsPrefixes(rdfConstants.getInitializingModel());
-			
+			imageAnnosResourceMapModel.setNsPrefixes(rdfConstants.getInitializingModel());			
 		}
 		return imageAnnosResourceMapModel;
 	}
 	
 	public void serializeImageAnnoResourceMapToFile(String pathToFile, String format){
-		RDFUtils.serializeModelToFile(getImageAnnoResourceMap(), pathToFile, format);
+		RDFUtils.serializeModelToFile(getFinalImageAnnoResourceMap(), pathToFile, format);
 	}
 
+	public Model getFinalNormalSequenceResourceMap() {		
+		createSequenceAggregationAndRMInModel(getNormalSequenceResourceMap());
+		return getNormalSequenceResourceMap();
+	}
 
 	public Model getNormalSequenceResourceMap() {
 		if (sequenceResourceMapModel == null) {
 			sequenceResourceMapModel = ModelFactory.createDefaultModel();
-			createSequenceAggregationAndRMInModel(sequenceResourceMapModel);
 			sequenceResourceMapModel.setNsPrefixes(rdfConstants.getInitializingModel());
 		}
-
 		return sequenceResourceMapModel;
 	}	
+	
 	public void serializeNormalSequenceResourceMapToFile(String pathToFile, String format){
-		RDFUtils.serializeModelToFile(getNormalSequenceResourceMap(), pathToFile, format);
+		RDFUtils.serializeModelToFile(getFinalNormalSequenceResourceMap(), pathToFile, format);
 	}
 	
 	public Model getManifestResourceMap() {
@@ -284,7 +289,7 @@ public class SharedCanvas {
 			
 		com.hp.hpl.jena.util.ResourceUtils.renameResource(aggregation, aggregationURI);		
 		
-		return aggregation;
+		return model.getResource(aggregationURI);
 		
 	}
 	

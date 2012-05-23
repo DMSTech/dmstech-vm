@@ -60,7 +60,7 @@ public class SharedCanvasGenerator {
 			generateSharedCanvasInDefaultDir(
 					"aManu name", 
 					"a Manu title", 
-					"collid 3223", 
+					"cma_1955_74", 
 					"manuId 35", 
 					"altId 3", 
 					"a repoName", 
@@ -68,7 +68,7 @@ public class SharedCanvasGenerator {
 					"some settlement", 
 					"some region name", 
 					"some country", 
-					"test1", 
+					"cma_1955_74", 
 					"ingested",
 					false);
 			} catch (Exception e) {
@@ -174,10 +174,7 @@ public class SharedCanvasGenerator {
 		    String width = String.valueOf(dim.getWidth());
 		    String height = String.valueOf(dim.getHeight());
 		//    System.out.println("width:  " + width + " and height: " + height + " and page title: " + pageTitle + " and filename: " + imageFileName);
-		    sharedCanvasInstance.addImageToSharedCanvas(imageFileName, pageTitle, width, height);					
-		   
-		    
-		    
+		    sharedCanvasInstance.addImageToSharedCanvas(imageFileName, pageTitle, width, height);					   
 		}
 	}
 	
