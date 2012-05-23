@@ -1,8 +1,10 @@
 package edu.stanford.dmstech.vm.uriresolvers;
 
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -11,6 +13,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+
+import javax.ws.rs.Consumes;
+
+import com.sun.jersey.multipart.FormDataParam;
 
 import edu.stanford.dmstech.vm.manuscriptgeneration.SharedCanvasGenerator;
 
@@ -43,6 +49,7 @@ public class ManuscriptConceptual {
 	}
 	
 	@javax.ws.rs.PUT
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public Response generateSharedCanvas(
 			@PathParam("manuscriptId") final String manuscriptIdForIngest,
 			@PathParam("collectionId") final String collectionIdForIngest,
@@ -56,7 +63,8 @@ public class ManuscriptConceptual {
 			@FormParam("settlement") final String settlementName,
 			@FormParam("region") final String regionName,
 			@FormParam("country") final String countryName,						
-			@FormParam("parseFileNames") final boolean parseTitlesAndPageNums
+			@FormParam("parseFileNames") final boolean parseTitlesAndPageNums,
+			@FormDataParam("file") InputStream uploadedInputStream
 			) throws Exception {
 	
 		SharedCanvasGenerator sharedCanvasGenerator = new SharedCanvasGenerator();
@@ -74,7 +82,8 @@ public class ManuscriptConceptual {
 				countryName,
 				manuscriptIdForIngest,
 				collectionIdForIngest,
-				parseTitlesAndPageNums
+				parseTitlesAndPageNums,
+				uploadedInputStream
 				);
 		
 		return Response.created(new URI(manuscriptManifestURI)).build();

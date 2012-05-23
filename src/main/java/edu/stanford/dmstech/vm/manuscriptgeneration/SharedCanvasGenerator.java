@@ -2,8 +2,16 @@ package edu.stanford.dmstech.vm.manuscriptgeneration;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.io.*;
+import java.util.zip.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
@@ -57,10 +65,14 @@ public class SharedCanvasGenerator {
 	
 	public void ingestTestManu() {
 		try {
+			
+			String fName = "/Users/jameschartrand/ImageUploadTest.zip";
+		    FileInputStream instream = new FileInputStream(fName);
+		    
 			generateSharedCanvasInDefaultDir(
 					"aManu name", 
 					"a Manu title", 
-					"cma_1955_74", 
+					"fileUploadTest", 
 					"manuId 35", 
 					"altId 3", 
 					"a repoName", 
@@ -68,9 +80,10 @@ public class SharedCanvasGenerator {
 					"some settlement", 
 					"some region name", 
 					"some country", 
-					"cma_1955_74", 
+					"fileUploadTest", 
 					"ingested",
-					false);
+					false,
+					instream);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}		
@@ -89,14 +102,20 @@ public class SharedCanvasGenerator {
 			String countryName, 
 			String manuscriptIdForIngest, 
 			String collectionIdForIngest,
-			boolean parseTitle
+			boolean parseTitle,
+			InputStream inputStream
 		) throws Exception {
 	
 		
 		directoryPathForManuscript = Config.getAbsolutePathToManuDirInDefaultCollection(manuscriptIdForIngest);
+		
 		baseURIForManuscript = Config.getBaseURIForManuscriptInDefaultCollection(manuscriptIdForIngest);
 		this.manuscriptIdForIngest = manuscriptIdForIngest;
 		this.collectionIdForIngest = collectionIdForIngest;
+		
+		if (inputStream != null && inputStream.available() != 0) {
+			saveZippedFilesToManuscriptDir(inputStream);
+		}
 		
 		sharedCanvasInstance = SharedCanvas.createNewSharedCanvasModel(
 				baseURIForManuscript,
@@ -120,6 +139,55 @@ public class SharedCanvasGenerator {
 		
 		return baseURIForManuscript;
 	
+	}
+
+	private void saveZippedFilesToManuscriptDir(InputStream inputStream) {
+		 File directoryForManuscript = new File(directoryPathForManuscript);
+		  if (!directoryForManuscript.exists()) directoryForManuscript.mkdir();
+		 	ZipInputStream zippedInputStream = null;
+			try {
+				byte[] buf = new byte[1024];
+				zippedInputStream = new ZipInputStream(inputStream);
+				ZipEntry zentry = zippedInputStream.getNextEntry();
+				System.out.println("Name of current Zip Entry : " + zentry + "\n");
+				while (zentry != null) {
+				
+				  String entryName = zentry.getName();
+				  
+				  System.out.println("Name of  Zip Entry : " + entryName);
+				  
+				  if ( ! zentry.isDirectory() && ! entryName.contains("/") ) {
+				 
+					  File fileToSave = new File(directoryForManuscript, entryName);
+					  FileOutputStream outstream = new FileOutputStream(fileToSave);
+					  int n;
+	
+					  while ((n = zippedInputStream.read(buf, 0, 1024)) > -1) {
+					    outstream.write(buf, 0, n);
+	
+					  }
+					  System.out.println("Extracted Image File : "
+					      + entryName);
+					  outstream.close();
+				  }
+				  zippedInputStream.closeEntry();
+				  zentry = zippedInputStream.getNextEntry();
+				  
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				
+				try {
+					zippedInputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		    
+		
 	}
 
 	private void generateJP2sFromSourceImages() throws Exception {
