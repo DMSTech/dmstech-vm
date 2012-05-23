@@ -1,3 +1,4 @@
+
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/ImageAnnotations>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/Aggregation> .
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/ImageAnnotations>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.shared-canvas.org/ns/ImageAnnotationList> .
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/ImageAnnotations>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .
@@ -10,6 +11,7 @@
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/Manifest>     <http://purl.org/dc/elements/1.1/title> "Manuscript fragment of the Gospels and Canonical Epistles, glossed" .
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/Manifest>     <http://www.openarchives.org/ore/terms/aggregates> <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/ImageAnnotations> .
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/Manifest>     <http://www.openarchives.org/ore/terms/aggregates> <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/sequences/OriginalSequence> .
+<http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/Manifest>     <http://www.shared-canvas.org/ns/newSequenceEndpoint> <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/sequences> .
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/Manifest>     <http://www.tei-c.org/ns/1.0/altIdentifier> "druid:kq131cs7229" .
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/Manifest>     <http://www.tei-c.org/ns/1.0/collection> "" .
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/Manifest>     <http://www.tei-c.org/ns/1.0/country> "United States of America" .
@@ -24,7 +26,6 @@
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/sequences/OriginalSequence>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.shared-canvas.org/ns/Sequence> .
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/sequences/OriginalSequence>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/sequences/OriginalSequence>     <http://www.openarchives.org/ore/terms/isDescribedBy> <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/sequences/OriginalSequence.xml> .
+<http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/sequences/OriginalSequence>     <http://www.shared-canvas.org/ns/hasOptimizedSerialization> <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/sequences/optimized/OriginalSequence> .
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/sequences/OriginalSequence.xml>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/ResourceMap> .
 <http://sul-dms-dev.stanford.edu/dms/sc/Stanford/kq131cs7229/sequences/OriginalSequence.xml>     <http://purl.org/dc/elements/1.1/format> "application/rdf+xml" .
-    
-

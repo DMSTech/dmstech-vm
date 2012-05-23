@@ -143,6 +143,20 @@ public class SharedCanvasUtil {
 		return Response.ok(result, mediaType).build();
 	}
 
+	public static Resource createSequenceAggregationAndRMWithoutList(Model model, String optimizedSequenceURIString, String sequenceAggregationURI, String timeStamp) {		
+		Resource optimizedSequenceURI = model.createResource(optimizedSequenceURIString);		
+		Resource aggregation = addResourceMapAndAggregationToModel(model, sequenceAggregationURI, rdfConstants.scSequenceClass, timeStamp);
+		aggregation.addProperty(rdfConstants.scHasOptimizedSerialization, optimizedSequenceURI);
+		return aggregation;
+		
+	}
+
+	public static Resource createAnnoAggregationAndRMInModelWithoutList(Model model, String imageAnnosAggregationURI, String timeStamp) {		
+		return addResourceMapAndAggregationToModel(model, imageAnnosAggregationURI, rdfConstants.scImageAnnotationListClass, timeStamp);
+				
+		
+	}
+	
 	public static Resource addResourceMapAndAggregationToModel(Model model, String aggregationURI, Resource dmsAggregationType, String dateCreated) {
 		
 		Resource aggregation = model.createResource(aggregationURI)
@@ -363,9 +377,9 @@ public class SharedCanvasUtil {
 		deleteDSStoreFile(rdfDir);
 		rdfDir.delete();
 			
-	   deleteAllFiles(manuDir);
-	   deleteDSStoreFile(manuDir);
-	   manuDir.delete();
+		deleteAllFiles(manuDir);
+		deleteDSStoreFile(manuDir);
+	    manuDir.delete();
 	   
 	}
 	

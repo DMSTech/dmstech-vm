@@ -20,12 +20,15 @@ public class DMSTechRDFConstants {
 	public static final String EXIF_NAMESPACE = "http://www.w3.org/2003/12/exif/ns#";
 	public static final String TEI_NAMESPACE = "http://www.tei-c.org/ns/1.0/";
 
-	// shared canvas specific types and properties
+	
+	
+	// shared canvas types
 	public Resource scTextAnnotationClass;
 	public Resource scZoneAnnotationClass;
 	public Resource scImageAnnotationClass;
 	public Resource scTransactionClass;
 	public Resource scSequenceClass;
+	public Resource scSequenceChoiceClass;
 	public Resource scImageAnnotationListClass;
 	public Resource scTextAnnotationListClass;
 	public Resource scZoneAnnotationListClass;	
@@ -33,11 +36,18 @@ public class DMSTechRDFConstants {
 	public Resource scImageClass;
 	public Resource scImageBodyClass;
 	public Resource scCanvasClass;
+	public Resource scRepositoryClass;
+	public Resource scCollectionClass;
+	
+	//shared canvas properties
 	public Property scHasTextAnnotations;
 	public Property scHasImageAnnotations;
 	public Property scHasZoneAnnotations;
-	public Resource scRepositoryClass;
-	public Resource scCollectionClass;
+	public Property scOptionSequence;
+	public Property scOptionDefault;	
+	public Property scNewSequenceEnpoint;
+	public Property scHasOptimizedSerialization;	
+	
 
 	// exif properties
 	public Property exifHeight;
@@ -112,13 +122,16 @@ public class DMSTechRDFConstants {
 		initializingModel.setNsPrefix("sc", SHARED_CANVAS_NAMESPACE);
 		initializingModel.setNsPrefix("tei", TEI_NAMESPACE);
 
-		// dmstech properties and types
+		// shared canvas types
+		
 		scTextAnnotationClass = initializingModel
 				.createResource(SHARED_CANVAS_NAMESPACE + "TextAnnotation");
 		scTransactionClass = initializingModel
 				.createResource(SHARED_CANVAS_NAMESPACE + "Transaction");
 		scSequenceClass = initializingModel
 				.createResource(SHARED_CANVAS_NAMESPACE + "Sequence");
+		scSequenceChoiceClass = initializingModel
+				.createResource(SHARED_CANVAS_NAMESPACE + "SequenceChoice");		
 		scImageAnnotationListClass = initializingModel
 				.createResource(SHARED_CANVAS_NAMESPACE + "ImageAnnotationList");
 		scTextAnnotationListClass = initializingModel
@@ -141,12 +154,26 @@ public class DMSTechRDFConstants {
 				.createResource(SHARED_CANVAS_NAMESPACE + "ImageBody");
 		scCanvasClass = initializingModel
 				.createResource(SHARED_CANVAS_NAMESPACE + "Canvas");
+		scHasOptimizedSerialization = initializingModel
+				.createProperty(SHARED_CANVAS_NAMESPACE + "hasOptimizedSerialization");
+		
+		// shared canvas properties
+		
 		scHasTextAnnotations = initializingModel
 				.createProperty(SHARED_CANVAS_NAMESPACE, "hasTextAnnotations");
+		scOptionSequence = initializingModel
+				.createProperty(SHARED_CANVAS_NAMESPACE, "optionSequence");	
+		scOptionDefault = initializingModel
+				.createProperty(SHARED_CANVAS_NAMESPACE + "optionDefault");
 		scHasImageAnnotations = initializingModel
 				.createProperty(SHARED_CANVAS_NAMESPACE, "hasImageAnnotations");
 		scHasZoneAnnotations = initializingModel
 				.createProperty(SHARED_CANVAS_NAMESPACE, "hasZoneAnnotations");
+		scNewSequenceEnpoint = initializingModel
+				.createProperty(SHARED_CANVAS_NAMESPACE + "newSequenceEndpoint");
+		
+		
+		
 		
 		// exif properties
 		exifHeight = initializingModel.createProperty(EXIF_NAMESPACE,

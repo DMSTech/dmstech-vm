@@ -60,7 +60,7 @@ public class SharedCanvasGenerator {
 			generateSharedCanvasInDefaultDir(
 					"aManu name", 
 					"a Manu title", 
-					"collid 3223", 
+					"cma_1955_74", 
 					"manuId 35", 
 					"altId 3", 
 					"a repoName", 
@@ -68,7 +68,7 @@ public class SharedCanvasGenerator {
 					"some settlement", 
 					"some region name", 
 					"some country", 
-					"test1", 
+					"cma_1955_74", 
 					"ingested",
 					false);
 			} catch (Exception e) {
@@ -151,8 +151,7 @@ public class SharedCanvasGenerator {
 		} catch (DjatokaException e) {
 			e.printStackTrace();
 			throw new Exception("Djatoka exception while converting images.  Cause: " + e.getMessage());
-		}
-				
+		}			
 	}
 	
 	private void generateRDFFromJP2s(boolean parseTitle) throws Exception {
@@ -172,10 +171,10 @@ public class SharedCanvasGenerator {
 		    	  }
 		    JP2ImageInfo imageInfo = new JP2ImageInfo(f);
 		    ImageRecord dim = imageInfo.getImageRecord();
-		    sharedCanvasInstance.addImageToSharedCanvas(imageFileName, pageTitle, String.valueOf(dim.getWidth()), String.valueOf(dim.getHeight()));					
-		   
-		    
-		    
+		    String width = String.valueOf(dim.getWidth());
+		    String height = String.valueOf(dim.getHeight());
+		//    System.out.println("width:  " + width + " and height: " + height + " and page title: " + pageTitle + " and filename: " + imageFileName);
+		    sharedCanvasInstance.addImageToSharedCanvas(imageFileName, pageTitle, width, height);					   
 		}
 	}
 	

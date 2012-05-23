@@ -2,6 +2,11 @@ function Orderer(config) {
 	
 	this.id = config.id;
 	
+	this.host = window.location.host;
+	this.path = window.location.pathname.match(/^.*\//)[0];
+	
+	this.sequenceURI = null;
+	
 	$(document.body).append(''+
 	'<div id="titleDialog"><input type="hidden" id="pageId" /><label for="pageTitle">Title</label><input type="text" id="pageTitle" /><button>Ok</button></div>'+
 	'<div id="pageView"></div>');
@@ -38,19 +43,23 @@ function Orderer(config) {
 	}, this));
 }
 
-Orderer.prototype.processSequence = function(event, data) {
+Orderer.prototype.processSequence = function(event, data, sequenceURI) {
+	if (sequenceURI) {
+		this.sequenceURI = sequenceURI;
+	}
+	
 	var count = 0;
 	for (var i = 0; i < data.length; i++) {
 		var a = data[i];
 		var thumbUrl = 'img/manu_thumb.png';
-		if (a.bodyId.indexOf('stacks') != -1) {
-			thumbUrl = a.bodyId+'?w=100&h=140';
+		if (a.imageURI.indexOf('stacks') != -1) {
+			thumbUrl = a.imageURI+'?w=100&h=140';
 		}
 		$('#orderer').append('<div id="page_'+count+'" class="page ui-corner-all"><div class="cell"><img src="'+thumbUrl+'" /></div></div>');
 		$('#page_'+count)
-		.data('uri', a.id)
-		.data('title', a.title)
-		.data('bodyId', a.bodyId)
+		.data('canvasURI', a.canvasURI)
+		.data('canvasTitle', a.canvasTitle)
+		.data('imageURI', a.imageURI)
 		.data('width', a.width)
 		.data('height', a.height);
 		count++;
@@ -70,12 +79,12 @@ Orderer.prototype.addPageEvents = function() {
 		$(this).addClass('pageSelected');
 		that.showTitleDialog(this);
 	}).dblclick(function() {
-		var bodyId = $(this).data('bodyId');
+		var imageURI = $(this).data('imageURI');
 		var height = $(this).data('height');
 		var width = $(this).data('width');
 		var ratio = height / width;
 		var dialogHeight = 500 * ratio + 50;
-		$('#pageView').html('<img src="'+bodyId+'?w=500" />');
+		$('#pageView').html('<img src="'+imageURI+'?w=500" />');
 		$('#pageView').dialog('open').dialog('option', 'height', dialogHeight);
 	});
 };
@@ -84,7 +93,7 @@ Orderer.prototype.showTitleDialog = function(pageEl) {
 	var offset = $(pageEl).offset();
 	$('#titleDialog').dialog('open').dialog('option', 'position', [offset.left, offset.top+$(pageEl).outerHeight()-1]);
 	$('#pageId').val($(pageEl)[0].id);
-	$('#pageTitle').val($(pageEl).data('title')).focus();
+	$('#pageTitle').val($(pageEl).data('canvasTitle')).focus();
 };
 
 Orderer.prototype._handleDocClick = function(event) {
@@ -100,21 +109,15 @@ Orderer.prototype._handleDocClick = function(event) {
 Orderer.prototype.saveTitle = function() {
 	var id = $('#pageId').val();
 	var title = $('#pageTitle').val();
-	$('#'+id).data('title', title);
+	$('#'+id).data('canvasTitle', title);
 	$('#titleDialog').dialog('close');
 };
 
 Orderer.prototype.submit = function() {
-	var collectionId = 'ingested';
-	var manuscriptId = 'manuscriptId';
-	var sequenceId = 'sequenceId';
-	
-	var baseUrl = 'http://'+window.location.host+'/'+collectionId+'/'+manuscriptId+'/';
-	
 	var ordering = [];
 	$('#orderer .page').each(function(index, el) {
-		var uri = $(this).data('uri');
-		var title = $(this).data('title');
+		var uri = $(this).data('canvasURI');
+		var title = $(this).data('canvasTitle');
 		var height = $(this).data('height');
 		var width = $(this).data('width');
 		ordering.push({uri: uri, title: title, height: height, width: width});
@@ -122,15 +125,15 @@ Orderer.prototype.submit = function() {
 	
 	// sequence info
 	var nTriples = '';
-	nTriples += '<'+baseUrl+'NormalSequence>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://dms-data.stanford.edu/ns/Sequence>\n';
-	nTriples += '<'+baseUrl+'NormalSequence>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#List>\n';
-	nTriples += '<'+baseUrl+'NormalSequence>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.openarchives.org/ore/terms/Aggregation>\n';
+	nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://dms-data.stanford.edu/ns/Sequence>\n';
+	nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#List>\n';
+	nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.openarchives.org/ore/terms/Aggregation>\n';
 	for (var i = 0; i < ordering.length; i++) {
-		nTriples += '<'+baseUrl+'NormalSequence>  <http://www.openarchives.org/ore/terms/aggregates>  <'+ordering[i].uri+'>\n';
+		nTriples += '<'+this.sequenceURI+'>  <http://www.openarchives.org/ore/terms/aggregates>  <'+ordering[i].uri+'>\n';
 	}
 	// image sequence
-	nTriples += '<'+baseUrl+'NormalSequence>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#first>  <'+ordering[0].uri+'>\n';
-	nTriples += '<'+baseUrl+'NormalSequence>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>  _:genid1\n';
+	nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#first>  <'+ordering[0].uri+'>\n';
+	nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>  _:genid1\n';
 	for (var i = 1; i < ordering.length; i++) {
 		nTriples += '_:genid'+i+'  <http://www.w3.org/1999/02/22-rdf-syntax-ns#first>  <'+ordering[i].uri+'>\n';
 		nTriples += '_:genid'+i+'  <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>  _:genid'+(i+1)+'\n';
@@ -148,24 +151,19 @@ Orderer.prototype.submit = function() {
 	var replaceseq = $('#sequenceAction input:checked').attr('id') == 'replaceSequence';
 	var makedefault = $('#makeDefault').prop('checked');
 	
-	var config = {
-		url: baseUrl+'sequence',
-		data: {sequence: nTriples, replaceseq: replaceseq, makedefault: makedefault},
-		type: 'POST',
-		success: function(data, status, xhr) {
-			
-		},
-		error: function() {
-			
-		}
-	};
+//	this.sequenceURI = this.sequenceURI.replace('sequences', 'sequence');
 	
-	if (replaceseq) {
-		config.url += '/'+sequenceId;
-		config.type = 'PUT';
+	var config = {
+		url: this.sequenceURI,
+		data: {sequence: nTriples, makedefault: makedefault},
+		type: 'PUT'
+	};
+	if (!replaceseq) {
+		config.url = config.url.replace(/\/\w*$/, '');
+		config.type = 'POST';
 	}
 	
-	$.ajax(config);
+	actionDialog.doAction('Saving Sequence', config);
 };
 
 Orderer.prototype.activate = function(data) {
@@ -188,7 +186,7 @@ Orderer.prototype.activate = function(data) {
 		'</span>'+
 		'<button id="confirmOrder">Confirm</button>'+
 	'</div>').insertAfter('#orderer');
-	$('#confirmOrder').button().click(this.submit);
+	$('#confirmOrder').button().click($.proxy(this.submit, this));
 	$('#makeDefault').button();
 	$('#sequenceAction').buttonset();
 	
@@ -197,7 +195,7 @@ Orderer.prototype.activate = function(data) {
 	eventManager.bind('sequenceSelected', $.proxy(this.processSequence, this));
 	
 	if (data != null) {
-		this.processSequence(null, data);
+		this.processSequence(null, data.items, data.sequenceURI);
 	}
 };
 

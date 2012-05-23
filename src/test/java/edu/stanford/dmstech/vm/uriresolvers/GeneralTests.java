@@ -8,6 +8,7 @@ import org.json.JSONException;
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasSOLRIndexer;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
+import edu.stanford.dmstech.vm.manuscriptgeneration.SharedCanvasGenerator;
 
 public class GeneralTests {
 
@@ -22,43 +23,11 @@ public class GeneralTests {
 		new SharedCanvasTDBManager().reindexAllLocalRDFData();
 		new SharedCanvasSOLRIndexer().reindexAllLocalDataInSolr();
 		
-		OptimizedManuscriptPageList pageListGenerator = new OptimizedManuscriptPageList();
-		String collectionId = "Stanford";
-		String manuscriptId = "kq131cs7229";
-		String sequenceId = "OriginalSequence";
-		String sequenceURI = "http://localhost:8080/dms/sc/Stanford/kq131cs7229/sequences/OriginalSequence";
-		
-		final long startTime = System.nanoTime();
-		final long endTime;
-		String modelResult;
-		
-		try {
-			modelResult = pageListGenerator.resultFromModel(collectionId, manuscriptId, sequenceId);
-		} finally {
-		  endTime = System.nanoTime();
-		}
-		final long duration = endTime - startTime;
-		System.out.println("From model took: " + (double)duration / 1000000000.0 + " seconds.");
-		
-		final long startTime2 = System.nanoTime();
-		final long endTime2;
-		String sparqlResult;
-		try {
-	//		sparqlResult = pageListGenerator.resultFromSPARQL(sequenceURI);
-		} finally {
-		  endTime2 = System.nanoTime();
-		}
-		final long duration2 = endTime2 - startTime2;
-		System.out.println("From sparql took: " + (double)duration2 / 1000000000.0 + " seconds.");
-		
-		System.out.println("MODEL RESULT:  ");
-		System.out.println(modelResult);
-		
-		System.out.println("\n\n\nSPARQL RESULT:  ");
+	
 	//	System.out.println(sparqlResult);
 		
 		//new AnnotationIngester().test();
-	//	new SharedCanvasGenerator().ingestTestManu();
+		new SharedCanvasGenerator().ingestTestManu();
 	//	new SharedCanvasTDBManager().emptyMainTDBIndex();
 	// SharedCanvasTDBManager().tdbListAllStmtsTest();
 	//	System.out.println("Should be empty above this.");
@@ -93,4 +62,40 @@ public class GeneralTests {
 		}
 
 		}
+	
+	private void testOptimizedSequenceGeneration() throws JSONException, Exception  {
+		OptimizedManuscriptPageList pageListGenerator = new OptimizedManuscriptPageList();
+		String collectionId = "Stanford";
+		String manuscriptId = "kq131cs7229";
+		String sequenceId = "OriginalSequence";
+		String sequenceURI = "http://localhost:8080/dms/sc/Stanford/kq131cs7229/sequences/OriginalSequence";
+		
+		final long startTime = System.nanoTime();
+		final long endTime;
+		String modelResult;
+		
+		try {
+			modelResult = pageListGenerator.resultFromModel(collectionId, manuscriptId, sequenceId);
+		} finally {
+		  endTime = System.nanoTime();
+		}
+		final long duration = endTime - startTime;
+		System.out.println("From model took: " + (double)duration / 1000000000.0 + " seconds.");
+		
+		final long startTime2 = System.nanoTime();
+		final long endTime2;
+		String sparqlResult;
+		try {
+	//		sparqlResult = pageListGenerator.resultFromSPARQL(sequenceURI);
+		} finally {
+		  endTime2 = System.nanoTime();
+		}
+		final long duration2 = endTime2 - startTime2;
+		System.out.println("From sparql took: " + (double)duration2 / 1000000000.0 + " seconds.");
+		
+		System.out.println("MODEL RESULT:  ");
+		System.out.println(modelResult);
+		
+		System.out.println("\n\n\nSPARQL RESULT:  ");
+	}
 }

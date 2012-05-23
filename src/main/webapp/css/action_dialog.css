@@ -1,0 +1,19 @@
+.loading {
+	background: transparent url('../img/throbber.gif') no-repeat left center;
+}
+
+#statusParent {
+	margin: 10px 0;
+}
+
+#statusIcon {
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	margin-right: 3px;
+}
+
+#status {
+	position: relative;
+    top: -3px;
+}

@@ -61,9 +61,9 @@ public class ManuscriptConceptualTestIT {
          	header("Accept", "text/html;charset=utf-8").
          expect().
          	statusCode(201).
-         	header("Location", endsWith("/dms/sc/ingested/test1")).
+         	header("Location", endsWith("/dms/sc/ingested/cma_1955_74")).
          when().
-         put("/dms/sc/ingested/test1");
+         put("/dms/sc/ingested/cma_1955_74");
 	}
 
 	
