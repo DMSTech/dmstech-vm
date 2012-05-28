@@ -18,7 +18,7 @@ import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
 public class ReindexRequest {
 
 @POST
-public Response getSparqlResult(@FormParam("solr") final boolean reindexSolr, @FormParam("triple") final boolean reindexTripleStore) {
+public Response getSparqlResult(@FormParam("solr") final boolean reindexSolr, @FormParam("sparql") final boolean reindexTripleStore) {
 	
 	
 	try {

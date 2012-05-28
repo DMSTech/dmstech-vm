@@ -154,6 +154,8 @@ public class RDFUtils {
 	
 	}
 
-
+	public static void serializeModelToSystemOut(Model model) {
+		System.out.println(serializeModelToString(model, "N-TRIPLE"));
+	}
 	
 }

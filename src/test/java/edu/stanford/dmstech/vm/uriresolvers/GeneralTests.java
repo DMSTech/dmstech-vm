@@ -9,6 +9,7 @@ import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasSOLRIndexer;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
 import edu.stanford.dmstech.vm.manuscriptgeneration.SharedCanvasGenerator;
+import edu.stanford.dmstech.vm.uriresolvers.ingest.AnnotationIngester;
 
 public class GeneralTests {
 
@@ -20,14 +21,14 @@ public class GeneralTests {
 		//BasicConfigurator.configure();
 		Config config = new Config();
 		config.initializeThisConfig();
-		new SharedCanvasTDBManager().reindexAllLocalRDFData();
-		new SharedCanvasSOLRIndexer().reindexAllLocalDataInSolr();
+		//new SharedCanvasTDBManager().reindexAllLocalRDFData();
+		//new SharedCanvasSOLRIndexer().reindexAllLocalDataInSolr();
 		
 	
 	//	System.out.println(sparqlResult);
 		
-		//new AnnotationIngester().test();
-		new SharedCanvasGenerator().ingestTestManu();
+		new AnnotationIngester().test();
+	//	new SharedCanvasGenerator().ingestTestManu();
 	//	new SharedCanvasTDBManager().emptyMainTDBIndex();
 	// SharedCanvasTDBManager().tdbListAllStmtsTest();
 	//	System.out.println("Should be empty above this.");

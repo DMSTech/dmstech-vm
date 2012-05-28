@@ -125,7 +125,7 @@ public class DMSTechRDFConstants {
 		// shared canvas types
 		
 		scTextAnnotationClass = initializingModel
-				.createResource(SHARED_CANVAS_NAMESPACE + "TextAnnotation");
+				.createResource(SHARED_CANVAS_NAMESPACE + "ContentAnnotation");
 		scTransactionClass = initializingModel
 				.createResource(SHARED_CANVAS_NAMESPACE + "Transaction");
 		scSequenceClass = initializingModel
@@ -212,7 +212,7 @@ public class DMSTechRDFConstants {
 		oacAnnotationType = initializingModel.createResource(OAC_NAMESPACE
 				+ "Annotation");
 		oacTextAnnotationType = initializingModel
-				.createResource(OAC_NAMESPACE + "TextAnnotation");
+				.createResource(OAC_NAMESPACE + "ContentAnnotation");
 		oacBodyType = initializingModel.createResource(OAC_NAMESPACE
 				+ "Body");
 		oacTargetType = initializingModel.createResource(OAC_NAMESPACE

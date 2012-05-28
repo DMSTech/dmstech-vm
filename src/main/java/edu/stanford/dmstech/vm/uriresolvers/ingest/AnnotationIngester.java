@@ -38,13 +38,35 @@ import com.hp.hpl.jena.vocabulary.RDF;
 
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.DMSTechRDFConstants;
+import edu.stanford.dmstech.vm.RDFUtils;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasSOLRIndexer;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
 
 public class AnnotationIngester {
 
 	public void test() {
-		String sampleAnnotation = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
+		// http://www.shared-canvas.org/ns/ContentAnnotation
+		String sampleAnnotation = "<rdf:RDF\n" + 
+				"    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n" + 
+				"    xmlns:cnt=\"http://www.w3.org/2008/content#\"\n" + 
+				"    xmlns:sc=\"http://www.shared-canvas.org/ns/\"\n" + 
+				"    xmlns:ore=\"http://www.openarchives.org/ore/terms/\"\n" + 
+				"    xmlns:oac=\"http://www.openannotation.org/ns/\" > \n" + 
+				"  <rdf:Description rdf:about=\"urn:uuid:7679f48e-e2b0-42c3-b5b1-7ebfc704379f\">\n" + 
+				"    <rdf:type rdf:resource=\"http://www.shared-canvas.org/ns/ContentAnnotation\"/>\n" + 
+				"    <oac:hasTarget rdf:resource=\"http://dms-data.stanford.edu/Parker/nr257ff7994/canvas-324#xyhw=0,0,139,610\"/>\n" + 
+				"    <oac:hasBody rdf:resource=\"urn:uuid:d6105f4e-cd2e-4a9c-b5c9-2c8a196e5057\"/>\n" + 
+				"  </rdf:Description>\n" + 
+				"  <rdf:Description rdf:about=\"urn:uuid:d6105f4e-cd2e-4a9c-b5c9-2c8a196e5057\">\n" + 				
+				"  		 <rdf:type rdf:resource=\"http://www.w3.org/2008/content#ContentAsText\"/>" + 
+				"        <cnt:rest rdf:parseType=\"Literal\">" + 
+							"grauius, ut non solum patiaris harum rerum indigentiam, sed" + 
+				"        </cnt:rest>\n" + 
+				"        <cnt:characterEncoding>utf-8</cnt:characterEncoding>\n" + 
+				"  </rdf:Description>\n" + 
+				"</rdf:RDF>";
+		
+		String sampleAnnotationOld= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
 				"<rdf:RDF\n" + 
 				"   xmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n" + 
 				"   xmlns:exif=\"http://www.w3.org/2003/12/exif/ns#\"\n" + 
@@ -89,7 +111,7 @@ public class AnnotationIngester {
 	private final String W3CDTF_NOW = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).format(new Date());
 	Logger logger = Logger.getLogger(AnnotationIngester.class.getName());
 	LoggerFacade loggerFacade = null;
-	private static final String LOG_FILE_NAME = "log.txt";
+	//private static final String LOG_FILE_NAME = "log.txt";
 	static private FileHandler textFileHandler;	
 	static private SimpleFormatter textFormatter;
 	String resultURI = null;
@@ -158,7 +180,8 @@ public class AnnotationIngester {
 						.addProperty(DC.format, "application/rdf+xml");						
 						// .addProperty(DCTerms.creator, annotationAuthor )
 	       	        
-			ResIterator annotationsIterator = incomingAnnotationsModel.listResourcesWithProperty(RDF.type, rdfConstants.oacAnnotationType);
+			ResIterator annotationsIterator = incomingAnnotationsModel.listResourcesWithProperty(RDF.type, rdfConstants.scTextAnnotationClass);
+		//	RDFUtils.serializeModelToSystemOut(incomingAnnotationsModel);
 			while (annotationsIterator.hasNext()) {
 				Resource annotationRes = annotationsIterator.next();
 				writeAnnotationToFile(annotationRes);
@@ -178,6 +201,7 @@ public class AnnotationIngester {
 		 (new SharedCanvasSOLRIndexer()).indexCanvasText(canvasTextToIndex);
 		 
 		}  catch (Exception e) {
+			e.printStackTrace();
 		        throw new IOException("Couldn't save new annotations.  Rolled back all.  Caused by: " + e.getMessage());
 		    }
 		finally {
@@ -201,7 +225,7 @@ public class AnnotationIngester {
 		    try {
 		    	Model newModelToWrite = ModelFactory.createDefaultModel();
 		    	
-		    	if (incomingAnno.getNameSpace().toLowerCase().equals("urn:")) {	
+		    	if (incomingAnno.getURI().toLowerCase().startsWith("urn:")) {	
 			
 		    	Resource targetCanvas = incomingAnno.listProperties(rdfConstants.oacHasTargetProperty).nextStatement().getObject().asResource();
 		    	Resource oldBody = incomingAnno.listProperties(rdfConstants.oacHasBodyProperty).nextStatement().getObject().asResource();
@@ -243,6 +267,7 @@ public class AnnotationIngester {
 				}
 		        
 		    }   catch (Exception e) {
+		    	e.printStackTrace();
 		    	throw new IOException("Couldn't save new annotation. Caused by: " + e.getMessage());
 		    }
 		    

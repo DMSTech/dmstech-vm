@@ -72,7 +72,7 @@ public class SharedCanvasGenerator {
 			generateSharedCanvasInDefaultDir(
 					"aManu name", 
 					"a Manu title", 
-					"fileUploadTest", 
+					"kq131cs7229", 
 					"manuId 35", 
 					"altId 3", 
 					"a repoName", 
@@ -80,10 +80,10 @@ public class SharedCanvasGenerator {
 					"some settlement", 
 					"some region name", 
 					"some country", 
-					"fileUploadTest", 
+					"kq131cs7229", 
 					"ingested",
 					false, 
-					instream);
+					null);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}		

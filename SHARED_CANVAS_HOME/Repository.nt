@@ -2,6 +2,7 @@
 <http://localhost:8080/dms/sc/Repository> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.shared-canvas.org/ns/Repository> .
 <http://localhost:8080/dms/sc/Repository>     <http://purl.org/dc/elements/1.1/title> "Manuscripts hosted by the Stanford University Libraries" .
 <http://localhost:8080/dms/sc/Repository>     <http://www.openarchives.org/ore/terms/aggregates> <http://localhost:8080/dms/sc/Stanford/Collection> .
+<http://localhost:8080/dms/sc/Repository>     <http://www.openarchives.org/ore/terms/aggregates> <http://localhost:8080/dms/sc/ingested/Collection> .
 <http://localhost:8080/dms/sc/Repository>     <http://www.tei-c.org/ns/1.0/country> "United States of America" .
 <http://localhost:8080/dms/sc/Repository>     <http://www.tei-c.org/ns/1.0/repository> "Stanford University Libraries" .
 <http://localhost:8080/dms/sc/Repository>     <http://www.tei-c.org/ns/1.0/settlement> "Stanford" .
@@ -14,4 +15,10 @@
 <http://localhost:8080/dms/sc/Stanford/Collection.xml>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/ResourceMap> .
 <http://localhost:8080/dms/sc/Stanford/Collection.xml>     <http://purl.org/dc/elements/1.1/format> "application/rdf+xml" .
 <http://localhost:8080/dms/sc/Stanford/Collection.xml>     <http://www.openarchives.org/ore/terms/describes> <http://localhost:8080/dms/sc/Stanford/Collection> .
-    
+<http://localhost:8080/dms/sc/ingested/Collection>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.shared-canvas.org/ns/Manifest> .
+<http://localhost:8080/dms/sc/ingested/Collection>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/Aggregation> .
+<http://localhost:8080/dms/sc/ingested/Collection>     <http://www.openarchives.org/ore/terms/isDescribedBy> <http://localhost:8080/dms/sc/ingested/Collection.xml> .
+<http://localhost:8080/dms/sc/ingested/Collection.xml>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/ResourceMap> .
+<http://localhost:8080/dms/sc/ingested/Collection.xml>     <http://purl.org/dc/elements/1.1/format> "application/rdf+xml" .
+<http://localhost:8080/dms/sc/ingested/Collection.xml>     <http://www.openarchives.org/ore/terms/describes> <http://localhost:8080/dms/sc/ingested/Collection> .
+ 

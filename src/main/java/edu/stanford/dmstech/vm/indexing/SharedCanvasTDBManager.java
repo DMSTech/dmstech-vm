@@ -42,7 +42,7 @@ import gov.lanl.adore.djatoka.util.IOUtils;
 public class SharedCanvasTDBManager {
 
 	public void reindexAllLocalRDFData() throws IOException {
-		
+		System.out.println("in the reindexAllLocalRDFData method");
 		 Model tdb = loadTDBDataset(Config.getAbsolutePathToMainTBDDir());	
 		 tdb.removeAll();
 		recursivelyIndexAllNtripleFilesIn(Config.getAbsolutePathToCollectionsDir(), tdb);
