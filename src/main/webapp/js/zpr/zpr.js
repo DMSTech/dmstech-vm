@@ -3,11 +3,12 @@ var zpr = function(viewFinderId, inputValues) {
   var viewFinder = $('#' + viewFinderId); // viewFinder DOM element
   var imgFrame   = undefined; // imgFrame DOM element
   var imgFrameId = viewFinderId + "-img-frame";
-  
+
   var settings = {
     tileSize: 512,         // dimension for a square tile 
     preloadTilesOffset: 0, // rows/columns of tiles to preload
-    marqueeImgSize: 125    // max marquee dimension
+    marqueeImgSize: 125,   // max marquee dimension
+	type: 'img'            // whether to use djatoka or regular img urls
   };  
   
   var jp2 = {
@@ -25,7 +26,12 @@ var zpr = function(viewFinderId, inputValues) {
   /* init() function */
   var init = function() {
     // copy data from function arguments
-    jp2.url    = inputValues.jp2URL;
+	if (inputValues.type == 'djatoka') {
+        settings.type = 'djatoka';
+    }
+
+    jp2.url = inputValues.jp2URL;
+    jp2.djatokaURL = inputValues.djatokaURL;
     jp2.width  = inputValues.width;
     jp2.height = inputValues.height;    
     jp2.imgURL = inputValues.imageStacksURL;
@@ -36,6 +42,8 @@ var zpr = function(viewFinderId, inputValues) {
     } else {
       jp2.levels = getNumLevels();  
     }
+
+    jp2.djatokaURL = jp2.djatokaURL + '&rft_id=' + escape(jp2.url);
     
     viewFinder.addClass('zpr-view-finder');
     
@@ -259,14 +267,22 @@ var zpr = function(viewFinderId, inputValues) {
       var tile = undefined;
       
       var insetValueX = attrs.x * tileSize;
-      var insetValueY = attrs.y * tileSize;        
+      var insetValueY = attrs.y * tileSize;
+      if (settings.type == 'djatoka') {
+          insetValueX *= multiplier;
+          insetValueY *= multiplier;
+      }
       //console.log('x=' + attrs.x + ', y=' + attrs.y);
       
-      attrs.id = 'tile-x' + attrs.x + 'y' + attrs.y + 'z' + currentLevel + 'r' + currentRotation + '-' + viewFinderId;      
-      attrs.src = jp2.imgURL + '.jpg?zoom=' + util.getZoomFromLevel(currentLevel) + 
-                  '&region=' + insetValueX + ',' + insetValueY + ',' + tileSize + ',' + tileSize + 
-                  '&rotate=' + currentRotation;
-      
+      attrs.id = 'tile-x' + attrs.x + 'y' + attrs.y + 'z' + currentLevel + 'r' + currentRotation + '-' + viewFinderId;
+      if (settings.type == 'djatoka') {
+          attrs.src = jp2.djatokaURL + '&svc.level=' + currentLevel + '&svc.region=' + insetValueY + ',' + insetValueX + ',' + tileSize + ',' + tileSize + '&svc.rotate=' + currentRotation;
+      } else {
+	      attrs.src = jp2.imgURL + '.jpg?zoom=' + util.getZoomFromLevel(currentLevel) + 
+	                  '&region=' + insetValueX + ',' + insetValueY + ',' + tileSize + ',' + tileSize + 
+	                  '&rotate=' + currentRotation;
+      }      
+
       visibleTilesMap[attrs.id] = true; // useful for removing unused tiles       
       tile = $('#' + attrs.id);
                         
@@ -563,8 +579,15 @@ var zpr = function(viewFinderId, inputValues) {
     
     storeRelativeLocation();
     setMarqueeImgDimensions();
-             
-    var marqueeURL = jp2.imgURL + '.jpg?w=' + marqueeAttrs.imgWidth + '&h=' + marqueeAttrs.imgHeight + '&rotate=' + currentRotation;   
+
+    if (settings.type == 'djatoka') {
+        var marqueeURL = jp2.djatokaURL + 
+	      '&svc.level=' + level + 
+	      '&svc.scale=' + marqueeAttrs.imgWidth + ',' + marqueeAttrs.imgHeight + 
+	      '&svc.rotate=' + currentRotation;
+    } else {
+    	var marqueeURL = jp2.imgURL + '.jpg?w=' + marqueeAttrs.imgWidth + '&h=' + marqueeAttrs.imgHeight + '&rotate=' + currentRotation;   
+    }
       
     viewFinder
     .append($('<div>', { 'id': marqueeBoxId, 'class': 'zpr-marquee-box' })
@@ -622,7 +645,7 @@ var zpr = function(viewFinderId, inputValues) {
   };  
   
   var setMarqueeDimensions = function() {
-    marqueeAttrs.width  = Math.ceil((viewFinder.width() / imgFrameAttrs.proportionalWidth) * marqueeAttrs.imgWidth) - 4;
+    marqueeAttrs.width = Math.ceil((viewFinder.width() / imgFrameAttrs.proportionalWidth) * marqueeAttrs.imgWidth) - 4;
     marqueeAttrs.height = Math.ceil((viewFinder.height() / imgFrameAttrs.proportionalHeight) * marqueeAttrs.imgHeight) - 4;    
   }
 
@@ -648,5 +671,3 @@ var zpr = function(viewFinderId, inputValues) {
   
   init();
 };
-
-

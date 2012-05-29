@@ -7,7 +7,7 @@ var zpr = function(viewFinderId, inputValues) {
   var settings = {
     tileSize: 512,         // dimension for a square tile 
     preloadTilesOffset: 0, // rows/columns of tiles to preload
-    marqueeImgSize: 125       // max marquee dimension
+    marqueeImgSize: 125    // max marquee dimension
   };  
   
   var jp2 = {
@@ -24,7 +24,6 @@ var zpr = function(viewFinderId, inputValues) {
   var currentRotation = 0;
   var imgFrameAttrs = { relativeLoc: {}, proportionalWidth: 0, proportionalHeight: 0 };
   var marqueeAttrs = { imgWidth: 0, imgHeight: 0, width: 0, height: 0 }; 
-
 
   /* init() function */
   var init = function() {
@@ -65,23 +64,23 @@ var zpr = function(viewFinderId, inputValues) {
     viewFinder
     .append($('<div>').attr({ 'class': 'zpr-controls' })
       .append($('<img>')
-        .attr({ 'id': viewFinderId + '-zoom-in', 'src': 'img/zpr-zoom-in.png' })
+        .attr({ 'id': viewFinderId + '-zoom-in', 'src': 'js/zpr/img/zpr-zoom-in.png' })
         .click(function() { zoom('in'); }))
       .append($('<img>')
-        .attr({ 'id': viewFinderId + '-zoom-out', 'src': 'img/zpr-zoom-out.png' })
+        .attr({ 'id': viewFinderId + '-zoom-out', 'src': 'js/zpr/img/zpr-zoom-out.png' })
         .click(function() { zoom('out'); }))
       .append($('<img>')
-        .attr({ 'id': viewFinderId + '-rotate-cw', 'src': 'img/zpr-rotate-cw.png' })
+        .attr({ 'id': viewFinderId + '-rotate-cw', 'src': 'js/zpr/img/zpr-rotate-cw.png' })
         .click(function() { rotate('cw'); }))
       .append($('<img>')
-        .attr({ 'id': viewFinderId + '-rotate-ccw', 'src': 'img/zpr-rotate-ccw.png' })
+        .attr({ 'id': viewFinderId + '-rotate-ccw', 'src': 'js/zpr/img/zpr-rotate-ccw.png' })
         .click(function() { rotate('ccw'); }))
     );
 
     if (settings.marqueeImgSize > 50) {
       setupMarquee();
     }
-  }  
+  };
     
   
   /* get total levels for the jp2 */
@@ -171,7 +170,6 @@ var zpr = function(viewFinderId, inputValues) {
   
   /* get list of visible tiles */
   var getVisibleTiles = function() {
-    
     var visibleImgSpace = { left: 0, top: 0, right: 0, bottom: 0 };
     var visibleTileIds  = { leftmost: 0, topmost: 0, rightmost: 0, bottommost: 0 };
     var numVisibleTiles = { x: 0, y: 0 };
@@ -220,7 +218,7 @@ var zpr = function(viewFinderId, inputValues) {
     visibleTileIds.rightmost  = visibleTileIds.leftmost + numVisibleTiles.x;
     visibleTileIds.bottommost = visibleTileIds.topmost + numVisibleTiles.y;
     
-    // preload extra tiles for better user experience
+    // preload/cache extra tiles for better user experience
     visibleTileIds.leftmost   -= settings.preloadTilesOffset;
     visibleTileIds.topmost    -= settings.preloadTilesOffset;
     visibleTileIds.rightmost  += settings.preloadTilesOffset;

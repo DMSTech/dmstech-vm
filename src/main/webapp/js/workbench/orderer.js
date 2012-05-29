@@ -5,6 +5,19 @@ function Orderer(config) {
 	this.host = window.location.host;
 	this.path = window.location.pathname.match(/^.*\//)[0];
 	
+	this.djatokaURL = null;
+	
+	$.ajax({
+		url: 'http://'+this.host+this.path+'sc/lookup/djatoka',
+		data: 'GET',
+		success: $.proxy(function (data, status, xhr) {
+			this.djatokaURL = data;
+		}, this),
+		error: function() {
+			alert('There was an error getting the djatoka URL.');
+		}
+	});
+	
 	this.sequenceURI = null;
 	
 	$(document.body).append(''+
@@ -54,6 +67,13 @@ Orderer.prototype.processSequence = function(event, data, sequenceURI) {
 		var thumbUrl = 'img/manu_thumb.png';
 		if (a.imageURI.indexOf('stacks') != -1) {
 			thumbUrl = a.imageURI+'?w=100&h=140';
+		} else {
+			thumbUrl = this.djatoakURL+
+				'?url_ver=Z39.88-2004'+
+				'&rft_id='+a.imageURI+
+				'&svc_id=info:lanl-repo/svc/getRegion'+
+				'&svc_val_fmt=info:ofi/fmt:kev:mtx:jpeg2000'+
+				'&svc.scale=100,140';
 		}
 		$('#orderer').append('<div id="page_'+count+'" class="page ui-corner-all"><div class="cell"><img src="'+thumbUrl+'" /></div></div>');
 		$('#page_'+count)

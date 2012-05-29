@@ -4,14 +4,39 @@ function ViewerZPR(config) {
 	this.id = this.config.id;
 	
 	this.zpr = null;
+	
+	this.djatokaURL = null;
+	
+	var host = window.location.host;
+	var path = window.location.pathname.match(/^.*\//)[0];
+	$.ajax({
+		url: 'http://'+host+path+'sc/lookup/djatoka',
+		data: 'GET',
+		success: $.proxy(function (data, status, xhr) {
+			this.djatokaURL = data;
+		}, this),
+		error: function() {
+			alert('There was an error getting the djatoka URL.');
+		}
+	});
 }
 
 ViewerZPR.prototype.showImage = function(event, data) {
+	$('#zpr_viewer').empty();
+	
+	var type = 'djatoka';
+	if (data.imageURI.indexOf('stacks') != -1) {
+		type = 'img';
+	}
+	
 	this.zpr = new zpr('zpr_viewer', {
 		imageStacksURL: data.imageURI,
+		jp2URL: data.imageURI,
+		djatokaURL: this.djatokaURL,
 		width: data.width,
 		height: data.height,
-		marqueeImgSize: 125
+		marqueeImgSize: 125,
+		type: type
 	});
 };
 
@@ -22,6 +47,7 @@ ViewerZPR.prototype.activate = function() {
 };
 
 ViewerZPR.prototype.deactivate = function() {
+	$('#zpr_viewer').empty();
 	eventManager.unbind('imageSelected', this.showImage);
 };
 

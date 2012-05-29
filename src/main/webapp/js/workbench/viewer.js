@@ -20,7 +20,9 @@ Viewer.prototype.showImage = function(event, data) {
 	setTimeout(function() {
 //		var iframeWidth = $(id+' iframe').width();
 //		var ratio = data.width / iframeWidth;
-		$('#toolContent iframe').attr('src', data.imageURI+'_large');
+		var uri = data.imageURI;
+		if (uri.indexOf('stacks') != -1) uri += '_large';
+		$('#toolContent iframe').attr('src', uri);
 //		$('#toolContent iframe').attr('height', data.height / ratio);
 	}, 150);
 };
