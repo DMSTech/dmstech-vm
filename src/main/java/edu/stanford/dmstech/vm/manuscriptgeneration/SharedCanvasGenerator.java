@@ -111,9 +111,13 @@ public class SharedCanvasGenerator {
 		
 		baseURIForManuscript = Config.getBaseURIForManuscriptInDefaultCollection(manuscriptIdForIngest);
 		this.manuscriptIdForIngest = manuscriptIdForIngest;
-		this.collectionIdForIngest = collectionIdForIngest;
+		if (collectionIdForIngest != null & ! collectionIdForIngest.equals("")) { 
+			this.collectionIdForIngest = collectionIdForIngest;
+		} else {
+			this.collectionIdForIngest = Config.defaultCollection;
+		}
 		
-		if (inputStream != null && inputStream.available() != 0) {
+		if (inputStream != null ) {
 			saveZippedFilesToManuscriptDir(inputStream);
 		}
 		

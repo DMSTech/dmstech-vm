@@ -52,18 +52,18 @@ public class ManuscriptConceptual {
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public Response generateSharedCanvas(
 			@PathParam("manuscriptId") final String manuscriptIdForIngest,
-			@PathParam("collectionId") final String collectionIdForIngest,
-			@FormParam("manname") final String manuscriptName,
-			@FormParam("mantitle") final String manuscriptTitle,
-			@FormParam("collection") final String collectionId,
-			@FormParam("idno") final String manuscriptIdno,
-			@FormParam("altid") final String alternateId,
-			@FormParam("repository") final String repositoryName,
-			@FormParam("institution") final String institutionName,
-			@FormParam("settlement") final String settlementName,
-			@FormParam("region") final String regionName,
-			@FormParam("country") final String countryName,						
-			@FormParam("parseFileNames") final boolean parseTitlesAndPageNums,
+			@FormDataParam("collectionId") final String collectionIdForIngest,
+			@FormDataParam("manname") final String manuscriptName,
+			@FormDataParam("mantitle") final String manuscriptTitle,
+			@FormDataParam("collection") final String collectionId,
+			@FormDataParam("idno") final String manuscriptIdno,
+			@FormDataParam("altid") final String alternateId,
+			@FormDataParam("repository") final String repositoryName,
+			@FormDataParam("institution") final String institutionName,
+			@FormDataParam("settlement") final String settlementName,
+			@FormDataParam("region") final String regionName,
+			@FormDataParam("country") final String countryName,						
+			@FormDataParam("parseFileNames") final boolean parseTitlesAndPageNums,
 			@FormDataParam("file") InputStream uploadedInputStream
 			) throws Exception {
 	

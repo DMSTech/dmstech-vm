@@ -43,16 +43,33 @@ public class SharedCanvasTDBManager {
 
 	public void reindexAllLocalRDFData() throws IOException {
 		System.out.println("in the reindexAllLocalRDFData method");
-		 Model tdb = loadTDBDataset(Config.getAbsolutePathToMainTBDDir());	
-		 tdb.removeAll();
+		// Model tdb = loadTDBDataset(Config.getAbsolutePathToMainTBDDir());
+		 
+		 Dataset dataset = TDBFactory.createDataset(Config.getAbsolutePathToMainTBDDir());
+		Model tdb = dataset.getDefaultModel();
+			
+		 if (! tdb.isEmpty()) tdb.removeAll();
+		 
 		recursivelyIndexAllNtripleFilesIn(Config.getAbsolutePathToCollectionsDir(), tdb);
 		recursivelyIndexAllNtripleFilesIn(Config.getAbsolutePathToTextAnnosDir(), tdb);
 		recursivelyIndexAllNtripleFilesIn(Config.getAbsolutePathToTransactionsDir(), tdb);	
+		
+		tdb.commit();
+		tdb.close();
+		//dataset.commit();
 	}
 	
 	public void emptyMainTDBIndex() {
-		 Model tdb = loadTDBDataset(Config.getAbsolutePathToMainTBDDir());	
-		 tdb.removeAll();
+	
+		 
+		 Dataset dataset = TDBFactory.createDataset(Config.getAbsolutePathToMainTBDDir());
+			Model tdb = dataset.getDefaultModel();
+				
+			 if (! tdb.isEmpty()) tdb.removeAll();
+			
+			dataset.commit();
+			
+			
 	}
 
 	
@@ -166,7 +183,7 @@ public Model loadMainTDBDataset() {
 
 private Model loadTDBDataset(String tbdDatasetPath) {
 	Dataset dataset = TDBFactory.createDataset(tbdDatasetPath);
-	  Model tdb = dataset.getDefaultModel();
+	Model tdb = dataset.getDefaultModel();
 	return tdb;
 }
 

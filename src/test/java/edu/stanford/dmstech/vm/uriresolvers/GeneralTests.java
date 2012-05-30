@@ -21,16 +21,16 @@ public class GeneralTests {
 		//BasicConfigurator.configure();
 		Config config = new Config();
 		config.initializeThisConfig();
-		//new SharedCanvasTDBManager().reindexAllLocalRDFData();
-		//new SharedCanvasSOLRIndexer().reindexAllLocalDataInSolr();
+	//	new SharedCanvasTDBManager().reindexAllLocalRDFData();
+	//	new SharedCanvasSOLRIndexer().reindexAllLocalDataInSolr();
 		
 	
 	//	System.out.println(sparqlResult);
 		
-		new AnnotationIngester().test();
+	//	new AnnotationIngester().test();
 	//	new SharedCanvasGenerator().ingestTestManu();
 	//	new SharedCanvasTDBManager().emptyMainTDBIndex();
-	// SharedCanvasTDBManager().tdbListAllStmtsTest();
+	 new SharedCanvasTDBManager().tdbListAllStmtsTest();
 	//	System.out.println("Should be empty above this.");
 	//	boolean reindexSolr = true;
 	//	boolean reindexTripleStore = true;

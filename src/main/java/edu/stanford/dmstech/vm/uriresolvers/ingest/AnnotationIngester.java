@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URL;
@@ -115,6 +116,7 @@ public class AnnotationIngester {
 	static private FileHandler textFileHandler;	
 	static private SimpleFormatter textFormatter;
 	String resultURI = null;
+	StringWriter rdfForAnnotations = new StringWriter();
 	DMSTechRDFConstants rdfConstants = null;
 	Model incomingAnnotationsModel = null;
 	String transactionUUID = null;
@@ -214,7 +216,7 @@ public class AnnotationIngester {
 		}
 		 // return uri for annotation if only one posted.  otherwise return uri for resource map		
 		resultURI = incomingAnnoCount == 1?newAnnotationResource.getURI():transactionResourceMapURI;		
-		return Response.created(URI.create(resultURI)).build();
+		return Response.created(URI.create(resultURI)).entity(rdfForAnnotations.toString()).build();
 	}
 
 	
@@ -224,6 +226,8 @@ public class AnnotationIngester {
 	
 		    try {
 		    	Model newModelToWrite = ModelFactory.createDefaultModel();
+		    	newModelToWrite.setNsPrefixes(DMSTechRDFConstants.getInstance().getInitializingModel());
+				
 		    	
 		    	if (incomingAnno.getURI().toLowerCase().startsWith("urn:")) {	
 			
@@ -260,8 +264,10 @@ public class AnnotationIngester {
 		    				       				
 			 String submittedAnnosRelativeFileLocation = getSubmittedAnnosRelativeFileLocation(uuid);
 			 filesToAddToTDB.add(submittedAnnosRelativeFileLocation);
-			OutputStream foutForTextAnnos = frm.writeResource(txId, submittedAnnosRelativeFileLocation, true);
+			 OutputStream foutForTextAnnos = frm.writeResource(txId, submittedAnnosRelativeFileLocation, true);
 		     newModelToWrite.write(foutForTextAnnos, "N-TRIPLE");
+		     newModelToWrite.write(rdfForAnnotations, "RDF/XML");
+		     
 		    	} else {
 					// possibly notify the user that they submitted an annotation that doesn't need a URI, and so they should submit it instead for ingest
 				}

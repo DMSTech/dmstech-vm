@@ -16,6 +16,7 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
+import edu.stanford.dmstech.vm.DMSTechRDFConstants;
 import edu.stanford.dmstech.vm.RDFUtils;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
 
@@ -25,42 +26,39 @@ public class SubmittedAnnotationRepresentation {
 	@GET
 	@Produces("application/rdf+xml")
 	public String getResourceAsXML(
-			@Context UriInfo uriInfo, 
-			@PathParam("manuscriptId") final String manuscriptId,
-			@PathParam("canvasId") final String canvasId
+			@Context UriInfo uriInfo
 			) throws URISyntaxException {
-		return getAllStatementsForAnnotation(uriInfo, manuscriptId, canvasId, "RDF/XML");
+		return getAllStatementsForAnnotation(uriInfo, "RDF/XML");
 	}
 	
 	@GET 
 	@Produces("text/turtle;charset=utf-8")
 	public String getResourceStmtsAsTurtle(
-			@Context UriInfo uriInfo, 
-			@PathParam("manuscriptId") final String manuscriptId,
-			@PathParam("canvasId") final String canvasId
+			@Context UriInfo uriInfo 
 			) throws URISyntaxException {		
-		return getAllStatementsForAnnotation(uriInfo, manuscriptId, canvasId, "TURTLE");
+		return getAllStatementsForAnnotation(uriInfo, "TURTLE");
 	}
 
 	@GET 
 	@Produces("text/html;charset=utf-8")
 	public String getResourceStmtsAsHTML(
-			@Context UriInfo uriInfo, 
-			@PathParam("manuscriptId") final String manuscriptId,
-			@PathParam("canvasId") final String canvasId
+			@Context UriInfo uriInfo
 			) throws URISyntaxException, TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {		
-		String statements = getAllStatementsForAnnotation(uriInfo, manuscriptId, canvasId, "RDF/XML");
+		String statements = getAllStatementsForAnnotation(uriInfo, "RDF/XML");
 				return RDFUtils.serializeRDFToHTML(statements);
 	}
 	
-	private String getAllStatementsForAnnotation(UriInfo uriInfo, String manuscriptId, String canvasId, String serializeAs) {
+	private String getAllStatementsForAnnotation(UriInfo uriInfo, String serializeAs) {
 		StringWriter stringWriter = new StringWriter();		
 		String annotationURI = uriInfo.getAbsolutePath().toASCIIString();
 		
 		SharedCanvasTDBManager tdbManager = new SharedCanvasTDBManager();
 		Model tdb = tdbManager.loadMainTDBDataset();	
 		
-		ModelFactory.createDefaultModel().add(tdb.createResource(annotationURI).listProperties()).write(stringWriter, serializeAs);		
+		Model model = ModelFactory.createDefaultModel();
+		model.setNsPrefixes(DMSTechRDFConstants.getInstance().getInitializingModel());
+		
+		model.add(tdb.createResource(annotationURI).listProperties()).write(stringWriter, serializeAs);		
 		return stringWriter.toString();
 	}
 

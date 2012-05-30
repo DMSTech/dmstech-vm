@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class AnnotationIngestTestIT {
 
-	String sampleAnnotation = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
+	String sampleAnnotationOLD = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
 			"<rdf:RDF\n" + 
 			"   xmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n" + 
 			"   xmlns:exif=\"http://www.w3.org/2003/12/exif/ns#\"\n" + 
@@ -36,7 +36,27 @@ public class AnnotationIngestTestIT {
 			"  </sc:Canvas>" +
 			"</rdf:RDF>";
 	
-	String sampleAnnotations = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
+	String sampleAnnotation = "<rdf:RDF\n" + 
+			"    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n" + 
+			"    xmlns:cnt=\"http://www.w3.org/2008/content#\"\n" + 
+			"    xmlns:sc=\"http://www.shared-canvas.org/ns/\"\n" + 
+			"    xmlns:ore=\"http://www.openarchives.org/ore/terms/\"\n" + 
+			"    xmlns:oac=\"http://www.openannotation.org/ns/\" > \n" + 
+			"  <rdf:Description rdf:about=\"urn:uuid:7679f48e-e2b0-42c3-b5b1-7ebfc704379f\">\n" + 
+			"    <rdf:type rdf:resource=\"http://www.shared-canvas.org/ns/ContentAnnotation\"/>\n" + 
+			"    <oac:hasTarget rdf:resource=\"http://dms-data.stanford.edu/Parker/nr257ff7994/canvas-324#xyhw=0,0,139,610\"/>\n" + 
+			"    <oac:hasBody rdf:resource=\"urn:uuid:d6105f4e-cd2e-4a9c-b5c9-2c8a196e5057\"/>\n" + 
+			"  </rdf:Description>\n" + 
+			"  <rdf:Description rdf:about=\"urn:uuid:d6105f4e-cd2e-4a9c-b5c9-2c8a196e5057\">\n" + 				
+			"  		 <rdf:type rdf:resource=\"http://www.w3.org/2008/content#ContentAsText\"/>" + 
+			"        <cnt:rest rdf:parseType=\"Literal\">" + 
+						"grauius, ut non solum patiaris harum rerum indigentiam, sed" + 
+			"        </cnt:rest>\n" + 
+			"        <cnt:characterEncoding>utf-8</cnt:characterEncoding>\n" + 
+			"  </rdf:Description>\n" + 
+			"</rdf:RDF>";
+	
+	String sampleAnnotationsOLD = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
 			"<rdf:RDF\n" + 
 			"   xmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n" + 
 			"   xmlns:exif=\"http://www.w3.org/2003/12/exif/ns#\"\n" + 
@@ -102,6 +122,41 @@ public class AnnotationIngestTestIT {
 			"  </sc:Canvas>" +
 			"</rdf:RDF>";
 	
+	String sampleAnnotations = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
+			 "<rdf:RDF\n" + 
+				"    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n" + 
+				"    xmlns:cnt=\"http://www.w3.org/2008/content#\"\n" + 
+				"    xmlns:sc=\"http://www.shared-canvas.org/ns/\"\n" + 
+				"    xmlns:ore=\"http://www.openarchives.org/ore/terms/\"\n" + 
+				"    xmlns:oac=\"http://www.openannotation.org/ns/\" > \n" + 
+				"  <rdf:Description rdf:about=\"urn:uuid:7679f48e-e2b0-42c3-b5b1-7ebfc704379f\">\n" + 
+				"    <rdf:type rdf:resource=\"http://www.shared-canvas.org/ns/ContentAnnotation\"/>\n" + 
+				"    <oac:hasTarget rdf:resource=\"http://dms-data.stanford.edu/Parker/nr257ff7994/canvas-324#xyhw=0,0,139,610\"/>\n" + 
+				"    <oac:hasBody rdf:resource=\"urn:uuid:d6105f4e-cd2e-4a9c-b5c9-2c8a196e5057\"/>\n" + 
+				"  </rdf:Description>\n" + 
+				"  <rdf:Description rdf:about=\"urn:uuid:d6105f4e-cd2e-4a9c-b5c9-2c8a196e5057\">\n" + 				
+				"  		 <rdf:type rdf:resource=\"http://www.w3.org/2008/content#ContentAsText\"/>" + 
+				"        <cnt:rest rdf:parseType=\"Literal\">" + 
+							"grauius, ut non solum patiaris harum rerum indigentiam, sed" + 
+				"        </cnt:rest>\n" + 
+				"        <cnt:characterEncoding>utf-8</cnt:characterEncoding>\n" + 
+				"  </rdf:Description>\n" + 
+				"<rdf:Description rdf:about=\"urn:uuid:7679f48e-e2b0-42c3-b551-7ebfc704379d\">\n" + 
+						"    <rdf:type rdf:resource=\"http://www.shared-canvas.org/ns/ContentAnnotation\"/>\n" + 
+						"    <oac:hasTarget rdf:resource=\"http://dms-data.stanford.edu/Parker/nr257ff7994/canvas-324#xyhw=0,0,139,610\"/>\n" + 
+						"    <oac:hasBody rdf:resource=\"urn:uuid:d6105f4e-cd2e-4a9c-b5c9-2c8a196e5057\"/>\n" + 
+						"  </rdf:Description>\n" + 
+						"  <rdf:Description rdf:about=\"urn:uuid:d6105f4e-cd2e-4a9c-b5c9-2c8a196e5057\">\n" + 				
+						"  		 <rdf:type rdf:resource=\"http://www.w3.org/2008/content#ContentAsText\"/>" + 
+						"        <cnt:rest rdf:parseType=\"Literal\">" + 
+									"grauius, ut non solum patiaris harum rerum indigentiam, sed" + 
+						"        </cnt:rest>\n" + 
+						"        <cnt:characterEncoding>utf-8</cnt:characterEncoding>\n" + 
+						"  </rdf:Description>\n" + 
+				
+				
+				"</rdf:RDF>";
+	
 	@Test
 	public void testSubmitSingleAnnotation() {
 		 given().
@@ -111,6 +166,7 @@ public class AnnotationIngestTestIT {
          expect().
          	statusCode(201).
          	header("Location", containsString("/dms/sc/submitted_annotations/")).
+         	body(containsString("something")).
          when().
          post("/dms/sc/annotations/ingest");
 	}
@@ -124,6 +180,7 @@ public class AnnotationIngestTestIT {
          expect().
          	statusCode(201).
          	header("Location", containsString("/dms/sc/transactions/")).
+         	body(containsString("something")).
          when().
          post("/dms/sc/annotations/ingest");
 	}
