@@ -281,12 +281,14 @@ public class SharedCanvas {
 		for (RDFNode resource : resourceList) {
 			aggregation.addProperty(rdfConstants.oreAggregates, resource);
 		}
-		model.createResource(aggregationURI + ".xml")
+		Resource resourceMap = model.createResource(aggregationURI + ".xml")
 		.addProperty(RDF.type, rdfConstants.oreResourceMapClass)
 		.addProperty(rdfConstants.oreDescribes, aggregation)
 		.addProperty(DCTerms.created, model.createTypedLiteral(W3CDTF_NOW, DMSTechRDFConstants.DCTERMS_NAMESPACE + "W3CDTF"))
 		.addProperty(DC.format, "application/rdf+xml");						
 			
+		aggregation.addProperty(rdfConstants.oreIsDescribedBy, resourceMap);
+		
 		com.hp.hpl.jena.util.ResourceUtils.renameResource(aggregation, aggregationURI);		
 		
 		return model.getResource(aggregationURI);
@@ -328,13 +330,14 @@ public class SharedCanvas {
 				.addProperty(rdfConstants.scNewSequenceEnpoint, model.createResource(getURIForPostingNewSequence()));
  
 		// add the resource map that describes the aggregation
-		model.createResource(getManifestRMURI())
+		Resource manifestResourceMap = model.createResource(getManifestRMURI())
 				.addProperty(RDF.type, rdfConstants.oreResourceMapClass)
 				.addProperty(rdfConstants.oreDescribes, manifestAggregation)
 				.addProperty(DCTerms.created, model.createTypedLiteral(W3CDTF_NOW, rdfConstants.DCTERMS_NAMESPACE + "W3CDTF"))
 				.addProperty(DC.format, "application/rdf+xml");
 				
-				
+		manifestAggregation.addProperty(rdfConstants.oreIsDescribedBy, manifestResourceMap);
+		
 				// .addProperty(DCTerms.creator, ?? )	
 		return manifestAggregation;
 	}
@@ -391,7 +394,7 @@ public class SharedCanvas {
 		return UriBuilder.fromUri(baseURI).path("sequences/OriginalSequence").build().toString();		
 	}	
 	private String getOptimizedSequenceURI() {
-		return UriBuilder.fromUri(baseURI).path("sequences/optimized/OriginalSequence").build().toString();		
+		return UriBuilder.fromUri(baseURI).path("sequences/optimized/OriginalSequence.json").build().toString();		
 	}	
 	private String getImageAnnosAggregationURI() {
 		return UriBuilder.fromUri(baseURI).path("ImageAnnotations").build().toString();		

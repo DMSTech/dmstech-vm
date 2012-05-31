@@ -164,12 +164,13 @@ public class SharedCanvasUtil {
 				.addProperty(RDF.type, RDF.List)
 				.addProperty(RDF.type, dmsAggregationType);
 		
-		model.createResource(aggregationURI + ".xml")
+		Resource resourceMap = model.createResource(aggregationURI + ".xml")
 		.addProperty(RDF.type, rdfConstants.oreResourceMapClass)
 		.addProperty(rdfConstants.oreDescribes, aggregation)
 		.addProperty(DCTerms.created, model.createTypedLiteral(dateCreated, DMSTechRDFConstants.DCTERMS_NAMESPACE + "W3CDTF"))
 		.addProperty(DC.format, "application/rdf+xml");	
 		
+		aggregation.addProperty(rdfConstants.oreIsDescribedBy, resourceMap);
 		return aggregation;
 	}
 	

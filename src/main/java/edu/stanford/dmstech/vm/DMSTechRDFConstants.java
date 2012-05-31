@@ -64,6 +64,7 @@ public class DMSTechRDFConstants {
 
 	// ORE properties and types
 	public Property oreDescribes;
+	public Property oreIsDescribedBy;
 	public Property oreAggregates;
 	public Resource oreResourceMapClass;
 	public Resource oreAggregationClass;
@@ -197,6 +198,8 @@ public class DMSTechRDFConstants {
 		// ORE properties and types
 		oreDescribes = initializingModel.createProperty(ORE_NAMESPACE,
 				"describes");
+		oreIsDescribedBy = initializingModel.createProperty(ORE_NAMESPACE,
+				"isDescribedBy");
 		oreAggregates = initializingModel.createProperty(ORE_NAMESPACE,
 				"aggregates");
 		oreResourceMapClass = initializingModel

@@ -80,7 +80,7 @@ public class SharedCanvasGenerator {
 					"some settlement", 
 					"some region name", 
 					"some country", 
-					"kq131cs7229", 
+					"test", 
 					"ingested",
 					false, 
 					null);
@@ -111,7 +111,7 @@ public class SharedCanvasGenerator {
 		
 		baseURIForManuscript = Config.getBaseURIForManuscriptInDefaultCollection(manuscriptIdForIngest);
 		this.manuscriptIdForIngest = manuscriptIdForIngest;
-		if (collectionIdForIngest != null & ! collectionIdForIngest.equals("")) { 
+		if (collectionIdForIngest != null && ! collectionIdForIngest.equals("")) { 
 			this.collectionIdForIngest = collectionIdForIngest;
 		} else {
 			this.collectionIdForIngest = Config.defaultCollection;
@@ -120,6 +120,7 @@ public class SharedCanvasGenerator {
 		if (inputStream != null ) {
 			saveZippedFilesToManuscriptDir(inputStream);
 		}
+
 		
 		sharedCanvasInstance = SharedCanvas.createNewSharedCanvasModel(
 				baseURIForManuscript,
