@@ -5,7 +5,7 @@
 <body>
 <%@ include file="header.jsp" %>
 <div id="content">
-	<div id="reindex" class="ui-corner-all ui-widget-header">
+	<div id="reindex" class="ui-corner-all ui-widget-header adminBox">
 		<h2>Reindex Search</h2>
 		<div class="section ui-corner-all ui-widget-content">
 			<div><input type="checkbox" name="solr" id="reindexSolr"/><label for="reindexSolr">Reindex SOLR</label></div>
@@ -15,7 +15,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="data" class="ui-corner-all ui-widget-header">
+	<div id="data" class="ui-corner-all ui-widget-header adminBox">
 		<h2>Manage Local Data</h2>
 		<div class="section ui-corner-all ui-widget-content">
 			<div><input type="checkbox" name="ingested" id="data1"/><label for="data1">Delete Ingested Collections</label></div>
@@ -28,6 +28,14 @@
 				<button>Delete Selected Data</button>
 				<hr/>
 				<button>Reset Local Data to Original State</button>
+			</div>
+		</div>
+	</div>
+	<div id="tpen" class="ui-corner-all ui-widget-header adminBox">
+		<h2>Manage TPen Data</h2>
+		<div class="section ui-corner-all ui-widget-content">
+			<div class="buttonsParent">
+				<button>Delete all from TPen Annotation Store</button>
 			</div>
 		</div>
 	</div>

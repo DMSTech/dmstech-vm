@@ -32,6 +32,7 @@ $(document).ready(function() {
 	
 	function resetData() {
 		$('#statusDialog').dialog('open');
+		$('#statusIcon').removeClass();
 		$('#statusIcon').addClass('loading');
 		$('#status').text('Resetting');
 		actionDialog.doAction('Resetting', {
@@ -39,6 +40,16 @@ $(document).ready(function() {
 			data: {
 				all: true
 			}
+		});
+	}
+	
+	function deleteTpen() {
+		$('#statusDialog').dialog('open');
+		$('#statusIcon').removeClass();
+		$('#statusIcon').addClass('loading');
+		$('#status').text('Deleting');
+		actionDialog.doAction('Deleting', {
+			url: 'http://'+host+'/TPEN/delete'
 		});
 	}
 	
@@ -68,6 +79,8 @@ $(document).ready(function() {
 		$('#data button:eq(1)').button().click(function() {
 			$('#resetDialog').dialog('open');
 		});
+		
+		$('#tpen button').button().click(deleteTpen);
 	}
 	
 	init();
