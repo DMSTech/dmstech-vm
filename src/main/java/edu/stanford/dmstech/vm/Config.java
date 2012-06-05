@@ -279,6 +279,12 @@ public class Config implements ServletContextListener {
 		return new File(getAbsolutePathToTransactionsDir(), transactionId + ".nt").getAbsolutePath();
 	}
 	
+	public static String getAbsolutePathToTextAnnoFile(String annoURI) {
+		String annotationFileName = annoURI.substring(annoURI.lastIndexOf("/") + 1);		
+		return new File(getAbsolutePathToTextAnnosDir(), annotationFileName + ".nt").getAbsolutePath();
+	}
+	
+	
 	public static String getAbsolutePathToManuscriptRDFDir(String collectionId, String manuscriptId) {
 		return new File(getAbsolutePathToManuscriptDir(collectionId, manuscriptId), "rdf").getAbsolutePath();
 	}

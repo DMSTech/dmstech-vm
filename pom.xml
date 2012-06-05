@@ -11,7 +11,7 @@
     <dependency>
 		<groupId>org.hamcrest</groupId>
 		<artifactId>hamcrest-core</artifactId>
-		<version>1.1</version>
+		<version>1.2.1</version>
 	</dependency>   
 	<dependency>
   <groupId>org.slf4j</groupId>
@@ -89,10 +89,17 @@
 <dependency>
  <groupId>com.jayway.restassured</groupId>
  <artifactId>rest-assured</artifactId>
- <version>1.5</version>
+ <version>1.6.2</version>
  <scope>test</scope>
 </dependency>
-
+<!--  restassred seems to need  groovy  
+<dependency>
+	<groupId>org.codehaus.groovy</groupId>
+	<artifactId>groovy</artifactId>
+	<version>1.7.10</version>
+	<scope>test</scope>
+</dependency>-->
+            
 
 <dependency>
 	<groupId>org.json</groupId>
@@ -208,7 +215,7 @@ mvn install:install-file -Dfile=/usr/local/adore-djatoka-1.1/lib/uk.co.mmscomput
     <url>http://download.java.net/maven/2/</url>
     <layout>default</layout>
 </repository> 
-<!-- <repository>
+ <repository>
     <id>maven-repository.java.net</id>
     <name>Java.net Maven 1 Repository (legacy)</name>
     <url>http://download.java.net/maven/1</url>
@@ -223,7 +230,7 @@ mvn install:install-file -Dfile=/usr/local/adore-djatoka-1.1/lib/uk.co.mmscomput
     <snapshots>
       <enabled>true</enabled>
     </snapshots>
-  </repository>  -->
+  </repository>  
 </repositories>
   <build>
     <finalName>dms</finalName>

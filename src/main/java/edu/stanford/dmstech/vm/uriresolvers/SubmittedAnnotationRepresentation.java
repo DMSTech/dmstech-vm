@@ -1,5 +1,6 @@
 package edu.stanford.dmstech.vm.uriresolvers;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -19,9 +20,15 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.RDFNode;
+import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.vocabulary.RDF;
 
+import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.DMSTechRDFConstants;
 import edu.stanford.dmstech.vm.RDFUtils;
+import edu.stanford.dmstech.vm.indexing.SharedCanvasSOLRIndexer;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
 import edu.stanford.dmstech.vm.uriresolvers.ingest.AnnotationIngester;
 
@@ -54,20 +61,33 @@ public class SubmittedAnnotationRepresentation {
 	}
 	
 	@PUT
-	public Response replaceAnnotation(
+	public Response replaceAnnotation(@Context UriInfo uriInfo,
 				InputStream inputStream) throws IOException {	
 		
-		//delete old rdf
+		String annotationURI = uriInfo.getAbsolutePath().toASCIIString();
+		SharedCanvasTDBManager tdbManager = new SharedCanvasTDBManager();
+		Model tdb = tdbManager.loadMainTDBDataset();
+		Resource annotation = tdb.createResource(annotationURI);
+		// 1.  REMOVE STATEMENTS FOR OLD ANNOTATION FROM TRIPLESTORE
+		tdb.remove(annotation.listProperties());
 		
-		//a) from tbd as below - delete old 
-		//b) from file system  - delete the single file
-		//c) from solr - delete old solr record for canvas?  or will the indexing step
-		// below just replace the value for the given annotation???
+		// 2.  DELETE THE OLD RDF FILE IN THE FILESYSTEM
+		File annoFile = new File(Config.getAbsolutePathToTextAnnoFile(annotationURI));
+		if (annoFile.exists()) annoFile.delete();
 		
+		// 3.  SAVE THE NEW ANNOTATION
+		Response response = new AnnotationIngester().saveAnnotations(inputStream);
 		
-		return (new AnnotationIngester().saveAnnotations(inputStream));
-			
-		
+		// 4.  REINDEX THE SOLR DOCUMENTS FOR ANY AFFECTED CANVASES
+		StmtIterator canvasIter = tdb.listStatements(annotation, DMSTechRDFConstants.getInstance().oacHasTargetProperty, (RDFNode) null);
+		while (canvasIter.hasNext()) {
+			Resource canvas = canvasIter.next().getObject().asResource();
+		//	if (! annotation.hasProperty(RDF.type, DMSTechRDFConstants.getInstance().oacTextAnnotationType)) continue;
+			SharedCanvasSOLRIndexer solrIndexer = new SharedCanvasSOLRIndexer();
+			solrIndexer.updateTextAnnosForCanvas(canvas, tdb);
+		}
+		return response;
+
 	}
 	
 	private String getAllStatementsForAnnotation(UriInfo uriInfo, String serializeAs) {

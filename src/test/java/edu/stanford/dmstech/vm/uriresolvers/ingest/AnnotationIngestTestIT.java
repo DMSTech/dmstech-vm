@@ -4,6 +4,8 @@ import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
 import org.junit.Test;
 
+import com.jayway.restassured.response.Response;
+
 public class AnnotationIngestTestIT {
 
 	String sampleAnnotationOLD = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
@@ -51,6 +53,26 @@ public class AnnotationIngestTestIT {
 			"  		 <rdf:type rdf:resource=\"http://www.w3.org/2008/content#ContentAsText\"/>" + 
 			"        <cnt:rest rdf:parseType=\"Literal\">" + 
 						"grauius, ut non solum patiaris harum rerum indigentiam, sed" + 
+			"        </cnt:rest>\n" + 
+			"        <cnt:characterEncoding>utf-8</cnt:characterEncoding>\n" + 
+			"  </rdf:Description>\n" + 
+			"</rdf:RDF>";
+	
+	String replacementAnnotationForFormat = "<rdf:RDF\n" + 
+			"    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n" + 
+			"    xmlns:cnt=\"http://www.w3.org/2008/content#\"\n" + 
+			"    xmlns:sc=\"http://www.shared-canvas.org/ns/\"\n" + 
+			"    xmlns:ore=\"http://www.openarchives.org/ore/terms/\"\n" + 
+			"    xmlns:oac=\"http://www.openannotation.org/ns/\" > \n" + 
+			"  <rdf:Description rdf:about=\"%s\">\n" + 
+			"    <rdf:type rdf:resource=\"http://www.shared-canvas.org/ns/ContentAnnotation\"/>\n" + 
+			"    <oac:hasTarget rdf:resource=\"http://dms-data.stanford.edu/Parker/nr257ff7994/canvas-324#xyhw=0,0,139,610\"/>\n" + 
+			"    <oac:hasBody rdf:resource=\"urn:uuid:d6105f4e-cd2e-4a9c-b5c3-2c8a196e5057\"/>\n" + 
+			"  </rdf:Description>\n" + 
+			"  <rdf:Description rdf:about=\"urn:uuid:d6105f4e-cd2e-4a9c-b5c3-2c8a196e5057\">\n" + 				
+			"  		 <rdf:type rdf:resource=\"http://www.w3.org/2008/content#ContentAsText\"/>" + 
+			"        <cnt:rest rdf:parseType=\"Literal\">" + 
+						"grauius, ut non solum patiaris NEW NEW NEW harum rerum indigentiam, sed" + 
 			"        </cnt:rest>\n" + 
 			"        <cnt:characterEncoding>utf-8</cnt:characterEncoding>\n" + 
 			"  </rdf:Description>\n" + 
@@ -156,19 +178,36 @@ public class AnnotationIngestTestIT {
 				
 				
 				"</rdf:RDF>";
-	
+
+
 	@Test
 	public void testSubmitSingleAnnotation() {
-		 given().
+		 Response response = given().
 	       
 		 	body(sampleAnnotation).
 	       
          expect().
          	statusCode(201).
          	header("Location", containsString("/dms/sc/submitted_annotations/")).
-         	body(containsString("something")).
+         	body(containsString("submitted_annotations")).
          when().
          post("/dms/sc/annotations/ingest");
+		 
+		 String newAnnosURI = response.getHeader("Location");
+		 
+String newAnnoToUpdateJustCreateAnno = String.format(replacementAnnotationForFormat, newAnnosURI);
+		 
+		 given().
+	      
+		 	body(newAnnoToUpdateJustCreateAnno).
+	      
+	 expect().
+	 	statusCode(201).
+	 	header("Location", containsString(newAnnosURI)).
+	 	body(containsString("sameAs")).
+	 when().
+	 put(newAnnosURI);
+		 
 	}
 
 	@Test
@@ -180,10 +219,14 @@ public class AnnotationIngestTestIT {
          expect().
          	statusCode(201).
          	header("Location", containsString("/dms/sc/transactions/")).
-         	body(containsString("something")).
+         	body(containsString("submitted_annotations")).
          when().
          post("/dms/sc/annotations/ingest");
 	}
 	
 
+	
+
+	
+	
 }

@@ -29,10 +29,14 @@ import edu.stanford.dmstech.vm.DMSTechRDFConstants;
 import edu.stanford.dmstech.vm.RDFUtils;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasSOLRIndexer;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
+import gov.lanl.adore.djatoka.DjatokaDecodeParam;
 import gov.lanl.adore.djatoka.DjatokaEncodeParam;
 import gov.lanl.adore.djatoka.DjatokaException;
+import gov.lanl.adore.djatoka.DjatokaExtractProcessor;
 import gov.lanl.adore.djatoka.ICompress;
+import gov.lanl.adore.djatoka.IExtract;
 import gov.lanl.adore.djatoka.kdu.KduCompressExe;
+import gov.lanl.adore.djatoka.kdu.KduExtractExe;
 import gov.lanl.adore.djatoka.util.IOUtils;
 import gov.lanl.adore.djatoka.util.ImageProcessingUtils;
 import gov.lanl.adore.djatoka.util.ImageRecord;
@@ -136,7 +140,7 @@ public class SharedCanvasGenerator {
 				countryName);
 		
 		generateJP2sFromSourceImages();
-		generateRDFFromJP2s(parseTitle);
+		generateRDFAndJpgsFromJP2s(parseTitle);
 		saveManuscriptRDF();
 		indexManuscriptRDF();
 		indexInSolr();
@@ -201,7 +205,7 @@ public class SharedCanvasGenerator {
 			File inputDirectory = new File(directoryPathForManuscript);
 			DjatokaEncodeParam p = new DjatokaEncodeParam();
 			ICompress jp2 = new KduCompressExe();
-
+			
 			
 			if (! inputDirectory.exists() ) {
 				throw new Exception("The image directory specified doesn't exist.");
@@ -219,6 +223,9 @@ public class SharedCanvasGenerator {
 			    	// don't overwrite
 			    	jp2.compressImage(f.getAbsolutePath(), outFile.getAbsolutePath(), p);
 			    }
+			    
+		
+			   
 			    }
 						
 		} catch (DjatokaException e) {
@@ -227,7 +234,12 @@ public class SharedCanvasGenerator {
 		}			
 	}
 	
-	private void generateRDFFromJP2s(boolean parseTitle) throws Exception {
+	private void generateRDFAndJpgsFromJP2s(boolean parseTitle) throws Exception {
+		
+		DjatokaDecodeParam p = new DjatokaDecodeParam();
+	    String format = "image/jpeg";    	
+		IExtract ex = new KduExtractExe();
+		DjatokaExtractProcessor e = new DjatokaExtractProcessor(ex);
 		
 		FileFilter jp2ImageFilter = new jp2FileFilter();
 		ArrayList<File> files = IOUtils.getFileList(directoryPathForManuscript, jp2ImageFilter, false);
@@ -246,10 +258,21 @@ public class SharedCanvasGenerator {
 		    ImageRecord dim = imageInfo.getImageRecord();
 		    String width = String.valueOf(dim.getWidth());
 		    String height = String.valueOf(dim.getHeight());
+		 // generate the jpg if it doesn't already exist
+		    String pathTojp2 = f.getAbsolutePath();
+		    File jpgFile = new File(directoryPathForManuscript, fileNameWithoutExtension + ".jpg");
+		 	if ( !jpgFile.exists()) {
+		 		String pathTojpg = jpgFile.getAbsolutePath();
+		 		e.extractImage(pathTojp2, pathTojpg,  p, format);
+		 	}		
+		 			
 		//    System.out.println("width:  " + width + " and height: " + height + " and page title: " + pageTitle + " and filename: " + imageFileName);
 		    sharedCanvasInstance.addImageToSharedCanvas(imageFileName, pageTitle, width, height);					   
 		}
 	}
+	
+	
+
 	
 	private void saveManuscriptRDF() {
 

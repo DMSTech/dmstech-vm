@@ -228,13 +228,19 @@ public class AnnotationIngester {
 		    	Model newModelToWrite = ModelFactory.createDefaultModel();
 		    	newModelToWrite.setNsPrefixes(DMSTechRDFConstants.getInstance().getInitializingModel());
 				
+		    	String newAnnoURI = incomingAnno.getURI();
 		    	
-		    	if (incomingAnno.getURI().toLowerCase().startsWith("urn:")) {	
+		    	if (newAnnoURI.startsWith("urn:")) {	
+		    		newAnnoURI = getNewTextAnnotationURI(uuid);
+		    	}
 			
 		    	Resource targetCanvas = incomingAnno.listProperties(rdfConstants.oacHasTargetProperty).nextStatement().getObject().asResource();
 		    	Resource oldBody = incomingAnno.listProperties(rdfConstants.oacHasBodyProperty).nextStatement().getObject().asResource();
 				
-		    	newAnnotationResource = newModelToWrite.createResource( getNewTextAnnotationURI(uuid), rdfConstants.oacTextAnnotationType)
+		    	
+		    	
+		    	
+		    	newAnnotationResource = newModelToWrite.createResource( newAnnoURI, rdfConstants.oacTextAnnotationType)
 											.addProperty(RDF.type, rdfConstants.oacAnnotationType)
 											.addProperty(rdfConstants.oacHasTargetProperty, targetCanvas);
 				String bodyText = null;
@@ -256,9 +262,10 @@ public class AnnotationIngester {
 				
 				addTextToSolrIndexQueue(bodyText, targetCanvas.getURI());
 				
-				newModelToWrite.add(newAnnotationResource, OWL.sameAs, incomingAnno);
-				newModelToWrite.add(incomingAnno, OWL.sameAs, newAnnotationResource);					
-			
+				if (! newAnnotationResource.equals(incomingAnno)) {
+					newModelToWrite.add(newAnnotationResource, OWL.sameAs, incomingAnno);				
+					newModelToWrite.add(incomingAnno, OWL.sameAs, newAnnotationResource);					
+				}
 				transactionsAggregationResource.addProperty(rdfConstants.oreAggregates, newAnnotationResource);			
 			
 		    				       				
@@ -268,9 +275,7 @@ public class AnnotationIngester {
 		     newModelToWrite.write(foutForTextAnnos, "N-TRIPLE");
 		     newModelToWrite.write(rdfForAnnotations, "RDF/XML");
 		     
-		    	} else {
-					// possibly notify the user that they submitted an annotation that doesn't need a URI, and so they should submit it instead for ingest
-				}
+		    	
 		        
 		    }   catch (Exception e) {
 		    	e.printStackTrace();

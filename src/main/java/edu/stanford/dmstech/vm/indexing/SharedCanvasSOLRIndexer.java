@@ -156,27 +156,7 @@ public class SharedCanvasSOLRIndexer {
 				/* 
 				  * 5.  for each canvas, get all TextAnnotations that target the canvas.
 				  */
-				StmtIterator annotationIter = tdb.listStatements(null, sharedCanvasConstants.oacHasTargetProperty, canvas);
-				while (annotationIter.hasNext()) {
-					Resource annotation = annotationIter.next().getSubject();
-					// TODO:  replace this with SPARQL query on TDB to avoid type check
-					if (! annotation.hasProperty(RDF.type, sharedCanvasConstants.oacTextAnnotationType)) continue;
-						/*
-					  *  6.  for each TextAnnotation, get the Body.
-					  */
-					Resource annotationBody = annotation.getPropertyResourceValue(sharedCanvasConstants.oacHasBodyProperty);
-					 /* 
-					  * 7.  if inline body, then index the text immediately, otherwise get the text from the body's URI
-					 */
-					String bodyText = null;
-					if (annotationBody.hasProperty(RDF.type, sharedCanvasConstants.cntRestProperty)) {
-						bodyText = annotationBody.getProperty(sharedCanvasConstants.cntRestProperty).getString();				
-					} else {
-						bodyText = RDFUtils.getTextFromURI(annotationBody.getURI());
-					}	
-					// annotation_text is a multi value field so we can add as many 'instances' of the field as we like
-					canvasSolrDoc.addField(ANNOTATION_TEXT_FIELD, bodyText);
-				}
+				addTextAnnosToCanvasSolrDoc(tdb,canvas, canvasSolrDoc);
 				docs.add(canvasSolrDoc);
 			}
 			}
@@ -190,6 +170,66 @@ public class SharedCanvasSOLRIndexer {
 		}
 
 		System.out.println(count + " docs indexed.");
+		
+	}
+
+	private void addTextAnnosToCanvasSolrDoc(Model tdb,
+			Resource canvas, SolrInputDocument canvasSolrDoc)
+			throws IOException {
+		StmtIterator annotationIter = tdb.listStatements(null, sharedCanvasConstants.oacHasTargetProperty, canvas);
+		while (annotationIter.hasNext()) {
+			Resource annotation = annotationIter.next().getSubject();
+			// TODO:  replace this with SPARQL query on TDB to avoid type check
+			if (! annotation.hasProperty(RDF.type, sharedCanvasConstants.oacTextAnnotationType)) continue;
+				/*
+			  *  6.  for each TextAnnotation, get the Body.
+			  */
+			Resource annotationBody = annotation.getPropertyResourceValue(sharedCanvasConstants.oacHasBodyProperty);
+			 /* 
+			  * 7.  if inline body, then index the text immediately, otherwise get the text from the body's URI
+			 */
+			String bodyText = null;
+			if (annotationBody.hasProperty(RDF.type, sharedCanvasConstants.cntRestProperty)) {
+				bodyText = annotationBody.getProperty(sharedCanvasConstants.cntRestProperty).getString();				
+			} else {
+				bodyText = RDFUtils.getTextFromURI(annotationBody.getURI());
+			}	
+			// annotation_text is a multi value field so we can add as many 'instances' of the field as we like
+			canvasSolrDoc.addField(ANNOTATION_TEXT_FIELD, bodyText);
+		}
+		
+	}
+	
+	public void updateTextAnnosForCanvas(Resource canvas, Model tdb) {
+		try {
+			SolrServer server = new CommonsHttpSolrServer(Config.solrServer);	
+			Collection<SolrInputDocument> docs = new ArrayList<SolrInputDocument>();
+			
+				SolrInputDocument newCanvasSolrDoc = null;
+				String canvasURI = canvas.getURI();
+				SolrQuery query = new SolrQuery();
+			    query.setQuery( "uri:" + ClientUtils.escapeQueryChars(canvasURI));
+			    SolrDocumentList docResultList = server.query( query ).getResults();
+			    if (docs.size() == 1) {
+			    	// we only index if we have a matching canvas
+			    	SolrDocument oldCanvasSolrDoc = docResultList.get(0);
+			    	// copy the old solr doc to a new input doc
+			    	newCanvasSolrDoc = org.apache.solr.client.solrj.util.ClientUtils.toSolrInputDocument(oldCanvasSolrDoc);
+			  			    // remove the old annotations
+			    	newCanvasSolrDoc.removeField(ANNOTATION_TEXT_FIELD);
+			    	addTextAnnosToCanvasSolrDoc(tdb, canvas, newCanvasSolrDoc);
+				
+			    	// this will replace the old doc in solr
+			    	docs.add(newCanvasSolrDoc);
+			    }
+			
+			if (!docs.isEmpty()) {
+				server.add( docs );
+				server.commit();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 
