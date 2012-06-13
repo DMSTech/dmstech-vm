@@ -15,7 +15,7 @@
 			<p class="description">Place the images you wish to ingest into the newly created subdirectory. Valid image file types are: <span class="technical">tif</span>, <span class="technical">tiff</span>, <span class="technical">jpg</span>, <span class="technical">jpeg</span>, <span class="technical">jp2</span>, <span class="technical">png</span>, <span class="technical">gif</span>, <span class="technical">bmp</span>.</p>
 			<label for="subdir">Subdirectory Name:</label><input type="text" id="subdir" name="subdir"/>
 			<hr/>
-			<p class="description">If you don't have access to the manuscipt computer, you can upload images in a ZIP file from your own computer. This will override the subdirectory name above.</p>
+			<p class="description">If you don't have access to the manuscipt computer, you can upload images in a ZIP file from your own computer. The subdirectory name must still be specified, and will be created for you.</p>
 			<label for="zipupload">ZIP File:</label><input type="file" name="file" id="zipupload" />
 			<hr/>
 			<p class="description">If you wish you may order your pages and provide page titles by naming the image files this way: <span class="technical">pageNumber_pageTitle</span>.  For example, <span class="technical">1_firstPage.tif</span> will be set as page 1 with title 'firstPage'.  No spaces may be included in the file name.</p>
