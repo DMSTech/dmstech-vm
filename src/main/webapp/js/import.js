@@ -15,23 +15,32 @@ $(document).ready(function() {
 	$('#subdir').keyup(function() {
 		$('#subdir').removeClass('ui-state-error');
 	});
+	$('#zipupload').click(function() {
+		$('#subdir').removeClass('ui-state-error');
+	});
 	
 	$('button:eq(0)').button().click(function() {
-		if ($('#subdir').val().match(/[^\w]/) != null) {
-			$('#subdir').addClass('ui-state-error');
-			alert('The subdirectory name may only contain letters and numbers.');
-			return;
-		}
-		
+		var zip = $('#zipupload')[0];
 		var collectionId = 'ingested';
 		var manuscriptId = $('#subdir').val();
+		
+		if (zip.files.length == 0) {
+			if (manuscriptId == '') {
+				$('#subdir').addClass('ui-state-error');
+				alert('You must enter a subdirectory name, or choose a ZIP file to upload.');
+				return;
+			} else if (manuscriptId.match(/[^\w]/) != null) {
+				$('#subdir').addClass('ui-state-error');
+				alert('The subdirectory name may only contain letters and numbers.');
+				return;
+			}
+		}
 		
 		var formData = new FormData();
 		$('#importer input[type!="file"]').each(function(index, el) {
 			formData.append($(this).attr('name'), $(this).val());
 		});
 		
-		var zip = $('#zipupload')[0];
 		if (zip.files.length > 0) {
 			formData.append('file', zip.files[0]);
 		}
