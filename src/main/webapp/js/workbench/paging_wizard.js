@@ -318,11 +318,13 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 		
 		$(this.id+' .wizManifests li').each($.proxy(function(index, el) {
 			var data = cache[index];
-			$(el).data('iaUri', data.iaUri);
-			$(el).data('nsUri', data.nsUri);
-			$(el).click($.proxy(function(event) {
-				$.proxy(this.fetchSequence($(event.target).data()), this);
-			}, this));
+			if (data != null) {
+				$(el).data('iaUri', data.iaUri);
+				$(el).data('nsUri', data.nsUri);
+				$(el).click($.proxy(function(event) {
+					$.proxy(this.fetchSequence($(event.target).data()), this);
+				}, this));
+			}
 		}, this));
 	}
 	
@@ -347,39 +349,50 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 			$.ajax({
 				url: url,
 				success: $.proxy(function(data, status, xhr) {
-					var manifest = $.rdf.databank();
-					manifest.load(data);
-					setPrefixesForDatabank(data, manifest);
-					
-					var title = $.rdf({databank: manifest}).where('?manifest dc:title ?title').get(0).title.value;
-					
-					var entry = $.rdf({databank: manifest})
-					.where('?ns rdf:type ?type')
-					.filter('type', /ns\/Sequence/)
-					.where('?ns ore:isDescribedBy ?uri').get(0);
-					var ns = entry.ns.value.toString();
-//					var nsUri = entry.uri.value.toString();
-					
-					var iaUri = $.rdf({databank: manifest})
-					.where('?ns rdf:type ?type')
-					.filter('type', /ns\/ImageAnnotationList/)
-					.where('?ns ore:isDescribedBy ?uri').get(0).uri.value.toString();
-					
-					cache.push({title: title, nsUri: ns, iaUri: iaUri});
-					
-					liString += '<li id="man_'+this.idCount+'">'+title+'</li>';
-					this.idCount++;
-					
-					if (cache.length == uris.length) {
-						this.loading(false);
+					try {
+						var manifest = $.rdf.databank();
+						manifest.load(data);
+						setPrefixesForDatabank(data, manifest);
 						
-						buildPage.apply(this, [liString, cache]);
+						var title = $.rdf({databank: manifest}).where('?manifest dc:title ?title').get(0).title.value;
 						
-						this.showStep(2);
+						var entry = $.rdf({databank: manifest})
+						.where('?ns rdf:type ?type')
+						.filter('type', /ns\/Sequence/)
+						.where('?ns ore:isDescribedBy ?uri').get(0);
+						var ns = entry.ns.value.toString();
+	//					var nsUri = entry.uri.value.toString();
 						
-						$(this.id+' .wizManifests').data('page'+pageNum, cache);
+						var iaUri = $.rdf({databank: manifest})
+						.where('?ns rdf:type ?type')
+						.filter('type', /ns\/ImageAnnotationList/)
+						.where('?ns ore:isDescribedBy ?uri').get(0).uri.value.toString();
+						
+						cache.push({title: title, nsUri: ns, iaUri: iaUri});
+						
+						liString += '<li id="man_'+this.idCount+'">'+title+'</li>';
+						this.idCount++;
+						
+						if (cache.length == uris.length) {
+							this.loading(false);
+							
+							buildPage.apply(this, [liString, cache]);
+							
+							this.showStep(2);
+							
+							$(this.id+' .wizManifests').data('page'+pageNum, cache);
+						}
+					} catch (e) {
+						cache.push(null);
+						liString += '<li id="man_'+this.idCount+'">(Error loading this manifest)</li>';
+						this.idCount++;
 					}
 					
+				}, this),
+				error: $.proxy(function(xhr, status, error) {
+					this.loading(false);
+					this.showStep(2);
+					$(this.id+' .wizManifests ul').append('<li>Error loading collection: '+error+'</li>');
 				}, this)
 			});
 		}

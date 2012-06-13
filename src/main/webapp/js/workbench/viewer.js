@@ -4,26 +4,42 @@ function Viewer(config) {
 	this.id = this.config.id;
 	
 	this.current = null;
+	
+	this.host = window.location.host;
+	this.path = window.location.pathname.match(/^.*\//)[0];
+	
+	this.djatokaURL = null;
+	$.ajax({
+		url: 'http://'+this.host+this.path+'sc/lookup/djatoka',
+		data: 'GET',
+		success: $.proxy(function (data, status, xhr) {
+			this.djatokaURL = data;
+		}, this),
+		error: function() {
+			alert('There was an error getting the djatoka URL.');
+		}
+	});
 }
 
 Viewer.prototype.showImage = function(event, data) {
 	this.current = data;
 	$(this.id+' iframe').attr('src', 'loading.htm');
 	
-//	$.ajax(data.bodyId+'.json', {
-//		dataType: 'json',
-//		success: function(data, status, xhr) {
-//			console.log(data);
-//		}
-//	});
-	
 	setTimeout(function() {
-//		var iframeWidth = $(id+' iframe').width();
-//		var ratio = data.width / iframeWidth;
 		var uri = data.imageURI;
-		if (uri.indexOf('stacks') != -1) uri += '_large';
+		if (uri.indexOf('stacks') != -1) {
+			uri += '_large';
+		} else if (uri.indexOf('.jp2')) {
+			var width = $(this.id+' iframe').width();
+			var height = $(this.id+' iframe').height();
+			uri = this.djatoakURL+
+				'?url_ver=Z39.88-2004'+
+				'&rft_id='+uri+
+				'&svc_id=info:lanl-repo/svc/getRegion'+
+				'&svc_val_fmt=info:ofi/fmt:kev:mtx:jpeg2000'+
+				'&svc.scale='+width+','+height;
+		}
 		$('#toolContent iframe').attr('src', uri);
-//		$('#toolContent iframe').attr('height', data.height / ratio);
 	}, 150);
 };
 
