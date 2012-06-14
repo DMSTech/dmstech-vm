@@ -216,7 +216,7 @@ public class SharedCanvasGenerator {
 			for (File f : files) {
 				ImageRecord dim = ImageRecordUtils.getImageDimensions(f.getAbsolutePath());
 				p.setLevels(ImageProcessingUtils.getLevelCount(dim.getWidth(), dim.getHeight()));
-				String fileNameWithoutExtension = f.getName().substring(0, f.getName().indexOf("."));
+				String fileNameWithoutExtension = f.getName().substring(0, f.getName().lastIndexOf("."));
 				String jp2FileName =  fileNameWithoutExtension + ".jp2";
 			    File outFile = new File(directoryPathForManuscript, jp2FileName);
 			    if (! outFile.exists()) {
@@ -246,7 +246,7 @@ public class SharedCanvasGenerator {
 		for (File f : files) {
 			
 			String jp2FileName = f.getName();
-			String fileNameWithoutExtension = jp2FileName.substring(0, f.getName().indexOf("."));		
+			String fileNameWithoutExtension = jp2FileName.substring(0, f.getName().lastIndexOf("."));		
 			
 			String imageFileName = jp2FileName;
 		    String pageTitle = null;		    	

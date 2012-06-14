@@ -7,9 +7,3 @@
 <http://localhost:8080/dms/sc/ingested/Collection> <http://purl.org/dc/elements/1.1/title> "Manuscripts ingested into local machine" .
 <http://localhost:8080/dms/sc/ingested/Collection> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/Aggregation> .
 <http://localhost:8080/dms/sc/ingested/Collection> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.shared-canvas.org/ns/Collection> .
-<http://localhost:8080/dms/sc/ingested/Collection> <http://www.openarchives.org/ore/terms/aggregates> <http://localhost:8080/dms/sc/ingested/test1/Manifest> .
-<http://localhost:8080/dms/sc/ingested/test1/Manifest.xml> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/ResourceMap> .
-<http://localhost:8080/dms/sc/ingested/test1/Manifest.xml> <http://www.openarchives.org/ore/terms/describes> <http://localhost:8080/dms/sc/ingested/test1/Manifest> .
-<http://localhost:8080/dms/sc/ingested/test1/Manifest.xml> <http://purl.org/dc/elements/1.1/format> "application/rdf+xml" .
-<http://localhost:8080/dms/sc/ingested/test1/Manifest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/Aggregation> .
-<http://localhost:8080/dms/sc/ingested/test1/Manifest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.shared-canvas.org/ns/Manifest> .
