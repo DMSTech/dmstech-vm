@@ -300,7 +300,8 @@ PagingWizard.prototype.collectionsPager = function(pageNum, collections) {
 	}
 	
 	$(this.id+' .wizCollections li').click($.proxy(function(event) {
-		this.steps[2].init($(event.target).data('uris'));
+		var uris = $(event.target).data('uris');
+		this.steps[2].init(uris);
 	}, this));
 	
 	this.showStep(1);
@@ -354,23 +355,36 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 						manifest.load(data);
 						setPrefixesForDatabank(data, manifest);
 						
-						var title = $.rdf({databank: manifest}).where('?manifest dc:title ?title').get(0).title.value;
+						var info = {};
+						info.title = $.rdf({databank: manifest}).where('?manifest dc:title ?title').get(0).title.value; 
+
+						if (manifest.prefix().sc != null) {
+							var entry = $.rdf({databank: manifest})
+								.where('?ns rdf:type ?type')
+								.filter('type', /ns\/Sequence/)
+								.where('?ns sc:hasOptimizedSerialization ?opt')
+								.where('?ns ore:isDescribedBy ?uri').get(0);
+							if (entry.opt != null) {
+								info.optUri = entry.opt.value.toString();
+							} else {
+								info.nsUri = entry.ns.value.toString();
+							}
+						} else {
+							var entry = $.rdf({databank: manifest})
+								.where('?ns rdf:type ?type')
+								.filter('type', /ns\/Sequence/)
+								.where('?ns ore:isDescribedBy ?uri').get(0);
+							info.nsUri = entry.ns.value.toString();
+						}
 						
-						var entry = $.rdf({databank: manifest})
-						.where('?ns rdf:type ?type')
-						.filter('type', /ns\/Sequence/)
-						.where('?ns ore:isDescribedBy ?uri').get(0);
-						var ns = entry.ns.value.toString();
-	//					var nsUri = entry.uri.value.toString();
+						info.iaUri = $.rdf({databank: manifest})
+							.where('?ns rdf:type ?type')
+							.filter('type', /ns\/ImageAnnotationList/)
+							.where('?ns ore:isDescribedBy ?uri').get(0).uri.value.toString();
 						
-						var iaUri = $.rdf({databank: manifest})
-						.where('?ns rdf:type ?type')
-						.filter('type', /ns\/ImageAnnotationList/)
-						.where('?ns ore:isDescribedBy ?uri').get(0).uri.value.toString();
+						cache.push(info);
 						
-						cache.push({title: title, nsUri: ns, iaUri: iaUri});
-						
-						liString += '<li id="man_'+this.idCount+'">'+title+'</li>';
+						liString += '<li id="man_'+this.idCount+'">'+info.title+'</li>';
 						this.idCount++;
 						
 						if (cache.length == uris.length) {
@@ -400,9 +414,6 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 };
 
 PagingWizard.prototype.fetchSequence = function(data) {
-	var iaUri = data.iaUri;
-	var nsUri = data.nsUri;
-	
 	this.loading(true);
 	
 	/* ordering code using rdfquery
@@ -433,10 +444,12 @@ PagingWizard.prototype.fetchSequence = function(data) {
 	}
 	orderAnnotations(qry.databank, annotationsOrder, rest);
 	*/
-	if (iaUri.match('localhost') == null) {
-		iaUri = 'http://'+this.host+this.path+'proxy.jsp?url='+iaUri;
+	if (data.optUri == null) {
+		if (data.iaUri.match('localhost') == null) {
+			data.iaUri = 'http://'+this.host+this.path+'proxy.jsp?url='+data.iaUri;
+		}		
 		$.ajax({
-			url: iaUri,
+			url: data.iaUri,
 			success: function(data, status, xhr, url) {
 				var annos = [];
 				var id = url.split('?url=').pop();
@@ -491,12 +504,11 @@ PagingWizard.prototype.fetchSequence = function(data) {
 					}
 				}
 				getOrder.apply(this, [restId, 0]);
-			}.createDelegate(this, [iaUri], true)
+			}.createDelegate(this, [data.iaUri], true)
 		});
 	} else {
-		var optUrl = nsUri.replace(/(\/\w*$)/, '/optimized$1.json');
 		$.ajax({
-			url: optUrl,
+			url: data.optUri,
 			success: $.proxy(function(data, status, xhr) {
 				this.loading(false);
 				this.steps[3].init(data, nsUri);

@@ -68,7 +68,7 @@ Orderer.prototype.processSequence = function(event, data, sequenceURI) {
 		if (a.imageURI.indexOf('stacks') != -1) {
 			thumbUrl = a.imageURI+'?w=100&h=140';
 		} else {
-			thumbUrl = this.djatoakURL+
+			thumbUrl = this.djatokaURL+
 				'?url_ver=Z39.88-2004'+
 				'&rft_id='+a.imageURI+
 				'&svc_id=info:lanl-repo/svc/getRegion'+
