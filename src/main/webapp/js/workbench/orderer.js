@@ -9,7 +9,7 @@ function Orderer(config) {
 	
 	$.ajax({
 		url: 'http://'+this.host+this.path+'sc/lookup/djatoka',
-		data: 'GET',
+		type: 'GET',
 		success: $.proxy(function (data, status, xhr) {
 			this.djatokaURL = data;
 		}, this),
@@ -18,7 +18,8 @@ function Orderer(config) {
 		}
 	});
 	
-	this.sequenceURI = null;
+	this.newSequenceURI = null; // create new sequence uri
+	this.sequenceURI = null; // replace current sequence uri
 	
 	$(document.body).append(''+
 	'<div id="titleDialog"><input type="hidden" id="pageId" /><label for="pageTitle">Title</label><input type="text" id="pageTitle" /><button>Ok</button></div>'+
@@ -56,9 +57,20 @@ function Orderer(config) {
 	}, this));
 }
 
-Orderer.prototype.processSequence = function(event, data, sequenceURI) {
-	if (sequenceURI) {
-		this.sequenceURI = sequenceURI;
+Orderer.prototype.processSequence = function(event, data, uris) {
+	if (uris) {
+		this.newSequenceURI = uris.newSeqUri;
+		this.sequenceURI = uris.nsUri;
+	}
+	
+	if (this.newSequenceURI != null) {
+		$('#confirmOrder').button('enable');
+		$('#makeDefault').button('enable');
+		$('#sequenceAction').buttonset('enable');
+	} else {
+		$('#confirmOrder').button('disable');
+		$('#makeDefault').button('disable');
+		$('#sequenceAction').buttonset('disable');
 	}
 	
 	var count = 0;
@@ -170,8 +182,7 @@ Orderer.prototype.submit = function() {
 	
 	var replaceseq = $('#sequenceAction input:checked').attr('id') == 'replaceSequence';
 	var makedefault = $('#makeDefault').prop('checked');
-	
-//	this.sequenceURI = this.sequenceURI.replace('sequences', 'sequence');
+	var action = 'Replacing';
 	
 	var config = {
 		url: this.sequenceURI,
@@ -181,9 +192,10 @@ Orderer.prototype.submit = function() {
 	if (!replaceseq) {
 		config.url = config.url.replace(/\/\w*$/, '');
 		config.type = 'POST';
+		action = 'Creating New';
 	}
 	
-	actionDialog.doAction('Saving Sequence', config);
+	actionDialog.doAction(action+' Sequence', config);
 };
 
 Orderer.prototype.activate = function(data) {
@@ -215,7 +227,7 @@ Orderer.prototype.activate = function(data) {
 	eventManager.bind('sequenceSelected', $.proxy(this.processSequence, this));
 	
 	if (data != null) {
-		this.processSequence(null, data.items, data.sequenceURI);
+		this.processSequence(null, data.items, data.uris);
 	}
 };
 

@@ -301,7 +301,11 @@ PagingWizard.prototype.collectionsPager = function(pageNum, collections) {
 	
 	$(this.id+' .wizCollections li').click($.proxy(function(event) {
 		var uris = $(event.target).data('uris');
-		this.steps[2].init(uris);
+		if (uris.length > 0) {
+			this.steps[2].init(uris);
+		} else {
+			alert('No manuscripts available for this collection.');
+		}
 	}, this));
 	
 	this.showStep(1);
@@ -320,8 +324,7 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 		$(this.id+' .wizManifests li').each($.proxy(function(index, el) {
 			var data = cache[index];
 			if (data != null) {
-				$(el).data('iaUri', data.iaUri);
-				$(el).data('nsUri', data.nsUri);
+				$(el).data(data);
 				$(el).click($.proxy(function(event) {
 					$.proxy(this.fetchSequence($(event.target).data()), this);
 				}, this));
@@ -363,12 +366,15 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 								.where('?ns rdf:type ?type')
 								.filter('type', /ns\/Sequence/)
 								.where('?ns sc:hasOptimizedSerialization ?opt')
-								.where('?ns ore:isDescribedBy ?uri').get(0);
+								.where('?ns ore:isDescribedBy ?uri')
+								.where('?agg sc:newSequenceEndpoint ?newSeq').get(0);
 							if (entry.opt != null) {
 								info.optUri = entry.opt.value.toString();
-							} else {
-								info.nsUri = entry.ns.value.toString();
 							}
+							if (entry.newSeq != null) {
+								info.newSeqUri = entry.newSeq.value.toString();
+							}
+							info.nsUri = entry.ns.value.toString();
 						} else {
 							var entry = $.rdf({databank: manifest})
 								.where('?ns rdf:type ?type')
@@ -397,6 +403,7 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 							$(this.id+' .wizManifests').data('page'+pageNum, cache);
 						}
 					} catch (e) {
+						alert(e);
 						cache.push(null);
 						liString += '<li id="man_'+this.idCount+'">(Error loading this manifest)</li>';
 						this.idCount++;
@@ -450,9 +457,9 @@ PagingWizard.prototype.fetchSequence = function(data) {
 		}		
 		$.ajax({
 			url: data.iaUri,
-			success: function(data, status, xhr, url) {
+			success: function(data, status, xhr, uris) {
 				var annos = [];
-				var id = url.split('?url=').pop();
+				var id = uris.iaUri.split('?url=').pop();
 				var rdf = $('rdf\\:Description[rdf\\:about="'+id+'"]', data);
 				var oreDescribes = $('ore\\:describes', rdf);
 				var listId = oreDescribes.attr('rdf:resource');
@@ -499,20 +506,21 @@ PagingWizard.prototype.fetchSequence = function(data) {
 						}
 					} else {
 						this.loading(false);
-						this.steps[3].init(annos);
-						eventManager.trigger('sequenceSelected', [annos]);
+						this.steps[3].init(annos, uris);
+						eventManager.trigger('sequenceSelected', [annos, uris]);
 					}
 				}
 				getOrder.apply(this, [restId, 0]);
-			}.createDelegate(this, [data.iaUri], true)
+			}.createDelegate(this, [data], true)
 		});
 	} else {
+		var uris = data;
 		$.ajax({
 			url: data.optUri,
 			success: $.proxy(function(data, status, xhr) {
 				this.loading(false);
-				this.steps[3].init(data, nsUri);
-				eventManager.trigger('sequenceSelected', [data, nsUri]);
+				this.steps[3].init(data, uris);
+				eventManager.trigger('sequenceSelected', [data, uris]);
 			}, this)
 		});
 	}

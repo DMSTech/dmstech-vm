@@ -11,7 +11,7 @@ function ViewerZPR(config) {
 	var path = window.location.pathname.match(/^.*\//)[0];
 	$.ajax({
 		url: 'http://'+host+path+'sc/lookup/djatoka',
-		data: 'GET',
+		type: 'GET',
 		success: $.proxy(function (data, status, xhr) {
 			this.djatokaURL = data;
 		}, this),

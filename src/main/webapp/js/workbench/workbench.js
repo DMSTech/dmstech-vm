@@ -81,7 +81,7 @@ Workbench.prototype.toolChange = function(event) {
 	var data = null;
 	if (toolInfo.id == 'orderer' && this.currentCollection.currentStep == this.currentCollection.steps.length - 1) {
 		var step = this.currentCollection.getCurrentStep();
-		data = {items: step.cache, sequenceURI: step.data};
+		data = {items: step.cache, uris: step.data};
 	}
 	this.currentTool.activate(data);
 };

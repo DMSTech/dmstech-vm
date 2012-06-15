@@ -1,8 +1,6 @@
 <%@ include file="head.jsp" %>
-<script type="text/javascript" src="js/jstree/jquery.jstree.js"></script>
 <script type="text/javascript" src="js/event_manager.js"></script>
 <script type="text/javascript" src="js/workbench/paging_wizard.js"></script>
-<script type="text/javascript" src="js/workbench/tree.js"></script>
 <script type="text/javascript" src="js/workbench/viewer.js"></script>
 <script type="text/javascript" src="js/workbench/viewer_zpr.js"></script>
 <script type="text/javascript" src="js/workbench/workbench.js"></script>

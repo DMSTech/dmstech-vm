@@ -11,7 +11,7 @@ function Viewer(config) {
 	this.djatokaURL = null;
 	$.ajax({
 		url: 'http://'+this.host+this.path+'sc/lookup/djatoka',
-		data: 'GET',
+		type: 'GET',
 		success: $.proxy(function (data, status, xhr) {
 			this.djatokaURL = data;
 		}, this),
