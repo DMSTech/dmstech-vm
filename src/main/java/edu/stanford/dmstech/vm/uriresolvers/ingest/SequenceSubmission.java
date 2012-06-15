@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -53,10 +54,10 @@ public class SequenceSubmission {
 		String newOptimizedSequenceURI = UriBuilder.fromUri(originalRequest).path("optimized/" + sequenceUUID).build().toString();
 		String manuscriptManifestURI = originalRequest.substring(0, originalRequest.lastIndexOf("/")) + "/Manifest";
 		System.out.println("Incoming Sequence Submission: ");
-		OutputStream out=new FileOutputStream(new File("/Users/jameschartrand/sequenceOutput.txt"));
-		IOUtils.copy(inputStream, out);
-		//org.apache.commons.lang.StringEscapeUtils.
-		Model model = RDFUtils.loadModelFromInputStream(inputStream, "N-TRIPLE");
+		String newSequence = URLDecoder.decode(IOUtils.toString(inputStream, "utf-8"), "utf-8");
+        System.out.println(newSequence);
+			//org.apache.commons.lang.StringEscapeUtils.
+		Model model = RDFUtils.loadModelFromString(newSequence, "N-TRIPLE");
 		String fileToSave = new File(Config.getAbsolutePathToManuscriptsSequenceDir(collectionId, manuscriptId), sequenceUUID + ".nt").getAbsolutePath();
 		RDFUtils.serializeModelToFile(model, fileToSave, "N-TRIPLE");
 		

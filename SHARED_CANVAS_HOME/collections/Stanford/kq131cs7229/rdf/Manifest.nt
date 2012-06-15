@@ -17,6 +17,7 @@
 <http://localhost:8080/dms/sc/Stanford/kq131cs7229/Manifest>     <http://www.tei-c.org/ns/1.0/institution> "Stanford University" .
 <http://localhost:8080/dms/sc/Stanford/kq131cs7229/Manifest>     <http://www.tei-c.org/ns/1.0/repository> "Stanford University Libraries" .
 <http://localhost:8080/dms/sc/Stanford/kq131cs7229/Manifest>     <http://www.tei-c.org/ns/1.0/settlement> "Stanford, CA" .
+<http://localhost:8080/dms/sc/Stanford/kq131cs7229/Manifest>     <http://www.shared-canvas.org/ns/newSequenceEndpoint> <http://localhost:8080/dms/sc/Stanford/kq131cs7229/sequences> .
 <http://localhost:8080/dms/sc/Stanford/kq131cs7229/Manifest.xml>     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.openarchives.org/ore/terms/ResourceMap> .
 <http://localhost:8080/dms/sc/Stanford/kq131cs7229/Manifest.xml>     <http://purl.org/dc/elements/1.1/format> "application/rdf+xml" .
 <http://localhost:8080/dms/sc/Stanford/kq131cs7229/Manifest.xml>     <http://www.openarchives.org/ore/terms/describes> <http://localhost:8080/dms/sc/Stanford/kq131cs7229/Manifest> .

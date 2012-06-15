@@ -94,8 +94,19 @@ public class RDFUtils {
 		 if (input != null) {
 			 model.read(input, null, format);
 		 } else {
-			 logger.severe("Model File doesn't exist.");
+			 logger.severe("Input stream was empty.");
 			 throw new Exception("Input stream was empty.");
+		 }
+		 return model;	
+	}
+	
+	public static Model loadModelFromString(String input, String format) throws Exception {
+		 Model model = ModelFactory.createDefaultModel();
+		 if (input != null) {
+			 model.read(input, format);
+		 } else {
+			 logger.severe("String was empty.");
+			 throw new Exception("String was empty.");
 		 }
 		 return model;	
 	}
