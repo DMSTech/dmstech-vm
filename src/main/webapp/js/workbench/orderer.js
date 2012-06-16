@@ -190,7 +190,7 @@ Orderer.prototype.submit = function() {
 		type: 'PUT'
 	};
 	if (!replaceseq) {
-		config.url = this.newSequenceURI,
+		config.url = this.newSequenceURI;
 		config.type = 'POST';
 		action = 'Creating New';
 	}
