@@ -32,7 +32,7 @@ Viewer.prototype.showImage = function(event, data) {
 		} else if (uri.indexOf('.jp2')) {
 			var width = $(this.id+' iframe').width();
 			var height = $(this.id+' iframe').height();
-			uri = this.djatoakURL+
+			uri = this.djatokaURL+
 				'?url_ver=Z39.88-2004'+
 				'&rft_id='+uri+
 				'&svc_id=info:lanl-repo/svc/getRegion'+
