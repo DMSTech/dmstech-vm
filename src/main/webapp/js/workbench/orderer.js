@@ -79,7 +79,7 @@ Orderer.prototype.processSequence = function(event, data, uris) {
 		var thumbUrl = 'img/manu_thumb.png';
 		if (a.imageURI.indexOf('stacks') != -1) {
 			thumbUrl = a.imageURI+'?w=100&h=140';
-		} else {
+		} else if (a.imageURI.indexOf('.jp2') != -1) {
 			thumbUrl = this.djatokaURL+
 				'?url_ver=Z39.88-2004'+
 				'&rft_id='+a.imageURI+

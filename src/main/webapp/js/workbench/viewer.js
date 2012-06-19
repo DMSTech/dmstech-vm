@@ -25,11 +25,11 @@ Viewer.prototype.showImage = function(event, data) {
 	this.current = data;
 	$(this.id+' iframe').attr('src', 'loading.htm');
 	
-	setTimeout(function() {
+	setTimeout($.proxy(function() {
 		var uri = data.imageURI;
 		if (uri.indexOf('stacks') != -1) {
 			uri += '_large';
-		} else if (uri.indexOf('.jp2')) {
+		} else if (uri.indexOf('.jp2') != -1) {
 			var width = $(this.id+' iframe').width();
 			var height = $(this.id+' iframe').height();
 			uri = this.djatokaURL+
@@ -40,7 +40,7 @@ Viewer.prototype.showImage = function(event, data) {
 				'&svc.scale='+width+','+height;
 		}
 		$('#toolContent iframe').attr('src', uri);
-	}, 150);
+	}, this), 150);
 };
 
 Viewer.prototype.activate = function() {
