@@ -1,9 +1,12 @@
 package edu.stanford.dmstech.vm.uriresolvers;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -13,6 +16,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.apache.commons.io.IOUtils;
+
 import com.hp.hpl.jena.rdf.model.Model;
 
 import edu.stanford.dmstech.vm.Config;
@@ -20,7 +25,7 @@ import edu.stanford.dmstech.vm.RDFUtils;
 
 
 
-@Path("/{collectiondId}/{manuscriptId}/sequences/{sequenceId: (?!.*\\.html$|.*\\.xml$|.*\\.ttl$).*}")
+@Path("/{collectionId}/{manuscriptId}/sequences/{sequenceId: (?!.*\\.html$|.*\\.xml$|.*\\.ttl$).*}")
 public class ManuscriptSequenceAggregation {	
 	
 	@Context 
@@ -52,10 +57,14 @@ public class ManuscriptSequenceAggregation {
 			@PathParam("collectionId") final String collectionId,
 			@PathParam("manuscriptId") final String manuscriptId,
 			@PathParam("sequenceId") final String sequenceId,
-			InputStream inputStream) throws Exception {
-		Model model = RDFUtils.loadModelFromInputStream(inputStream, "RDF/XML");
-		String fileToSave = Config.collectionSubDir + "/" + collectionId + "/" + manuscriptId  + "/sequences/" + sequenceId + ".nt"; 
-		RDFUtils.serializeModelToHomeDir(model, fileToSave, "N-TRIPLE");
+			@FormParam("makedefault") final boolean makeDefault,
+			@FormParam("sequence") final String newSequence) throws Exception {
+
+        Model model = RDFUtils.loadModelFromString(newSequence, "N-TRIPLE");
+        
+        String fileToSave = new File(Config.getAbsolutePathToManuscriptsSequenceDir(collectionId, manuscriptId), sequenceId + ".nt").getAbsolutePath();
+		RDFUtils.serializeModelToFile(model, fileToSave, "N-TRIPLE");
+
 		return Response.ok().build();
 	}
 	

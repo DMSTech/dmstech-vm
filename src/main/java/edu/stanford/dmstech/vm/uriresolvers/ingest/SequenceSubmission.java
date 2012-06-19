@@ -46,17 +46,14 @@ public class SequenceSubmission {
 	public Response saveNewSequence(
 			@PathParam("collectionId") final String collectionId,
 			@PathParam("manuscriptId") final String manuscriptId,
-			@QueryParam("makedefault") final boolean makeDefault,
-			InputStream inputStream) throws Exception  {
+			@FormParam("makedefault") final boolean makeDefault,
+			@FormParam("sequence") final String newSequence) throws Exception  {
 		String sequenceUUID = UUID.randomUUID().toString();
 		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
 		String newSequenceURI = UriBuilder.fromUri(originalRequest).path(sequenceUUID).build().toString();
+		System.out.println(newSequence);
 		String newOptimizedSequenceURI = UriBuilder.fromUri(originalRequest).path("optimized/" + sequenceUUID).build().toString();
 		String manuscriptManifestURI = originalRequest.substring(0, originalRequest.lastIndexOf("/")) + "/Manifest";
-		System.out.println("Incoming Sequence Submission: ");
-		String newSequence = URLDecoder.decode(IOUtils.toString(inputStream, "utf-8"), "utf-8");
-        System.out.println(newSequence);
-			//org.apache.commons.lang.StringEscapeUtils.
 		Model model = RDFUtils.loadModelFromString(newSequence, "N-TRIPLE");
 		String fileToSave = new File(Config.getAbsolutePathToManuscriptsSequenceDir(collectionId, manuscriptId), sequenceUUID + ".nt").getAbsolutePath();
 		RDFUtils.serializeModelToFile(model, fileToSave, "N-TRIPLE");

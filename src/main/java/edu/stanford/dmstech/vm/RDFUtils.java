@@ -1,5 +1,6 @@
 package edu.stanford.dmstech.vm;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -100,15 +101,16 @@ public class RDFUtils {
 		 return model;	
 	}
 	
-	public static Model loadModelFromString(String input, String format) throws Exception {
-		 Model model = ModelFactory.createDefaultModel();
-		 if (input != null) {
-			 model.read(input, format);
-		 } else {
+	public static Model loadModelFromString(String inputString, String format) throws Exception {
+
+		 if (inputString == null || inputString.isEmpty()) {
 			 logger.severe("String was empty.");
 			 throw new Exception("String was empty.");
-		 }
-		 return model;	
+		 } 
+			 InputStream inputStream = new ByteArrayInputStream(inputString.getBytes());
+			 return loadModelFromInputStream(inputStream, format);
+
+		 
 	}
 	
 	public static Model loadModelInAbsoluteDir(String absolutePath, String format) throws Exception {
