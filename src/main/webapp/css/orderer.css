@@ -67,11 +67,6 @@
 	text-align: center;
 }
 
-#orderButtons > span {
-	margin-right: 10px;
-	margin-left: -5px;
-}
-
 #pageView {
 	background: transparent url('../img/throbber_large.gif') no-repeat center center;
 }

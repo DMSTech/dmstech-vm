@@ -10,21 +10,40 @@ function ActionDialog() {
 			modal: true,
 			resizable: false,
 			closeOnEscape: false,
-			title: 'Status',
-			width: 150,
-			height: 125,
-			buttons: {
-				'Close': function() {
-					$(this).dialog('close');
-				}
-			}
+			title: '',
+			width: 250,
+			height: 170
 		});
 		
 		$('#actionDialog').prev().children('a').hide(); // hide close button
 	});
 }
 
+ActionDialog.prototype.confirm = function(query, callback) {
+	$('#actionDialog').dialog('option', 'buttons', {
+		'Yes': function() {
+			$(this).dialog('close');
+			callback.call(this, true);
+		},
+		'Cancel': function() {
+			$(this).dialog('close');
+			callback.call(this, false);
+		}
+	});
+	$('#actionDialog').dialog('option', 'title', 'Confirm');
+	$('#actionDialog').dialog('open');
+	$('#statusIcon').removeClass();
+	$('#statusIcon').addClass('ui-icon ui-icon-help');
+	$('#status').text(query);
+};
+
 ActionDialog.prototype.doAction = function(action, config) {
+	$('#actionDialog').dialog('option', 'buttons', {
+		'Close': function() {
+			$(this).dialog('close');
+		}
+	});
+	$('#actionDialog').dialog('option', 'title', 'Status');
 	$('#actionDialog').dialog('open');
 	$('#actionDialog').next().find('button').button('disable');
 	$('#statusIcon').removeClass();

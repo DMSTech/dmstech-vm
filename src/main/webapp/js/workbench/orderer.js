@@ -64,13 +64,9 @@ Orderer.prototype.processSequence = function(event, data, uris) {
 	}
 	
 	if (this.newSequenceURI != null) {
-		$('#confirmOrder').button('enable');
-		$('#makeDefault').button('enable');
-		$('#sequenceAction').buttonset('enable');
+		$('#updateSequence').button('enable');
 	} else {
-		$('#confirmOrder').button('disable');
-		$('#makeDefault').button('disable');
-		$('#sequenceAction').buttonset('disable');
+		$('#updateSequence').button('disable');
 	}
 	
 	var count = 0;
@@ -146,56 +142,51 @@ Orderer.prototype.saveTitle = function() {
 };
 
 Orderer.prototype.submit = function() {
-	var ordering = [];
-	$('#orderer .page').each(function(index, el) {
-		var uri = $(this).data('canvasURI');
-		var title = $(this).data('canvasTitle');
-		var height = $(this).data('height');
-		var width = $(this).data('width');
-		ordering.push({uri: uri, title: title, height: height, width: width});
-	});
-	
-	// sequence info
-	var nTriples = '';
-	nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://dms-data.stanford.edu/ns/Sequence> .\n';
-	nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .\n';
-	nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.openarchives.org/ore/terms/Aggregation> .\n';
-	for (var i = 0; i < ordering.length; i++) {
-		nTriples += '<'+this.sequenceURI+'>  <http://www.openarchives.org/ore/terms/aggregates>  <'+ordering[i].uri+'> .\n';
-	}
-	// image sequence
-	nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#first>  <'+ordering[0].uri+'> .\n';
-	nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>  _:genid1 .\n';
-	for (var i = 1; i < ordering.length; i++) {
-		nTriples += '_:genid'+i+'  <http://www.w3.org/1999/02/22-rdf-syntax-ns#first>  <'+ordering[i].uri+'> .\n';
-		nTriples += '_:genid'+i+'  <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>  _:genid'+(i+1)+' .\n';
-	}
-	// image info
-	for (var i = 0; i < ordering.length; i++) {
-		var o = ordering[i];
-		nTriples += '<'+o.uri+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://dms.stanford.edu/ns/Canvas> .\n';
-		nTriples += '<'+o.uri+'>  <http://purl.org/dc/elements/1.1/title>  "'+o.title+'" .\n';
-		nTriples += '<'+o.uri+'>  <http://www.w3.org/2003/12/exif/ns#width>  "'+o.width+'"^^<http://www.w3.org/2001/XMLSchema#int> .\n';
-		nTriples += '<'+o.uri+'>  <http://www.w3.org/2003/12/exif/ns#height>  "'+o.height+'"^^<http://www.w3.org/2001/XMLSchema#int> .\n';
-	}
-	
-	
-	var replaceseq = $('#sequenceAction input:checked').attr('id') == 'replaceSequence';
-	var makedefault = $('#makeDefault').prop('checked');
-	var action = 'Replacing';
-	
-	var config = {
-		url: this.sequenceURI,
-		data: {sequence: nTriples, makedefault: makedefault},
-		type: 'PUT'
-	};
-	if (!replaceseq) {
-		config.url = this.newSequenceURI;
-		config.type = 'POST';
-		action = 'Creating New';
-	}
-	
-	actionDialog.doAction(action+' Sequence', config);
+	actionDialog.confirm('You are about to replace the existing page sequence for this manuscript. This cannot be undone. Do you wish to proceed?',
+	$.proxy(function(proceed) {
+		if (proceed) {
+			var ordering = [];
+			$('#orderer .page').each(function(index, el) {
+				var uri = $(this).data('canvasURI');
+				var title = $(this).data('canvasTitle');
+				var height = $(this).data('height');
+				var width = $(this).data('width');
+				ordering.push({uri: uri, title: title, height: height, width: width});
+			});
+			
+			// sequence info
+			var nTriples = '';
+			nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://dms-data.stanford.edu/ns/Sequence> .\n';
+			nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .\n';
+			nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.openarchives.org/ore/terms/Aggregation> .\n';
+			for (var i = 0; i < ordering.length; i++) {
+				nTriples += '<'+this.sequenceURI+'>  <http://www.openarchives.org/ore/terms/aggregates>  <'+ordering[i].uri+'> .\n';
+			}
+			// image sequence
+			nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#first>  <'+ordering[0].uri+'> .\n';
+			nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>  _:genid1 .\n';
+			for (var i = 1; i < ordering.length; i++) {
+				nTriples += '_:genid'+i+'  <http://www.w3.org/1999/02/22-rdf-syntax-ns#first>  <'+ordering[i].uri+'> .\n';
+				nTriples += '_:genid'+i+'  <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>  _:genid'+(i+1)+' .\n';
+			}
+			// image info
+			for (var i = 0; i < ordering.length; i++) {
+				var o = ordering[i];
+				nTriples += '<'+o.uri+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://dms.stanford.edu/ns/Canvas> .\n';
+				nTriples += '<'+o.uri+'>  <http://purl.org/dc/elements/1.1/title>  "'+o.title+'" .\n';
+				nTriples += '<'+o.uri+'>  <http://www.w3.org/2003/12/exif/ns#width>  "'+o.width+'"^^<http://www.w3.org/2001/XMLSchema#int> .\n';
+				nTriples += '<'+o.uri+'>  <http://www.w3.org/2003/12/exif/ns#height>  "'+o.height+'"^^<http://www.w3.org/2001/XMLSchema#int> .\n';
+			}
+
+			var config = {
+				url: this.sequenceURI,
+				data: {sequence: nTriples},
+				type: 'PUT'
+			};
+
+			actionDialog.doAction('Updating Sequence', config);
+		}
+	}, this));
 };
 
 Orderer.prototype.activate = function(data) {
@@ -209,18 +200,9 @@ Orderer.prototype.activate = function(data) {
 	});
 	
 	$('<div id="orderButtons" class="clear">'+
-		'<span>'+
-			'<input type="checkbox" name="makedefault" id="makeDefault" /><label for="makeDefault">Make This Sequence the Default</label>'+
-		'</span>'+
-		'<span id="sequenceAction">'+
-			'<input type="radio" name="replaceseq" id="replaceSequence" checked="checked"/><label for="replaceSequence">Replace Existing Sequence</label>'+
-			'<input type="radio" name="replaceseq" id="createSequence"/><label for="createSequence">Create New Sequence</label>'+
-		'</span>'+
-		'<button id="confirmOrder">Confirm</button>'+
+		'<button id="updateSequence">Update Sequence</button>'+
 	'</div>').insertAfter('#orderer');
-	$('#confirmOrder').button().click($.proxy(this.submit, this));
-	$('#makeDefault').button();
-	$('#sequenceAction').buttonset();
+	$('#updateSequence').button().click($.proxy(this.submit, this));
 	
 	this.resize($(this.id).height(), $(this.id).width());
 	$(document).bind('click', this._handleDocClick);
@@ -228,6 +210,8 @@ Orderer.prototype.activate = function(data) {
 	
 	if (data != null) {
 		this.processSequence(null, data.items, data.uris);
+	} else {
+		$('#updateSequence').button('disable');
 	}
 };
 
