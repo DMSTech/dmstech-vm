@@ -175,8 +175,8 @@ Orderer.prototype.submit = function() {
 		var o = ordering[i];
 		nTriples += '<'+o.uri+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://dms.stanford.edu/ns/Canvas> .\n';
 		nTriples += '<'+o.uri+'>  <http://purl.org/dc/elements/1.1/title>  "'+o.title+'" .\n';
-		nTriples += '<'+o.uri+'>  <http://www.w3.org/2003/12/exif/ns#width>  "'+o.width+'"^^http://www.w3.org/2001/XMLSchema#int .\n';
-		nTriples += '<'+o.uri+'>  <http://www.w3.org/2003/12/exif/ns#height>  "'+o.height+'"^^http://www.w3.org/2001/XMLSchema#int .\n';
+		nTriples += '<'+o.uri+'>  <http://www.w3.org/2003/12/exif/ns#width>  "'+o.width+'"^^<http://www.w3.org/2001/XMLSchema#int> .\n';
+		nTriples += '<'+o.uri+'>  <http://www.w3.org/2003/12/exif/ns#height>  "'+o.height+'"^^<http://www.w3.org/2001/XMLSchema#int> .\n';
 	}
 	
 	
