@@ -43,7 +43,7 @@ var zpr = function(viewFinderId, inputValues) {
       jp2.levels = getNumLevels();  
     }
 
-    jp2.djatokaURL = jp2.djatokaURL + '&rft_id=' + escape(jp2.url);
+    jp2.djatokaURL = jp2.djatokaURL + '?rft_id=' + escape(jp2.url);
     
     viewFinder.addClass('zpr-view-finder');
     
@@ -580,13 +580,14 @@ var zpr = function(viewFinderId, inputValues) {
     storeRelativeLocation();
     setMarqueeImgDimensions();
 
+    var marqueeURL;
     if (settings.type == 'djatoka') {
-        var marqueeURL = jp2.djatokaURL + 
+        marqueeURL = jp2.djatokaURL + 
 	      '&svc.level=' + level + 
 	      '&svc.scale=' + marqueeAttrs.imgWidth + ',' + marqueeAttrs.imgHeight + 
 	      '&svc.rotate=' + currentRotation;
     } else {
-    	var marqueeURL = jp2.imgURL + '.jpg?w=' + marqueeAttrs.imgWidth + '&h=' + marqueeAttrs.imgHeight + '&rotate=' + currentRotation;   
+    	marqueeURL = jp2.imgURL + '.jpg?w=' + marqueeAttrs.imgWidth + '&h=' + marqueeAttrs.imgHeight + '&rotate=' + currentRotation;   
     }
       
     viewFinder
