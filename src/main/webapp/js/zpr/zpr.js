@@ -43,7 +43,11 @@ var zpr = function(viewFinderId, inputValues) {
       jp2.levels = getNumLevels();  
     }
 
-    jp2.djatokaURL = jp2.djatokaURL + '?rft_id=' + escape(jp2.url);
+    jp2.djatokaURL = jp2.djatokaURL+
+					'?url_ver=Z39.88-2004'+
+					'&rft_id='+jp2.url+
+					'&svc_id=info:lanl-repo/svc/getRegion'+
+					'&svc_val_fmt=info:ofi/fmt:kev:mtx:jpeg2000';
     
     viewFinder.addClass('zpr-view-finder');
     
