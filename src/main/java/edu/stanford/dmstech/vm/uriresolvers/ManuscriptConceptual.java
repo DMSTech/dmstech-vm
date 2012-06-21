@@ -16,8 +16,12 @@ import javax.ws.rs.core.UriInfo;
 
 import javax.ws.rs.Consumes;
 
+import org.apache.commons.httpclient.methods.GetMethod;
+
 import com.sun.jersey.multipart.FormDataParam;
 
+import edu.stanford.dmstech.vm.Config;
+import edu.stanford.dmstech.vm.SharedCanvasUtil;
 import edu.stanford.dmstech.vm.manuscriptgeneration.SharedCanvasGenerator;
 
 
@@ -86,6 +90,10 @@ public class ManuscriptConceptual {
 				uploadedInputStream
 				);
 		 		
+		boolean success = SharedCanvasUtil.notifyTPENAboutIngest();
+		// TODO:  may want to do something here if false
+		
+		
 		return Response.created(new URI(manuscriptManifestURI)).entity(manuscriptManifestURI).build();
 		
 }

@@ -3,6 +3,7 @@ package edu.stanford.dmstech.vm;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +15,8 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 
 import com.hp.hpl.jena.query.Query;
@@ -415,4 +418,37 @@ public class SharedCanvasUtil {
 			if (osxStoreFileinDir.exists()) osxStoreFileinDir.delete();
 	}
 	
+	public static boolean notifyTPENAboutIngest() {
+		boolean success = true;
+		GetMethod get = new GetMethod(Config.tpenIngestNotificationURI);
+		//int statusCode = get.getStatusCode();
+		//if (statusCode != 200) success = false;
+		//InputStream in = get.getResponseBodyAsStream();
+		get.releaseConnection();
+		return success;
+	}
+	
+	public static boolean notifyTPENAboutDelete() {
+		boolean success = true;
+		GetMethod get = new GetMethod(Config.tpenDeleteNotificationURI);
+		//int statusCode = get.getStatusCode();
+		//if (statusCode != 200) success = false;
+		//InputStream in = get.getResponseBodyAsStream();
+		get.releaseConnection();
+		return success;
+	}
+
+
+	
+	public static void resetAllRDF() throws IOException {
+		
+		File defaultCollectionDir = new File(Config.getAbsolutePathToDefaultCollectionsDir());
+		File cleanDefaultCollectionDir = new File(Config.getAbsolutePathToCleanDefaultCollectionsDir());		
+		FileUtils.copyDirectory(cleanDefaultCollectionDir, defaultCollectionDir);
+		
+		File cleanStanfordSequenceFile = Config.getCleanStanfordSequenceFile();
+		File oldStanfordSequenceFile = Config.getLiveStanfordSequenceFile();
+		FileUtils.copyFile(cleanStanfordSequenceFile, oldStanfordSequenceFile);
+		
+	}
 }
