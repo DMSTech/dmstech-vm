@@ -12,29 +12,34 @@ function ActionDialog() {
 			closeOnEscape: false,
 			title: '',
 			width: 250,
-			height: 170
+			height: 190
 		});
 		
 		$('#actionDialog').prev().children('a').hide(); // hide close button
 	});
 }
 
-ActionDialog.prototype.confirm = function(query, callback) {
-	$('#actionDialog').dialog('option', 'buttons', {
-		'Yes': function() {
+ActionDialog.prototype.confirm = function(config) {
+	var title = config.title || 'Confirm';
+	var accept = config.accept || 'Yes';
+	$('#actionDialog').dialog('option', 'buttons', [{
+		text: accept,
+		click: function() {
 			$(this).dialog('close');
-			callback.call(this, true);
-		},
-		'Cancel': function() {
-			$(this).dialog('close');
-			callback.call(this, false);
+			config.callback.call(this, true);
 		}
-	});
-	$('#actionDialog').dialog('option', 'title', 'Confirm');
+	},{
+		text: 'Cancel',
+		click: function() {
+			$(this).dialog('close');
+			config.callback.call(this, false);
+		}
+	}]);
+	$('#actionDialog').dialog('option', 'title', title);
 	$('#actionDialog').dialog('open');
 	$('#statusIcon').removeClass();
-	$('#statusIcon').addClass('ui-icon ui-icon-help');
-	$('#status').text(query);
+	$('#statusIcon').addClass('ui-icon ui-icon-alert');
+	$('#status').html(config.query);
 };
 
 ActionDialog.prototype.doAction = function(action, config) {

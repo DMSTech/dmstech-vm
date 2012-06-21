@@ -4,7 +4,7 @@ hr {
 	margin: 10px 0 0 0;
 }
 
-button {
+#reindex button {
 	margin-top: 10px;
 }
 
@@ -29,10 +29,6 @@ button {
 }
 
 #data {
-	width: 300px;
-}
-
-#tpen {
 	width: 300px;
 }
 

@@ -395,11 +395,8 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 						
 						if (cache.length == uris.length) {
 							this.loading(false);
-							
 							buildPage.apply(this, [liString, cache]);
-							
 							this.showStep(2);
-							
 							$(this.id+' .wizManifests').data('page'+pageNum, cache);
 						}
 					} catch (e) {
@@ -407,6 +404,12 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 						cache.push(null);
 						liString += '<li id="man_'+this.idCount+'">(Error loading this manifest)</li>';
 						this.idCount++;
+						if (cache.length == uris.length) {
+							this.loading(false);
+							buildPage.apply(this, [liString, cache]);
+							this.showStep(2);
+							$(this.id+' .wizManifests').data('page'+pageNum, cache);
+						}
 					}
 					
 				}, this),

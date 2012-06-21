@@ -13,23 +13,6 @@ $(document).ready(function() {
 		});
 	}
 	
-	function deleteSelected() {
-		$('#statusDialog').dialog('open');
-		$('#statusIcon').removeClass();
-		$('#statusIcon').addClass('loading');
-		$('#status').text('Deleting');
-		var params = {};
-		$('#data input').each(function(index, item) {
-			if ($(item).prop('checked')) {
-				params[$(item).attr('name')] = true;
-			}
-		});
-		actionDialog.doAction('Deleting', {
-			url:'http://'+host+path+'sc/reset',
-			data: params
-		});
-	}
-	
 	function resetData() {
 		$('#statusDialog').dialog('open');
 		$('#statusIcon').removeClass();
@@ -54,33 +37,18 @@ $(document).ready(function() {
 	}
 	
 	function init() {
-		$('#resetDialog').dialog({
-			autoOpen: false,
-			modal: true,
-			resizable: false,
-			closeOnEscape: false,
-			title: 'Confirm Reset',
-			width: 250,
-			height: 180,
-			buttons: {
-				'Reset Data': function() {
-					$(this).dialog('close');
-					resetData();
-				},
-				'Cancel': function() {
-					$(this).dialog('close');
-				}
-			}
-		});
-		
 		$('#reindex button').button().click(reindex);
 		
-		$('#data button:eq(0)').button().click(deleteSelected);
-		$('#data button:eq(1)').button().click(function() {
-			$('#resetDialog').dialog('open');
+		$('#data button').button().click(function() {
+			actionDialog.confirm({
+				title: 'Confirm Reset',
+				query: "Are you sure?<br/>This will delete all new data you've entered including: ingested collections, annotations, logs, and recorded transactions.",
+				accept: 'Reset Data',
+				callback: function(doReset) {
+					if (doReset) resetData();
+				}
+			});
 		});
-		
-		$('#tpen button').button().click(deleteTpen);
 	}
 	
 	init();

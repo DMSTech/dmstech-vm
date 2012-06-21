@@ -142,51 +142,55 @@ Orderer.prototype.saveTitle = function() {
 };
 
 Orderer.prototype.submit = function() {
-	actionDialog.confirm('You are about to replace the existing page sequence for this manuscript. This cannot be undone. Do you wish to proceed?',
-	$.proxy(function(proceed) {
-		if (proceed) {
-			var ordering = [];
-			$('#orderer .page').each(function(index, el) {
-				var uri = $(this).data('canvasURI');
-				var title = $(this).data('canvasTitle');
-				var height = $(this).data('height');
-				var width = $(this).data('width');
-				ordering.push({uri: uri, title: title, height: height, width: width});
-			});
-			
-			// sequence info
-			var nTriples = '';
-			nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://dms-data.stanford.edu/ns/Sequence> .\n';
-			nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .\n';
-			nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.openarchives.org/ore/terms/Aggregation> .\n';
-			for (var i = 0; i < ordering.length; i++) {
-				nTriples += '<'+this.sequenceURI+'>  <http://www.openarchives.org/ore/terms/aggregates>  <'+ordering[i].uri+'> .\n';
+	actionDialog.confirm({
+		title: 'Replace Existing Sequence?',
+		query: 'You are about to replace the existing page sequence for this manuscript.<br/>This cannot be undone.',
+		accept: 'Replace',
+		callback: $.proxy(function(proceed) {
+			if (proceed) {
+				var ordering = [];
+				$('#orderer .page').each(function(index, el) {
+					var uri = $(this).data('canvasURI');
+					var title = $(this).data('canvasTitle');
+					var height = $(this).data('height');
+					var width = $(this).data('width');
+					ordering.push({uri: uri, title: title, height: height, width: width});
+				});
+				
+				// sequence info
+				var nTriples = '';
+				nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://dms-data.stanford.edu/ns/Sequence> .\n';
+				nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .\n';
+				nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.openarchives.org/ore/terms/Aggregation> .\n';
+				for (var i = 0; i < ordering.length; i++) {
+					nTriples += '<'+this.sequenceURI+'>  <http://www.openarchives.org/ore/terms/aggregates>  <'+ordering[i].uri+'> .\n';
+				}
+				// image sequence
+				nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#first>  <'+ordering[0].uri+'> .\n';
+				nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>  _:genid1 .\n';
+				for (var i = 1; i < ordering.length; i++) {
+					nTriples += '_:genid'+i+'  <http://www.w3.org/1999/02/22-rdf-syntax-ns#first>  <'+ordering[i].uri+'> .\n';
+					nTriples += '_:genid'+i+'  <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>  _:genid'+(i+1)+' .\n';
+				}
+				// image info
+				for (var i = 0; i < ordering.length; i++) {
+					var o = ordering[i];
+					nTriples += '<'+o.uri+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://dms.stanford.edu/ns/Canvas> .\n';
+					nTriples += '<'+o.uri+'>  <http://purl.org/dc/elements/1.1/title>  "'+o.title+'" .\n';
+					nTriples += '<'+o.uri+'>  <http://www.w3.org/2003/12/exif/ns#width>  "'+o.width+'"^^<http://www.w3.org/2001/XMLSchema#int> .\n';
+					nTriples += '<'+o.uri+'>  <http://www.w3.org/2003/12/exif/ns#height>  "'+o.height+'"^^<http://www.w3.org/2001/XMLSchema#int> .\n';
+				}
+	
+				var config = {
+					url: this.sequenceURI,
+					data: {sequence: nTriples},
+					type: 'PUT'
+				};
+	
+				actionDialog.doAction('Updating Sequence', config);
 			}
-			// image sequence
-			nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#first>  <'+ordering[0].uri+'> .\n';
-			nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>  _:genid1 .\n';
-			for (var i = 1; i < ordering.length; i++) {
-				nTriples += '_:genid'+i+'  <http://www.w3.org/1999/02/22-rdf-syntax-ns#first>  <'+ordering[i].uri+'> .\n';
-				nTriples += '_:genid'+i+'  <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>  _:genid'+(i+1)+' .\n';
-			}
-			// image info
-			for (var i = 0; i < ordering.length; i++) {
-				var o = ordering[i];
-				nTriples += '<'+o.uri+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://dms.stanford.edu/ns/Canvas> .\n';
-				nTriples += '<'+o.uri+'>  <http://purl.org/dc/elements/1.1/title>  "'+o.title+'" .\n';
-				nTriples += '<'+o.uri+'>  <http://www.w3.org/2003/12/exif/ns#width>  "'+o.width+'"^^<http://www.w3.org/2001/XMLSchema#int> .\n';
-				nTriples += '<'+o.uri+'>  <http://www.w3.org/2003/12/exif/ns#height>  "'+o.height+'"^^<http://www.w3.org/2001/XMLSchema#int> .\n';
-			}
-
-			var config = {
-				url: this.sequenceURI,
-				data: {sequence: nTriples},
-				type: 'PUT'
-			};
-
-			actionDialog.doAction('Updating Sequence', config);
-		}
-	}, this));
+		}, this)
+	});
 };
 
 Orderer.prototype.activate = function(data) {
