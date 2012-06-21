@@ -44,6 +44,7 @@ public class SharedCanvasSOLRIndexer {
 	// SOLR FIELD NAMES
 	// 'uri' is the identifier for the solr record
 	public static final String URI_FIELD = "uri";
+	public static final String MANUSCRIPT_URI_FIELD = "manuri";
 	public static final String MANNAME_FIELD = "manname";
 	public static final String ALTID_FIELD = "altid";
 	public static final String IDNO_FIELD = "idno";
@@ -151,6 +152,8 @@ public class SharedCanvasSOLRIndexer {
 				canvasSolrDoc.addField(RESULT_TYPE_FIELD, RESULT_TYPE_CANVAS);
 				canvasSolrDoc.addField(URI_FIELD, canvas.getURI());
 				canvasSolrDoc.addField(CANVAS_TITLE_FIELD, canvas.getPropertyResourceValue(DC.title));
+				manuscriptSolrDoc.addField(MANUSCRIPT_URI_FIELD, manuscriptRes.getURI());
+				
 				addManuscriptMetadataToSolrDoc(tdb, manuscriptRes, canvasSolrDoc);
 				
 				/* 
@@ -237,6 +240,7 @@ public class SharedCanvasSOLRIndexer {
 	private SolrInputDocument createSOLRDocForManuscriptResource(Model tdb, Resource manuscriptRes) {
 		SolrInputDocument manuscriptSolrDoc = new SolrInputDocument();
 		manuscriptSolrDoc.addField(URI_FIELD, manuscriptRes.getURI());
+		manuscriptSolrDoc.addField(MANUSCRIPT_URI_FIELD, manuscriptRes.getURI());
 		manuscriptSolrDoc.addField(RESULT_TYPE_FIELD, RESULT_TYPE_MANUSCRIPT);
 		addManuscriptMetadataToSolrDoc(tdb, manuscriptRes, manuscriptSolrDoc);
 		return manuscriptSolrDoc;

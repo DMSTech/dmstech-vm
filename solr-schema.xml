@@ -402,6 +402,7 @@
  
 	<!--  various identifiers, to be indexed as is -->
    <field name="uri" type="string" indexed="true" stored="true" required="true" /> 
+   <field name="manuri" type="string" indexed="true" stored="true" required="true" /> 
    <field name="altid" type="string" indexed="true" stored="true"/> 
    <field name="idno" type="string" indexed="true" stored="true"/> 
 	<!-- distinguishes canvas hits from manuscript hits -->

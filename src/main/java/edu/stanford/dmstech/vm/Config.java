@@ -43,10 +43,14 @@ public class Config implements ServletContextListener {
 	public static String textAnnosSubDir = null;
 	public static String textAnnosBodiesSubDir = null;
 	public static String transactionsSubDir = null;
+	public static String rdfForResetSubDir = null;
 	public static String defaultCollection = null;
 	public static String mainTDBDatasetDir = null;	
 	public static String solrServer = null;
 	public static String djatokaServer = null;
+	public static String tpenIngestNotificationURI = null;
+	public static String tpenDeleteNotificationURI = null;
+	
 	
 	public static  File homeDir = null;
 	
@@ -174,6 +178,15 @@ public class Config implements ServletContextListener {
 		Config.transactionsSubDir = transactionsSubDir;
 	}
 
+	
+	public static String getRdfForResetSubDir() {
+		return rdfForResetSubDir;
+	}
+
+	public  void setRdfForResetSubDir(String rdfForResetSubDir) {
+		Config.rdfForResetSubDir = rdfForResetSubDir;
+	}
+
 	public static String getLogsSubDir() {
 		// this is hardcoded rather than read from the 
 		// config file to allow logging problems reading the config file.
@@ -212,6 +225,25 @@ public class Config implements ServletContextListener {
 		Config.djatokaServer = djatokaServer;
 	}
 	
+	
+	
+	
+	public static String getTpenIngestNotificationURI() {
+		return tpenIngestNotificationURI;
+	}
+
+	public void setTpenIngestNotificationURI(String tpenIngestNotificationURI) {
+		Config.tpenIngestNotificationURI = tpenIngestNotificationURI;
+	}
+
+	public static String getTpenDeleteNotificationURI() {
+		return tpenDeleteNotificationURI;
+	}
+
+	public void setTpenDeleteNotificationURI(String tpenDeleteNotificationURI) {
+		Config.tpenDeleteNotificationURI = tpenDeleteNotificationURI;
+	}
+
 	public static File getHomeDir() {
 		return homeDir;
 	}
@@ -228,6 +260,10 @@ public class Config implements ServletContextListener {
 	
 	public static String getAbsolutePathToTextAnnosBodiesDir() {
 		return (new File(homeDirPath, getTextAnnosBodiesSubDir())).getAbsolutePath();
+	}
+	
+	public static String getAbsolutePathToCleanRDFDir() {
+		return (new File(homeDirPath, getRdfForResetSubDir())).getAbsolutePath();
 	}
 	
 	public static String getAbsolutePathToTransactionsDir() {
@@ -249,6 +285,11 @@ public class Config implements ServletContextListener {
 	public static String getAbsolutePathToDefaultCollectionsDir() {
 		return (new File(getAbsolutePathToCollectionsDir(), defaultCollection)).getAbsolutePath();
 	}
+	
+	public static String getAbsolutePathToCleanDefaultCollectionsDir() {
+		return (new File(getAbsolutePathToCleanRDFDir(), defaultCollection)).getAbsolutePath();
+	}
+	
 	public static String getAbsolutePathToDefaultCollectionRM() {
 		return new File(getAbsolutePathToDefaultCollectionsDir(), "Collection.nt").getAbsolutePath();
 	}
@@ -411,10 +452,13 @@ public class Config implements ServletContextListener {
 	    digester.addBeanPropertySetter("config/textAnnosSubDir");
 	    digester.addBeanPropertySetter("config/textAnnosBodiesSubDir");
 	    digester.addBeanPropertySetter("config/transactionsSubDir");
+	    digester.addBeanPropertySetter("config/rdfForResetSubDir");    
 	    digester.addBeanPropertySetter("config/defaultCollection");
 	    digester.addBeanPropertySetter("config/mainTDBDatasetDir");
 	    digester.addBeanPropertySetter("config/solrServer");
 	    digester.addBeanPropertySetter("config/djatokaServer");
+	    digester.addBeanPropertySetter("config/tpenIngestNotificationURI");
+	    digester.addBeanPropertySetter("config/tpenDeleteNotificationURI");
 	    
 
 	    try {
@@ -451,6 +495,14 @@ public class Config implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent event) {
         // nothing for now
     }
+
+	public static File getCleanStanfordSequenceFile() {
+		return new File(getAbsolutePathToCleanRDFDir(), "Stanford/kq131cs7229/rdf/sequences/OriginalSequence.nt");
+	}
+
+	public static File getLiveStanfordSequenceFile() {
+		return new File(Config.getAbsolutePathToManuscriptSequenceSourceFile("Stanford", "kq131cs7229", "OriginalSequence"));
+	}
 
 	
 	

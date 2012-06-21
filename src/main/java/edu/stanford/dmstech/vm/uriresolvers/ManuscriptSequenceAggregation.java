@@ -16,12 +16,14 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.io.IOUtils;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.RDFUtils;
+import edu.stanford.dmstech.vm.SharedCanvasUtil;
 
 
 
@@ -65,6 +67,9 @@ public class ManuscriptSequenceAggregation {
         String fileToSave = new File(Config.getAbsolutePathToManuscriptsSequenceDir(collectionId, manuscriptId), sequenceId + ".nt").getAbsolutePath();
 		RDFUtils.serializeModelToFile(model, fileToSave, "N-TRIPLE");
 
+		boolean success = SharedCanvasUtil.notifyTPENAboutIngest();
+		// TODO:  may want to do something here if false
+		
 		return Response.ok().build();
 	}
 	

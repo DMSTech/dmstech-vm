@@ -112,6 +112,10 @@ public class SequenceSubmission {
 		
 		RDFUtils.serializeModelToFile(manifestModel, absolutePathToManuscriptManifestFile, "N-TRIPLE");
 		
+		boolean success = SharedCanvasUtil.notifyTPENAboutIngest();
+		// TODO:  may want to do something here if false
+		
+		
 		return Response.created(new URI(newSequenceURI)).build();
 	}	
 

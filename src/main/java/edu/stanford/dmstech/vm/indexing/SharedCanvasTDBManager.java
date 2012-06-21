@@ -65,11 +65,9 @@ public class SharedCanvasTDBManager {
 		 Dataset dataset = TDBFactory.createDataset(Config.getAbsolutePathToMainTBDDir());
 			Model tdb = dataset.getDefaultModel();
 				
-			 if (! tdb.isEmpty()) tdb.removeAll();
-			
-			dataset.commit();
-			
-			
+			 if (! tdb.isEmpty()) tdb.removeAll();			
+			 if (dataset.isInTransaction()) dataset.commit();
+	
 	}
 
 	

@@ -39,6 +39,12 @@ public Response getSparqlResult(
 			deleteAnnotations();
 			deleteLogs();
 			deleteTransactions();
+			
+			resetAllRDF();
+			
+			new SharedCanvasTDBManager().reindexAllLocalRDFData();
+			new SharedCanvasSOLRIndexer().reindexAllLocalDataInSolr();		
+			
 		} else {
 			if (shouldDeleteSolr) {
 		
@@ -60,6 +66,10 @@ public Response getSparqlResult(
 				deleteTransactions();
 			}
 		}
+		
+		boolean success = SharedCanvasUtil.notifyTPENAboutDelete();
+		// TODO:  may want to do something here if false
+		
 	
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -96,5 +106,9 @@ private void deleteTripleStore() {
 
 private void deleteSolr() throws SolrServerException, IOException {
 	new SharedCanvasSOLRIndexer().deleteAll();
+}
+
+private void resetAllRDF() throws IOException {
+	SharedCanvasUtil.resetAllRDF(); 
 }
 }
