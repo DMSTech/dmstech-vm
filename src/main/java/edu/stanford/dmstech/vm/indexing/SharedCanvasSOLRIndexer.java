@@ -152,7 +152,7 @@ public class SharedCanvasSOLRIndexer {
 				canvasSolrDoc.addField(RESULT_TYPE_FIELD, RESULT_TYPE_CANVAS);
 				canvasSolrDoc.addField(URI_FIELD, canvas.getURI());
 				canvasSolrDoc.addField(CANVAS_TITLE_FIELD, canvas.getPropertyResourceValue(DC.title));
-				manuscriptSolrDoc.addField(MANUSCRIPT_URI_FIELD, manuscriptRes.getURI());
+				canvasSolrDoc.addField(MANUSCRIPT_URI_FIELD, manuscriptRes.getURI());
 				
 				addManuscriptMetadataToSolrDoc(tdb, manuscriptRes, canvasSolrDoc);
 				
