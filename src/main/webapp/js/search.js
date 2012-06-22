@@ -155,11 +155,10 @@ $(document).ready(function() {
 					for (var i = 0; i < docs.length; i++) {
 						var d = docs[i];
 						var type = d.resulttype;
-						var title = '';
+						var title = 'Manuscript: ' + d.mantitle || 'No title available';
 						if (type == 'canvas') {
-							title = d.canvastitle;
-						} else {
-							title = d.mantitle;
+							title += '<br/>Page: ';
+							title += d.canvastitle || 'No title available';
 						}
 						var digitalLocation = '';
 						var physicalLocation = '';
@@ -181,11 +180,13 @@ $(document).ready(function() {
 						
 						resultString += '<li>'+
 							'<div class="title">'+title+'</div>'+
+							'<div class="type"><span class="label">Type:</span> '+type+'</div>'+
 							'<div class="digitalLocation"><span class="label">Digital Location:</span> '+digitalLocation+'</div>'+
 							'<div class="physicalLocation"><span class="label">Physical Location:</span> '+physicalLocation+'</div>'+
 							'<div class="idno"><span class="label">Idno:</span> '+d.idno+'</div>'+
 							'<div class="altid"><span class="label">Alt. ID:</span> '+d.altid+'</div>'+
 							'<input type="hidden" name="uri" value="'+d.uri+'" />'+
+							'<input type="hidden" name="manuri" value="'+d.manuri+'" />'+
 						'</li>';
 					}
 				}
@@ -195,9 +196,9 @@ $(document).ready(function() {
 				$('#results li').click(function(event) {
 					var uri;
 					if ($(event.target).is('li')) {
-						uri = $(event.target).children('input').val();
+						uri = $(event.target).children('input[name="manuri"]').val();
 					} else {
-						uri = $(event.target).parents('li').children('input').val();
+						uri = $(event.target).parents('li').children('input[name="manuri"]').val();
 					}
 					window.location = 'workbench.jsp?manifest='+encodeURIComponent(uri);
 				});

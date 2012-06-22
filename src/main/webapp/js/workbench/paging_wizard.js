@@ -164,8 +164,10 @@ PagingWizard.prototype.initRepositories = function(url) {
 			
 			$.rdf({databank: repository})
 			.where('?repository ore:aggregates ?uri')
+			.where('?uri ore:isDescribedBy ?xml1')
+			.where('?xml2 ore:describes ?uri')
 			.each(function(index, match) {
-				uris.push(match.uri.value.toString()+'.xml');
+				uris.push(match.xml1.value.toString());
 			});
 			
 			var count = 0;
@@ -176,6 +178,7 @@ PagingWizard.prototype.initRepositories = function(url) {
 				}
 				$.ajax({
 					url: url,
+					accepts: 'application/rdf+xml',
 					success: $.proxy(function(data, status, xhr) {
 						var repository = $.rdf.databank();
 						repository.load(data);
@@ -199,8 +202,19 @@ PagingWizard.prototype.initRepositories = function(url) {
 					}, this),
 					error: function() {
 						count++;
+						if (count == uris.length) {
+							this.loading(false);
+							this.steps[0].init(repositories);
+						}
 					}
 				});
+			}
+			if (uris.length == 0) {
+				this.loading(false);
+				this.steps[0].init([{
+					data: 'No repositories exist.',
+					metadata: {}
+				}]);
 			}
 		}, this)
 	});
@@ -217,7 +231,10 @@ PagingWizard.prototype.repositoriesPager = function(pageNum, repositories) {
 	}
 	
 	$(this.id+' .wizRepositories li').click($.proxy(function(event) {
-		this.initCollections($(event.target).data('uri'));
+		var uri = $(event.target).data('uri');
+		if (uri != null) {
+			this.initCollections($(event.target).data('uri'));
+		}
 	}, this));
 	
 	this.showStep(0);
@@ -239,9 +256,11 @@ PagingWizard.prototype.initCollections = function(url) {
 			var localCollections = [];
 			
 			$.rdf({databank: repository})
-			.where('?collection ore:isDescribedBy ?uri')
+			.where('?collection ore:aggregates ?uri')
+			.where('?uri ore:isDescribedBy ?xml1')
+			.where('?xml2 ore:describes ?uri')
 			.each(function(index, match) {
-				uris.push(match.uri.value.toString());
+				uris.push(match.xml1.value.toString());
 			});
 			
 			var count = 0;
@@ -252,6 +271,7 @@ PagingWizard.prototype.initCollections = function(url) {
 				}
 				$.ajax({
 					url: url,
+					accepts: 'application/rdf+xml',
 					success: $.proxy(function(data, status, xhr) {
 						var collection = $.rdf.databank();
 						collection.load(data);
@@ -259,8 +279,12 @@ PagingWizard.prototype.initCollections = function(url) {
 						
 						var title = $.rdf({databank: collection}).where('?collection dc:title ?title').get(0).title.value;
 						var manifests = [];
-						$.rdf({databank: collection}).where('?manifest ore:isDescribedBy ?uri').each(function(index, match) {
-							manifests.push(match.uri.value.toString());
+						$.rdf({databank: collection})
+						.where('?manifest ore:aggregates ?uri')
+						.where('?uri ore:isDescribedBy ?xml1')
+						.where('?xml2 ore:describes ?uri')
+						.each(function(index, match) {
+							manifests.push(match.xml1.value.toString());
 						});
 						
 						localCollections.push({
@@ -282,6 +306,13 @@ PagingWizard.prototype.initCollections = function(url) {
 					}, this),
 					error: function() {
 						count++;
+						if (count == uris.length) {
+							this.loading(false);
+							this.steps[1].init(localCollections);
+							if (this.initManifest != null) {
+								this.loadManifestURI(this.initManifest);
+							}
+						}
 					}
 				});
 			}
@@ -352,6 +383,7 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 			}
 			$.ajax({
 				url: url,
+				accepts: 'application/rdf+xml',
 				success: $.proxy(function(data, status, xhr) {
 					try {
 						var manifest = $.rdf.databank();

@@ -72,6 +72,14 @@ li {
 	padding: 5px;
 }
 
+li:nth-child(even) {
+	background: #fff;
+}
+
+li:nth-child(odd) {
+	background: #dedede;
+}
+
 li:hover {
 	background-color: #DEEDF7;
 	cursor: pointer;
@@ -82,7 +90,7 @@ li:hover {
 }
 
 .title {
-	text-decoration: underline;
+	font-weight: bold;
 	color: #222;
 	font-size: 12px;
 }
