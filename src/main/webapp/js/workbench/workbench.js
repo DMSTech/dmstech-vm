@@ -15,11 +15,13 @@ Workbench.prototype.init = function() {
 	$('#collectionsSelector input').click($.proxy(this.collectionsChange, this));
 	
 	var manifest = getParameterByName('manifest');
+	var canvas = getParameterByName('canvas');
 	this.localPagingWizard = new PagingWizard({
 		type: 'local',
 		id: '#collectionsLocal',
 		url: 'http://'+this.host+this.path+'sc/Repository.xml',
-		manifest: manifest
+		manifest: manifest,
+		canvas: canvas
 	});
 	this.remotePagingWizard = new PagingWizard({
 		type: 'remote',

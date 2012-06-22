@@ -148,9 +148,10 @@ $(document).ready(function() {
 				$('#results').empty();
 				
 				var docs = data.response.docs;
-				var resultString = '<ul>';
+				$('#results').html('<ul></ul>');
+				var ul = $('#results ul');
 				if (docs.length == 0) {
-					resultString += '<li>No results.</li>';
+					ul.append('<li>No results.</li>');
 				} else {
 					for (var i = 0; i < docs.length; i++) {
 						var d = docs[i];
@@ -178,29 +179,44 @@ $(document).ready(function() {
 						}
 						physicalLocation = physicalLocation.slice(0, physicalLocation.length-2);
 						
-						resultString += '<li>'+
+						ul.append(''+
+						'<li>'+
 							'<div class="title">'+title+'</div>'+
 							'<div class="type"><span class="label">Type:</span> '+type+'</div>'+
 							'<div class="digitalLocation"><span class="label">Digital Location:</span> '+digitalLocation+'</div>'+
 							'<div class="physicalLocation"><span class="label">Physical Location:</span> '+physicalLocation+'</div>'+
 							'<div class="idno"><span class="label">Idno:</span> '+d.idno+'</div>'+
 							'<div class="altid"><span class="label">Alt. ID:</span> '+d.altid+'</div>'+
-							'<input type="hidden" name="uri" value="'+d.uri+'" />'+
-							'<input type="hidden" name="manuri" value="'+d.manuri+'" />'+
-						'</li>';
+						'</li>');
+						
+						$('li:last', ul).data({
+							type: type,
+							uri: d.uri,
+							manuri: d.manuri
+						});
 					}
 				}
-				resultString += '</ul>';
 				
-				$('#results').html(resultString);
-				$('#results li').click(function(event) {
-					var uri;
+				$('li', ul).click(function(event) {
+					var li;
 					if ($(event.target).is('li')) {
-						uri = $(event.target).children('input[name="manuri"]').val();
+						li = $(event.target);
 					} else {
-						uri = $(event.target).parents('li').children('input[name="manuri"]').val();
+						li = $(event.target).parents('li').first();
 					}
-					window.location = 'workbench.jsp?manifest='+encodeURIComponent(uri);
+					
+					var data = li.data();
+					var type = data.type;
+					var uri = data.uri;
+					var manuri = data.manuri;
+					if (manuri.match(/\.xml$/) == null) manuri += '.xml';
+
+					var url = 'workbench.jsp?manifest='+encodeURIComponent(manuri);
+					if (type == 'canvas') {
+						url += '&canvas='+uri;
+					}
+					
+					window.location = url;
 				});
 			}
 		});

@@ -7,6 +7,7 @@ function PagingWizard(config) {
 	this.id = this.config.id;
 	this.pageSize = this.config.pageSize == null ? 20 : this.config.pageSize;
 	this.initManifest = this.config.manifest;
+	this.initCanvas = this.config.canvas;
 	
 	this.idCount = 0;
 	
@@ -164,10 +165,8 @@ PagingWizard.prototype.initRepositories = function(url) {
 			
 			$.rdf({databank: repository})
 			.where('?repository ore:aggregates ?uri')
-			.where('?uri ore:isDescribedBy ?xml1')
-			.where('?xml2 ore:describes ?uri')
 			.each(function(index, match) {
-				uris.push(match.xml1.value.toString());
+				uris.push(match.uri.value.toString()+'.xml');
 			});
 			
 			var count = 0;
@@ -257,10 +256,8 @@ PagingWizard.prototype.initCollections = function(url) {
 			
 			$.rdf({databank: repository})
 			.where('?collection ore:aggregates ?uri')
-			.where('?uri ore:isDescribedBy ?xml1')
-			.where('?xml2 ore:describes ?uri')
 			.each(function(index, match) {
-				uris.push(match.xml1.value.toString());
+				uris.push(match.uri.value.toString()+'.xml');
 			});
 			
 			var count = 0;
@@ -281,10 +278,8 @@ PagingWizard.prototype.initCollections = function(url) {
 						var manifests = [];
 						$.rdf({databank: collection})
 						.where('?manifest ore:aggregates ?uri')
-						.where('?uri ore:isDescribedBy ?xml1')
-						.where('?xml2 ore:describes ?uri')
 						.each(function(index, match) {
-							manifests.push(match.xml1.value.toString());
+							manifests.push(match.uri.value.toString()+'.xml');
 						});
 						
 						localCollections.push({
@@ -359,6 +354,10 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 				$(el).click($.proxy(function(event) {
 					$.proxy(this.fetchSequence($(event.target).data()), this);
 				}, this));
+				if (this.initManifest != null) {
+					this.initManifest = null;
+					$(el).click();
+				}
 			}
 		}, this));
 	}
@@ -553,9 +552,23 @@ PagingWizard.prototype.fetchSequence = function(data) {
 		$.ajax({
 			url: data.optUri,
 			success: $.proxy(function(data, status, xhr) {
-				this.loading(false);
 				this.steps[3].init(data, uris);
 				eventManager.trigger('sequenceSelected', [data, uris]);
+				if (this.initCanvas == null) {
+					this.loading(false);
+				} else {
+					var i;
+					for (i = 0; i < data.length; i++) {
+						var canvas = data[i];
+						if (canvas.canvasURI == this.initCanvas) {
+							break;
+						}
+					}
+					var page = Math.ceil(i / this.pageSize);
+					if (page > 1) this.getPage(page);
+					
+					this.loading(false);
+				}
 			}, this)
 		});
 	}
@@ -571,8 +584,14 @@ PagingWizard.prototype.imagesPager = function(pageNum, annotations) {
 			var data = cache[index];
 			$(el).data('metadata', data);
 			$(el).click($.proxy(function(event) {
+				$(el).siblings().removeClass();
+				$(el).addClass('selected');
 				eventManager.trigger('imageSelected', $(event.target).data('metadata'));
 			}, this));
+			if (this.initCanvas != null && this.initCanvas == data.canvasURI) {
+				$(el).click();
+				this.initCanvas = null;
+			}
 		}, this));
 	}
 	

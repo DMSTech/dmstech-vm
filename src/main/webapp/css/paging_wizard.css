@@ -27,8 +27,12 @@
 }
 
 .wizSteps li:hover {
-	background-color: #AED0EA;
+	background-color: #D7E8F4;
 	cursor: pointer;
+}
+
+.wizSteps li.selected {
+	background-color: #AED0EA;
 }
 
 .wizLoading {
