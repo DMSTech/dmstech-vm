@@ -494,42 +494,56 @@ PagingWizard.prototype.fetchSequence = function(data) {
 			success: function(data, status, xhr, uris) {
 				var annos = [];
 				var id = uris.iaUri.split('?url=').pop();
-				var rdf = $('rdf\\:Description[rdf\\:about="'+id+'"]', data);
-				var oreDescribes = $('ore\\:describes', rdf);
+				
+				function getElementByAttribute(context, nodeName, attributeName, attributeValue) {
+					var match = null;
+					$(context).find('*').filterNode(nodeName).each(function(index, el) {
+						var e = $(el);
+						if (e.attr(attributeName) == attributeValue) {
+							match = e;
+							return false;
+						}
+					});
+					return match;
+				}
+				
+				var rdf = getElementByAttribute(data, 'rdf:Description', 'rdf:about', id);
+				var oreDescribes = rdf.filterNode('ore:describes');
 				var listId = oreDescribes.attr('rdf:resource');
 				var list;
 				if (listId != null) {
-					list = $('rdf\\:Description[rdf\\:about="'+listId+'"]', data);
+					list = getElementByAttribute(data, 'rdf:Description', 'rdf:about', listId);
 				} else {
 					listId = oreDescribes.attr('rdf:nodeID');
-					list = $('rdf\\:Description[rdf\\:nodeID="'+listId+'"]', data);
+					list = getElementByAttribute(data, 'rdf:Description', 'rdf:nodeID', listId);
 				}
-				var firstId = $('rdf\\:first', list).attr('rdf:resource');
-				var restId = $('rdf\\:rest', list).attr('rdf:nodeID');
+				
+				var firstId = list.filterNode('rdf:first').attr('rdf:resource');
+				var restId = list.filterNode('rdf:rest').attr('rdf:nodeID');
 				
 				function getJsonForAnno(anno) {
-					var targetId = anno.children('oac\\:hasTarget').attr('rdf:resource');
-					var bodyId = anno.children('oac\\:hasBody').attr('rdf:resource');
-					var target = $('rdf\\:Description[rdf\\:about="'+targetId+'"]', data);
-					var body = $('rdf\\:Description[rdf\\:about="'+bodyId+'"]', data);
+					var targetId = anno.filterNode('oac:hasTarget').attr('rdf:resource');
+					var bodyId = anno.filterNode('oac:hasBody').attr('rdf:resource');
+					var target = getElementByAttribute(data, 'rdf:Description', 'rdf:about', targetId);
+					var body = getElementByAttribute(data, 'rdf:Description', 'rdf:about', bodyId);
 					return {
 						canvasURI: targetId,
-						canvasTitle: target.children('dc\\:title').text(),
+						canvasTitle: target.filterNode('dc:title').text(),
 						imageURI: bodyId,
-						width: body.children('exif\\:width').text(),
-						height: body.children('exif\\:height').text()
+						width: body.filterNode('exif:width').text(),
+						height: body.filterNode('exif:height').text()
 					};
 				}
 				
-				var firstAnno = $('rdf\\:Description[rdf\\:about="'+firstId+'"]', data);
+				var firstAnno = getElementByAttribute(data, 'rdf:Description', 'rdf:about', firstId);
 				annos.push(getJsonForAnno(firstAnno));
 				
 				function getOrder(nodeId, count) {
-					var node = $('rdf\\:Description[rdf\\:nodeID="'+nodeId+'"]', data);
-					var firstId = $('rdf\\:first', node).attr('rdf:resource');
-					var firstAnno = $('rdf\\:Description[rdf\\:about="'+firstId+'"]', data);
+					var node = getElementByAttribute(data, 'rdf:Description', 'rdf:nodeID', nodeId);
+					var firstId = node.filterNode('rdf:first').attr('rdf:resource');
+					var firstAnno = getElementByAttribute(data, 'rdf:Description', 'rdf:about', firstId);
 					annos.push(getJsonForAnno(firstAnno));
-					var restId = $('rdf\\:rest', node).attr('rdf:nodeID');
+					var restId = node.filterNode('rdf:rest').attr('rdf:nodeID');
 					if (restId != undefined) {
 						count++;
 						if (count > 25) {
@@ -686,4 +700,12 @@ Function.prototype.createDelegate = function(obj, args, appendArgs) {
         }
         return method.apply(obj || window, callArgs);
     };
+};
+
+// cross browser xml node finder
+// http://www.steveworkman.com/html5-2/javascript/2011/improving-javascript-xml-node-finding-performance-by-2000/
+$.fn.filterNode = function(name) {
+	return this.find('*').filter(function() {
+		return this.nodeName === name;
+	});
 };
