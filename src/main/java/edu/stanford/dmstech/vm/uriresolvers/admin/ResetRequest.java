@@ -33,8 +33,8 @@ public Response getSparqlResult(
 	
 	try {
 		if (shouldDeleteAll) {
-			deleteSolr();
-			deleteTripleStore();
+		//	deleteSolr();
+		//	deleteTripleStore();
 			deleteIngestedManuscripts();
 			deleteAnnotations();
 			deleteLogs();

@@ -14,7 +14,7 @@ public class SolrServerLookup {
 	
 	@GET
 	@Produces("text/plain")
-	public String getIngestDirectoryName() throws IOException {
+	public String getS() throws IOException {
 		return Config.getSolrServer();
 		
 	}

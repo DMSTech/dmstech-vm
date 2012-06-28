@@ -30,6 +30,7 @@ public class Config implements ServletContextListener {
 	
 	public static String homeDirPath = null;
 	public static  String repositoryFileName = null;
+	public static String repositoriesFileName = null;
 	public static String collectionFileName = null;
 	public static  String normalSequenceFileName = null;
 	public static  String manifestFileName = null;
@@ -48,6 +49,7 @@ public class Config implements ServletContextListener {
 	public static String mainTDBDatasetDir = null;	
 	public static String solrServer = null;
 	public static String djatokaServer = null;
+	public static String centralReposListURI = null;
 	public static String tpenIngestNotificationURI = null;
 	public static String tpenDeleteNotificationURI = null;
 	
@@ -66,6 +68,15 @@ public class Config implements ServletContextListener {
 
 	public void setRepositoryFileName(String repositoryFileName) {
 		Config.repositoryFileName = repositoryFileName;
+	}
+
+	
+	public static String getRepositoriesFileName() {
+		return repositoriesFileName;
+	}
+
+	public void setRepositoriesFileName(String repositoriesFileName) {
+		Config.repositoriesFileName = repositoriesFileName;
 	}
 
 	public static String getCollectionFileName() {
@@ -225,9 +236,14 @@ public class Config implements ServletContextListener {
 		Config.djatokaServer = djatokaServer;
 	}
 	
-	
-	
-	
+	public static String getCentralReposListURI() {
+		return centralReposListURI;
+	}
+
+	public  void setCentralReposListURI(String centralReposListURI) {
+		Config.centralReposListURI = centralReposListURI;
+	}
+
 	public static String getTpenIngestNotificationURI() {
 		return tpenIngestNotificationURI;
 	}
@@ -440,6 +456,7 @@ public class Config implements ServletContextListener {
 	    digester.push(this);  
 	  
 	    digester.addBeanPropertySetter("config/repositoryFileName");
+	    digester.addBeanPropertySetter("config/repositoriesFileName");
 	    digester.addBeanPropertySetter("config/collectionFileName");
 	    digester.addBeanPropertySetter("config/normalSequenceFileName");
 	    digester.addBeanPropertySetter("config/manifestFileName");
@@ -457,6 +474,7 @@ public class Config implements ServletContextListener {
 	    digester.addBeanPropertySetter("config/mainTDBDatasetDir");
 	    digester.addBeanPropertySetter("config/solrServer");
 	    digester.addBeanPropertySetter("config/djatokaServer");
+	    digester.addBeanPropertySetter("config/centralReposListURI");	    
 	    digester.addBeanPropertySetter("config/tpenIngestNotificationURI");
 	    digester.addBeanPropertySetter("config/tpenDeleteNotificationURI");
 	    

@@ -8,14 +8,14 @@ import javax.ws.rs.Produces;
 
 import edu.stanford.dmstech.vm.Config;
 
-@Path("/lookup/djatoka")
-public class DjatokaServerLookup {
+@Path("/lookup/remote")
+public class RemoteRepositoriesLookup {
 
 	
 	@GET
 	@Produces("text/plain")
-	public String getDjatokServerURI() throws IOException {
-		return Config.getDjatokaServer();
+	public String getCentralReposListURI() throws IOException {
+		return Config.getCentralReposListURI();
 		
 	}
 }
