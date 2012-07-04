@@ -563,6 +563,9 @@ PagingWizard.prototype.fetchSequence = function(data) {
 		});
 	} else {
 		var uris = data;
+		if (data.optUri.match('localhost') == null) {
+			data.optUri = 'http://'+this.host+this.path+'proxy.jsp?url='+data.optUri;
+		}
 		$.ajax({
 			url: data.optUri,
 			success: $.proxy(function(data, status, xhr) {

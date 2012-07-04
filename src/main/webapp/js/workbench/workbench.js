@@ -5,9 +5,23 @@ function Workbench() {
 	this.currentCollection = null;
 	this.currentTool = null;
 	
-	$(document).ready($.proxy(this.init, this));
+	this.localPagingWizard = null;
+	this.remotePagingWizard = null;
 	
 	$(window).resize($.proxy(this.doResize, this));
+	
+	$.ajax({
+		url: 'http://'+this.host+this.path+'sc/lookup/remote',
+		type: 'GET',
+		success: $.proxy(function(data, status, xhr) {
+			this.remoteRepositoriesURL = data;
+			this.init();
+		}, this),
+		error: function() {
+			alert('There was an error getting the remote repositories URL.');
+			this.init();
+		}
+	});
 }
 
 Workbench.prototype.init = function() {	
@@ -26,7 +40,7 @@ Workbench.prototype.init = function() {
 	this.remotePagingWizard = new PagingWizard({
 		type: 'remote',
 		id: '#collectionsRemote',
-		url: 'http://dms-data.stanford.edu/Repositories.xml'
+		url: this.remoteRepositoriesURL
 	});
 	
 	$('#collections input:first').trigger('click');
