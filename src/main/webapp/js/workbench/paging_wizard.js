@@ -150,7 +150,7 @@ PagingWizard.prototype.getCurrentStep = function() {
 
 PagingWizard.prototype.initRepositories = function(url) {
 	this.loading(true);
-	if (url.match('localhost') == null) {
+	if (url.match(this.host) == null) {
 		url = 'http://'+this.host+this.path+'proxy.jsp?url='+url;
 	}
 	$.ajax({
@@ -172,7 +172,7 @@ PagingWizard.prototype.initRepositories = function(url) {
 			var count = 0;
 			for (var i = 0; i < uris.length; i++) {
 				var url = uris[i];
-				if (url.match('localhost') == null) {
+				if (url.match(this.host) == null) {
 					url = 'http://'+this.host+this.path+'proxy.jsp?url='+url;
 				}
 				$.ajax({
@@ -241,7 +241,7 @@ PagingWizard.prototype.repositoriesPager = function(pageNum, repositories) {
 
 PagingWizard.prototype.initCollections = function(url) {
 	this.loading(true);
-	if (url.match('localhost') == null) {
+	if (url.match(this.host) == null) {
 		url = 'http://'+this.host+this.path+'proxy.jsp?url='+url;
 	}
 	$.ajax({
@@ -263,7 +263,7 @@ PagingWizard.prototype.initCollections = function(url) {
 			var count = 0;
 			for (var i = 0; i < uris.length; i++) {
 				var url = uris[i];
-				if (url.match('localhost') == null) {
+				if (url.match(this.host) == null) {
 					url = 'http://'+this.host+this.path+'proxy.jsp?url='+url;
 				}
 				$.ajax({
@@ -377,7 +377,7 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 		cache = [];
 		for (var i = 0; i < uris.length; i++) {
 			var url = uris[i];
-			if (url.match('localhost') == null) {
+			if (url.match(this.host) == null) {
 				url = 'http://'+this.host+this.path+'proxy.jsp?url='+url;
 			}
 			$.ajax({
@@ -486,7 +486,7 @@ PagingWizard.prototype.fetchSequence = function(data) {
 	orderAnnotations(qry.databank, annotationsOrder, rest);
 	*/
 	if (data.optUri == null) {
-		if (data.iaUri.match('localhost') == null) {
+		if (data.iaUri.match(this.host) == null) {
 			data.iaUri = 'http://'+this.host+this.path+'proxy.jsp?url='+data.iaUri;
 		}		
 		$.ajax({
@@ -563,11 +563,12 @@ PagingWizard.prototype.fetchSequence = function(data) {
 		});
 	} else {
 		var uris = data;
-		if (data.optUri.match('localhost') == null) {
+		if (data.optUri.match(this.host) == null) {
 			data.optUri = 'http://'+this.host+this.path+'proxy.jsp?url='+data.optUri;
 		}
 		$.ajax({
 			url: data.optUri,
+			dataType: 'json',
 			success: $.proxy(function(data, status, xhr) {
 				this.steps[3].init(data, uris);
 				eventManager.trigger('sequenceSelected', [data, uris]);
