@@ -159,7 +159,7 @@ Orderer.prototype.submit = function() {
 				
 				// sequence info
 				var nTriples = '';
-				nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://dms-data.stanford.edu/ns/Sequence> .\n';
+				nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.shared-canvas.org/ns/Sequence> .\n';
 				nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .\n';
 				nTriples += '<'+this.sequenceURI+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.openarchives.org/ore/terms/Aggregation> .\n';
 				for (var i = 0; i < ordering.length; i++) {
@@ -175,7 +175,7 @@ Orderer.prototype.submit = function() {
 				// image info
 				for (var i = 0; i < ordering.length; i++) {
 					var o = ordering[i];
-					nTriples += '<'+o.uri+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://dms.stanford.edu/ns/Canvas> .\n';
+					nTriples += '<'+o.uri+'>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.shared-canvas.org/ns/Canvas> .\n';
 					nTriples += '<'+o.uri+'>  <http://purl.org/dc/elements/1.1/title>  "'+o.title+'" .\n';
 					nTriples += '<'+o.uri+'>  <http://www.w3.org/2003/12/exif/ns#width>  "'+o.width+'"^^<http://www.w3.org/2001/XMLSchema#int> .\n';
 					nTriples += '<'+o.uri+'>  <http://www.w3.org/2003/12/exif/ns#height>  "'+o.height+'"^^<http://www.w3.org/2001/XMLSchema#int> .\n';
