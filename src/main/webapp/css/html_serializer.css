@@ -1,0 +1,63 @@
+body {
+	margin: 5px;
+}
+
+ul {
+	list-style: none;
+	margin: 10px 0;
+	padding: 0;
+}
+
+li {
+	padding: 2px;
+	font-size: 12px;
+}
+
+hr {
+	border: none;
+	border-top: 1px solid #999;
+	margin: 10px 0 0 0;
+}
+
+#info {
+	float: left;
+}
+
+#code {
+	float: left;
+	width: 400px;
+}
+
+.box {
+	background-position: left top !important;
+    padding: 10px;
+    float: left;
+    clear: left;
+    margin-right: 10px;
+}
+
+.blank {
+	border: none !important;
+	background: none !important;
+}
+
+.blank .ui-widget-content {
+	border: none !important;
+	background: none !important;
+}
+
+.section {
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.label {
+	display: inline-block;
+	text-align: right;
+	min-width: 175px;
+	margin-right: 5px;
+}
+
+#code .section {
+	overflow: auto;
+}

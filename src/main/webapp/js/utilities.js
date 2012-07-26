@@ -9,3 +9,17 @@ var getParameterByName = function(name) {
 		return decodeURIComponent(results[1].replace(/\+/g, " "));
 	}
 };
+
+var xmlToString = function(xmlData) {
+	var xmlString = '';
+	try {
+		if (window.ActiveXObject) {
+			xmlString = xmlData.xml;
+		} else {
+			xmlString = (new XMLSerializer()).serializeToString(xmlData);
+		}
+	} catch (e) {
+		alert(e);
+	}
+	return xmlString;
+};
