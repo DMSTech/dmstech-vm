@@ -5,6 +5,8 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -48,7 +50,7 @@ public class SharedCanvasUtil {
 	public static Response getSerializedRDFFromHomeDir(String relativePath, String requestedFile) throws Exception{		
 		LOGGER.info("RELATIVE PATH TO RDF: " + relativePath);
 		LOGGER.info("REQUESTED FILE: " + requestedFile);
-		
+		 
 		Model model = RDFUtils.loadModelInHomeDir(relativePath, "N-TRIPLE");
 		return getSerializedRDFForModel(model, requestedFile);
 	}		
@@ -56,6 +58,8 @@ public class SharedCanvasUtil {
 
 	
 	public static Response getSerializedRDFFromDir(String absolutePath, String requestedFile) throws Exception{		
+		
+
 		Model model = RDFUtils.loadModelInAbsoluteDir(absolutePath, "N-TRIPLE");
 		return getSerializedRDFForModel(model, requestedFile);		
 	}		
@@ -75,11 +79,7 @@ public class SharedCanvasUtil {
 			model.write(stringWriter, "TURTLE");
 			result = stringWriter.toString();	
 			mediaType = "text/turtle;charset=utf-8";
-		} else {
-			model.write(stringWriter, "RDF/XML");
-			result = RDFUtils.serializeRDFToHTML(stringWriter.toString());
-			mediaType = MediaType.TEXT_HTML;
-		}
+		} 
 
 		return Response.ok(result, mediaType).build();
 	}
@@ -220,6 +220,7 @@ public class SharedCanvasUtil {
 		String fileExtension = originalRequest.substring(originalRequest.lastIndexOf(".") + 1);
 		
 		
+		
 		String queryString = "PREFIX oac: <http://www.openannotation.org/ns/> " +
 				"PREFIX sc: <http://www.shared-canvas.org/ns/> " +
 				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
@@ -247,6 +248,19 @@ public class SharedCanvasUtil {
 	
 
 	
+	public static Response redirectToHTMLPage(String originalRequest) {
+		Response response = null;
+		try {
+			String conceptualURI = originalRequest.substring(0, originalRequest.toLowerCase().lastIndexOf(".html"));
+			response = Response.seeOther(new URI(Config.getHtmlSerializationURI() + "?uri=" + conceptualURI)).build();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return response;
+	}
+
+
+
 	public static Response buildResourceMapForCanvasAnnotations(String originalRequest, String annotationType, Resource annotationListClass){
 		String canvasURI = originalRequest.substring(0, originalRequest.lastIndexOf("/") );
 		String fileExtension = originalRequest.substring(originalRequest.lastIndexOf(".") + 1);

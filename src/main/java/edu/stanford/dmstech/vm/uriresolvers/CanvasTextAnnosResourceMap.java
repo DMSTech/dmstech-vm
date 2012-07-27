@@ -23,6 +23,7 @@ public class CanvasTextAnnosResourceMap {
 			@Context UriInfo uriInfo
 			) throws Exception {   
 		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
+		if (originalRequest.toLowerCase().endsWith(".html")) return SharedCanvasUtil.redirectToHTMLPage(originalRequest);
 		
 		return SharedCanvasUtil.buildResourceMapForCanvasAnnotations(originalRequest, "TextAnnotation",  DMSTechRDFConstants.getInstance().scTextAnnotationListClass);
 		

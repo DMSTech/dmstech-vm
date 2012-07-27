@@ -27,7 +27,6 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.util.FileManager;
 import com.sun.jersey.api.NotFoundException;
 
-
 public class RDFUtils {
 
 	static Logger logger = Logger.getLogger(RDFUtils.class.getName());

@@ -87,7 +87,7 @@ public class SharedCanvasSlurper {
 				// add the optimized sequence uri
 				String oldSequenceURI = resource.getURI();
 				String newSequenceURI = manuscriptBaseURI + "/sequences/NormalSequence";
-				String optimizedSequenceURI = manuscriptBaseURI + "/sequences/optmized/NormalSequence.json";
+				String optimizedSequenceURI = manuscriptBaseURI + "/sequences/optimized/NormalSequence.json";
 				Resource optimzedResource = manifestModel.getResource(optimizedSequenceURI);
 				manifestModel.add(resource, rdfConst.scHasOptimizedSerialization, optimzedResource);
 				// and assert the sequence endpoint
@@ -113,7 +113,7 @@ public class SharedCanvasSlurper {
 			Model sequenceModel = jenaFileManager.loadModel(sequenceURI + ".xml");
 		
 			
-		String optimizedSequenceURI = manuscriptBaseURI + "/sequences/optmized/NormalSequence.json";
+		String optimizedSequenceURI = manuscriptBaseURI + "/sequences/optimized/NormalSequence.json";
 		Resource optimzedResource = sequenceModel.getResource(optimizedSequenceURI);
 		Resource sequenceResource = sequenceModel.getResource(sequenceURI);
 		sequenceModel.add(sequenceResource, rdfConst.scHasOptimizedSerialization, optimzedResource);
@@ -137,7 +137,10 @@ public class SharedCanvasSlurper {
 	}
 	
 	private void convertAndSave(File fileToSave, Model model) throws IOException {
-		String convertedRDFToSAve = RDFUtils.serializeModelToString(model, "N-TRIPLE").replaceAll("dms-data.stanford.edu/", "sul-dms-demo.stanford.edu/dms/sc/");
+		String convertedRDFToSAve = RDFUtils.serializeModelToString(model, "N-TRIPLE")
+				.replaceAll("dms-data\\.stanford\\.edu/ns", "www.shared-canvas.org/ns")
+				.replaceAll("dms-data\\.stanford\\.edu/", "sul-dms-demo.stanford.edu/dms/sc/")
+				.replaceAll("dms\\.stanford\\.edu/ns", "www.shared-canvas.org/ns");
 		FileUtils.writeStringToFile(fileToSave, convertedRDFToSAve, "UTF-8");
 	}
 

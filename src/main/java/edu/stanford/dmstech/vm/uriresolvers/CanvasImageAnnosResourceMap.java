@@ -25,6 +25,7 @@ public class CanvasImageAnnosResourceMap {
 			@PathParam("canvasId") final String canvasId
 			) throws Exception {   
 		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
+		if (originalRequest.toLowerCase().endsWith(".html")) return SharedCanvasUtil.redirectToHTMLPage(originalRequest);
 		
 		return SharedCanvasUtil.buildResourceMapForCanvasAnnotations(originalRequest, "ImageAnnotation",  DMSTechRDFConstants.getInstance().scImageAnnotationListClass);
 		

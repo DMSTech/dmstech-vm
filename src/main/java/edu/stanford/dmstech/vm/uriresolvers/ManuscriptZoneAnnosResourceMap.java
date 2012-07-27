@@ -22,6 +22,7 @@ public class ManuscriptZoneAnnosResourceMap {
 			@Context UriInfo uriInfo
 			) throws Exception {
 		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
+		if (originalRequest.toLowerCase().endsWith(".html")) return SharedCanvasUtil.redirectToHTMLPage(originalRequest);
 		
 		return SharedCanvasUtil.buildResourceMapForManuscriptAnnotations(originalRequest, "ZoneAnnotation",  DMSTechRDFConstants.getInstance().scZoneAnnotationListClass);
 			

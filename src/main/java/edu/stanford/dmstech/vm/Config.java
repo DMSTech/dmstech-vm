@@ -52,6 +52,7 @@ public class Config implements ServletContextListener {
 	public static String centralReposListURI = null;
 	public static String tpenIngestNotificationURI = null;
 	public static String tpenDeleteNotificationURI = null;
+	public static String htmlSerializationURI = null;
 	
 	
 	public static  File homeDir = null;
@@ -258,6 +259,14 @@ public class Config implements ServletContextListener {
 
 	public void setTpenDeleteNotificationURI(String tpenDeleteNotificationURI) {
 		Config.tpenDeleteNotificationURI = tpenDeleteNotificationURI;
+	}
+	
+	public static String getHtmlSerializationURI() {
+		return htmlSerializationURI;
+	}
+
+	public void setHtmlSerializationURI(String htmlSerializationURI) {
+		Config.htmlSerializationURI = htmlSerializationURI;
 	}
 
 	public static File getHomeDir() {
@@ -477,6 +486,7 @@ public class Config implements ServletContextListener {
 	    digester.addBeanPropertySetter("config/centralReposListURI");	    
 	    digester.addBeanPropertySetter("config/tpenIngestNotificationURI");
 	    digester.addBeanPropertySetter("config/tpenDeleteNotificationURI");
+	    digester.addBeanPropertySetter("config/htmlSerializationURI");
 	    
 
 	    try {

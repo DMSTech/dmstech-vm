@@ -19,6 +19,10 @@ public class RepositoriesResourceMap {
 	@GET
 	public Response getRepresentation(@PathParam("fileName") final String requestedFileName) throws Exception{
 		
+		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
+		if (originalRequest.toLowerCase().endsWith(".html")) return SharedCanvasUtil.redirectToHTMLPage(originalRequest);
+		
+		
 		return SharedCanvasUtil.getSerializedRDFFromHomeDir(Config.repositoriesFileName, requestedFileName);
 		
 	}

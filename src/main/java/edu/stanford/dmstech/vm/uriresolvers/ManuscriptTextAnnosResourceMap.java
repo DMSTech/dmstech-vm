@@ -14,6 +14,9 @@ import edu.stanford.dmstech.vm.SharedCanvasUtil;
 @Path("/{collectionId}/{manuscriptId}/{fileName: TextAnnotations\\.(?i)(xml|ttl|html)}")
 public class ManuscriptTextAnnosResourceMap {
 	
+	@Context 
+	UriInfo uriInfo;
+	
 	@GET
 	public Response getRepresentation(
 			@PathParam("collectionId") final String collectionId,
@@ -21,6 +24,7 @@ public class ManuscriptTextAnnosResourceMap {
 			@Context UriInfo uriInfo
 			) throws Exception {
 		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
+		if (originalRequest.toLowerCase().endsWith(".html")) return SharedCanvasUtil.redirectToHTMLPage(originalRequest);
 		
 		return SharedCanvasUtil.buildResourceMapForManuscriptAnnotations(originalRequest, "TextAnnotation",  DMSTechRDFConstants.getInstance().scTextAnnotationListClass);
 		

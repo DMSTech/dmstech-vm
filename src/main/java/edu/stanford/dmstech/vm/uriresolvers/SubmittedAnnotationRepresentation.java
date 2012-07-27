@@ -28,6 +28,7 @@ import com.hp.hpl.jena.vocabulary.RDF;
 import edu.stanford.dmstech.vm.Config;
 import edu.stanford.dmstech.vm.DMSTechRDFConstants;
 import edu.stanford.dmstech.vm.RDFUtils;
+import edu.stanford.dmstech.vm.SharedCanvasUtil;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasSOLRIndexer;
 import edu.stanford.dmstech.vm.indexing.SharedCanvasTDBManager;
 import edu.stanford.dmstech.vm.uriresolvers.ingest.AnnotationIngester;
@@ -53,11 +54,11 @@ public class SubmittedAnnotationRepresentation {
 
 	@GET 
 	@Produces("text/html;charset=utf-8")
-	public String getResourceStmtsAsHTML(
+	public Response getResourceStmtsAsHTML(
 			@Context UriInfo uriInfo
 			) throws URISyntaxException, TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {		
-		String statements = getAllStatementsForAnnotation(uriInfo, "RDF/XML");
-				return RDFUtils.serializeRDFToHTML(statements);
+		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
+		return SharedCanvasUtil.redirectToHTMLPage(originalRequest);
 	}
 	
 	@PUT

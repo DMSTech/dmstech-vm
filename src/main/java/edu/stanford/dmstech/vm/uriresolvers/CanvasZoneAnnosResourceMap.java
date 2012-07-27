@@ -25,6 +25,7 @@ public class CanvasZoneAnnosResourceMap {
 			@PathParam("canvasId") final String canvasId
 			) throws Exception {   
 		String originalRequest = uriInfo.getAbsolutePath().toASCIIString();
+		if (originalRequest.toLowerCase().endsWith(".html")) return SharedCanvasUtil.redirectToHTMLPage(originalRequest);
 		
 		return SharedCanvasUtil.buildResourceMapForCanvasAnnotations(originalRequest, "ZoneAnnotation",  DMSTechRDFConstants.getInstance().scZoneAnnotationListClass);
 		

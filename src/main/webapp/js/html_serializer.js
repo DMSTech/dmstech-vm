@@ -10,9 +10,9 @@ $(document).ready(function() {
 	if (xmlUrl.match(host) == null) {
 		xmlUrl = 'http://'+host+path+'proxy.jsp?url='+xmlUrl;
 	}
-	if (xmlUrl.match(/\.xml$/) == null) {
-		xmlUrl += '.xml';
-	}
+//	if (xmlUrl.match(/\.xml$/) == null) {
+//		xmlUrl += '.xml';
+//	}
 	$.ajax({
 		url: xmlUrl,
 		accepts: 'application/rdf+xml',
