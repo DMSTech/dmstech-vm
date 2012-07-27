@@ -28,6 +28,10 @@ hr {
 	width: 400px;
 }
 
+#turtleCode {
+	margin-top: 10px;
+}
+
 .box {
 	background-position: left top !important;
     padding: 10px;
@@ -49,6 +53,7 @@ hr {
 .section {
     margin: 10px 0;
     padding: 10px;
+    float: left;
 }
 
 .label {
@@ -58,6 +63,19 @@ hr {
 	margin-right: 5px;
 }
 
+#code h2 {
+	cursor: pointer;
+	float: left;
+}
+
+.collapsible-icon {
+	float: left;
+	position: relative;
+    top: 3px;
+    left: -3px;
+}
+
 #code .section {
+	max-width: 345px;
 	overflow: auto;
 }

@@ -177,7 +177,10 @@ PagingWizard.prototype.initRepositories = function(url) {
 				}
 				$.ajax({
 					url: url,
-					accepts: 'application/rdf+xml',
+					headers: { 
+				        Accept : "application/rdf+xml; charset=utf-8",
+				        "Content-Type": "application/rdf+xml; charset=utf-8"
+				    },
 					success: $.proxy(function(data, status, xhr) {
 						var repository = $.rdf.databank();
 						repository.load(data);
@@ -268,7 +271,10 @@ PagingWizard.prototype.initCollections = function(url) {
 				}
 				$.ajax({
 					url: url,
-					accepts: 'application/rdf+xml',
+					headers: { 
+				        Accept : "application/rdf+xml; charset=utf-8",
+				        "Content-Type": "application/rdf+xml; charset=utf-8"
+				    },
 					success: $.proxy(function(data, status, xhr) {
 						var collection = $.rdf.databank();
 						collection.load(data);
@@ -382,7 +388,10 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 			}
 			$.ajax({
 				url: url,
-				accepts: 'application/rdf+xml',
+				headers: { 
+			        Accept : "application/rdf+xml; charset=utf-8",
+			        "Content-Type": "application/rdf+xml; charset=utf-8"
+			    },
 				success: $.proxy(function(data, status, xhr) {
 					try {
 						var manifest = $.rdf.databank();

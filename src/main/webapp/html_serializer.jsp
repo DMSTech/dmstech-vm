@@ -17,13 +17,13 @@
 </div>
 <div id="code">
 	<div id="rdfCode" class="ui-corner-all ui-widget-header box">
-		<h2>RDF/XML</h2>
+		<span class="collapsible-icon ui-icon ui-icon-triangle-1-e"></span><h2>RDF/XML</h2>
 		<div class="section ui-corner-all ui-widget-content">
 			
 		</div>
 	</div>
 	<div id="turtleCode" class="ui-corner-all ui-widget-header box">
-		<h2>Turtle</h2>
+		<span class="collapsible-icon ui-icon ui-icon-triangle-1-e"></span><h2>Turtle</h2>
 		<div class="section ui-corner-all ui-widget-content">
 			
 		</div>
