@@ -19,7 +19,7 @@ var xmlToString = function(xmlData) {
 			xmlString = (new XMLSerializer()).serializeToString(xmlData);
 		}
 	} catch (e) {
-		alert(e);
+		return '';
 	}
 	return xmlString;
 };

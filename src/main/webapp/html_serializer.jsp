@@ -6,28 +6,23 @@
 <div id="info">
 	<div id="types" class="box">
 		<h1></h1>
-		<p></p>
+		<div class="buttons">
+			<button>RDF/XML</buton> <button>Turtle</button>
+		</div>
+		<h2 style="margin-top: 15px;">Resource Definitions</h2>
 	</div>
-	<div id="assocations" class="box">
+	<div id="associations" class="box">
 		<h2>Other Associations for this Resource</h2>
 	</div>
 	<div id="rdfs" class="box">
-		<h2>Other RDFs Returned when Deferencing this Resource</h2>
+		<h2>Other Resource Descriptions Returned when Deferencing this Resource</h2>
 	</div>
 </div>
-<div id="code">
-	<div id="rdfCode" class="ui-corner-all ui-widget-header box">
-		<span class="collapsible-icon ui-icon ui-icon-triangle-1-e"></span><h2>RDF/XML</h2>
-		<div class="section ui-corner-all ui-widget-content">
-			
-		</div>
-	</div>
-	<div id="turtleCode" class="ui-corner-all ui-widget-header box">
-		<span class="collapsible-icon ui-icon ui-icon-triangle-1-e"></span><h2>Turtle</h2>
-		<div class="section ui-corner-all ui-widget-content">
-			
-		</div>
-	</div>
+<div id="rdfDialog">
+	<pre></pre>
+</div>
+<div id="turtleDialog">
+	<pre></pre>
 </div>
 </body>
 </html>
