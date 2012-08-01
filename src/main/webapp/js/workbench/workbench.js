@@ -48,6 +48,7 @@ Workbench.prototype.init = function() {
 	this.viewer = new Viewer({id: '#toolContent'});
 	this.viewerZPR = new ViewerZPR({id: '#toolContent'});
 	this.orderer = new Orderer({id: '#toolContent'});
+	this.htmlSerializer = new HTMLSerializer({id: '#toolContent'});
 	
 	this.tools = [{
 		id: 'viewer',
@@ -61,6 +62,10 @@ Workbench.prototype.init = function() {
 		id: 'enhancedViewer',
 		label: 'Enhanced Viewer',
 		tool: this.viewerZPR
+	},{
+		id: 'htmlSerializer',
+		label: 'RDF',
+		tool: this.htmlSerializer
 	}];
 	
 	for (var i = 0; i < this.tools.length; i++) {

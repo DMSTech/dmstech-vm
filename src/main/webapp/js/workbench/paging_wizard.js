@@ -150,6 +150,7 @@ PagingWizard.prototype.getCurrentStep = function() {
 
 PagingWizard.prototype.initRepositories = function(url) {
 	this.loading(true);
+	var parentUrl = url;
 	if (url.match(this.host) == null) {
 		url = 'http://'+this.host+this.path+'proxy.jsp?url='+url;
 	}
@@ -171,7 +172,8 @@ PagingWizard.prototype.initRepositories = function(url) {
 			
 			var count = 0;
 			for (var i = 0; i < uris.length; i++) {
-				var url = uris[i];
+				var uri = uris[i];
+				var url = uri;
 				if (url.match(this.host) == null) {
 					url = 'http://'+this.host+this.path+'proxy.jsp?url='+url;
 				}
@@ -191,8 +193,8 @@ PagingWizard.prototype.initRepositories = function(url) {
 						repositories.push({
 							data: title,
 							metadata: {
-								type: 'repository',
-								uri: url
+								parent: parentUrl,
+								uri: uri
 							}
 						});
 						
@@ -228,14 +230,15 @@ PagingWizard.prototype.repositoriesPager = function(pageNum, repositories) {
 	for (var i = 0; i < repositories.length; i++) {
 		var r = repositories[i];
 		$(this.id+' .wizRepositories ul').append('<li>'+r.data+'</li>');
-		$(this.id+' .wizRepositories ul li:last').data('uri', r.metadata.uri);
+		$(this.id+' .wizRepositories ul li:last').data('uri', r.metadata.uri).data('parent', r.metadata.parent);
 		this.idCount++;
 	}
 	
 	$(this.id+' .wizRepositories li').click($.proxy(function(event) {
-		var uri = $(event.target).data('uri');
-		if (uri != null) {
-			this.initCollections($(event.target).data('uri'));
+		var data = $(event.target).data();
+		if (data != null) {
+			this.initCollections(data.uri);
+			eventManager.trigger('repositorySelected', data);
 		}
 	}, this));
 	
@@ -265,7 +268,8 @@ PagingWizard.prototype.initCollections = function(url) {
 			
 			var count = 0;
 			for (var i = 0; i < uris.length; i++) {
-				var url = uris[i];
+				var uri = uris[i];
+				var url = uri; 
 				if (url.match(this.host) == null) {
 					url = 'http://'+this.host+this.path+'proxy.jsp?url='+url;
 				}
@@ -291,7 +295,7 @@ PagingWizard.prototype.initCollections = function(url) {
 						localCollections.push({
 							data: title,
 							metadata: {
-								type: 'collection',
+								parent: uri,
 								uris: manifests
 							}
 						});
@@ -327,14 +331,15 @@ PagingWizard.prototype.collectionsPager = function(pageNum, collections) {
 	for (var i = 0; i < collections.length; i++) {
 		var c = collections[i];
 		$(this.id+' .wizCollections ul').append('<li>'+c.data+'</li>');
-		$(this.id+' .wizCollections ul li:last').data('uris', c.metadata.uris);
+		$(this.id+' .wizCollections ul li:last').data('uris', c.metadata.uris).data('parent', c.metadata.parent);
 		this.idCount++;
 	}
 	
 	$(this.id+' .wizCollections li').click($.proxy(function(event) {
-		var uris = $(event.target).data('uris');
-		if (uris.length > 0) {
-			this.steps[2].init(uris);
+		var data = $(event.target).data();
+		if (data.uris.length > 0) {
+			this.steps[2].init(data.uris);
+			eventManager.trigger('collectionSelected', data);
 		} else {
 			alert('No manuscripts available for this collection.');
 		}
@@ -382,7 +387,8 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 		this.loading(true);
 		cache = [];
 		for (var i = 0; i < uris.length; i++) {
-			var url = uris[i];
+			var uri = uris[i];
+			var url = uri;
 			if (url.match(this.host) == null) {
 				url = 'http://'+this.host+this.path+'proxy.jsp?url='+url;
 			}
@@ -398,7 +404,7 @@ PagingWizard.prototype.manifestsPager = function(pageNum, uris) {
 						manifest.load(data);
 						setPrefixesForDatabank(data, manifest);
 						
-						var info = {};
+						var info = {parent: uri};
 						info.title = $.rdf({databank: manifest}).where('?manifest dc:title ?title').get(0).title.value; 
 
 						if (manifest.prefix().sc != null) {

@@ -10,8 +10,10 @@
 <script type="text/javascript" src="js/oac_js/oac_rdf.js"></script>
 <script type="text/javascript" src="js/oac_js/oac_rdfjson.js"></script>
 <script type="text/javascript" src="js/workbench/orderer.js"></script>
+<script type="text/javascript" src="js/html_serializer.js"></script>
 <link href="css/paging_wizard.css" type="text/css" rel="stylesheet"/>
 <link href="css/orderer.css" type="text/css" rel="stylesheet"/>
+<link href="css/html_serializer.css" type="text/css" rel="stylesheet"/>
 <link href="css/workbench.css" type="text/css" rel="stylesheet"/>
 <link href="js/zpr/css/zpr.css" type="text/css" rel="stylesheet"/>
 </head>

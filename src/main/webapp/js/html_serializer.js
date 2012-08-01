@@ -1,11 +1,16 @@
-$(document).ready(function() {
-	var host = window.location.host;
-	var path = window.location.pathname.match(/^.*\//)[0];
+function HTMLSerializer(config) {
+	this.id = config.id;
 	
-	var url = getParameterByName('uri');
+	this.xmlString = '';
+	this.turtleString = '';
 	
-	var xmlString = '';
-	var turtleString = '';
+	$(document.body).append(''+
+	'<div id="rdfDialog">'+
+		'<pre></pre>'+
+	'</div>'+
+	'<div id="turtleDialog">'+
+		'<pre></pre>'+
+	'</div>');
 	
 	$('#rdfDialog').dialog({
 		autoOpen: false,
@@ -25,20 +30,18 @@ $(document).ready(function() {
 		width: 640,
 		height: 480
 	});
+}
+
+HTMLSerializer.prototype.loadUri = function(uri) {
+	$('#htmlSerializer').show();
+	$(this.id+' ul').remove();
 	
-	$('button').button().click(function() {
-		if ($(this).text() == 'Turtle') {
-			$('#turtleDialog pre').html(turtleString);
-			$('#turtleDialog').dialog('open');
-		} else {
-			$('#rdfDialog pre').html(xmlString);
-			$('#rdfDialog').dialog('open');
-		}
-	});
+	var host = window.location.host;
+	var path = window.location.pathname.match(/^.*\//)[0];
 	
-	$('#types h1').text(url);
+	$('#types h1').text(uri);
 	
-	var ajaxUrl = url;
+	var ajaxUrl = uri;
 	if (ajaxUrl.match(host) == null) {
 		ajaxUrl = 'http://'+host+path+'proxy.jsp?url='+ajaxUrl;
 	}
@@ -48,8 +51,8 @@ $(document).ready(function() {
 	        Accept : "application/rdf+xml; charset=utf-8",
 	        "Content-Type": "application/rdf+xml; charset=utf-8"
 	    },
-		success: function(data, status, xhr) {
-			var desc = $(data).find('rdf\\:Description, Description').filter('[rdf\\:about="'+url+'"]');
+		success: $.proxy(function(data, status, xhr) {
+			var desc = $(data).find('rdf\\:Description, Description').filter('[rdf\\:about="'+uri+'"]');
 			var typesString = '<ul>';
 			desc.find('rdf\\:type, type').each(function(index, el) {
 				typesString += '<li>'+$(el).attr('rdf:resource')+'</li>';
@@ -71,12 +74,12 @@ $(document).ready(function() {
 					assocString += '<li>'+
 					'<div class="label">'+name+'</div>'+
 					'<div class="link">'+
-						'<a href="'+resource+'">'+resource+'</a>'+
+						'<a href="'+resource+'" target="_blank">'+resource+'</a>'+
 						'<div class="extraLinks">'+
 							'Link formats: '+
-							'<a href="'+resource+'.html">HTML</a> | '+
-							'<a href="'+resource+'.xml">RDF/XML</a> | '+
-							'<a href="'+resource+'.ttl">Turtle</a>'+
+							'<a href="'+resource+'.html" target="_blank">HTML</a> | '+
+							'<a href="'+resource+'.xml" target="_blank">RDF/XML</a> | '+
+							'<a href="'+resource+'.ttl" target="_blank">Turtle</a>'+
 						'</div>'+
 					'</div>'+
 					'</li>';
@@ -92,18 +95,18 @@ $(document).ready(function() {
 			});
 			
 			var rdfString = '<ul>';
-			$(data).find('rdf\\:Description, Description').not('[rdf\\:about="'+url+'"]').each(function(index, el) {
+			$(data).find('rdf\\:Description, Description').not('[rdf\\:about="'+uri+'"]').each(function(index, el) {
 				var rdf = $(el).attr('rdf:about');
 				if (rdf != undefined && rdf != '' && rdf.match(/\.xml$/) == null) {
-					rdfString += '<li><a href="http://'+host+path+'html_serializer.jsp?uri='+rdf+'">'+rdf+'</a></li>';
+					rdfString += '<li><a href="http://'+host+path+'html_serializer.jsp?uri='+rdf+'" target="_blank">'+rdf+'</a></li>';
 				}
 			});
 			rdfString += '</ul>';
 			$('#rdfs').append(rdfString);
 			
-			xmlString = xmlToString(data);
-			xmlString = xmlString.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-		}
+			this.xmlString = xmlToString(data);
+			this.xmlString = this.xmlString.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+		}, this)
 	});
 	
 	$.ajax({
@@ -112,8 +115,89 @@ $(document).ready(function() {
 	        Accept : "text/turtle; charset=utf-8",
 	        "Content-Type": "text/turtle; charset=utf-8"
 	    },
-		success: function(data, status, xhr) {
-			turtleString = data.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-		}
+		success: $.proxy(function(data, status, xhr) {
+			if (data.replace) {
+				this.turtleString = data.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+			} else {
+				this.turtleString = '';
+			}
+		}, this)
 	});
-});
+};
+
+HTMLSerializer.prototype.showTurtle = function(ttl) {
+	$('#turtleDialog pre').html(ttl);
+	$("#turtleDialog").dialog('open');
+};
+
+HTMLSerializer.prototype.showRDF = function(rdf) {
+	$('#rdfDialog pre').html(rdf);
+	$('#rdfDialog').dialog('open');
+};
+
+HTMLSerializer.prototype.handleRepository = function(event, data) {
+	var uri = data.uri.replace(/\.\w{3}$/, '');
+	$.proxy(this.loadUri(uri), this);
+};
+
+HTMLSerializer.prototype.handleCollection = function(event, data) {
+	var uri = data.parent.replace(/\.\w{3}$/, '');
+	$.proxy(this.loadUri(uri), this);
+};
+
+HTMLSerializer.prototype.handleSequence = function(event, data, uris) {
+	var uri = uris.parent.replace(/\.\w{3}$/, '');
+	$.proxy(this.loadUri(uri), this);
+};
+
+HTMLSerializer.prototype.handleImage = function(event, data) {
+	$.proxy(this.loadUri(data.canvasURI), this);
+};
+
+HTMLSerializer.prototype.activate = function() {
+	$(this.id).html(''+
+	'<div id="htmlSerializer">'+
+		'<div id="types" class="box">'+
+			'<h1></h1>'+
+			'<div class="buttons">'+
+				'<button>RDF/XML</buton> <button>Turtle</button>'+
+			'</div>'+
+			'<h2 style="margin-top: 15px;">Resource Definitions</h2>'+
+		'</div>'+
+		'<div id="associations" class="box">'+
+			'<h2>Other Associations for this Resource</h2>'+
+		'</div>'+
+		'<div id="rdfs" class="box">'+
+			'<h2>Other Resource Descriptions Returned when Deferencing this Resource</h2>'+
+		'</div>'+
+	'</div>');
+	
+	$('#htmlSerializer').hide();
+	
+	$(this.id+' button').button().click($.proxy(function(event) {
+		if ($(event.target).text() == 'Turtle') {
+			this.showTurtle(this.turtleString);
+		} else {
+			this.showRDF(this.xmlString);
+		}
+	}, this));
+	
+	this.resize($(this.id).height(), $(this.id).width());
+	
+	eventManager.bind('repositorySelected', $.proxy(this.handleRepository, this));
+	eventManager.bind('collectionSelected', $.proxy(this.handleCollection, this));
+	eventManager.bind('sequenceSelected', $.proxy(this.handleSequence, this));
+	eventManager.bind('imageSelected', $.proxy(this.handleImage, this));
+};
+
+HTMLSerializer.prototype.deactivate = function() {
+	$(this.id).empty();
+	eventManager.unbind('repositorySelected', this.handleRepository);
+	eventManager.unbind('collectionSelected', this.handleCollection);
+	eventManager.unbind('sequenceSelected', this.handleSequence);
+	eventManager.unbind('imageSelected', this.handleImage);
+};
+
+HTMLSerializer.prototype.resize = function(height, width) {
+	$('#htmlSerializer').height(height-10).width(width-10);
+};
