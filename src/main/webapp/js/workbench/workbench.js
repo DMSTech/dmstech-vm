@@ -48,7 +48,7 @@ Workbench.prototype.init = function() {
 	this.viewer = new Viewer({id: '#toolContent'});
 	this.viewerZPR = new ViewerZPR({id: '#toolContent'});
 	this.orderer = new Orderer({id: '#toolContent'});
-	this.htmlSerializer = new HTMLSerializer({id: '#toolContent'});
+	this.htmlSerializer = new HTMLSerializer({id: '#toolContent', embedded: true});
 	
 	this.tools = [{
 		id: 'viewer',
@@ -103,6 +103,9 @@ Workbench.prototype.toolChange = function(event) {
 	if (toolInfo.id == 'orderer' && this.currentCollection.currentStep == this.currentCollection.steps.length - 1) {
 		var step = this.currentCollection.getCurrentStep();
 		data = {items: step.cache, uris: step.data};
+	} else if (toolInfo.id == 'htmlSerializer') {
+//		var step = this.currentCollection.getCurrentStep();
+//		data = {items: step.cache, uris: step.data};
 	}
 	this.currentTool.activate(data);
 };

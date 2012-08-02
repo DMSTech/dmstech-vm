@@ -1,5 +1,6 @@
 function HTMLSerializer(config) {
 	this.id = config.id;
+	this.embedded = config.embedded == null ? false : config.embedded;
 	
 	this.xmlString = '';
 	this.turtleString = '';
@@ -90,15 +91,18 @@ HTMLSerializer.prototype.loadUri = function(uri) {
 			$('#associations').append(assocString);
 			$('#associations').append(propsString);
 			
-			$('#associations div.link').hover(function() {
-				$(this).toggleClass('hover');
-			});
-			
 			var rdfString = '<ul>';
 			$(data).find('rdf\\:Description, Description').not('[rdf\\:about="'+uri+'"]').each(function(index, el) {
 				var rdf = $(el).attr('rdf:about');
 				if (rdf != undefined && rdf != '' && rdf.match(/\.xml$/) == null) {
-					rdfString += '<li><a href="http://'+host+path+'html_serializer.jsp?uri='+rdf+'" target="_blank">'+rdf+'</a></li>';
+					rdfString += '<li>'+
+					'<div class="link">'+
+						'<a href="'+rdf+'" target="_blank">'+rdf+'</a>'+
+						'<div class="extraLinks">'+
+						'Link formats: '+
+						'<a href="'+rdf+'.html" target="_blank">HTML</a>'+
+						'</div>'+
+					'</div></li>';
 				}
 			});
 			rdfString += '</ul>';
@@ -106,6 +110,17 @@ HTMLSerializer.prototype.loadUri = function(uri) {
 			
 			this.xmlString = xmlToString(data);
 			this.xmlString = this.xmlString.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+			
+			$('#associations div.link, #rdfs div.link').hover(function() {
+				$(this).toggleClass('hover');
+			});
+			
+			if (this.embedded) {
+				$('#htmlSerializer li a:first-child').click($.proxy(function(event) {
+					event.preventDefault();
+					this.loadUri($(event.target).attr('href'));
+				}, this));
+			}
 		}, this)
 	});
 	
@@ -154,7 +169,7 @@ HTMLSerializer.prototype.handleImage = function(event, data) {
 	$.proxy(this.loadUri(data.canvasURI), this);
 };
 
-HTMLSerializer.prototype.activate = function() {
+HTMLSerializer.prototype.activate = function(data) {
 	$(this.id).html(''+
 	'<div id="htmlSerializer">'+
 		'<div id="types" class="box">'+
