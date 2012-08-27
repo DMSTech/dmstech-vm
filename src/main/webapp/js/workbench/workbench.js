@@ -52,19 +52,19 @@ Workbench.prototype.init = function() {
 	
 	this.tools = [{
 		id: 'viewer',
-		label: 'Viewer',
+		label: 'Simple Image',
 		tool: this.viewer
 	},{
 		id: 'orderer',
-		label: 'Orderer',
+		label: 'Gallery View',
 		tool: this.orderer
 	},{
 		id: 'enhancedViewer',
-		label: 'Enhanced Viewer',
+		label: 'Zoom Image',
 		tool: this.viewerZPR
 	},{
 		id: 'htmlSerializer',
-		label: 'RDF',
+		label: 'RDF Data',
 		tool: this.htmlSerializer
 	}];
 	
