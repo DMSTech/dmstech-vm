@@ -47,7 +47,7 @@ Viewer.prototype.activate = function() {
 	$(this.id).html(''+
 	'<iframe></iframe>'+
 	'<div class="bottomButtons clear">'+
-		'<button id="tpenTranscribe">Transcribe in TPen</button>'+
+		'<button id="tpenTranscribe">Transcribe in T-PEN</button>'+
 	'</div>');
 	$('#tpenTranscribe').button().click($.proxy(function() {
 		var url = 'http://'+window.location.host+'/TPEN/parkerRedirect.jsp?canvas='+this.current.canvasURI;

@@ -8,5 +8,5 @@ String port = String.valueOf(request.getServerPort());
 	href="import.jsp" class="<%=url.indexOf("import.jsp") == -1 ? "ui-corner-top" : "current ui-corner-top"%>">Import</a><a
 	href="search.jsp" class="<%=url.indexOf("search.jsp") == -1 ? "ui-corner-top" : "current ui-corner-top"%>">Search</a><a
 	href="admin.jsp" class="<%=url.indexOf("admin.jsp") == -1 ? "ui-corner-top" : "current ui-corner-top"%>">Admin</a><a
-	href="http://<%=host%>:<%=port%>/TPEN" class="ui-corner-top" target="_blank">Transcribe in TPen</a>
+	href="http://<%=host%>:<%=port%>/TPEN" class="ui-corner-top" target="_blank">Transcribe in T-PEN</a>
 </div>
