@@ -1,0 +1,8 @@
+edu.stanford.dmstech.vm
+edu.stanford.dmstech.vm.indexing
+edu.stanford.dmstech.vm.manuscriptgeneration
+edu.stanford.dmstech.vm.uriresolvers
+edu.stanford.dmstech.vm.uriresolvers.admin
+edu.stanford.dmstech.vm.uriresolvers.ingest
+edu.stanford.dmstech.vm.uriresolvers.lookup
+edu.stanford.dmstech.vm.uriresolvers.search

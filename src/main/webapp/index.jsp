@@ -38,7 +38,6 @@
 		<ul>
 			<li><a href="http://bob.drew.edu/mappaemundi" target="_blank">DM</a>, Drew University</li>
 			<li><a href="http://www.lanl.gov/" target="_blank">Los Alamos National Laboratory</a></li>
-			<li><a href="http://romandelarose.org/" target="_blank">Roman de la Rose Digital Library</a>, Johns Hopkins University</li>
 			<li><a href="http://digital-editor.blogspot.com/" target="_blank">T-PEN</a>, Saint Louis University</li>
 			<li><a href="http://www-sul.stanford.edu/" target="_blank">Stanford University Libraries</a></li>
 			<li><a href="http://www.textandbytes.com/" target="_blank">text & bytes</a>, Switzerland</li>
